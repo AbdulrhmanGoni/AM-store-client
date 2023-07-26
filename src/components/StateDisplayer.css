@@ -1,0 +1,20 @@
+.orderBar .state {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 160px;
+    border-color: #43a047;
+    border-bottom: transparent;
+    border-width: 0px 25px 25px 25px;
+    border-style: solid;
+}
+
+.orderBar .state::before {
+    content: attr(data-text);
+    position: absolute;
+    width: 110px;
+    color: white;
+    font-weight: 600;
+    transform: rotate(90deg) translate(0px, 54px);
+    top: 44%;
+}

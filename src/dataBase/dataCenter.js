@@ -6,7 +6,6 @@ import userPaymentMethods from "./userPaymentMethods_slice";
 import locations from "./locations_slice";
 import cobones from "./cobones_slice";
 import checkoutSummary from "./checkoutSummary_slice";
-import isLoading from "./loadingCircle_slice";
 
 
 const dataCenter = configureStore({
@@ -17,8 +16,7 @@ const dataCenter = configureStore({
         cobones,
         userPaymentMethods,
         locations,
-        checkoutSummary,
-        isLoading
+        checkoutSummary
     }
 })
 

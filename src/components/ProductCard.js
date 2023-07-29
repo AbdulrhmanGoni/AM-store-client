@@ -8,7 +8,7 @@ import {
 import { AddShoppingCart, Delete, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart_localy, removeFromCart_localy } from "../dataBase/shoppingCart_slice"
-import { addToCart, addToCart_single, removeFromCart } from "../dataBase/actions/shoppingCart_slice_actions"
+import { addToCart, removeFromCart } from "../dataBase/actions/shoppingCart_slice_actions"
 import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
@@ -17,6 +17,7 @@ import ShoppingCartController from './ShoppingCartController';
 import { testingImage } from '../CONSTANT/testingImage';
 import { LoadingButton } from '@mui/lab';
 import imageChecker from '../functions/imageChecker';
+import ActionAlert from './ActionAlert';
 
 
 export default function ProductCard({ theProduct, sx }) {
@@ -30,7 +31,7 @@ export default function ProductCard({ theProduct, sx }) {
     const [rate, setRate] = useState(2.5);
     const [isInCart, setAsInCart] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [productImage, setProductImage] = useState(null);
+    // const [productImage, setProductImage] = useState(null);
 
 
     async function addToShoppingCart() {
@@ -75,7 +76,7 @@ export default function ProductCard({ theProduct, sx }) {
             <Box sx={{ position: "relative" }}>
                 <CardMedia sx={{ height: { xs: 120, sm: 185 }, userSelect: "none" }}
                     component="img"
-                    image={testingImage}
+                    image={images?.[0] ?? testingImage}
                     alt="product Image">
                 </CardMedia>
                 <OverlayHoverLink target={`/product-details/${_id}`} />
@@ -167,7 +168,7 @@ export function WidthlyCard({ id, image, title, description, price, amount, acti
                 position: "relative"
             }}>
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }} >
-                <img style={{ height: "100%", width: imgWidth ?? "200px" }} src={testingImage} alt={id} />
+                <img style={{ height: "100%", width: imgWidth ?? "200px" }} src={image} alt={id} />
                 <OverlayHoverLink target={`/product-details/${id}`} />
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", flexGrow: 1 }}>
@@ -203,12 +204,18 @@ export function WidthlyCard({ id, image, title, description, price, amount, acti
                         <Box sx={{ flexGrow: 1 }}>
                             {!amount && <AvailabationState style={{ width: "fit-content" }} amount={amount} />}
                         </Box>
-                        <Button onClick={() => deleteFromShoppingCart()}
-                            endIcon={<Delete />}
-                            sx={{ alignItems: "flex-start" }}
-                            color="error" aria-label="Delete From Shopping Cart">
-                            delete
-                        </Button>
+                        <ActionAlert
+                            title="Remove product from cart"
+                            message="You going to remove this product from shopping cart, Are you sure?"
+                            action={deleteFromShoppingCart}
+                        >
+                            <Button
+                                endIcon={<Delete />}
+                                sx={{ alignItems: "flex-start" }}
+                                color="error" aria-label="Delete From Shopping Cart">
+                                delete
+                            </Button>
+                        </ActionAlert>
                     </Box>
                 </>}
             </Box>
@@ -223,7 +230,7 @@ export function SmallCard({ theProduct }) {
     return (
         <Paper elevation={1} sx={{ display: "flex", gap: 1, p: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }}>
-                <img style={{ height: "100px", width: "120px" }} src={testingImage} alt={theProduct._id} />
+                <img style={{ height: "100px", width: "120px" }} src={theProduct.images[0]} alt={theProduct._id} />
                 <OverlayHoverLink linkStyle={{ fontSize: "12px" }} target={`/product-details/${theProduct._id}`} />
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>

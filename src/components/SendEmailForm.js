@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 export default function SendEmailForm({ open, close }) {
 
-    const { userData } = useSelector(state => state);
+    const userData = useSelector(state => state.userData);
 
     async function sendEmail(ev) {
         ev.preventDefault();
@@ -23,13 +23,17 @@ export default function SendEmailForm({ open, close }) {
     }
 
     return (open &&
-        <OverlayBg>
+        <OverlayBg open={open}>
             <Paper
                 sx={{
-                    p: 1,
+                    p: 2,
                     width: { xs: "300px", sm: "450px", md: "700px" }
-                }} component="form" onSubmit={sendEmail} elevation={2}>
-                <Bar dividerBotton>
+                }}
+                component="form"
+                onSubmit={sendEmail}
+                elevation={2}
+            >
+                <Bar dividerBotton sx={{ p: "0px 0px 8px" }}>
                     <Typography variant='h6'>
                         Tell us your feedback
                     </Typography>
@@ -38,13 +42,13 @@ export default function SendEmailForm({ open, close }) {
                     </IconButton>
                 </Bar>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} >
+                    <Grid item xs={12}>
                         <TextField label="Title" id='title' name='title' fullWidth />
                     </Grid>
-                    <Grid item xs={12} >
+                    <Grid item xs={12}>
                         <TextField fullWidth label="Subject" id='subject' name='subject' type='textarea' multiline minRows={4} />
                     </Grid>
-                    <Grid item>
+                    <Grid sx={{ display: "flex", flexDirection: "row-reverse" }} item xs={12}>
                         <Button type='submit' variant='contained' >Send</Button>
                     </Grid>
                 </Grid>

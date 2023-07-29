@@ -8,6 +8,8 @@ import Summary from '../components/Summary';
 import { clearCart } from '../dataBase/actions/shoppingCart_slice_actions';
 import { clearCart_localy } from '../dataBase/shoppingCart_slice';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
+import ActionAlert from '../components/ActionAlert';
+import ErrorPage from '../components/ErrorPage';
 
 export default function ShoppingCartPage() {
 
@@ -64,14 +66,19 @@ export default function ShoppingCartPage() {
                 <Grid item md={8} width="100%">
                     <Box sx={{ display: "flex", justifyContent: "space-between", p: 1, bgcolor: "primary.main", color: "white" }}>
                         <Typography variant='h6' sx={{ fontWeight: "bold" }}>Products In Cart</Typography>
-                        <Button
-                            onClick={() => clearShoppingCart()}
-                            variant='contained'
-                            size='small'
-                            startIcon={<CleaningServices />}
-                            color='error'>
-                            Clear Cart
-                        </Button>
+                        <ActionAlert
+                            title="Clear shopping cart"
+                            message="Are you sure you want to remove all products in shopping cart?"
+                            action={clearShoppingCart}
+                        >
+                            <Button
+                                variant='contained'
+                                size='small'
+                                startIcon={<CleaningServices />}
+                                color='error'>
+                                Clear Cart
+                            </Button>
+                        </ActionAlert>
                     </Box>
                     <Box sx={{ overflowY: "auto", maxHeight: "calc(100vh - 57px - 65px)" }} >
                         <List sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
@@ -95,6 +102,5 @@ export default function ShoppingCartPage() {
                 </Grid>
             </Grid>
         )
-    } else return <EmptyMassege sectionName="Shopping Cart" />
-
+    } else return <ErrorPage hideAlertMsg title="Favoriets is empty" errorType='empty' />
 }

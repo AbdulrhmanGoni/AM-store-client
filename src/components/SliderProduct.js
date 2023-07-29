@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { Alert, Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import ProductCard, { InitialCard } from "./ProductCard";
-import { host } from "../CONSTANT/hostName";
 import { createArray } from "./ShoppingCartController";
 import { useFetch } from "../hooks/useFetch";
 
@@ -16,7 +15,7 @@ export default function SliderProduct({ theCatagory }) {
     const media = useMediaQuery("(max-width: 600px)");
     const cardWidth = media ? 160 : 230;
 
-    const { data: products, isLoading, isError } = useFetch(`${host}/products/?category=${theCatagory}&limit=10`, [])
+    const { data: products, isLoading, isError } = useFetch(`products/?category=${theCatagory}&limit=10`, [])
 
     const [slidersWidth, setSlidersWidth] = useState(cardWidth * 10);
 

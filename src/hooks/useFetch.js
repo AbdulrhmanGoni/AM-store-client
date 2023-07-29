@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import headersRequest from "../CONSTANT/headersRequest";
+import customFetch from "../functions/customFetch";
 
 export const useFetch = (url, init) => {
 
     const [data, setData] = useState(init);
-    const [isError, setError] = useState(null);
+    const [isError, setIsError] = useState(false);
+    const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [refetched, refetch] = useState(0);
 
     useEffect(() => {
         setLoading(true);
-        fetch(url, headersRequest())
-            .then(response => response.json())
+        customFetch(url)
             .then(setData)
-            .catch(setError)
+            .catch((err) => { setIsError(true); setError(new Error(err)) })
             .finally(() => setLoading(false));
     }, [url, refetched]);
 
-    return { data, isError, isLoading, setData, refetch: () => refetch(v => ++v) };
+    return { data, isError, error, isLoading, setData, refetch: () => refetch(v => ++v) };
 };

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import ShoppingCart from "./ShoppingCartP";
 import UserProfile from "./UserProfileP";
 import UserOrders from "./UserOrdersP";
-import Favorite from "./FavoriteP";
+import Favorite from "./FavoritesP";
 import NotFoundPage from "../components/NotFoundPage";
 import Logo from "../components/Logo";
 import ProductDetails from "./ProductDetailsP";

@@ -66,7 +66,7 @@ export default function CridetCardsList({ theList, chooses }) {
                                             deleteLoading ? <CircularProgress size={20} /> :
                                                 <ActionAlert
                                                     title="Delete Cridet Card"
-                                                    message="Are you sure you want to delete this cridet card"
+                                                    message="Are you sure you want to delete this cridet card?"
                                                     action={() => handleDeleteCard(card.number)}
                                                 >
                                                     <IconButton size='small' >

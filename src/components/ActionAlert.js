@@ -6,11 +6,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ActionAlert({ children, title, message, action }) {
+export default function ActionAlert({ children, title, message, action, openCondition = { enable: false } }) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-        setOpen(true);
+        if (openCondition.enable) {
+            openCondition.condition && setOpen(true);
+        } else setOpen(true);
     };
 
     const handleClose = () => {
@@ -39,9 +41,9 @@ export default function ActionAlert({ children, title, message, action }) {
                         {message}
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={agree} autoFocus>Agree</Button>
+                <DialogActions sx={{ p: 3 }}>
+                    <Button onClick={handleClose}>cancel</Button>
+                    <Button variant='contained' onClick={agree} autoFocus>ok</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -1,24 +1,3 @@
-// shoetcut for localStorage function [g => getItems] [s => setItems] 
-function loSt_s(kye, value) { return localStorage.setItem(kye, value) }
-function loSt_g(kye) { return localStorage.getItem(kye) }
-
-// shoetcut for sessionStorage function [g => getItems] [s => setItems] 
-function seSt_s(kye, value) { return sessionStorage.setItem(kye, value) }
-function seSt_g(kye) { return sessionStorage.getItem(kye) }
-
-// function to handle the repeated toggle between elements 
-function activeClassHandling(theArray, activeClass, targetEl) {
-    theArray.forEach(element => {
-        element.classList.remove(activeClass);
-    });
-    targetEl.classList.add(activeClass);
-}
-
-// how Much Time Ago
-function getDate(date) {
-    return date.slice(0, 10);
-}
-
 function timeAgo(theTime) {
     const allDate = new Date().getTime();
     const startDate = new Date(`${theTime}`).getTime();
@@ -108,32 +87,6 @@ function numsDecorator(number, title = false, language = "en") {
 
 }
 
-function durationVideo(theTime) {
-    let finallTime = theTime.match(/\d+\w/g).map((t) => {
-        return t.slice(0, -1).length < 2 ? "0" + t : t
-    });
-    const struct = ["00", "00", "00"];
-    finallTime.forEach((time) => {
-        if (time.endsWith("H")) {
-            struct[0] = time.slice(0, -1);
-        }
-        else if (time.endsWith("M")) {
-            struct[1] = time.slice(0, -1);
-        }
-        else if (time.endsWith("S")) {
-            struct[2] = time.slice(0, -1);
-        }
-    })
-
-    if (struct[0] === "00") {
-        struct.shift()
-    }
-
-    const result = struct.join(":");
-
-    return result
-}
-
 function textLimitation(text, limitWords) {
     text = text.split(" ")
     if (typeof (limitWords) != "number") {
@@ -204,12 +157,9 @@ function formatDate(dateString) {
 
 
 export {
-    loSt_s, loSt_g,
-    seSt_s, seSt_g,
-    activeClassHandling, getDate, timeAgo,
+    timeAgo,
     numsDecorator,
     textLimitation,
-    durationVideo,
     generateRandomId,
     createOverlayLayer,
     formatDate,

@@ -1,32 +1,30 @@
-import { Avatar, Button, Card, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Typography, useTheme, alpha } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Email, LockOutlined, LockReset, Person } from "@mui/icons-material";
+import { Edit, Email, LockOutlined, LockReset, Person } from "@mui/icons-material";
 import { setNewUserName } from "../dataBase/actions/userData_slice_actions";
 import { setNewUserName_localy } from "../dataBase/userData_slice";
-import LoadingCircle from "../components/LoadingCircle";
 import withGurd from "../components/withGurd";
 import { useSpeedMessage } from "../hooks/useSpeedMessage";
 import OverlayHoverLink from "../components/OverlayHoverLink";
 import SetUserAvatarForm from "../components/SetUserAvatarForm";
 import TextFieldContainer from "../components/TextFieldContainer";
 import ChangePasswordForm from "../components/ChangePasswordForm";
+import ImageDispayer from "../components/ImageDispayer";
 
-function passwordHeading(passwordLength) {
-    return "*".repeat(passwordLength);
-}
-
+const passwordHeading = (passwordLength) => "*".repeat(passwordLength)
 const textFieldIconStyle = { color: 'primary.main', mr: 1, my: 0.5 };
 
 function UserProfile() {
 
     const dispatch = useDispatch();
-    const { userData } = useSelector(state => state);
+    const userData = useSelector(state => state.userData);
     const { message } = useSpeedMessage();
     const [userNameIsChangeed, setUserNameState] = useState(false);
     const [changePasswordForm, setChangePasswordFormState] = useState(false);
     const [editIsOpen, setEditIsOpen] = useState(false);
+    const [openAvatar, setOpenAvatar] = useState(false);
 
     function userNameChanges(event) {
         if (userData.userName !== event.target.value) {
@@ -48,6 +46,15 @@ function UserProfile() {
             });
     }
 
+    const editIconStyle = {
+        position: "absolute",
+        left: 0, bottom: 0,
+        backgroundColor: "primary.main",
+        "&:hover": {
+            backgroundColor: "primary.main",
+        }
+    }
+
     if (userData) {
         return (
             <Card elevation={2} sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2, borderRadius: 1 }}>
@@ -63,9 +70,18 @@ function UserProfile() {
                                     src={userData?.avatar ?? require("../images/1083.jpg")}
                                 />
                                 <OverlayHoverLink
-                                    text="Edit Avatar"
-                                    customAction={() => setEditIsOpen(true)}
+                                    text="View Avatar"
+                                    customAction={() => setOpenAvatar(true)}
                                     bgStyle={{ borderRadius: "50%" }} />
+                                <IconButton onClick={() => setEditIsOpen(true)} sx={editIconStyle}>
+                                    <Edit />
+                                </IconButton>
+                                {openAvatar && <ImageDispayer
+                                    imagesList={[userData.avatar]}
+                                    title={userData.userName}
+                                    openedImage={0}
+                                    closeer={() => setOpenAvatar(false)}
+                                />}
                             </Box>
                         </Grid>
                         <Grid sx={{ display: "flex", flexDirection: "column", gap: 2 }} item xs={12} sm={9} md={10}>
@@ -78,9 +94,12 @@ function UserProfile() {
                                 <TextField fullWidth disabled defaultValue={userData.userEmail} id="User-Email" label="User Email" variant="standard" />
                             </TextFieldContainer>
                         </Grid>
-                        <Grid sx={{ display: "flex", justifyContent: "flex-end" }} item xs={12}>
-                            <Button disabled={!userNameIsChangeed} size="small" onClick={updateUserInfo} variant="contained">Save</Button>
-                        </Grid>
+                        {
+                            userNameIsChangeed &&
+                            <Grid sx={{ display: "flex", justifyContent: "flex-end" }} item xs={12}>
+                                <Button size="small" onClick={updateUserInfo} variant="contained">Save</Button>
+                            </Grid>
+                        }
                     </Grid>
                 </Paper>
                 <Paper elevation={1} sx={{ p: 2, borderRadius: 1 }} >
@@ -121,7 +140,7 @@ function UserProfile() {
                 {editIsOpen && <SetUserAvatarForm close={() => setEditIsOpen(false)} />}
             </Card>
         )
-    } else return <LoadingCircle />
+    }
 }
 
 export default withGurd(UserProfile);

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    clearFavorites,
     fetchFavorites,
 } from "./actions/favorites_slice_actions";
 
@@ -10,21 +9,16 @@ const favoritesCartSlice = createSlice({
     name: "favorites",
     reducers: {
         toggleFavorites_localy: (state, action) => {
-            if (!state) {
-                return [action.payload];
-            }
+            if (!state) return [action.payload];
             else if (state.includes(action.payload)) {
                 return state.filter((item) => item !== action.payload);
-            } else {
-                return [action.payload, ...state];
-            }
+            } else return [action.payload, ...state];
         },
         setFavorites_localy: (_, action) => action.payload,
         clearFavorites_localy: () => null
     },
     extraReducers: (bulter) => {
         bulter.addCase(fetchFavorites.fulfilled, (_, action) => action.payload);
-        bulter.addCase(clearFavorites.fulfilled, (_, action) => action.payload);
     }
 })
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Delete, PinDrop } from '@mui/icons-material';
 import { deleteLocation } from '../../dataBase/actions/locations_slice_actions';
 import { useParams } from 'react-router-dom';
+import ActionAlert from '../ActionAlert';
 
 const Row = ({ theKey, value, children, sx }) => {
 
@@ -45,16 +46,21 @@ const LocationCard = ({ locationData, children, id, isSelected, setTheSelected }
         <Box sx={{ position: "relative" }}>
             {
                 pagePath !== "checkout" &&
-                <IconButton
-                    onClick={() => deleteCard()}
-                    color='error'
-                    sx={{
-                        p: 1, zIndex: 100,
-                        position: "absolute",
-                        right: 0, top: 0
-                    }}>
-                    <Delete />
-                </IconButton>
+                <ActionAlert
+                    action={() => deleteCard()}
+                    title="delete the location"
+                    message="know that you can't undo if you continue this process"
+                >
+                    <IconButton
+                        color='error'
+                        sx={{
+                            p: 1, zIndex: 100,
+                            position: "absolute",
+                            right: 0, top: 0
+                        }}>
+                        <Delete />
+                    </IconButton>
+                </ActionAlert>
             }
             <Paper
                 sx={{

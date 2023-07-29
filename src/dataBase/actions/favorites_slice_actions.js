@@ -16,9 +16,9 @@ export const toggleFavorites = async ({ userId, productId }) => {
     return await customFetch(path(userId), "POST", { productId, type: "toggle" });
 }
 
-export const clearFavorites = createAsyncThunk("clearFavorites", async (userId) => {
+export const clearFavorites = async (userId) => {
     loadingControl(true);
-    const data = await customFetch(path(userId));
+    const data = await customFetch(path(userId), "DELETE");
     loadingControl(false);
     return data;
-})
+}

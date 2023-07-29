@@ -19,6 +19,7 @@ import addNewOrder from '../dataBase/actions/addNewOrder';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
 import loadingControl from '../dataBase/actions/loadingControl';
 import { applyDiscount } from '../dataBase/Categories/cobones';
+import ActionAlert from '../components/ActionAlert';
 
 function CheckOutPage() {
 
@@ -44,7 +45,7 @@ function CheckOutPage() {
         }
     }, []);
 
-    function handleCompletingCheckout() {
+    function checkIfItValidToCheckout() {
         if (paymentMethod && selectedLocation && shoppingCart.length > 0) {
             return true;
         } else {
@@ -58,7 +59,7 @@ function CheckOutPage() {
     }
 
     function completingCheckout() {
-        if (handleCompletingCheckout()) {
+        if (checkIfItValidToCheckout()) {
             let discount = cobones[discountCobone];
             const inCart = shoppingCart.reduce((acc, curr) => acc + curr.price * curr.count, 0);
             const products = shoppingCart.map((product) => {
@@ -134,15 +135,20 @@ function CheckOutPage() {
                 </Grid>
                 <Grid item md={4} sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }} >
                     <Summary />
-                    <Button
-                        onClick={completingCheckout}
-                        variant='contained'
-                        sx={{ width: "100%", bottom: "0", left: "0", zIndex: "500", position: { xs: "fixed", md: "relative" } }}
-                        startIcon={<Payment />}
-                        size="large"
+                    <ActionAlert
+                        title="Are you sure to continue?"
+                        message={`You have in your shoppnig cart ${shoppingCart.length} products and they costs ${totalPrice.toFixed(2)} dolar`}
+                        action={completingCheckout}
                     >
-                        Complate
-                    </Button>
+                        <Button
+                            variant='contained'
+                            sx={{ width: "100%", bottom: "0", left: "0", zIndex: "500", position: { xs: "fixed", md: "relative" } }}
+                            startIcon={<Payment />}
+                            size="large"
+                        >
+                            Complate
+                        </Button>
+                    </ActionAlert>
                     <Box sx={{ p: "5px", display: "flex", flexDirection: "column", height: "400px", overflow: "auto", gap: 1 }}>
                         {
                             products.map((product) => (
@@ -160,30 +166,29 @@ function WithCheckout() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { message } = useSpeedMessage();
 
     const {
         userData,
+        shoppingCart,
         userPaymentMethods: { cardsList },
         locations: { locationsList }
     } = useSelector(state => state);
     const [isLoading, setLoading] = useState(false);
 
     async function requierFetch() {
+        const userId = userData?._id
         setLoading(true);
-        await dispatch(fetchPaymentMethods(userData._id));
-        await dispatch(fetchLocations(userData._id));
+        !cardsList && await dispatch(fetchPaymentMethods(userId));
+        !locationsList && await dispatch(fetchLocations(userId));
         setLoading(false);
     }
 
     useEffect(() => {
-        if (!(locationsList && cardsList)) {
-            requierFetch();
-        }
-        if (!userData) {
+        if (!userData || !shoppingCart.length) {
             navigate("/shopping-cart", { replace: true });
-            message("You have to log in to countinue checkout", "error");
+            window.location.reload();
         }
+        requierFetch();
     }, []);
 
     return isLoading ? <LoadingCircle /> : userData && locationsList && cardsList ? <CheckOutPage /> : null

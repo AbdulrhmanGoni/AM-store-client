@@ -13,12 +13,12 @@ const PriceDisplayer = ({ price, currency = "$", style, variant, currencyStyle, 
     }
 
     return (
-        <Typography variant={variant} sx={{display: "flex", p: "5px" ,...style}}>
+        <Typography variant={variant} sx={{ display: "inline-flex", p: "5px", ...style }}>
             <span
                 style={{ ...defaultCurrencyStyle, ...currencyStyle }}>
                 {currency}
             </span>
-            {operation?? null}
+            {operation ?? null}
             {numsDecorator(price.toFixed(2))}
         </Typography>
     );

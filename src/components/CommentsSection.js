@@ -12,7 +12,7 @@ import { Send } from '@mui/icons-material';
 const CommentsSection = () => {
     const { id } = useParams();
     const { userData } = useSelector(state => state);
-    const { data: comments, setData, isLoading, isError } = useFetch(`${host}/products/${id}/comments`, []);
+    const { data: comments, setData, isLoading, isError } = useFetch(`products/${id}/comments`, []);
     const { message } = useSpeedMessage();
 
     async function handleAddComment(ev) {

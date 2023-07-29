@@ -1,21 +1,17 @@
-
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import { ArrowBackIos, ArrowForwardIos, Close } from '@mui/icons-material';
-import { IconButton, Typography, useMediaQuery } from '@mui/material';
+import { IconButton, Paper, Typography, useMediaQuery } from '@mui/material';
 
 
-
-export default function ImageDispayer({ imagesList, openedImage, control, title }) {
+export default function ImageDispayer({ imagesList, openedImage, closeer, title }) {
 
     const media = useMediaQuery(("(min-width: 900px)"));
-
     const [theArray, setArray] = useState([]);
     let [currentImage, setImageAsCurrent] = useState(null);
 
     useEffect(() => {
-        setArray(imagesList)
-        setImageAsCurrent(openedImage)
+        setArray(imagesList);
+        setImageAsCurrent(openedImage);
     }, [])
 
     const overlayLayer = {
@@ -27,13 +23,14 @@ export default function ImageDispayer({ imagesList, openedImage, control, title 
         left: 0,
         width: "100%",
         minHeight: "100vh",
-        backgroundColor: "#00000050"
+        backgroundColor: "#00000050",
+        zIndex: 100
     }
 
     const containersStyle = {
         position: "relative",
         width: media ? "900px" : "96%",
-        maxHeight: "700px",
+        maxHeight: "700px"
     }
 
     const imageStyle = {
@@ -70,18 +67,17 @@ export default function ImageDispayer({ imagesList, openedImage, control, title 
 
     return (
         <div id='overlayLayer' style={overlayLayer}>
-            <div id="imagesContainer" style={containersStyle}>
+            <Paper id="imagesContainer" style={containersStyle}>
                 <div style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "10px",
-                    backgroundColor: "#eee",
                     width: "100%", height: "40px"
                 }}>
-                    <Typography sx={{ color: "primary.main" }}>{title}</Typography>
+                    <Typography variant='h6'>{title}</Typography>
                     <IconButton
-                        onClick={() => control(false)}
+                        onClick={() => closeer(false)}
                         sx={{ color: "primary.main", p: 0 }} >
                         <Close />
                     </IconButton>
@@ -90,13 +86,13 @@ export default function ImageDispayer({ imagesList, openedImage, control, title 
                 <div style={{
                     display: "flex", justifyContent: "center",
                     alignItems: "center", position: "relative",
-                    backgroundColor: "#eee", width: "100%", height: "40px"
+                    width: "100%", height: "40px"
                 }}>
                     <Typography sx={{ color: "primary.main" }}>{`${imagesList.length} / ${currentImage + 1}`}</Typography>
                     <ArrowBackIos onClick={() => { navigateBetweenImages("left") }} sx={{ ...arrow, left: "10px" }} />
                     <ArrowForwardIos onClick={() => { navigateBetweenImages("right") }} sx={{ ...arrow, right: "10px" }} />
                 </div>
-            </div>
+            </Paper>
         </div>
     )
 }

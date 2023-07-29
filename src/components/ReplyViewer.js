@@ -70,8 +70,6 @@ const ReplyViewer = ({
                     display: "flex",
                     gap: 1,
                     position: "relative",
-                    "&:before": commentPoint,
-                    "&:after": commentLine,
                     transition: ".4s",
                     transform: `translateX(${addReplyBehavior})`
                 }}>
@@ -106,28 +104,6 @@ const ReplyViewer = ({
             <TextFieldComponent />
         </Box>
     );
-}
-
-// let top = "48px";
-
-const commentPoint = {
-    // content: "' '",
-    // position: "absolute",
-    // borderRadius: "50%",
-    // left: -25, top,
-    // transform: "translateY(-50%)",
-    // width: "13px", height: "13px",
-    // bgcolor: "white",
-    // zIndex: 200
-}
-const commentLine = {
-    // content: "' '",
-    // position: "absolute",
-    // left: -23, top,
-    // transform: "translateY(-50%)",
-    // width: "24px", height: "3px",
-    // bgcolor: "primary.main",
-    // zIndex: -5
 }
 
 export default ReplyViewer;

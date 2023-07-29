@@ -24,5 +24,5 @@ export const useAction = (url, method, body, dependent, init) => {
             .finally(() => handleLoading(false));
     }, [url, action, dependent]);
 
-    return { data, isError, isLoading, reAction, actionCount: action };
+    return { data, isError, isLoading, setData, reAction, actionCount: action };
 };

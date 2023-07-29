@@ -1,7 +1,7 @@
 import { CardMedia, Paper, Typography } from '@mui/material'
 import React from 'react'
 
-export default function EmptyMassege({ sectionName, customMsg, float = true }) {
+export default function EmptyMessage({ sectionName, customMsg, float = true }) {
 
     const massegeCardStyle = {
         display: "flex",

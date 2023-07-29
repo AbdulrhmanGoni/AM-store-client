@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { changeUserPassword, passwordChecker } from "../dataBase/actions/userData_slice_actions";
 import TextFieldContainer from "./TextFieldContainer";
+import ActionAlert from "./ActionAlert";
 
 const ErrorMessage = ({ mesage }) => <Typography sx={{ m: "5px 0px 0px 32px" }} variant="body2" color="error">{mesage}</Typography>
 
@@ -15,24 +16,32 @@ export default function ChangePasswordForm({ control, message }) {
     const [isPassworRedyToChange, setIsPassworRedyToChange] = useState(false);
     const [currentPassword, setCurrentPassword] = useState("");
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        !isPassworRedyToChange && passwordChecker(userData._id, data.get("current-password"))
+    async function checkPassword() {
+        const currentPassword = new FormData(document.querySelector("#change-password-form")).get("current-password");
+        const res = await passwordChecker(userData._id, currentPassword)
             .then((res) => {
-                setCurrentPassword(data.get("current-password"));
+                setCurrentPassword(currentPassword);
                 setIsPassworRedyToChange(res);
                 setCurrentPasswordState(res);
+                return res;
             })
-            .catch(() => { setCurrentPasswordState(false); })
+            .catch(() => { setCurrentPasswordState(false); return false })
+        return res;
+    }
 
+    function newPasswordValidation(form) {
+        const data = form ?? new FormData(document.querySelector("#change-password-form"));
+        const newPassword1 = data.get("new-password1");
+        return (newPassword1 && (newPassword1 === data.get("new-password2") && newPassword1.length > 7))
+    }
+
+    function submitForm() {
+        const data = new FormData(document.querySelector("#change-password-form"));
         if (isPassworRedyToChange) {
-            const newPassword1 = data.get("new-password1");
-            if (newPassword1 === data.get("new-password2") && newPassword1.length > 7) {
+            if (newPasswordValidation(data)) {
                 setNewPasswordState(true);
-                changePassword(currentPassword, newPassword1);
-            }
-            else {
+                changePassword(currentPassword, data.get("new-password1"));
+            } else {
                 setNewPasswordState(false);
             }
         }
@@ -55,8 +64,10 @@ export default function ChangePasswordForm({ control, message }) {
         return { mr: 1, my: 0.5, color: colorCondition ? "primary.main" : "red" }
     };
 
+    const buttonsProps = (action) => { return { onClick: action, size: "small", variant: "contained" } }
+
     return (
-        <Box component="form" sx={{ p: 2, width: "100%" }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ p: 2, width: "100%" }} id="change-password-form">
             <Grid container sx={{ "& label": { fontSize: "15px" } }} spacing={2}>
                 <Grid item xs={12}>
                     <TextFieldContainer>
@@ -111,21 +122,19 @@ export default function ChangePasswordForm({ control, message }) {
                     </>
                 }
                 <Grid item xs={12} sx={{ display: "flex", mt: 2, gap: 2 }}>
-                    <Button
-                        type="submit"
-                        size="small"
-                        startIcon={isPassworRedyToChange ? <LockReset /> : <LockPerson />}
-                        variant="contained"
-                    >
-                        {isPassworRedyToChange ? "Change" : "Check"}
-                    </Button>
-                    <Button
-                        onClick={closeForm}
-                        size="small"
-                        startIcon={<Cancel />}
-                        variant="contained">
-                        Cancel
-                    </Button>
+                    {
+                        isPassworRedyToChange ?
+                            <ActionAlert
+                                action={submitForm}
+                                openCondition={{ enable: true, condition: newPasswordValidation() }}
+                                title="Change password"
+                                message="Are you sure you want to change your password?">
+                                <Button {...buttonsProps()} startIcon={<LockReset />}>Change</Button>
+                            </ActionAlert>
+                            :
+                            <Button {...buttonsProps(checkPassword)} startIcon={<LockPerson />}>Check</Button>
+                    }
+                    <Button {...buttonsProps(closeForm)} startIcon={<Cancel />}>Cancel</Button>
                 </Grid>
             </Grid>
         </Box>

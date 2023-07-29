@@ -7,12 +7,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import LoadingCircle from "./components/LoadingCircle";
 import themeHandeler from "./functions/themeHandeler";
 import { CookiesProvider, useCookies } from "react-cookie";
-import { host } from "./CONSTANT/hostName";
 import useFetchState from "./hooks/useFetchState";
 import { setUserData } from "./dataBase/userData_slice";
 import { setCart_localy } from "./dataBase/shoppingCart_slice";
 import { setFavorites_localy } from "./dataBase/favorites_slice";
 import customFetchFunc from "./functions/customFetch";
+import ErrorPage from "./components/ErrorPage";
 
 export const ThemeContext = createContext(null);
 
@@ -43,7 +43,16 @@ function App() {
         <ThemeContext.Provider value={{ toggleMode, isLightMode }}>
           <CssBaseline />
           <SnackbarProvider>
-            {isLoading ? <LoadingCircle darkBg /> : <Outlet />}
+            {
+              isLoading ? <LoadingCircle darkBg />
+                : isError ? <ErrorPage
+                  message="There is unexpected error from the server, refresh the page or come back later"
+                  title="Server Error!"
+                  customIllustrate={require("./images/server-error.png")}
+                  fullPage withRefreshButton
+                />
+                  : <Outlet />
+            }
             <LoadingCircle id="loadingCircle" darkBg />
           </SnackbarProvider>
         </ThemeContext.Provider>

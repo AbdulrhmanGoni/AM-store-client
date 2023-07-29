@@ -1,8 +1,8 @@
-import { Button, IconButton, Paper, alpha, useTheme } from "@mui/material";
+import { IconButton, Paper, alpha, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import { useSpeedMessage } from "../hooks/useSpeedMessage";
 import WaveBg from "./WaveBg";
-import { Cancel } from "@mui/icons-material";
+import { Cancel, Upload } from "@mui/icons-material";
 import useImageUploader from "../hooks/useImageUploader";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
@@ -51,7 +51,7 @@ export default function SetUserAvatarForm({ close }) {
             }}
         >
             <Paper sx={{
-                p: "16px",
+                p: 4,
                 pb: "70px",
                 display: "flex",
                 alignItems: "center",
@@ -77,6 +77,7 @@ export default function SetUserAvatarForm({ close }) {
                     label="File Uploader"
                     variant="contained"
                     size="small"
+                    startIcon={<Upload />}
                     loadingPosition="center"
                     loading={isUpLoading}
                     {...styleToUpElement}

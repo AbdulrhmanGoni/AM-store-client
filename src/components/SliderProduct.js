@@ -15,7 +15,7 @@ export default function SliderProduct({ theCatagory }) {
     const media = useMediaQuery("(max-width: 600px)");
     const cardWidth = media ? 160 : 230;
 
-    const { data: products, isLoading, isError } = useFetch(`products/?category=${theCatagory}&limit=10`, [])
+    const { data: products, isLoading, isError } = useFetch(`products/?category=${theCatagory}&limit=10`, { init: [] })
 
     const [slidersWidth, setSlidersWidth] = useState(cardWidth * 10);
 

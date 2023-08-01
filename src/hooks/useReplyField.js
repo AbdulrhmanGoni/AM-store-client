@@ -1,61 +1,41 @@
-import { Send } from "@mui/icons-material"
-import { Box, Button, TextField } from "@mui/material"
 import { addReply } from "../dataBase/actions/commentsActions";
 import { useSpeedMessage } from "./useSpeedMessage";
 import { useState } from "react";
+import TextFieldWithImojis from '../components/TextFieldWithImojis';
 
 
-export default function useReplyField({
-    handleAddReplyLocaly,
-    replyData, replyPlace,
-    disabledBtn, textFieldProps,
-    containerStyle
-}) {
+
+export default function useReplyField({ handleAddReplyLocaly, replyData, replyPlace, disabledBtn }) {
 
     const { message } = useSpeedMessage();
     const [textFieldIsOpen, setTextFieldState] = useState(false);
 
-
-    function toggleTextFieldState() {
-        setTextFieldState(state => !state);
-    }
-
-    function handleSubmit(ev) {
-        ev.preventDefault();
-        const theReply = document.getElementById(textFieldProps.id);
-        if (theReply.value) {
-            addReply({ ...replyData, text: theReply.value }, replyPlace)
+    function handleSubmit(theReply, clearField) {
+        if (theReply) {
+            addReply({ ...replyData, text: theReply }, replyPlace)
                 .then(newReply => {
                     if (newReply) {
                         handleAddReplyLocaly(newReply);
-                        theReply.value = "";
+                        clearField();
                     } else message("adding comment falied");
                 });
         }
     }
 
-    const TextFieldComponent = ({ style }) => {
+    const TextFieldComponent = ({ style, placeholder }) => {
         return (
             textFieldIsOpen &&
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", alignItems: "flex-end", gap: 1, ...style }}>
-                <TextField {...textFieldProps} />
-                <Button
-                    disabled={disabledBtn}
-                    variant='contained'
-                    endIcon={<Send />}
-                    size='small'
-                    type='submit'
-                >
-                    Send
-                </Button>
-            </Box>
+            <TextFieldWithImojis
+                handleSubmit={handleSubmit}
+                buttonProps={{ disabled: disabledBtn }}
+                placeholder={placeholder}
+            />
         )
     }
 
-
     return {
         TextFieldComponent,
-        toggleTextFieldState,
+        toggleTextFieldState: () => { setTextFieldState(state => !state) },
         textFieldIsOpen
     }
 }

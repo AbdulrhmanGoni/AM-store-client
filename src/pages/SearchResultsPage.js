@@ -1,18 +1,16 @@
 import { useSearchParams } from 'react-router-dom'
 import LoadingCircle from '../components/LoadingCircle';
-import NotFoundPage from '../components/NotFoundPage';
 import ProductsDisplayer from '../components/ProductsDisplayer';
 import SearchField from '../components/SearchField';
-import { Alert, Box } from '@mui/material';
-import { host } from '../CONSTANT/hostName';
+import { Box } from '@mui/material';
 import { useFetch } from '../hooks/useFetch';
-import EmptyMassege from '../components/EmptyMassege';
+import ErrorPage from '../components/ErrorPage';
 
 
 export default function SearchResultsPage() {
 
     const searchParams = useSearchParams()[0].get("title");
-    const { data: results = [], isLoading, isError } = useFetch(`${host}/products/?title=${searchParams}`);
+    const { data: results, isLoading, isError } = useFetch(`products/?title=${searchParams}`, { init: [] });
 
     return (
         <>
@@ -23,12 +21,22 @@ export default function SearchResultsPage() {
                 isLoading ? <LoadingCircle sectionName="Search" />
                     :
                     isError ?
-                        <Alert severity='error'>Something Went Wrong</Alert>
+                        <ErrorPage
+                            title="Something Went Wrong!"
+                            errorType="unexpected"
+                            hideAlertMsg
+                            disableHeight
+                        />
                         :
                         results.length ?
                             <ProductsDisplayer>{results}</ProductsDisplayer>
                             :
-                            <EmptyMassege customMsg="No Search Result" />
+                            <ErrorPage
+                                title="No Results"
+                                errorType={404}
+                                hideAlertMsg
+                                disableHeight
+                            />
             }
         </>
     )

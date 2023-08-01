@@ -1,5 +1,5 @@
 import { Reply } from '@mui/icons-material';
-import { Alert, Box, Button, CircularProgress, List, Paper, TextField } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, List, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { deleteComment, getReplies } from '../dataBase/actions/commentsActions';
@@ -13,15 +13,13 @@ import waitFor from '../functions/waitFor';
 import useReplyField from '../hooks/useReplyField';
 
 
-const CommentViewer = ({
-    commenterData: { userName, avatar },
-    text, commenterId, commentId, likes,
-    dislikes, timeAgo, replies, setChanges, isNewComment
-}) => {
+const CommentViewer = ({ commenterData: { userName, avatar }, theComment, setChanges, }) => {
+
+    const { text, commenterId, _id: commentId, likes, dislikes, timeAgo, replies, isNewComment } = theComment;
 
     const { id: productId } = useParams();
-    const { userData } = useSelector(state => state);
-    const userId = userData ? userData._id : null
+    const userData = useSelector(state => state.userData);
+    const userId = userData ? userData._id : null;
     const { message } = useSpeedMessage();
     const { LikeButton, DislikeButton } = useLikesAndDislikes({
         initialLikes: likes.length,
@@ -71,48 +69,21 @@ const CommentViewer = ({
     function handleAddReplyLocaly(newReply) {
         setReplies(state => [newReply, ...state]);
         setRepliesCount(currentCount => ++currentCount);
-        if (!repliesListIsOpen) {
-            openrepliesList();
-        }
+        !repliesListIsOpen && openrepliesList()
     }
 
-    const textFieldProps = {
-        id: commentId,
-        name: commentId,
-        label: "What is your reply to this comment",
-        variant: 'outlined',
-        size: 'small',
-        fullWidth: true
-    }
-    const replyData = {
-        commenterId: userId,
-        commenterData: {},
-        productId
-    }
-    const { TextFieldComponent, toggleTextFieldState, textFieldIsOpen } = useReplyField({
-        textFieldProps,
-        disabledBtn: !userId,
-        replyData,
-        replyPlace: commentId,
-        handleAddReplyLocaly
-    })
+    const replyData = { commenterId: userId, commenterData: {}, productId }
+    const useReplyHookeProps = { disabledBtn: !userId, replyData, replyPlace: commentId, handleAddReplyLocaly }
+    const { TextFieldComponent, toggleTextFieldState, textFieldIsOpen } = useReplyField(useReplyHookeProps)
 
-    useEffect(() => {
-        if (deleteCommentBehavior) setAddCommentBehavior("-100%");
-    }, [deleteCommentBehavior]);
-
-    useEffect(() => {
-        if (isNewComment) { setAddCommentBehavior("0%") };
-    }, []);
-
-    useEffect(() => {
-        if (!repliesList.length) { setRepliesListState(false); };
-    }, [repliesList]);
+    useEffect(() => { deleteCommentBehavior && setAddCommentBehavior("-200%") }, [deleteCommentBehavior]);
+    useEffect(() => { isNewComment && setAddCommentBehavior("0%") }, []);
+    useEffect(() => { !repliesList.length && setRepliesListState(false) }, [repliesList]);
 
     return (
-        <Box sx={{ overflow: "hidden", p: "1px" }}>
+        <Box sx={{ p: "1px" }}>
             <Paper elevation={1} sx={{
-                p: "14px 8px",
+                p: "0px 8px",
                 display: "flex",
                 gap: 1,
                 position: "relative",
@@ -156,7 +127,10 @@ const CommentViewer = ({
             {
                 (repliesListIsOpen || textFieldIsOpen) &&
                 <Box sx={{ m: "5px 0px 0px 20px", p: "4px", overflow: "visible", position: "relative", "&:before": beforeStyle }}>
-                    <TextFieldComponent style={{ mb: 1 }} />
+                    <TextFieldComponent
+                        placeholder="What is your reply to this comment"
+                        style={{ mb: 1 }}
+                    />
                     {
                         repliesListIsOpen === "loading" ? <CircularProgress size={30} sx={{ m: "20px auto" }} /> :
                             repliesListIsOpen === "error" ? <Alert severity='error'>Failed to fetch replies</Alert> :

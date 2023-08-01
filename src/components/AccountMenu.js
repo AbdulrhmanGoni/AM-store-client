@@ -66,11 +66,11 @@ export default function AccountMenu() {
     }
 
     function logout() {
-        removeCookies("userId");
-        removeCookies("access-token");
         dispatch(userLogOut());
         window.location.replace("/");
         window.location.reload();
+        removeCookies("userId");
+        removeCookies("access-token");
     };
 
     function openFeedbackForm() {

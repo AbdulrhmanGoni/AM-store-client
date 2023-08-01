@@ -16,7 +16,6 @@ import { useNavigate } from 'react-router-dom';
 import ShoppingCartController from './ShoppingCartController';
 import { testingImage } from '../CONSTANT/testingImage';
 import { LoadingButton } from '@mui/lab';
-import imageChecker from '../functions/imageChecker';
 import ActionAlert from './ActionAlert';
 
 
@@ -31,7 +30,6 @@ export default function ProductCard({ theProduct, sx }) {
     const [rate, setRate] = useState(2.5);
     const [isInCart, setAsInCart] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const [productImage, setProductImage] = useState(null);
 
 
     async function addToShoppingCart() {
@@ -55,14 +53,6 @@ export default function ProductCard({ theProduct, sx }) {
                 setAsInCart(false);
             }
         }
-    }, [shoppingCart]);
-
-    useEffect(() => {
-        // imageChecker(images[0])
-        //     .then((res) => {
-        //         if (res) setProductImage(res)
-        //         else setProductImage(testingImage)
-        //     })
     }, [shoppingCart]);
 
     return (

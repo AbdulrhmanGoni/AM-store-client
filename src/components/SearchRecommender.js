@@ -1,23 +1,24 @@
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import { FixedSizeList } from 'react-window';
-import { Alert, Card, CircularProgress, Typography } from '@mui/material';
+import { Card, Typography, ListItem, ListItemButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
-import { host } from '../CONSTANT/hostName';
 import { useFetch } from '../hooks/useFetch';
 
 
 export default function SearchRecommender({ searchInput, setLoading }) {
 
     const navigate = useNavigate();
-    const { data: results, isLoading } = useFetch(`${host}/products/?title=${searchInput}`, []);
+    const { data: results, isLoading } = useFetch(`products/?title=${searchInput}`, { init: [] });
 
     const resultsList = () => results.map((result) => {
         return (
-            <ListItem key={result._id} component="div" disablePadding onClick={() => navigate(`/product-details/${result._id}`)} >
+            <ListItem
+                key={result._id}
+                component="div"
+                disablePadding
+                onClick={() => navigate(`/product-details/${result._id}`)}
+            >
                 <ListItemButton sx={{ justifyContent: "space-between", height: "40px" }}>
                     <Typography sx={{
                         fontSize: "15px",
@@ -40,7 +41,7 @@ export default function SearchRecommender({ searchInput, setLoading }) {
     }, [isLoading])
 
     return (
-        <Card elevation={1}
+        <Card
             sx={{
                 width: '100%', height: heightOfList,
                 maxWidth: "100%", top: "100%", left: 0,

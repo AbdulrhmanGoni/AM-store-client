@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import customFetch from "../functions/customFetch";
 
-export const useFetch = (url, init) => {
+export const useFetch = (url, { init, depended, fetchCondition } = {}) => {
+
+    const pass = fetchCondition === undefined ? true : fetchCondition;
 
     const [data, setData] = useState(init);
     const [isError, setIsError] = useState(false);
@@ -10,12 +12,14 @@ export const useFetch = (url, init) => {
     const [refetched, refetch] = useState(0);
 
     useEffect(() => {
-        setLoading(true);
-        customFetch(url)
-            .then(setData)
-            .catch((err) => { setIsError(true); setError(new Error(err)) })
-            .finally(() => setLoading(false));
-    }, [url, refetched]);
+        if (pass) {
+            setLoading(true);
+            customFetch(url)
+                .then(setData)
+                .catch((err) => { setIsError(true); setError(new Error(err)) })
+                .finally(() => setLoading(false));
+        }
+    }, [url, refetched, depended]);
 
     return { data, isError, error, isLoading, setData, refetch: () => refetch(v => ++v) };
 };

@@ -1,5 +1,5 @@
-import { Box, Button, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Box, Button, Paper } from '@mui/material';
 import Comment from './Comment';
 import { useSelector } from 'react-redux';
 import useLikesAndDislikes from '../hooks/useLikesAndDislikes';
@@ -8,14 +8,13 @@ import CommentOptionsMenu from './CommentOptionsMenu';
 import { Reply } from '@mui/icons-material';
 import useReplyField from '../hooks/useReplyField';
 
+
 const ReplyViewer = ({
     reply: {
         commenterData: { userName, avatar },
-        targetData,
-        text, commenterId, _id, likes,
-        dislikes, timeAgo, isNewReply
+        targetData, text, commenterId, _id,
+        dislikes, likes, timeAgo, isNewReply
     }, replyPlace, handleAddReplyLocaly, deleteComment, deleteReplyBehavior }) => {
-
 
     const { id: productId } = useParams();
     const { userData } = useSelector(state => state);
@@ -33,7 +32,7 @@ const ReplyViewer = ({
         id: _id,
         name: _id,
         label: "What is your reply to this comment",
-        variant: 'outlined',
+        variant: 'standard',
         size: 'small',
         fullWidth: true
     }
@@ -44,6 +43,7 @@ const ReplyViewer = ({
         targetData: {},
         productId
     }
+    const [addReplyBehavior, setAddReplyBehavior] = useState(isNewReply ? "-100%" : "0%");
     const { TextFieldComponent, toggleTextFieldState } = useReplyField({
         textFieldProps,
         disabledBtn: !userId,
@@ -51,15 +51,9 @@ const ReplyViewer = ({
         replyPlace,
         handleAddReplyLocaly
     })
-    const [addReplyBehavior, setAddReplyBehavior] = useState(isNewReply ? "-100%" : "0%");
 
-    useEffect(() => {
-        if (deleteReplyBehavior === _id) setAddReplyBehavior("-100%");
-    }, [deleteReplyBehavior]);
-
-    useEffect(() => {
-        if (isNewReply) { setAddReplyBehavior("0%") };
-    }, []);
+    useEffect(() => { (deleteReplyBehavior === _id) && setAddReplyBehavior("-100%") }, [deleteReplyBehavior]);
+    useEffect(() => { isNewReply && setAddReplyBehavior("0%") }, []);
 
     return (
         <Box sx={{ overflow: "hidden", gap: 1, p: "1px", display: "flex", flexDirection: "column" }}>
@@ -94,7 +88,6 @@ const ReplyViewer = ({
                             Reply
                         </Button>
                     </Box>
-
                     <CommentOptionsMenu
                         isOwner={userId === commenterId}
                         deleteFun={() => deleteComment({ productId, commentId: _id, commenterId, replyPlace, type: "reply" })}

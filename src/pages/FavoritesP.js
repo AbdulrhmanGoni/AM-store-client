@@ -13,43 +13,15 @@ import LoadingCircle from '../components/LoadingCircle';
 import { AvailabationState } from '../components/ProductCard';
 import PriceDisplayer from '../components/PriceDisplayer';
 import { CleaningServices, Delete, Info } from '@mui/icons-material';
-import { toggleFavorites, clearFavorites } from '../dataBase/actions/favorites_slice_actions';
-import { clearFavorites_localy, toggleFavorites_localy } from '../dataBase/favorites_slice';
 import ErrorPage from '../components/ErrorPage';
-import loadingControl from '../dataBase/actions/loadingControl';
 import ActionAlert from '../components/ActionAlert';
-import { useSpeedMessage } from '../hooks/useSpeedMessage';
+import useFavoritesActions from '../hooks/useFavoritesActions';
 
 function TitlebarImageList({ products, listTitle, setData }) {
 
     const navigate = useNavigate();
     const media = useMediaQuery("(max-width: 600px)");
-    const userData = useSelector(state => state.userData);
-    const { message } = useSpeedMessage();
-
-    function removeItem(productId) {
-        loadingControl(true);
-        toggleFavorites({ userId: userData._id, productId })
-            .then(res => {
-                toggleFavorites_localy(res);
-                setData(state => state.filter(item => item._id !== res))
-            })
-            .catch(() => message("remove product failed", "error"))
-            .finally(() => { loadingControl(false) })
-    }
-
-    function removeAllItems() {
-        loadingControl(true);
-        clearFavorites()
-            .then(res => {
-                if (res) {
-                    clearFavorites_localy();
-                    setData(null);
-                }
-            })
-            .catch(() => message("Clearing products failed", "error"))
-            .finally(() => { loadingControl(false) })
-    }
+    const { removeItem, removeAllItems } = useFavoritesActions({ productsState: setData });
 
     const itemsColumns = media ? 2 : products.length === 1 ? 2 : 1;
 
@@ -63,7 +35,7 @@ function TitlebarImageList({ products, listTitle, setData }) {
                     justifyContent: "space-between"
                 }}
             >
-                <ListSubheader sx={{fontSize:"20px"}} component="div">{listTitle}</ListSubheader>
+                <ListSubheader sx={{ fontSize: "20px" }} component="div">{listTitle}</ListSubheader>
                 <ActionAlert
                     title="Clear favorites"
                     message="Are you sure you want to remove all products in your favorites?"
@@ -153,8 +125,10 @@ function TitlebarImageList({ products, listTitle, setData }) {
 function FavoriteP() {
 
     const { favorites: productsIds = [] } = useSelector(state => state);
-    const { data: products = [], isLoading, isError, setData } = useAction(`products`, "POST", { productsIds });
-
+    const {
+        data: products = [],
+        isLoading, isError, setData
+    } = useAction(`products`, "POST", { productsIds }, { fetchCondition: productsIds?.length, dependent: productsIds });
 
     return (<>
         {
@@ -167,7 +141,7 @@ function FavoriteP() {
                         errorType='unexpected'
                         withRefreshButton
                     />
-                    : products.length ?
+                    : products?.length ?
                         <TitlebarImageList listTitle="Favorites Products" setData={setData} products={products} />
                         : <ErrorPage
                             title="Favorites is empty"

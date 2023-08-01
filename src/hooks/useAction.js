@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import loadingControl from "../dataBase/actions/loadingControl";
 import customFetch from "../functions/customFetch";
 
-export const useAction = (url, method, body, dependent, init) => {
+export const useAction = (url, method, body, { dependent, init, fetchCondition }) => {
+
+    const pass = fetchCondition === undefined ? true : fetchCondition;
 
     const [data, setData] = useState(init);
     const [isLoading, setLoading] = useState(false);
@@ -17,11 +19,13 @@ export const useAction = (url, method, body, dependent, init) => {
     function reAction() { setAction(a => ++a) }
 
     useEffect(() => {
-        handleLoading(true);
-        customFetch(url, method, body)
-            .then(setData)
-            .catch(setError)
-            .finally(() => handleLoading(false));
+        if (!url.match(/undefined/ig) && pass) {
+            handleLoading(true);
+            customFetch(url, method, body)
+                .then(setData)
+                .catch(setError)
+                .finally(() => handleLoading(false));
+        }
     }, [url, action, dependent]);
 
     return { data, isError, isLoading, setData, reAction, actionCount: action };

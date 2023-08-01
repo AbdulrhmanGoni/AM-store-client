@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowBackIos, ArrowForwardIos, Close } from '@mui/icons-material';
-import { IconButton, Paper, Typography, useMediaQuery } from '@mui/material';
+import { Box, IconButton, Paper, Typography, useMediaQuery } from '@mui/material';
 
 
 export default function ImageDispayer({ imagesList, openedImage, closeer, title }) {
@@ -35,7 +35,7 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
 
     const imageStyle = {
         width: "100%",
-        maxHeight: "700px",
+        maxHeight: "670px",
     }
 
     const arrow = {
@@ -68,12 +68,14 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
     return (
         <div id='overlayLayer' style={overlayLayer}>
             <Paper id="imagesContainer" style={containersStyle}>
-                <div style={{
+                <Box sx={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "10px",
-                    width: "100%", height: "40px"
+                    width: "100%", height: "40px",
+                    borderBottom: "1px solid",
+                    borderColor: "primary"
                 }}>
                     <Typography variant='h6'>{title}</Typography>
                     <IconButton
@@ -81,9 +83,9 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
                         sx={{ color: "primary.main", p: 0 }} >
                         <Close />
                     </IconButton>
-                </div>
+                </Box>
                 <img style={imageStyle} src={theArray[currentImage]} alt={`img number(${currentImage + 1})`} />
-                <div style={{
+                <Paper sx={{
                     display: "flex", justifyContent: "center",
                     alignItems: "center", position: "relative",
                     width: "100%", height: "40px"
@@ -91,7 +93,7 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
                     <Typography sx={{ color: "primary.main" }}>{`${imagesList.length} / ${currentImage + 1}`}</Typography>
                     <ArrowBackIos onClick={() => { navigateBetweenImages("left") }} sx={{ ...arrow, left: "10px" }} />
                     <ArrowForwardIos onClick={() => { navigateBetweenImages("right") }} sx={{ ...arrow, right: "10px" }} />
-                </div>
+                </Paper>
             </Paper>
         </div>
     )

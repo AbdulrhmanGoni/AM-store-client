@@ -15,7 +15,7 @@ const favoritesCartSlice = createSlice({
             } else return [action.payload, ...state];
         },
         setFavorites_localy: (_, action) => action.payload,
-        clearFavorites_localy: () => null
+        clearFavorites_localy: () => null,
     },
     extraReducers: (bulter) => {
         bulter.addCase(fetchFavorites.fulfilled, (_, action) => action.payload);

@@ -46,12 +46,8 @@ export default function ProductCard({ theProduct, sx }) {
     useEffect(() => {
         if (shoppingCart) {
             let productInCart = shoppingCart.find(item => item._id === _id);
-            if (productInCart) {
-                setAsInCart(true);
-            }
-            else {
-                setAsInCart(false);
-            }
+            if (productInCart) { setAsInCart(true); }
+            else { setAsInCart(false); }
         }
     }, [shoppingCart]);
 

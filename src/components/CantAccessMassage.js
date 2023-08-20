@@ -18,7 +18,7 @@ export default function CantAccessMassage() {
                 }}>
                 <Typography variant='h6' fontWeight="bold" >You Need To Log In To Access This Fature</Typography>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-                    <Button onClick={() => navigate("/sing-up", navigateOptions)} variant="contained">Create An Account</Button>
+                    <Button onClick={() => navigate("/sign-up", navigateOptions)} variant="contained">Create An Account</Button>
                     <Button onClick={() => navigate("/log-in", navigateOptions)} variant="contained">Log In</Button>
                 </Box>
             </Paper>

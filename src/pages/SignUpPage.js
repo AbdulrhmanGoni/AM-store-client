@@ -21,10 +21,9 @@ import loadingControl from '../dataBase/actions/loadingControl';
 import { useCookies } from 'react-cookie';
 import customFetch from '../functions/customFetch';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 
 
-export default function SingUpPage() {
+export default function SignUpPage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,10 +35,6 @@ export default function SingUpPage() {
     const [passwordState, setPasswordState] = useState(true);
     const [emailState, setEmailState] = useState({ state: true, msg: null });
 
-    const signUp = useGoogleLogin({
-        onSuccess: (codeResponse) => console.log(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
-    });
 
     function userNameValidate(name) {
         if (name.length > 5) {
@@ -93,7 +88,7 @@ export default function SingUpPage() {
         if (userName && userEmail && userPassword) {
             const newUser = { userName, userEmail, userPassword };
             loadingControl(true);
-            customFetch(`sing-up`, "POST", newUser)
+            customFetch(`sign-up`, "POST", newUser)
                 .then(data => {
                     if (data) complateSingUp(data);
                     else setEmailState({ state: false, msg: "This Email Is Already Used" });
@@ -102,12 +97,6 @@ export default function SingUpPage() {
                 .finally(() => { loadingControl(false); })
         }
     };
-
-    function onSignedSuccessfully(params) {
-        console.log(params)
-        console.log("Signed Successfully")
-        message("Signed Successfully", "success");
-    }
 
     const bgImage = require("../images/dream-blue.jpg");
 
@@ -211,7 +200,6 @@ export default function SingUpPage() {
                             </Grid>
                         </Grid>
                     </Box>
-                    <GoogleLogin onSuccess={onSignedSuccessfully} onError={() => message("Signed failed")} />
                 </Box>
             </Container>
         </PageWidthBG>

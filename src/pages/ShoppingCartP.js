@@ -102,5 +102,5 @@ export default function ShoppingCartPage() {
                 </Grid>
             </Grid>
         )
-    } else return <ErrorPage hideAlertMsg title="Favoriets is empty" errorType='empty' />
+    } else return <ErrorPage hideAlertMsg title="Shopping cart is empty" errorType='empty' />
 }

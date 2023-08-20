@@ -1,12 +1,11 @@
-import { Alert, Box, Button, Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import SummaryDisplayer from '../components/SummaryDisplayer'
 import { WidthlyCard } from '../components/ProductCard'
 import getProductsByIdsList from '../dataBase/actions/getProductsByIdsList'
 import LoadingCircle from '../components/LoadingCircle'
-import { fetchOrderById } from '../dataBase/actions/fetchOrders'
+import { fetchOrderById } from '../dataBase/actions/orders_actions'
 import withGurd from '../components/withGurd'
 import EmptyMassege from '../components/EmptyMassege'
 
@@ -23,7 +22,7 @@ function OrderDetails({ userId }) {
 
     async function fetchOrderDetails() {
         theLoading(true);
-        const theOrder = await fetchOrderById(id);
+        const theOrder = await fetchOrderById(id, userId);
         if (theOrder) {
             if (theOrder.userId === userId) {
                 setOrder(theOrder);

@@ -1,7 +1,5 @@
-import { useSelector } from 'react-redux';
-import { Alert, Box, List } from '@mui/material';
+import { Box, List } from '@mui/material';
 import { useState } from 'react';
-import EmptyMassege from '../components/EmptyMassege';
 import OrderCard from '../components/OrderCard';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -15,7 +13,7 @@ function OrdersPage({ userId }) {
 
     const [filter, setFilter] = useState(0);
     const ordersFilter = ["In Progress", "Arrived"];
-    const path = `orders/?userId=${userId}&state=${ordersFilter[filter]}`
+    const path = `users/${userId}/orders?state=${ordersFilter[filter]}`
     const { data: orders, isError, isLoading } = useFetch(path, { init: [] });
 
     const handleChange = (_, newValue) => { setFilter(newValue) };

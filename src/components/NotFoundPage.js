@@ -1,11 +1,14 @@
-import { Typography } from '@mui/material';
-import React from 'react';
+import { useParams } from 'react-router-dom';
+import ErrorPage from './ErrorPage';
 
 const NotFoundPage = () => {
     return (
-        <Typography variant='h3'>
-            Not Found Page
-        </Typography>
+        <ErrorPage
+            errorType={404}
+            message={`Sory! we couldn't found '${useParams().pagePath}' page`}
+            title="Not Found Page"
+            alertType="error"
+        />
     );
 }
 

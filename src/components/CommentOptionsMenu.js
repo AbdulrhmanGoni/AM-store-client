@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { CircularProgress, IconButton } from '@mui/material';
-import { CopyAll, Delete, Edit, MoreVert } from '@mui/icons-material';
+import { Delete, Edit, MoreVert } from '@mui/icons-material';
 
 export default function CommentOptionsMenu({ style, isOwner, deleteFun, editFun, styleReplace}) {
     const [anchorEl, setAnchorEl] = useState(null);

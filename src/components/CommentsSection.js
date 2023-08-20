@@ -35,7 +35,6 @@ const CommentsSection = () => {
             })
             .catch(() => setIsError(true))
             .finally(() => { setIsLoading(false) })
-
     }
 
     function getNextPage() { getCommentsPage(sliceNumber) }
@@ -68,7 +67,7 @@ const CommentsSection = () => {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1, p: "40px 0px" }}>
             <TextFieldWithImojis
-                placeholder="What your opinion about this product"
+                placeholder="What is your opinion about this product"
                 handleSubmit={handleAddComment}
             />
             {

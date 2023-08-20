@@ -15,7 +15,7 @@ import { fetchPaymentMethods } from '../dataBase/actions/userPaymentMethods_slic
 import { fetchLocations } from '../dataBase/actions/locations_slice_actions';
 import LoadingCircle from '../components/LoadingCircle';
 import deliveryPrice, { includeLimit } from '../CONSTANT/deliveryPrice';
-import addNewOrder from '../dataBase/actions/addNewOrder';
+import { addNewOrder } from '../dataBase/actions/orders_actions';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
 import loadingControl from '../dataBase/actions/loadingControl';
 import { applyDiscount } from '../dataBase/Categories/cobones';
@@ -24,9 +24,7 @@ import ActionAlert from '../components/ActionAlert';
 function CheckOutPage() {
 
     const {
-        shoppingCart,
-        userData,
-        cobones,
+        shoppingCart, userData, cobones,
         checkoutSummary: { totalPrice, discountCobone },
         locations: { selectedLocation },
         userPaymentMethods: { choosedMethod: paymentMethod }
@@ -91,74 +89,72 @@ function CheckOutPage() {
     }
 
     return (
-        <>
-            <Grid container spacing={2} sx={{ flexDirection: { md: "row-reverse" }, minHeight: "calc(100vh - 57px - 30px)", mb: { xs: "43px" } }}>
-                <Grid item md={8} sx={{ overflowY: "auto", width: "100%" }}>
-                    <Grid container spacing={2}>
-                        <Grid item width={"100%"}>
-                            <SectionTitle titleStyle={{ pb: 1 }} title="Location">
-                                {
-                                    selectedLocation ?
-                                        <Box sx={{ p: 1, borderRadius: 2 }}>
-                                            <SelectedLocationCard
-                                                icon={
-                                                    <LMControl
-                                                        action="open"
-                                                        size='small'
-                                                        startIcon={<Edit />}
-                                                        text="Change" />
-                                                }
-                                            />
-                                        </Box>
-                                        :
-                                        <Alert
-                                            action={
+        <Grid container spacing={2} sx={{ flexDirection: { md: "row-reverse" }, minHeight: "calc(100vh - 57px - 30px)", mb: { xs: "43px" } }}>
+            <Grid item md={8} sx={{ overflowY: "auto", width: "100%" }}>
+                <Grid container spacing={2}>
+                    <Grid item width={"100%"}>
+                        <SectionTitle titleStyle={{ pb: 1 }} title="Location">
+                            {
+                                selectedLocation ?
+                                    <Box sx={{ p: 1, borderRadius: 2 }}>
+                                        <SelectedLocationCard
+                                            icon={
                                                 <LMControl
-                                                    colorType='warning'
+                                                    action="open"
                                                     size='small'
-                                                    startIcon={<LocationOn />}
-                                                    text="Add Location" />
+                                                    startIcon={<Edit />}
+                                                    text="Change" />
                                             }
-                                            sx={{ width: "100%", mb: 1, alignItems: "center" }}
-                                            severity="warning">
-                                            You Must Add Your Location
-                                        </Alert>
-                                }
-                            </SectionTitle>
-                        </Grid>
-                        <Grid item width={"100%"}>
-                            <SectionTitle titleStyle={{ pb: 1 }} title="Payment">
-                                <PaymentMethodForm />
-                            </SectionTitle>
-                        </Grid>
+                                        />
+                                    </Box>
+                                    :
+                                    <Alert
+                                        action={
+                                            <LMControl
+                                                colorType='warning'
+                                                size='small'
+                                                startIcon={<LocationOn />}
+                                                text="Add Location" />
+                                        }
+                                        sx={{ width: "100%", mb: 1, alignItems: "center" }}
+                                        severity="warning">
+                                        You Must Add Your Location
+                                    </Alert>
+                            }
+                        </SectionTitle>
+                    </Grid>
+                    <Grid item width={"100%"}>
+                        <SectionTitle titleStyle={{ pb: 1 }} title="Payment">
+                            <PaymentMethodForm />
+                        </SectionTitle>
                     </Grid>
                 </Grid>
-                <Grid item md={4} sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }} >
-                    <Summary />
-                    <ActionAlert
-                        title="Are you sure to continue?"
-                        message={`You have in your shoppnig cart ${shoppingCart.length} products and they costs ${totalPrice.toFixed(2)} dolar`}
-                        action={completingCheckout}
-                    >
-                        <Button
-                            variant='contained'
-                            sx={{ width: "100%", bottom: "0", left: "0", zIndex: "500", position: { xs: "fixed", md: "relative" } }}
-                            startIcon={<Payment />}
-                            size="large"
-                        >
-                            Complate
-                        </Button>
-                    </ActionAlert>
-                    <Box sx={{ p: "5px", display: "flex", flexDirection: "column", height: "400px", overflow: "auto", gap: 1 }}>
-                        {
-                            products.map((product) => (
-                                <SmallCard key={product._id} theProduct={product} />
-                            ))
-                        }
-                    </Box>
-                </Grid>
             </Grid>
-        </>
+            <Grid item md={4} sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }} >
+                <Summary />
+                <ActionAlert
+                    title="Are you sure to continue?"
+                    message={`You have in your shoppnig cart ${shoppingCart.length} products and they costs $${totalPrice.toFixed(2)} dolar`}
+                    action={completingCheckout}
+                >
+                    <Button
+                        variant='contained'
+                        sx={{ width: "100%", bottom: "0", left: "0", zIndex: "500", position: { xs: "fixed", md: "relative" } }}
+                        startIcon={<Payment />}
+                        size="large"
+                    >
+                        Complate
+                    </Button>
+                </ActionAlert>
+                <Box sx={{ p: "5px", display: "flex", flexDirection: "column", height: "400px", overflow: "auto", gap: 1 }}>
+                    {
+                        products.map((product) => (
+                            <SmallCard key={product._id} theProduct={product} />
+                        ))
+                    }
+                </Box>
+            </Grid>
+        </Grid>
     )
 }
 

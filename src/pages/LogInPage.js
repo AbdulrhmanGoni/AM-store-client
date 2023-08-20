@@ -10,8 +10,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PageWidthBG from '../components/PageWidthBG';
-import { host } from '../CONSTANT/hostName';
-import headersRequest from '../CONSTANT/headersRequest';
 import { useCookies } from 'react-cookie';
 import customFetch from '../functions/customFetch';
 import loadingControl from '../dataBase/actions/loadingControl';
@@ -66,6 +64,7 @@ export default function LogInPage() {
             </Grid>
         )
     }
+
     return (
         <PageWidthBG bgImage={bgImage}>
             <Container
@@ -129,7 +128,7 @@ export default function LogInPage() {
                     </Box>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Typography onClick={() => navigate("/sing-up", { replace: true, state })} style={{ textDecoration: "underline" }}>
+                            <Typography onClick={() => navigate("/sign-up", { replace: true, state })} style={{ textDecoration: "underline" }}>
                                 you dont't have an account? Sign up
                             </Typography>
                         </Grid>

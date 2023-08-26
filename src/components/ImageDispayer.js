@@ -46,23 +46,14 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
         color: "primary.main"
     }
 
-    const navigateBetweenImages = (direct) => {
-        switch (direct) {
-            case "left":
-                setImageAsCurrent((curren) => {
-                    return curren === 0 ? theArray.length - 1 : --curren;
-                })
-                break;
-
-            case "right":
-                setImageAsCurrent((curren) => {
-                    return theArray.length - 1 === curren ? 0 : ++curren;
-                })
-                break;
-
-            default:
-                break;
-        }
+    const navigateBetweenImages = (dir) => {
+        setImageAsCurrent((curren) => {
+            if (dir === "left") {
+                return curren === 0 ? theArray.length - 1 : --curren;
+            } else if (dir === "right") {
+                return theArray.length - 1 === curren ? 0 : ++curren;
+            } else return curren
+        })
     }
 
     return (

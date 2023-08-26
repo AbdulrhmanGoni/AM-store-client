@@ -10,7 +10,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCreditCard, setCreditCard } from '../../dataBase/actions/userPaymentMethods_slice_actions';
 import { useEffect } from 'react';
-import ActionAlert from '../ActionAlert';
+import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 
 
 export default function CridetCardsList({ theList, chooses }) {

@@ -10,7 +10,7 @@ import { SelectedLocationCard } from '../components/locationRegistring/LocationC
 import { SmallCard } from '../components/ProductCard';
 import LMControl from '../components/locationRegistring/LMControl';
 import { clearCheckoutSummary } from '../dataBase/checkoutSummary_slice';
-import { getCurrentDate } from '../goniFunctions';
+import getCurrentDate from '../functions/getCurrentDate';
 import { fetchPaymentMethods } from '../dataBase/actions/userPaymentMethods_slice_actions';
 import { fetchLocations } from '../dataBase/actions/locations_slice_actions';
 import LoadingCircle from '../components/LoadingCircle';
@@ -19,7 +19,7 @@ import { addNewOrder } from '../dataBase/actions/orders_actions';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
 import loadingControl from '../dataBase/actions/loadingControl';
 import { applyDiscount } from '../dataBase/Categories/cobones';
-import ActionAlert from '../components/ActionAlert';
+import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 
 function CheckOutPage() {
 

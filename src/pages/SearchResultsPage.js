@@ -4,7 +4,8 @@ import ProductsDisplayer from '../components/ProductsDisplayer';
 import SearchField from '../components/SearchField';
 import { Box } from '@mui/material';
 import { useFetch } from '../hooks/useFetch';
-import ErrorPage from '../components/ErrorPage';
+import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { notFound, unexpected } from '../CONSTANT/images';
 
 
 export default function SearchResultsPage() {
@@ -21,9 +22,10 @@ export default function SearchResultsPage() {
                 isLoading ? <LoadingCircle sectionName="Search" />
                     :
                     isError ?
-                        <ErrorPage
+                        <ErrorThrower
                             title="Something Went Wrong!"
                             errorType="unexpected"
+                            customIllustrate={unexpected}
                             hideAlertMsg
                             disableHeight
                         />
@@ -31,9 +33,10 @@ export default function SearchResultsPage() {
                         results.length ?
                             <ProductsDisplayer>{results}</ProductsDisplayer>
                             :
-                            <ErrorPage
+                            <ErrorThrower
                                 title="No Results"
                                 errorType={404}
+                                customIllustrate={notFound}
                                 hideAlertMsg
                                 disableHeight
                             />

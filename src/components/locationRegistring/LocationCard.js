@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Delete, PinDrop } from '@mui/icons-material';
 import { deleteLocation } from '../../dataBase/actions/locations_slice_actions';
 import { useParams } from 'react-router-dom';
-import ActionAlert from '../ActionAlert';
+import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 
 const Row = ({ theKey, value, children, sx }) => {
 

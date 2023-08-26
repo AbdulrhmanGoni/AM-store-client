@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewLocation } from '../../dataBase/actions/locations_slice_actions';
-import { generateRandomId } from '../../goniFunctions';
+import generateRandomId from '../../functions/generateRandomId';
 
 
 const CridetCardForm = () => {

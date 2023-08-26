@@ -1,6 +1,6 @@
+import { nDecorator } from '@abdulrhmangoni/am-store-library';
 import { Typography } from '@mui/material';
 import React from 'react';
-import { numsDecorator } from '../goniFunctions';
 
 const PriceDisplayer = ({ price, currency = "$", style, variant, currencyStyle, operation }) => {
 
@@ -19,7 +19,7 @@ const PriceDisplayer = ({ price, currency = "$", style, variant, currencyStyle, 
                 {currency}
             </span>
             {operation ?? null}
-            {numsDecorator(price.toFixed(2))}
+            {nDecorator(price.toFixed(2))}
         </Typography>
     );
 }

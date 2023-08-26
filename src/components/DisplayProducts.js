@@ -3,7 +3,8 @@ import LoadingCircle from './LoadingCircle';
 import ProductsDisplayer from './ProductsDisplayer';
 import { useFetch } from '../hooks/useFetch';
 import { Box } from '@mui/material';
-import ErrorPage from './ErrorPage';
+import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { notFound, unexpected } from '../CONSTANT/images';
 
 
 export default function DisplayProducts() {
@@ -15,17 +16,19 @@ export default function DisplayProducts() {
         <Box sx={{ mt: 2 }}>
             {
                 isLoading ? <LoadingCircle />
-                    : isError ? <ErrorPage
+                    : isError ? <ErrorThrower
                         title="Something Went Wrong!"
                         errorType="unexpected"
+                        customIllustrate={unexpected}
                         hideAlertMsg
                         disableHeight
                     />
                         : products.length ? <ProductsDisplayer>{products}</ProductsDisplayer>
                             :
-                            <ErrorPage
+                            <ErrorThrower
                                 title="No Results"
                                 alertType={404}
+                                customIllustrate={notFound}
                                 hideAlertMsg
                                 disableHeight
                             />

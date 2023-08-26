@@ -1,0 +1,5 @@
+export const notFound = require("../images/404-error.png")
+export const unexpected = require("../images/unexpected-error.png")
+export const empty = require("../images/empty.png")
+export const network = require("../images/no-network-error.png")
+export const server = require("../images/server-error.png")

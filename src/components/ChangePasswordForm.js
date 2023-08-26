@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { changeUserPassword, passwordChecker } from "../dataBase/actions/userData_slice_actions";
 import TextFieldContainer from "./TextFieldContainer";
-import ActionAlert from "./ActionAlert";
+import { ActionAlert } from "@abdulrhmangoni/am-store-library";
 
 const ErrorMessage = ({ mesage }) => <Typography sx={{ m: "5px 0px 0px 32px" }} variant="body2" color="error">{mesage}</Typography>
 

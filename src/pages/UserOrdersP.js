@@ -6,7 +6,8 @@ import Tab from '@mui/material/Tab';
 import LoadingCircle from '../components/LoadingCircle';
 import { useFetch } from '../hooks/useFetch';
 import withGurd from '../components/withGurd';
-import ErrorPage from '../components/ErrorPage';
+import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { empty, unexpected } from '../CONSTANT/images';
 
 
 function OrdersPage({ userId }) {
@@ -21,7 +22,15 @@ function OrdersPage({ userId }) {
     const btnStyle = { maxWidth: "100%", flexGrow: 1 };
 
     if (isLoading) return <LoadingCircle />
-    else if (isError) return <ErrorPage title="There is unexpected error" hideAlertMsg disableHeight errorType='unexpected' />
+    else if (isError) return (
+        <ErrorThrower
+            title="There is unexpected error"
+            customIllustrate={unexpected}
+            hideAlertMsg
+            disableHeight
+            errorType='unexpected'
+        />
+    )
     else return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
@@ -35,8 +44,9 @@ function OrdersPage({ userId }) {
                     orders.length ?
                         orders.map((item) => <OrderCard key={item._id} order={item} />)
                         :
-                        <ErrorPage
+                        <ErrorThrower
                             title="No Orders Here"
+                            customIllustrate={empty}
                             hideAlertMsg
                             disableHeight
                             errorType='empty'

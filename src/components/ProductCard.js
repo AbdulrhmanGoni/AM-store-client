@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import ShoppingCartController from './ShoppingCartController';
 import { testingImage } from '../CONSTANT/testingImage';
 import { LoadingButton } from '@mui/lab';
-import ActionAlert from './ActionAlert';
+import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 
 
 export default function ProductCard({ theProduct, sx }) {

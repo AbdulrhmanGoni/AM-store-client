@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import EmptyMassege from '../components/EmptyMassege';
 import { WidthlyCard } from '../components/ProductCard';
 import { Box, Button, Grid, List, ListItem, Typography } from '@mui/material';
 import { CleaningServices, Payment } from '@mui/icons-material';
@@ -8,8 +7,8 @@ import Summary from '../components/Summary';
 import { clearCart } from '../dataBase/actions/shoppingCart_slice_actions';
 import { clearCart_localy } from '../dataBase/shoppingCart_slice';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
-import ActionAlert from '../components/ActionAlert';
-import ErrorPage from '../components/ErrorPage';
+import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
+import { empty } from '../CONSTANT/images';
 
 export default function ShoppingCartPage() {
 
@@ -102,5 +101,12 @@ export default function ShoppingCartPage() {
                 </Grid>
             </Grid>
         )
-    } else return <ErrorPage hideAlertMsg title="Shopping cart is empty" errorType='empty' />
+    } else return (
+        <ErrorThrower
+            hideAlertMsg
+            title="Shopping cart is empty"
+            errorType='empty'
+            customIllustrate={empty}
+        />
+    )
 }

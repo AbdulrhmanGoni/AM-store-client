@@ -17,7 +17,8 @@ import { useFetch } from "../hooks/useFetch";
 import { LoadingButton } from "@mui/lab";
 import CommentsSection from "../components/CommentsSection";
 import { AvailabationState } from "../components/ProductCard";
-import ErrorPage from "../components/ErrorPage";
+import { ErrorThrower } from "@abdulrhmangoni/am-store-library";
+import { notFound, server, unexpected } from "../CONSTANT/images";
 
 
 export default function ProductDetailsP() {
@@ -148,10 +149,15 @@ export default function ProductDetailsP() {
         )
     }
     else if (product === false) {
-        return <ErrorPage message={`We Couldn't Found Product with id: '${id}'`} title="404 Not Found" errorType={404} />
+        return <ErrorThrower
+            message={`We Couldn't Found Product with id: '${id}'`}
+            title="404 Not Found" errorType={404}
+            customIllustrate={notFound}
+        />
     }
     else if (product === null) {
-        return <ErrorPage
+        return <ErrorThrower
+            customIllustrate={server}
             title="Server Error"
             message='There are unexpected error comes from the server, refresh the page or try later'
             errorType="unexpected"
@@ -159,7 +165,8 @@ export default function ProductDetailsP() {
         />
     }
     else if (isError) {
-        return <ErrorPage
+        return <ErrorThrower
+            customIllustrate={unexpected}
             title="Unexpected Error"
             message='There are unexpected error, check your internet or refresh the page'
             errorType="network"

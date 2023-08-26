@@ -8,7 +8,7 @@ export default function useFavoritesActions({ productsState }) {
 
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
-    const userData = useSelector(state => state.userData);
+    const { userData } = useSelector(state => state);
 
     function removeItem(productId) {
         loadingControl(true);
@@ -27,7 +27,7 @@ export default function useFavoritesActions({ productsState }) {
             .then(res => {
                 if (res) {
                     dispatch(clearFavorites_localy());
-                    productsState(null);
+                    productsState([]);
                 }
             })
             .catch(() => message("Clearing products failed", "error"))

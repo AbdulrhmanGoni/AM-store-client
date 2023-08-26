@@ -1,4 +1,4 @@
-import { Box, Button, Card, Chip, Divider, Grid, ImageList, ImageListItem, Typography } from "@mui/material";
+import { Box, Button, Card, Chip, Divider, ImageList, ImageListItem, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PriceDisplayer from "./PriceDisplayer";
@@ -7,12 +7,11 @@ import PropTypes from 'prop-types';
 import { testingImage } from "../CONSTANT/testingImage";
 import OverlayHoverLink from "./OverlayHoverLink";
 import getProductsByIdsList from "../dataBase/actions/getProductsByIdsList";
-import { formatDate } from "../goniFunctions";
+import formatDate from "../functions/formatDate";
 
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-
     return (
         <div
             role="tabpanel"
@@ -44,7 +43,6 @@ export default function Order({ order }) {
     useEffect(() => {
         getProductsByIdsList(order.products, false, "?type=images")
             .then(data => setProducts(data))
-
     }, []);
 
     const RowInfo = ({ children, sx, title }) => {
@@ -54,7 +52,6 @@ export default function Order({ order }) {
             </Typography>
         )
     }
-
 
     const { city, country, street } = order.location;
 
@@ -106,8 +103,7 @@ export default function Order({ order }) {
                         {
                             order.state === "Arrived" ?
                                 "order.arrivedAt"
-                                :
-                                order.deliveryDate
+                                : order.deliveryDate
                         }
                     </RowInfo>
                 </Box>
@@ -120,13 +116,9 @@ export default function Order({ order }) {
                     p: "8px 0px"
                 }}>
                     <Chip label={order.state} color={
-                        order.state === "In Progress" ?
-                            "info"
-                            :
-                            order.state === "Canceled" ?
-                                "error"
-                                :
-                                "success"
+                        order.state === "In Progress" ? "info"
+                            : order.state === "Canceled" ?
+                                "error" : "success"
                     } />
                     <Button
                         sx={{ height: "fit-content" }}

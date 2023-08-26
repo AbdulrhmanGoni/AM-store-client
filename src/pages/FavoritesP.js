@@ -2,9 +2,7 @@ import {
     IconButton, ListSubheader,
     ImageListItemBar, ImageListItem,
     ImageList, Box, Typography,
-    Tooltip,
-    useMediaQuery,
-    Button
+    Tooltip, useMediaQuery, Button
 } from '@mui/material';
 import { useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom';
@@ -13,9 +11,9 @@ import LoadingCircle from '../components/LoadingCircle';
 import { AvailabationState } from '../components/ProductCard';
 import PriceDisplayer from '../components/PriceDisplayer';
 import { CleaningServices, Delete, Info } from '@mui/icons-material';
-import ErrorPage from '../components/ErrorPage';
-import ActionAlert from '../components/ActionAlert';
 import useFavoritesActions from '../hooks/useFavoritesActions';
+import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
+import { empty, unexpected } from '../CONSTANT/images';
 
 function TitlebarImageList({ products, listTitle, setData }) {
 
@@ -128,25 +126,33 @@ function FavoriteP() {
     const {
         data: products = [],
         isLoading, isError, setData
-    } = useAction(`products`, "POST", { productsIds }, { fetchCondition: productsIds?.length, dependent: productsIds });
+    } = useAction(
+        `products`,
+        "POST",
+        { productsIds },
+        { fetchCondition: productsIds?.length, dependent: productsIds }
+    );
 
     return (<>
         {
             isLoading ?
                 <LoadingCircle />
                 : isError ?
-                    <ErrorPage
+                    <ErrorThrower
                         title="Something went wrong"
                         message="There is Something Wrong, may its network error or unexpected error"
                         errorType='unexpected'
+                        customIllustrate={unexpected}
                         withRefreshButton
                     />
                     : products?.length ?
                         <TitlebarImageList listTitle="Favorites Products" setData={setData} products={products} />
-                        : <ErrorPage
-                            title="Favorites is empty"
+                        :
+                        <ErrorThrower
                             hideAlertMsg
+                            title="Shopping cart is empty"
                             errorType='empty'
+                            customIllustrate={empty}
                         />
         }
     </>)

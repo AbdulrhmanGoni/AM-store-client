@@ -7,7 +7,7 @@ import getProductsByIdsList from '../dataBase/actions/getProductsByIdsList'
 import LoadingCircle from '../components/LoadingCircle'
 import { fetchOrderById } from '../dataBase/actions/orders_actions'
 import withGurd from '../components/withGurd'
-import EmptyMassege from '../components/EmptyMassege'
+import { ErrorThrower } from '@abdulrhmangoni/am-store-library'
 
 
 
@@ -40,8 +40,20 @@ function OrderDetails({ userId }) {
     }, []);
 
     if (isLoading) return <LoadingCircle />
-    else if (notFoundError) return <EmptyMassege customMsg="Sorry! We Couldn't Found The Order" />
-    else if (accessError) return <EmptyMassege customMsg="You Can't Access This Order" />
+    else if (notFoundError) return (
+        <ErrorThrower
+            title='Order not found'
+            message="Sorry! We Couldn't Found The Order"
+            illustratorType="notFound"
+        />
+    )
+    else if (accessError) return (
+        <ErrorThrower
+            title='Unauthorized Order'
+            message="You Can't Access This Order"
+            illustratorType="unauthorized"
+        />
+    )
     else {
         if (products && order) {
             return (

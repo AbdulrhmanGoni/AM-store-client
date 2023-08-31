@@ -7,7 +7,6 @@ import LoadingCircle from '../components/LoadingCircle';
 import { useFetch } from '../hooks/useFetch';
 import withGurd from '../components/withGurd';
 import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
-import { empty, unexpected } from '../CONSTANT/images';
 
 
 function OrdersPage({ userId }) {
@@ -25,10 +24,9 @@ function OrdersPage({ userId }) {
     else if (isError) return (
         <ErrorThrower
             title="There is unexpected error"
-            customIllustrate={unexpected}
             hideAlertMsg
             disableHeight
-            errorType='unexpected'
+            illustratorType='unexpected'
         />
     )
     else return (
@@ -46,10 +44,9 @@ function OrdersPage({ userId }) {
                         :
                         <ErrorThrower
                             title="No Orders Here"
-                            customIllustrate={empty}
                             hideAlertMsg
                             disableHeight
-                            errorType='empty'
+                            illustratorType='empty'
                         />
                 }
             </List>

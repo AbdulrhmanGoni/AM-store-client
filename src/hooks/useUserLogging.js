@@ -13,6 +13,7 @@ export default function useUserLogging() {
     const [cookies] = useCookies();
     const { isLoading, isError, isFulfilled, setState } = useFetchState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
+    const [isServerError, setIsServerError] = useState(false);
     useEffect(() => {
         const userId = cookies.userId;
         if (userId && cookies["access-token"]) {
@@ -25,10 +26,13 @@ export default function useUserLogging() {
                     setState("fulfilled");
                 })
                 .catch((error) => {
-                    if (Error(error).stack.match(new RegExp("Failed to fetch", "ig"))) {
+                    if (!navigator.onLine) {
                         setIsNetworkError(true);
-                    } else setState("error")
+                    } else if (!error.response) {
+                        setIsServerError(true);
+                    }
                 })
+                .finally(() => { setState() })
         }
     }, []);
 
@@ -36,6 +40,7 @@ export default function useUserLogging() {
         isLoading,
         isNetworkError,
         isError,
-        isFulfilled
+        isFulfilled,
+        isServerError
     }
 }

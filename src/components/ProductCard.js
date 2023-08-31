@@ -14,7 +14,6 @@ import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import { useNavigate } from 'react-router-dom';
 import ShoppingCartController from './ShoppingCartController';
-import { testingImage } from '../CONSTANT/testingImage';
 import { LoadingButton } from '@mui/lab';
 import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 
@@ -62,7 +61,7 @@ export default function ProductCard({ theProduct, sx }) {
             <Box sx={{ position: "relative" }}>
                 <CardMedia sx={{ height: { xs: 120, sm: 185 }, userSelect: "none" }}
                     component="img"
-                    image={images?.[0] ?? testingImage}
+                    image={images[0]}
                     alt="product Image">
                 </CardMedia>
                 <OverlayHoverLink target={`/product-details/${_id}`} />

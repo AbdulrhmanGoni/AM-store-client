@@ -1,5 +1,4 @@
 import { useTheme } from '@mui/material'
-import React from 'react'
 
 export default function WaveBg({style}) {
     const { palette: { primary: { main } } } = useTheme();

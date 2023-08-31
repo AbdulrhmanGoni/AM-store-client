@@ -14,7 +14,7 @@ export const ThemeContext = createContext(null);
 function App() {
 
   const [isLightMode, toggleMode] = useState(JSON.parse(localStorage.getItem("isLightMode")));
-  const { isLoading, isError, isNetworkError, isFulfilled } = useUserLogging();
+  const { isLoading, isNetworkError, isServerError } = useUserLogging();
 
   return (
     <ThemeProvider theme={themeHandeler(isLightMode)}>
@@ -27,17 +27,16 @@ function App() {
                 : isNetworkError ? <ErrorThrower
                   title="Network Error"
                   message="There is problem in your internet, please check your internet"
-                  customIllustrate={require("./images/no-network-error.png")}
+                  illustratorType="network"
                   fullPage withRefreshButton
                 />
-                  : isError ? <ErrorThrower
+                  : isServerError ? <ErrorThrower
                     message="There is unexpected error from the server, refresh the page or come back later"
                     title="Server Error"
-                    customIllustrate={require("./images/server-error.png")}
+                    illustratorType="server"
                     fullPage withRefreshButton
                   />
-                    : isFulfilled ? <Outlet />
-                      : null
+                    : <Outlet />
             }
             <LoadingCircle id="loadingCircle" darkBg />
           </SnackbarProvider>

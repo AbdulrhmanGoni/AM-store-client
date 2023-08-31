@@ -13,7 +13,6 @@ import PriceDisplayer from '../components/PriceDisplayer';
 import { CleaningServices, Delete, Info } from '@mui/icons-material';
 import useFavoritesActions from '../hooks/useFavoritesActions';
 import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
-import { empty, unexpected } from '../CONSTANT/images';
 
 function TitlebarImageList({ products, listTitle, setData }) {
 
@@ -141,8 +140,7 @@ function FavoriteP() {
                     <ErrorThrower
                         title="Something went wrong"
                         message="There is Something Wrong, may its network error or unexpected error"
-                        errorType='unexpected'
-                        customIllustrate={unexpected}
+                        illustratorType='unexpected'
                         withRefreshButton
                     />
                     : products?.length ?
@@ -151,8 +149,7 @@ function FavoriteP() {
                         <ErrorThrower
                             hideAlertMsg
                             title="Shopping cart is empty"
-                            errorType='empty'
-                            customIllustrate={empty}
+                            illustratorType='empty'
                         />
         }
     </>)

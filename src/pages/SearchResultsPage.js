@@ -5,7 +5,6 @@ import SearchField from '../components/SearchField';
 import { Box } from '@mui/material';
 import { useFetch } from '../hooks/useFetch';
 import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
-import { notFound, unexpected } from '../CONSTANT/images';
 
 
 export default function SearchResultsPage() {
@@ -24,8 +23,7 @@ export default function SearchResultsPage() {
                     isError ?
                         <ErrorThrower
                             title="Something Went Wrong!"
-                            errorType="unexpected"
-                            customIllustrate={unexpected}
+                            illustratorType="unexpected"
                             hideAlertMsg
                             disableHeight
                         />
@@ -35,8 +33,7 @@ export default function SearchResultsPage() {
                             :
                             <ErrorThrower
                                 title="No Results"
-                                errorType={404}
-                                customIllustrate={notFound}
+                                illustratorType="notFound"
                                 hideAlertMsg
                                 disableHeight
                             />

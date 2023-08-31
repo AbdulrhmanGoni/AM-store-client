@@ -18,7 +18,6 @@ import { LoadingButton } from "@mui/lab";
 import CommentsSection from "../components/CommentsSection";
 import { AvailabationState } from "../components/ProductCard";
 import { ErrorThrower } from "@abdulrhmangoni/am-store-library";
-import { notFound, server, unexpected } from "../CONSTANT/images";
 
 
 export default function ProductDetailsP() {
@@ -151,25 +150,23 @@ export default function ProductDetailsP() {
     else if (product === false) {
         return <ErrorThrower
             message={`We Couldn't Found Product with id: '${id}'`}
-            title="404 Not Found" errorType={404}
-            customIllustrate={notFound}
+            title="404 Not Found"
+            illustratorType="notFound"
         />
     }
     else if (product === null) {
         return <ErrorThrower
-            customIllustrate={server}
             title="Server Error"
             message='There are unexpected error comes from the server, refresh the page or try later'
-            errorType="unexpected"
+            illustratorType="server"
             withRefreshButton
         />
     }
     else if (isError) {
         return <ErrorThrower
-            customIllustrate={unexpected}
+            illustratorType="unexpected"
             title="Unexpected Error"
             message='There are unexpected error, check your internet or refresh the page'
-            errorType="network"
             withRefreshButton
         />
     }

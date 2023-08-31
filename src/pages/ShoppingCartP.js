@@ -8,7 +8,6 @@ import { clearCart } from '../dataBase/actions/shoppingCart_slice_actions';
 import { clearCart_localy } from '../dataBase/shoppingCart_slice';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
 import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
-import { empty } from '../CONSTANT/images';
 
 export default function ShoppingCartPage() {
 
@@ -105,8 +104,7 @@ export default function ShoppingCartPage() {
         <ErrorThrower
             hideAlertMsg
             title="Shopping cart is empty"
-            errorType='empty'
-            customIllustrate={empty}
+            illustratorType='empty'
         />
     )
 }

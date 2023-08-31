@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import PriceDisplayer from "./PriceDisplayer";
 import { ReadMore } from "@mui/icons-material";
 import PropTypes from 'prop-types';
-import { testingImage } from "../CONSTANT/testingImage";
 import OverlayHoverLink from "./OverlayHoverLink";
 import getProductsByIdsList from "../dataBase/actions/getProductsByIdsList";
 import formatDate from "../functions/formatDate";
@@ -77,8 +76,8 @@ export default function Order({ order }) {
                     {products.map((item) => (
                         <ImageListItem key={item._id}>
                             <img
-                                src={testingImage}
-                                srcSet={testingImage}
+                                src={item.images[0]}
+                                srcSet={item.images[1]}
                                 alt={item._id}
                                 loading="lazy"
                             />

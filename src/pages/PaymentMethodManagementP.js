@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PaymentMethodForm from '../components/paymentSystem/PaymentMethodForm';
 import withGurd from '../components/withGurd';
 import { fetchPaymentMethods } from '../dataBase/actions/userPaymentMethods_slice_actions';
+import LoadingCircle from '../components/LoadingCircle';
 import { useDispatch, useSelector } from 'react-redux';
 
 function PaymentMethodManagementP() {
@@ -13,7 +14,7 @@ function PaymentMethodManagementP() {
         if (userData) {
             dispatch(fetchPaymentMethods(userData._id));
         }
-    }, [dispatch, userData]);
+    }, [userData]);
 
     return cardsList && <PaymentMethodForm />
 }

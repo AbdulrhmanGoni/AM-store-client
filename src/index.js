@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Route, RouterProvider,
+  Route,
+  RouterProvider,
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import dataCenter from "./dataBase/dataCenter"

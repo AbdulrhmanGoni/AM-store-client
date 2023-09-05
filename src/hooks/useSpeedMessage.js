@@ -6,7 +6,7 @@ export function useSpeedMessage() {
     function message(message, type, auto_hide_duration) {
         enqueueSnackbar(message, {
             variant: type ?? "error",
-            autoHideDuration: auto_hide_duration ?? 3000,
+            autoHideDuration: auto_hide_duration ?? 5000,
             style: { fontFamily: "roboto" }
         });
     }

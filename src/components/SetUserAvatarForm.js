@@ -23,14 +23,17 @@ export default function SetUserAvatarForm({ close }) {
 
         setIsUpLoading(true);
         fetch(url, { method: "POST", body: payload })
-            .catch(() => { message("Unexpected error happened, Try Again", "error") })
             .then(res => res.json())
-            .then(({ data, success, status }) => {
-                const image = data.url ?? data.display_url;
-                success && status && imageUploader(image)
-                    .then((avatar) => avatar && close())
-                    .finally(() => setIsUpLoading(false))
+            .then((res) => {
+                if (res.success && res.data) {
+                    const image = res.data.url ?? res.data.display_url;
+                    imageUploader(image).then((avatar) => avatar && close())
+                } else {
+                    message("Failed to upload your picture!", "error")
+                }
             })
+            .catch(() => { message("Unexpected error happened, Try Again", "error") })
+            .finally(() => setIsUpLoading(false))
     }
 
     const styleToUpElement = { style: { position: "relative", zIndex: 3 } }

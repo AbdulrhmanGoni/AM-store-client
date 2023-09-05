@@ -1,141 +1,109 @@
-import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {
+    Box, Grid, TextField,
+    Button, Avatar, Typography
+} from '@mui/material/';
+import { Login } from '@mui/icons-material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import PageWidthBG from '../components/PageWidthBG';
-import { useCookies } from 'react-cookie';
-import customFetch from '../functions/customFetch';
 import loadingControl from '../dataBase/actions/loadingControl';
+import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
+import useLogInLogic from '../hooks/useLogInLogic';
+import FormsPagesContainer from '../components/FormsPagesContainer';
 
-
+export function ErrorMessageTag({ messge }) {
+    return (
+        <Typography sx={{ fontSize: "0.87rem", color: "red", mt: "5px" }}>{messge}</Typography>
+    )
+}
 export default function LogInPage() {
 
     const navigate = useNavigate();
     const { state } = useLocation();
-    const [_, setCookies] = useCookies();
-    const [thereError, setErrorState] = useState(false);
-    const [emailFeild, setEmailFeild] = useState("");
-    const [passwordFeild, setPasswordFeild] = useState("");
+    const { AuthButton } = useGoogleAuth();
+    const {
+        handleSubmit,
+        logInWithGoogle,
+        logInWithGoogleFailed,
+        thereIsError,
+        notValidEmail
+    } = useLogInLogic();
 
 
-    function complateLogIn({ userId, accessToken }) {
-        let maxAge = 3600 * 24 * 20;
-        setCookies("userId", userId, { maxAge });
-        setCookies("access-token", accessToken, { maxAge });
-        navigate(`/${state ?? ""}`, { replace: true });
-        window.location.reload();
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const userEmail = data.get('email');
-        const userPassword = data.get('password');
-
-        loadingControl(true);
-        customFetch(`log-in`, "POST", { userEmail, userPassword })
-            .then(respons => {
-                if (respons) {
-                    setErrorState(false);
-                    complateLogIn(respons);
-                } else {
-                    setErrorState(true);
-                }
-                setPasswordFeild(userPassword);
-                setEmailFeild(userEmail);
-            })
-            .finally(() => { loadingControl(false) })
-    };
-
-
-    const bgImage = require("../images/anonymous-hacker.jpg");
-
-    const InputContainer = ({ children, sx }) => {
-        return (
-            <Grid item xs={12} sx={{ "& fieldset": { borderColor: thereError ? "red !important" : "white" }, ...sx }}>
-                {children}
-            </Grid>
-        )
+    const sxTexFieldOutline = {
+        "& fieldset": {
+            borderColor: thereIsError || notValidEmail ? "red !important" : "white"
+        }
     }
 
     return (
-        <PageWidthBG bgImage={bgImage}>
-            <Container
-                className='customForm'
-                component="main"
-                maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Log In
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <InputContainer>
-                                <TextField
-                                    defaultValue={emailFeild}
-                                    fullWidth
-                                    name="email"
-                                    id="email"
-                                    label="Email Address"
-                                />
-                            </InputContainer>
-                            <InputContainer>
-                                <TextField
-                                    defaultValue={passwordFeild}
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                />
-                            </InputContainer>
-                            <Grid item>
-                                {thereError && <Typography style={{ color: "red" }}>
-                                    There Are Issue in Email Or password, Try Again With More verify
-                                </Typography>}
-                            </Grid>
-                            <Grid item>
-                                <Link style={{ textDecoration: "underline" }}>
-                                    forget your password? change it
-                                </Link>
-                            </Grid>
+        <FormsPagesContainer bgImage={require("../images/anonymous-hacker.jpg")}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><Login /></Avatar>
+                <Typography component="h1" variant="h5">Log In</Typography>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sx={sxTexFieldOutline}>
+                            <TextField
+                                fullWidth
+                                required
+                                name="email"
+                                id="email"
+                                label="Email Address"
+                            />
+                            {notValidEmail && <ErrorMessageTag messge="This is invalid email" />}
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Log In
-                        </Button>
-                    </Box>
-                    <Grid container justifyContent="flex-end">
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                required
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                            />
+                            {
+                                thereIsError &&
+                                <ErrorMessageTag messge="There Are Issue in Email Or password, Try Again With More verify" />
+                            }
+                        </Grid>
                         <Grid item>
-                            <Typography onClick={() => navigate("/sign-up", { replace: true, state })} style={{ textDecoration: "underline" }}>
-                                you dont't have an account? Sign up
-                            </Typography>
+                            <Link style={{ textDecoration: "underline" }}>
+                                forget your password? change it
+                            </Link>
                         </Grid>
                     </Grid>
+                    <Button
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                        sx={{ mt: 2, mb: 2 }}
+                    >
+                        Log In
+                    </Button>
                 </Box>
-            </Container>
-        </PageWidthBG>
+                <Grid container justifyContent="flex-end">
+                    <Grid item>
+                        <Typography
+                            onClick={() => navigate("/sign-up", { replace: true, state })}
+                            sx={{ textDecoration: "underline", mb: 2 }}
+                        >
+                            you dont't have an account? Sign up
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <AuthButton
+                    onAgree={() => { loadingControl(true) }}
+                    onSuccess={logInWithGoogle}
+                    onError={logInWithGoogleFailed}
+                    text='Log in with Google'
+                    mode="light"
+                />
+            </Box>
+        </FormsPagesContainer>
     );
 }
-

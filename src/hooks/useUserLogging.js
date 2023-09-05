@@ -14,6 +14,7 @@ export default function useUserLogging() {
     const { isLoading, isError, isFulfilled, setState } = useFetchState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
+
     useEffect(() => {
         const userId = cookies.userId;
         if (userId && cookies["access-token"]) {
@@ -28,7 +29,7 @@ export default function useUserLogging() {
                 .catch((error) => {
                     if (!navigator.onLine) {
                         setIsNetworkError(true);
-                    } else if (!error.response) {
+                    } else if (!error.response?.status) {
                         setIsServerError(true);
                     }
                 })

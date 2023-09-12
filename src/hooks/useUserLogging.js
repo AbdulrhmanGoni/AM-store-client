@@ -17,24 +17,22 @@ export default function useUserLogging() {
 
     useEffect(() => {
         const userId = cookies.userId;
-        if (userId && cookies["access-token"]) {
-            setState("loading");
-            customFetchFunc(`log-in/${userId}`)
-                .then(data => {
-                    dispatch(setUserData(data.userData));
-                    dispatch(setCart_localy(data.shoppingCart));
-                    dispatch(setFavorites_localy(data.favorites));
-                    setState("fulfilled");
-                })
-                .catch((error) => {
-                    if (!navigator.onLine) {
-                        setIsNetworkError(true);
-                    } else if (!error.response?.status) {
-                        setIsServerError(true);
-                    }
-                })
-                .finally(() => { setState() })
-        }
+        setState("loading");
+        customFetchFunc(`log-in/${userId}`)
+            .then(data => {
+                dispatch(setUserData(data.userData));
+                dispatch(setCart_localy(data.shoppingCart));
+                dispatch(setFavorites_localy(data.favorites));
+                setState("fulfilled");
+            })
+            .catch((error) => {
+                if (!navigator.onLine) {
+                    setIsNetworkError(true);
+                } else if (!error.response?.status) {
+                    setIsServerError(true);
+                }
+            })
+            .finally(() => { setState() })
     }, []);
 
     return {

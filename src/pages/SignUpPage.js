@@ -6,8 +6,7 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PersonAddAlt1 } from '@mui/icons-material';
 import useSignUpLogic from '../hooks/useSignUpLogic';
-import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
-import loadingControl from '../dataBase/actions/loadingControl';
+import { useGoogleAuth, loadingControl } from '@abdulrhmangoni/am-store-library';
 import { ErrorMessageTag } from './LogInPage';
 import FormsPagesContainer from '../components/FormsPagesContainer';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import loadingControl from "../dataBase/actions/loadingControl";
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from "../functions/customFetch";
 
 export const useAction = (url, method, body, { dependent, init, fetchCondition }) => {

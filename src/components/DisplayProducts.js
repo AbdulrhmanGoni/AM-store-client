@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
-import LoadingCircle from './LoadingCircle';
 import ProductsDisplayer from './ProductsDisplayer';
 import { useFetch } from '../hooks/useFetch';
 import { Box } from '@mui/material';
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 
 
 export default function DisplayProducts() {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import isValidEmail from '../functions/isValidEmail';
-import loadingControl from '../dataBase/actions/loadingControl';
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from '../functions/customFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';

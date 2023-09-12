@@ -7,12 +7,11 @@ import {
 import { useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import { useAction } from '../hooks/useAction';
-import LoadingCircle from '../components/LoadingCircle';
 import { AvailabationState } from '../components/ProductCard';
 import PriceDisplayer from '../components/PriceDisplayer';
 import { CleaningServices, Delete, Info } from '@mui/icons-material';
 import useFavoritesActions from '../hooks/useFavoritesActions';
-import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, ActionAlert, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 
 function TitlebarImageList({ products, listTitle, setData }) {
 

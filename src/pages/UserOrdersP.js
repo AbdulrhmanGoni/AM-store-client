@@ -3,16 +3,15 @@ import { useState } from 'react';
 import OrderCard from '../components/OrderCard';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import LoadingCircle from '../components/LoadingCircle';
 import { useFetch } from '../hooks/useFetch';
 import withGurd from '../components/withGurd';
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 
 
 function OrdersPage({ userId }) {
 
     const [filter, setFilter] = useState(0);
-    const ordersFilter = ["In Progress", "Arrived"];
+    const ordersFilter = ["Completed", "Confirmed"];
     const path = `users/${userId}/orders?state=${ordersFilter[filter]}`
     const { data: orders, isError, isLoading } = useFetch(path, { init: [] });
 

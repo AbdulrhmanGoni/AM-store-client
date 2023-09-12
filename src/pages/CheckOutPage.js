@@ -13,13 +13,11 @@ import { clearCheckoutSummary } from '../dataBase/checkoutSummary_slice';
 import getCurrentDate from '../functions/getCurrentDate';
 import { fetchPaymentMethods } from '../dataBase/actions/userPaymentMethods_slice_actions';
 import { fetchLocations } from '../dataBase/actions/locations_slice_actions';
-import LoadingCircle from '../components/LoadingCircle';
 import deliveryPrice, { includeLimit } from '../CONSTANT/deliveryPrice';
 import { addNewOrder } from '../dataBase/actions/orders_actions';
 import { useSpeedMessage } from '../hooks/useSpeedMessage';
-import loadingControl from '../dataBase/actions/loadingControl';
 import { applyDiscount } from '../dataBase/Categories/cobones';
-import { ActionAlert } from '@abdulrhmangoni/am-store-library';
+import { ActionAlert, LoadingCircle, loadingControl } from '@abdulrhmangoni/am-store-library';
 
 function CheckOutPage() {
 
@@ -69,7 +67,7 @@ function CheckOutPage() {
                 products,
                 totalPrice: { before: inCart, after: totalPrice },
                 paymentMethod,
-                state: "In Progress",
+                state: "Completed",
                 deliveryDate: getCurrentDate(7),
                 deliveryPrice: { value: totalPrice > includeLimit ? "Free" : deliveryPrice },
                 discountCobone: { name: discountCobone, value: discount },

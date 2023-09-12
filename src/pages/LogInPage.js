@@ -3,9 +3,8 @@ import {
     Button, Avatar, Typography
 } from '@mui/material/';
 import { Login } from '@mui/icons-material';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import loadingControl from '../dataBase/actions/loadingControl';
-import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
+import { Link } from 'react-router-dom';
+import { useGoogleAuth, loadingControl } from '@abdulrhmangoni/am-store-library';
 import useLogInLogic from '../hooks/useLogInLogic';
 import FormsPagesContainer from '../components/FormsPagesContainer';
 
@@ -16,16 +15,15 @@ export function ErrorMessageTag({ messge }) {
 }
 export default function LogInPage() {
 
-    const navigate = useNavigate();
-    const { state } = useLocation();
-    const { AuthButton } = useGoogleAuth();
     const {
         handleSubmit,
         logInWithGoogle,
         logInWithGoogleFailed,
         thereIsError,
-        notValidEmail
+        notValidEmail,
+        previousPage, navigate
     } = useLogInLogic();
+    const { AuthButton } = useGoogleAuth();
 
 
     const sxTexFieldOutline = {
@@ -50,7 +48,6 @@ export default function LogInPage() {
                         <Grid item xs={12} sx={sxTexFieldOutline}>
                             <TextField
                                 fullWidth
-                                required
                                 name="email"
                                 id="email"
                                 label="Email Address"
@@ -60,7 +57,6 @@ export default function LogInPage() {
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
-                                required
                                 name="password"
                                 label="Password"
                                 type="password"
@@ -89,7 +85,7 @@ export default function LogInPage() {
                 <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Typography
-                            onClick={() => navigate("/sign-up", { replace: true, state })}
+                            onClick={() => navigate("/sign-up", { replace: true, state: previousPage })}
                             sx={{ textDecoration: "underline", mb: 2 }}
                         >
                             you dont't have an account? Sign up

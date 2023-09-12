@@ -2,8 +2,8 @@ import { Divider, FormControl, InputLabel, MenuItem, Select } from '@mui/materia
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart_localy } from '../dataBase/shoppingCart_slice';
-import { addToCart, addToCart_single } from '../dataBase/actions/shoppingCart_slice_actions';
-import loadingControl from '../dataBase/actions/loadingControl';
+import { addToCart } from '../dataBase/actions/shoppingCart_slice_actions';
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 
 export function createArray(num) {
     const arr = [];

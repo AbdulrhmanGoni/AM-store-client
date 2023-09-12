@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import ImageDispayer from '../components/ImageDispayer';
 import { ShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
-import LoadingCircle from "../components/LoadingCircle";
 import { addToCart } from "../dataBase/actions/shoppingCart_slice_actions"
 import { addToCart_localy } from "../dataBase/shoppingCart_slice"
 import PriceDisplayer from "../components/PriceDisplayer";
@@ -17,7 +16,7 @@ import { useFetch } from "../hooks/useFetch";
 import { LoadingButton } from "@mui/lab";
 import CommentsSection from "../components/CommentsSection";
 import { AvailabationState } from "../components/ProductCard";
-import { ErrorThrower } from "@abdulrhmangoni/am-store-library";
+import { ErrorThrower, LoadingCircle } from "@abdulrhmangoni/am-store-library";
 
 
 export default function ProductDetailsP() {

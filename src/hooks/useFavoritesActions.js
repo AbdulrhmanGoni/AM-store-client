@@ -1,7 +1,7 @@
 import { clearFavorites, toggleFavorites } from "../dataBase/actions/favorites_slice_actions";
 import { clearFavorites_localy, toggleFavorites_localy } from "../dataBase/favorites_slice";
 import { useSpeedMessage } from "./useSpeedMessage";
-import loadingControl from "../dataBase/actions/loadingControl";
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function useFavoritesActions({ productsState }) {

@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom'
 import SummaryDisplayer from '../components/SummaryDisplayer'
 import { WidthlyCard } from '../components/ProductCard'
 import getProductsByIdsList from '../dataBase/actions/getProductsByIdsList'
-import LoadingCircle from '../components/LoadingCircle'
 import { fetchOrderById } from '../dataBase/actions/orders_actions'
 import withGurd from '../components/withGurd'
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library'
+import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library'
 
 
 

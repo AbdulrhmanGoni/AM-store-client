@@ -1,10 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
-import LoadingCircle from '../components/LoadingCircle';
 import ProductsDisplayer from '../components/ProductsDisplayer';
 import SearchField from '../components/SearchField';
 import { Box } from '@mui/material';
 import { useFetch } from '../hooks/useFetch';
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 
 
 export default function SearchResultsPage() {

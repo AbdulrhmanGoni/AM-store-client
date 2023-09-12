@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import loadingControl from "./loadingControl";
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from "../../functions/customFetch";
 
 const path = id => `users/${id}/payment-methods`

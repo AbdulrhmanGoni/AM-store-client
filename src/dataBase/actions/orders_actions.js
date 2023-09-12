@@ -1,5 +1,5 @@
 import customFetch from '../../functions/customFetch';
-import loadingControl from "./loadingControl";
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 
 const path = (id, orderId) => `users/${id}/orders/${orderId ?? ""}`;
 

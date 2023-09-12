@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSpeedMessage } from "./useSpeedMessage";
-import loadingControl from "../dataBase/actions/loadingControl";
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from "../functions/customFetch";
 import isValidEmail from "../functions/isValidEmail";
 
@@ -53,8 +53,10 @@ export default function useLogInLogic() {
             userEmail = data.get('email'),
             userPassword = data.get('password');
 
-        validateForm(userEmail) &&
+        if (validateForm(userEmail)) {
+            loadingControl(true)
             logInRequest("log-in", { userEmail, userPassword }, () => { setErrorState(true) })
+        }
     };
 
     function validateForm(email) {
@@ -70,6 +72,8 @@ export default function useLogInLogic() {
         logInWithGoogle,
         logInWithGoogleFailed: () => {
             message("Logging with Google is failed", "error", 10000)
-        }
+        },
+        previousPage: state,
+        navigate
     }
 }

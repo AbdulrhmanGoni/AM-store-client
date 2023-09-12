@@ -5,9 +5,8 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import themeHandeler from "./functions/themeHandeler";
 import { CookiesProvider } from "react-cookie";
-import { ErrorThrower, LoadingCircle } from "@abdulrhmangoni/am-store-library";
+import { ErrorThrower, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
 import useUserLogging from "./hooks/useUserLogging";
-import LoadingPage from "./pages/LoadingPage";
 
 export const ThemeContext = createContext(null);
 

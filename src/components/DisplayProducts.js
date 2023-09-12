@@ -8,7 +8,7 @@ import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 export default function DisplayProducts() {
 
     const { category } = useParams();
-    const { data: products, isLoading, isError } = useFetch(`products/?category=${category}`, { init: [] });
+    const { data: products, isLoading, isError } = useFetch(`products/?category=${category}`);
 
     return (
         <Box sx={{ mt: 2 }}>
@@ -17,17 +17,15 @@ export default function DisplayProducts() {
                     : isError ? <ErrorThrower
                         title="Something Went Wrong!"
                         illustratorType="unexpected"
-                        hideAlertMsg
-                        disableHeight
+                        hideAlertMsg disableHeight
                     />
-                        : products.length ? <ProductsDisplayer>{products}</ProductsDisplayer>
-                            :
-                            <ErrorThrower
-                                title="No Results"
-                                illustratorType="notFound"
-                                hideAlertMsg
-                                disableHeight
-                            />
+                        : products === false ? <ErrorThrower
+                            title="No Results"
+                            illustratorType="notFound"
+                            hideAlertMsg disableHeight
+                        />
+                            : products ? <ProductsDisplayer>{products}</ProductsDisplayer>
+                                : null
             }
         </Box>
     )

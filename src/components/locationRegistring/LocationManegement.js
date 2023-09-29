@@ -3,7 +3,7 @@ import { Box, Button, Divider, IconButton, Typography, useMediaQuery, Alert, Car
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsList from './LocationsList';
 import AddLocationForm from './AddLocationForm';
-import SelectOnMap from './SelectOnMap';
+import GoogleMaps from './GoogleMaps';
 import { AddLocation, Close, Map } from '@mui/icons-material';
 import { setSelectedLocation } from '../../dataBase/actions/locations_slice_actions';
 
@@ -61,7 +61,7 @@ export default function LocationManegement({ defualtDisplay, control, float, use
                 />
             );
             case "add_location": return <AddLocationForm chooses={setRender} />;
-            case "map": return <SelectOnMap chooses={setRender} />;
+            case "map": return <GoogleMaps />;
             default: return <Alert sx={{ mb: 1 }} severity="warning">Eroor</Alert>;
         }
     }

@@ -67,10 +67,11 @@ function UserProfile() {
                             <Box sx={{ width: "120px", height: "120px", position: "relative" }}>
                                 <Avatar
                                     sx={{ width: "100%", height: "100%" }}
-                                    src={userData?.avatar ?? require("../images/1083.jpg")}
+                                    src={userData?.avatar}
                                 />
                                 <OverlayHoverLink
                                     text="View Avatar"
+                                    disable={!userData?.avatar}
                                     customAction={() => setOpenAvatar(true)}
                                     bgStyle={{ borderRadius: "50%" }} />
                                 <IconButton onClick={() => setEditIsOpen(true)} sx={editIconStyle}>

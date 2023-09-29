@@ -76,10 +76,11 @@ function CheckOutPage() {
             addNewOrder({ theOrder, userId: userData._id })
                 .then(res => {
                     if (res.ok) {
-                        window.location.replace("/");
                         dispatch(clearCheckoutSummary());
+                        window.location.reload();
+                        window.location.replace("/");
                     } else {
-                        message("Sorry, Something Was Wrong");
+                        message("Sorry, Something went wrong");
                     }
                 })
                 .finally(() => loadingControl(false));

@@ -85,7 +85,7 @@ export default function ShoppingCartPage() {
                                     <ListItem disablePadding key={product._id}>
                                         <WidthlyCard
                                             id={product._id}
-                                            image={product.images}
+                                            image={product.images[0]}
                                             title={product.title}
                                             description={product.description}
                                             price={product.price}

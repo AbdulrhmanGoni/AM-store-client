@@ -20,23 +20,31 @@ export default function SearchResultsPage() {
                 isLoading ? <LoadingCircle sectionName="Search" />
                     :
                     isError ?
-                        <ErrorThrower
-                            title="Something Went Wrong!"
-                            illustratorType="unexpected"
-                            hideAlertMsg
-                            disableHeight
-                        />
+                        !!results ? <NotFount /> : <SomethingWrong />
                         :
-                        results.length ?
+                        !!results.length ?
                             <ProductsDisplayer>{results}</ProductsDisplayer>
                             :
-                            <ErrorThrower
-                                title="No Results"
-                                illustratorType="notFound"
-                                hideAlertMsg
-                                disableHeight
-                            />
+                            null
             }
         </>
     )
+}
+
+function NotFount() {
+    return <ErrorThrower
+        title="No Results"
+        illustratorType="notFound"
+        hideAlertMsg
+        disableHeight
+    />
+}
+
+function SomethingWrong() {
+    return <ErrorThrower
+        title="Something Went Wrong!"
+        illustratorType="unexpected"
+        hideAlertMsg
+        disableHeight
+    />
 }

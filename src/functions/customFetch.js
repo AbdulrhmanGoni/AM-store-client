@@ -16,6 +16,6 @@ export default async function customFetch(path, method, body) {
     if (method === "DELETE") {
         return (await api.delete(`${host}/${path ?? ""}`, { data: body })).data
     } else {
-        return (await api[method?.toLowerCase()??"get"](`${host}/${path ?? ""}`, body ?? null))?.data
+        return (await api[method?.toLowerCase()??"get"](`${host}/${path ?? ""}`, body ?? null)).data
     }
 }

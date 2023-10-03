@@ -59,13 +59,19 @@ export default function ProductCard({ theProduct, sx }) {
                 ...sx,
             }}>
             <Box sx={{ position: "relative" }}>
-                <CardMedia sx={{ height: { xs: 120, sm: 185 }, userSelect: "none" }}
+                <CardMedia
                     component="img"
+                    sx={{
+                        height: { xs: 120, sm: 185 },
+                        userSelect: "none",
+                        objectFit: "contain"
+                    }}
                     image={images[0]}
                     alt="product Image">
                 </CardMedia>
                 <OverlayHoverLink target={`/product-details/${_id}`} />
             </Box>
+            <Divider />
             <CardContent sx={{ p: 1, pb: 0 }}>
                 <Typography variant="subtitle1" sx={{ fontSize: { xs: 14, sm: 18 }, fontWeight: "bold", mb: 1 }}>
                     {title}
@@ -153,7 +159,16 @@ export function WidthlyCard({ id, image, title, description, price, amount, acti
                 position: "relative"
             }}>
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }} >
-                <img style={{ height: "100%", width: imgWidth ?? "200px" }} src={image} alt={id} />
+                <CardMedia
+                    component="img"
+                    src={image}
+                    alt={id}
+                    style={{
+                        height: "100%",
+                        width: imgWidth ?? "200px",
+                        objectFit: "contain"
+                    }}
+                />
                 <OverlayHoverLink target={`/product-details/${id}`} />
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", flexGrow: 1 }}>
@@ -215,7 +230,16 @@ export function SmallCard({ theProduct }) {
     return (
         <Paper elevation={1} sx={{ display: "flex", gap: 1, p: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }}>
-                <img style={{ height: "100px", width: "120px" }} src={theProduct.images[0]} alt={theProduct._id} />
+                <CardMedia
+                    component="img"
+                    src={theProduct.images[0]}
+                    alt={theProduct._id}
+                    style={{
+                        height: "100px",
+                        width: "120px",
+                        objectFit: "contain"
+                    }}
+                />
                 <OverlayHoverLink linkStyle={{ fontSize: "12px" }} target={`/product-details/${theProduct._id}`} />
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>

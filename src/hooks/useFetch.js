@@ -10,16 +10,21 @@ export const useFetch = (url, { init, depended, fetchCondition } = {}) => {
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [refetched, refetch] = useState(0);
+    const [statusCode, setStatusCode] = useState(0);
 
     useEffect(() => {
         if (pass) {
             setLoading(true);
             customFetch(url)
                 .then(setData)
-                .catch((err) => { setIsError(true); setError(new Error(err)) })
+                .catch((err) => {
+                    setStatusCode(err?.response?.status)
+                    setIsError(true);
+                    setError(new Error(err))
+                })
                 .finally(() => setLoading(false));
         }
     }, [url, refetched, depended]);
 
-    return { data, isError, error, isLoading, setData, refetch: () => refetch(v => ++v) };
+    return { data, isError, error, statusCode, isLoading, setData, refetch: () => refetch(v => ++v) };
 };

@@ -1,15 +1,19 @@
 import {
     AppBar, Container, Box, Toolbar, IconButton, Typography, useMediaQuery
 } from '@mui/material';
-import SearchField from './SearchField';
 import TotalPriceInCart from './TotalPriceInCart';
 import AccountMenu from './AccountMenu';
 import { ShoppingCartIconC, FavoriteIconC } from './main_Icons_Links';
 import Logo from './Logo';
+import { SearchForProductsField } from '@abdulrhmangoni/am-store-library';
+import { host } from '../CONSTANT/hostName';
+import { ReadMore } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
 
     const media = useMediaQuery("(min-width: 700px)");
+    const navigate = useNavigate();
 
     return (
         <Box>
@@ -25,7 +29,12 @@ export default function NavBar() {
                         >
                             AM STORE
                         </Typography>
-                        <SearchField />
+                        <SearchForProductsField
+                            dominName={`${host}/`}
+                            fieldSize='small'
+                            endItemIcon={<ReadMore />}
+                            actionWithProductId={(id) => { navigate(`product-details/${id}`) }}
+                        />
                         <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: { sm: 2 }, alignItems: "center", pl: 1 }}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 {media && <TotalPriceInCart />}

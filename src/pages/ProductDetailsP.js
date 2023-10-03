@@ -1,12 +1,10 @@
 import {
-    Button, Divider, Grid,
-    ImageList, ImageListItem, Rating,
-    List, ListItem, Typography, CardMedia,
+    Button, Divider, Grid, Rating,
+    List, ListItem, Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
-import ImageDispayer from '../components/ImageDispayer';
 import { ShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { addToCart } from "../dataBase/actions/shoppingCart_slice_actions"
 import { addToCart_localy } from "../dataBase/shoppingCart_slice"
@@ -16,7 +14,7 @@ import { useFetch } from "../hooks/useFetch";
 import { LoadingButton } from "@mui/lab";
 import CommentsSection from "../components/CommentsSection";
 import { AvailabationState } from "../components/ProductCard";
-import { ErrorThrower, LoadingCircle } from "@abdulrhmangoni/am-store-library";
+import { ErrorThrower, LoadingCircle, ProductImagesDisplayer } from "@abdulrhmangoni/am-store-library";
 
 
 export default function ProductDetailsP() {
@@ -26,11 +24,9 @@ export default function ProductDetailsP() {
     const dispatch = useDispatch();
 
     const { userData, shoppingCart } = useSelector(state => state);
-    const { data: product, isError, isLoading } = useFetch(`products/${id}`);
+    const { data: product, isError, isLoading, statusCode } = useFetch(`products/${id}`);
 
     const [isInCart, setAsInCart] = useState(false);
-    const [isSliderOpen, setSliderState] = useState(false);
-    const [openedImage, setOpenedImage] = useState(0);
     const [loadingBtn, setLoading] = useState(false);
 
     const addToShoppingCart = async () => {
@@ -44,40 +40,20 @@ export default function ProductDetailsP() {
         }
     }
 
-    function openImage(index) {
-        setOpenedImage(index);
-        setSliderState(true);
-    }
-
     useEffect(() => {
         let theProduct = shoppingCart.find(item => item._id === id);
-        if (theProduct) {
-            setAsInCart(true);
-        } else {
-            setAsInCart(false);
-        }
+        if (theProduct) { setAsInCart(true) }
+        else { setAsInCart(false) }
     }, [id, shoppingCart]);
 
-    if (isLoading) return <LoadingCircle />
-    else if (product) {
-        return (
+    return isLoading ? <LoadingCircle /> :
+        product ?
             <>
                 <Grid container spacing={{ xs: 2, md: 3 }} sx={{ minHeight: "calc(100vh - 87px)", mb: 2 }}>
-                    <Grid item sm={6} sx={{ justifyContent: "center" }}>
-                        <ImageList cols={1}>
-                            {product.images.map((img, index) => (
-                                <ImageListItem onClick={() => openImage(index)} key={img}>
-                                    <CardMedia component="img"
-                                        src={img}
-                                        srcSet={img}
-                                        alt={img}
-                                        loading="lazy"
-                                    />
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
+                    <Grid item xs={12} sm={6} sx={{ justifyContent: "center" }}>
+                        <ProductImagesDisplayer images={product.images} />
                     </Grid>
-                    <Grid item sm={6}>
+                    <Grid item xs={12} sm={6}>
                         <List disablePadding>
                             <ListItem>
                                 <Typography variant="h6">
@@ -133,40 +109,25 @@ export default function ProductDetailsP() {
                         </List>
                     </Grid>
                 </Grid>
-                {
-                    isSliderOpen &&
-                    <ImageDispayer
-                        title={product.title}
-                        imagesList={product.images}
-                        openedImage={openedImage}
-                        closeer={setSliderState}
-                    />
-                }
                 <CommentsSection />
-            </>
-        )
-    }
-    else if (product === false) {
-        return <ErrorThrower
-            message={`We Couldn't Found Product with id: '${id}'`}
-            title="404 Not Found"
-            illustratorType="notFound"
-        />
-    }
-    else if (product === null) {
-        return <ErrorThrower
-            title="Server Error"
-            message='There are unexpected error comes from the server, refresh the page or try later'
-            illustratorType="server"
-            withRefreshButton
-        />
-    }
-    else if (isError) {
-        return <ErrorThrower
-            illustratorType="unexpected"
-            title="Unexpected Error"
-            message='There are unexpected error, check your internet or refresh the page'
-            withRefreshButton
-        />
-    }
+            </> :
+            statusCode === 404 ? <NotFound id={id} /> :
+                isError ? <Unexpected /> : null
+}
+
+function NotFound({ id }) {
+    return <ErrorThrower
+        message={`We Couldn't Found Product with id: '${id}'`}
+        title="404 Not Found"
+        illustratorType="notFound"
+    />
+}
+
+function Unexpected() {
+    return <ErrorThrower
+        illustratorType="unexpected"
+        title="Unexpected Error"
+        message='There are unexpected error, check your internet or refresh the page'
+        withRefreshButton
+    />
 }

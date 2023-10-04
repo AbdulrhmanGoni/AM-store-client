@@ -33,6 +33,9 @@ export default function NavBar() {
                             dominName={`${host}/`}
                             fieldSize='small'
                             endItemIcon={<ReadMore />}
+                            onEnter={(searchInput) => {
+                                !!searchInput && navigate(`search/?title=${searchInput}`)
+                            }}
                             actionWithProductId={(id) => { navigate(`product-details/${id}`) }}
                         />
                         <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: { sm: 2 }, alignItems: "center", pl: 1 }}>

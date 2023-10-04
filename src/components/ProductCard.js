@@ -161,10 +161,11 @@ export function WidthlyCard({ id, image, title, description, price, amount, acti
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }} >
                 <CardMedia
                     component="img"
-                    src={image}
+                    src={image[0]}
                     alt={id}
                     style={{
                         height: "100%",
+                        maxHeight: "155px",
                         width: imgWidth ?? "200px",
                         objectFit: "contain"
                     }}
@@ -189,9 +190,9 @@ export function WidthlyCard({ id, image, title, description, price, amount, acti
                     {
                         displayCount &&
                         <FormControl fullWidth variant="standard">
-                            <InputLabel>Amount</InputLabel>
-                            <Input defaultValue={displayCount} disabled sx={{ width: "80px" }}
-                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            <Input
+                                defaultValue={displayCount} disabled sx={{ width: "80px" }}
+                                startAdornment={<Typography sx={{ fontSize: ".8rem", mr: .8 }}>Quantity</Typography>}
                             />
                         </FormControl>
                     }

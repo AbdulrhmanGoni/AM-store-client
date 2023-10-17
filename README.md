@@ -1,1 +1,1 @@
-# AM-store-client-site
+## Getting Started

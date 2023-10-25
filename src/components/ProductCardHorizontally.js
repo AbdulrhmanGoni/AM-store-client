@@ -11,11 +11,10 @@ import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import ShoppingCartController from './ShoppingCartController';
-import { ActionAlert } from '@abdulrhmangoni/am-store-library';
-import ProductAvailabationState from './ProductAvailabationState';
+import { ActionAlert, ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
 
 
-export default function WidthlyCard(props) {
+export default function ProductCardHorizontally(props) {
 
     let { id, images, title, description, price, amount, actionSec = true, imgWidth, displayCount, noPrice } = props
 

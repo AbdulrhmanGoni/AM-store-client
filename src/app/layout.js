@@ -1,4 +1,5 @@
 "use client"
+import "@abdulrhmangoni/am-store-library/dist/cjs/gloabal.css"
 import './global.css'
 import { createContext } from "react";
 import { SnackbarProvider } from 'notistack';

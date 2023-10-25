@@ -11,8 +11,8 @@ import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import { useRouter } from 'next/navigation';
 import { LoadingButton } from '@mui/lab';
-import ProductAvailabationState from './ProductAvailabationState';
 import { addToCart_localy } from '@/dataBase/shoppingCart_slice';
+import { ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
 
 
 export default function ProductCard({ theProduct, sx }) {

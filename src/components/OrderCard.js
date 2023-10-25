@@ -58,7 +58,7 @@ export default function Order({ order }) {
                 <Box sx={{ flexGrow: 1, width: { xs: "100%", sm: "initial" } }}>
                     <RowInfo title="Order Date: ">{formatDate(order.createdAt)}</RowInfo>
                     <Divider />
-                    <RowInfo title="Total: "><PriceDisplayer price={order.totalPrice.after} /></RowInfo>
+                    <RowInfo title="Total: "><PriceDisplayer price={order.totalPrice} /></RowInfo>
                     <Divider />
                     <RowInfo title="Address: " sx={{ alignItems: { xs: "flex-start", sm: "center" } }}>
                         {country}, {city}, {street}
@@ -67,7 +67,7 @@ export default function Order({ order }) {
                     <RowInfo
                         title={order.state === "Arrived" ? "Arrived at: " : "Expected Arrival: "}
                         sx={{ alignItems: { xs: "flex-start", sm: "center" } }}>
-                        {order.state === "Arrived" ? "order.arrivedAt" : order.deliveryDate}
+                        {order.state === "Arrived" ? "order.arrivedAt" : order.expectedDeliveryDate}
                     </RowInfo>
                 </Box>
                 <Box sx={{

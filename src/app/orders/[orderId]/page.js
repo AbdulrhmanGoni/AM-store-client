@@ -26,7 +26,7 @@ export default function OrderDetails({ params: { orderId } }) {
                                 <SummaryDisplayer
                                     total={order.totalPrice}
                                     items={order.products.length}
-                                    delivery={order.deliveryPrice.value}
+                                    delivery={order.deliveryPrice}
                                     discount={order.discountCobone}
                                 />
                             </Box>

@@ -7,7 +7,7 @@ import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice'
 import { discountCobone, setSummaryPrice } from '@/dataBase/checkoutSummary_slice'
-import { applyDiscount, discountDecorator } from '@/dataBase/Categories/cobones'
+import { applyDiscount } from '@/dataBase/Categories/cobones'
 import { getcobones } from '@/dataBase/actions/cobones_slice_actions'
 
 export default function Summary() {
@@ -28,16 +28,6 @@ export default function Summary() {
 
     useEffect(() => {
         checkCobone(usedCobone);
-        handleCheckoutSummary();
-    }, [totalPriceInCart, discount]);
-
-    useEffect(() => {
-        if (!cobones) {
-            dispatch(getcobones());
-        }
-    }, []);
-
-    function handleCheckoutSummary() {
         let total = applyDiscount(totalPriceInCart, discount);
         if (total < includeLimit) {
             total += deliveryPrice;
@@ -47,7 +37,15 @@ export default function Summary() {
             setDeliveryPriceState(false);
         }
         dispatch(setSummaryPrice(total));
-    }
+
+    }, [totalPriceInCart, discount, usedCobone]);
+
+    useEffect(() => {
+        if (!cobones) {
+            dispatch(getcobones());
+        }
+    }, []);
+
 
     function checkCobone(cobone) {
         if (cobones) {
@@ -109,7 +107,7 @@ export default function Summary() {
                 {
                     discount &&
                     <Li>
-                        <TextTitle style={{ color: "primary.main" }}>discount: {discountDecorator(discount)}</TextTitle>
+                        <TextTitle style={{ color: "primary.main" }}>discount: {discount * 100}%</TextTitle>
                         <PriceDisplayer price={totalPriceInCart * discount} operation="-" />
                     </Li>
                 }

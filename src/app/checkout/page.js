@@ -48,8 +48,7 @@ export default function CheckOutPage() {
 
     function completingCheckout() {
         if (checkIfItValidToCheckout()) {
-            let discount = cobones[discountCobone];
-            const inCart = shoppingCart.reduce((acc, curr) => acc + curr.price * curr.count, 0);
+            const discount = cobones[discountCobone]
             const products = shoppingCart.map((product) => {
                 return `${product._id}-${product.count}-${applyDiscount(product.price, discount)}-${product.category}`
             });
@@ -57,11 +56,11 @@ export default function CheckOutPage() {
                 userId,
                 location: selectedLocation,
                 products,
-                totalPrice: { before: inCart, after: totalPrice },
+                totalPrice,
                 paymentMethod,
                 state: "Completed",
-                deliveryDate: getCurrentDate(7),
-                deliveryPrice: { value: totalPrice > includeLimit ? "Free" : deliveryPrice },
+                expectedDeliveryDate: getCurrentDate(7),
+                deliveryPrice: totalPrice > includeLimit ? "Free" : deliveryPrice,
                 discountCobone: { name: discountCobone, value: discount },
             }
             loadingControl(true);

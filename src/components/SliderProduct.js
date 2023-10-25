@@ -44,7 +44,7 @@ export default function SliderProduct({ theCatagory }) {
                     {
                         isLoading ? loadingCards
                             : isError ?
-                                <Alert sx={{ justifyContent: "center", width: "100%" }} severity="error">
+                                <Alert className="flex-center" sx={{ width: "100%" }} severity="error">
                                     Fetching Products Failed
                                 </Alert>
                                 : products?.map((product) => {

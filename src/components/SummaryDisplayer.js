@@ -2,7 +2,7 @@ import { Box, Divider, List, ListItem, Paper, TextField, Typography, useMediaQue
 import PriceDisplayer from './PriceDisplayer'
 import { Discount } from '@mui/icons-material'
 import deliveryPrice from '@/CONSTANT/deliveryPrice'
-import { discountDecorator } from '@/dataBase/Categories/cobones';
+import { findOriginalPrice } from '@/dataBase/Categories/cobones';
 
 
 export default function SummaryDisplayer({ total, discount, delivery, items }) {
@@ -17,14 +17,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
         )
     }
 
-    const Li = ({ children, style }) => {
-        return (
-            <ListItem sx={{ display: 'flex', justifyContent: "space-between", p: 1, ...style }}>
-                {children}
-            </ListItem>
-        )
-    }
-
+    const original = findOriginalPrice(total, discount.value * 100)
     const priceStyle = { fontSize: media ? "15px" : "16px" }
 
     return (
@@ -36,13 +29,16 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                 <Divider />
                 <Li>
                     <TextTitle>Items ({items})</TextTitle>
-                    <PriceDisplayer price={total.before} style={priceStyle} />
+                    <PriceDisplayer
+                        price={ discount.value ? original : total }
+                        style={priceStyle}
+                    />
                 </Li>
                 {
                     discount.value &&
                     <Li>
-                        <TextTitle style={{ color: "primary.main" }}>discount: {discountDecorator(discount.value)}</TextTitle>
-                        <PriceDisplayer price={total.before * discount.value} operation="-" />
+                        <TextTitle style={{ color: "primary.main" }}>discount: {discount.value * 100}%</TextTitle>
+                        <PriceDisplayer price={original * discount.value} operation="-" />
                     </Li>
                 }
                 <Li>
@@ -50,13 +46,12 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                     {
                         delivery ?
                             <PriceDisplayer price={deliveryPrice} operation={"+"} style={priceStyle} />
-                            :
-                            <Typography sx={{ color: "success.main" }} variant='body2'>Free</Typography>
+                            : <Typography sx={{ color: "success.main" }} variant='body2'>Free</Typography>
                     }
                 </Li>
                 <Li>
                     <TextTitle style={{ color: "red", fontSize: "21px" }}>Total:</TextTitle>
-                    <PriceDisplayer price={total.after} style={{ ...priceStyle, color: "red", fontSize: "20px" }} />
+                    <PriceDisplayer price={total} style={{ ...priceStyle, color: "red", fontSize: "20px" }} />
                 </Li>
                 <Divider />
                 <Li style={{ pb: 2 }}>
@@ -74,5 +69,13 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
             </List>
         </Paper>
 
+    )
+}
+
+const Li = ({ children, style }) => {
+    return (
+        <ListItem sx={{ display: 'flex', justifyContent: "space-between", p: 1, ...style }}>
+            {children}
+        </ListItem>
     )
 }

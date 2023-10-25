@@ -5,7 +5,6 @@ import {
 import TotalPriceInCart from './TotalPriceInCart';
 import AccountMenu from './AccountMenu';
 import { ShoppingCartIconC, FavoriteIconC } from './main_Icons_Links';
-// import Logo from './Logo';
 import { SearchForProductsField } from '@abdulrhmangoni/am-store-library';
 import { host } from '@/CONSTANT/hostName';
 import { ReadMore } from '@mui/icons-material';
@@ -22,7 +21,6 @@ export default function NavBar() {
             <AppBar position="fixed">
                 <Container maxWidth="lg">
                     <Toolbar sx={{ padding: "0 !important" }}>
-                        {/* <Logo /> */}
                         <Typography
                             variant="h6"
                             noWrap

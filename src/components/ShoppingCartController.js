@@ -28,6 +28,7 @@ export default function ShoppingCartController({ productId }) {
                 loadingControl(true);
                 await addToCart({ userId, productId, count: event.target.value })
                     .then(product => dispatch(addToCart_localy(product)))
+                    .catch(() => { /* nothing for now */ })
                 loadingControl(false);
             } else {
                 dispatch(addToCart_localy({ _id: productId, count: event.target.value }));
@@ -35,7 +36,7 @@ export default function ShoppingCartController({ productId }) {
         }
     };
 
-    useEffect(() => { theProduct && setCount(theProduct.count) }, [shoppingCart]);
+    useEffect(() => { theProduct && setCount(theProduct.count) }, [shoppingCart, theProduct]);
 
     if (theProduct) {
         return (
@@ -47,7 +48,6 @@ export default function ShoppingCartController({ productId }) {
                 size="small">
                 <InputLabel>Count</InputLabel>
                 <Select
-                    labelId="Shopping Cart Controller"
                     value={count}
                     label="Count"
                     onChange={changeCount}

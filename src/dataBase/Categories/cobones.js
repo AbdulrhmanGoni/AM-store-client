@@ -3,8 +3,7 @@ export function applyDiscount(price, discount) {
     else return price;
 }
 
-export function discountDecorator(cobone) {
-    if (cobone) {
-        return `${String(cobone.toFixed(2)).slice(2)}%`
-    } else return 0
+export function findOriginalPrice(discountedPrice, discountPercentage) {
+    const originalPrice = discountedPrice / (1 - discountPercentage / 100);
+    return originalPrice;
 }

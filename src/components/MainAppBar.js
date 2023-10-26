@@ -29,7 +29,7 @@ export default function NavBar() {
                             AM STORE
                         </Typography>
                         <SearchForProductsField
-                            dominName={`${host}/`}
+                            hostName={host}
                             fieldSize='small'
                             endItemIcon={<ReadMore />}
                             onEnter={(searchInput) => {

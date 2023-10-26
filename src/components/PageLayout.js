@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import checkUserState from '@/functions/checkUserState';
 import CantAccessMessage from './CantAccessMessage';
 import { useSelector } from 'react-redux';
+import pagesSpaces from '@/CONSTANT/pagesSpaces';
 
 
 export default function PageLayout({ children, maxWidth, title, thisProtectedPage, redirect }) {
@@ -40,7 +41,7 @@ export default function PageLayout({ children, maxWidth, title, thisProtectedPag
                     </Container>
                 </AppBar>
                 <Box sx={{ height: "57px", position: "relative", mb: "25px" }} />
-                <Container maxWidth={maxWidth} sx={{ minHeight: "calc(100vh - 57px - 25px)" }}>
+                <Container maxWidth={maxWidth} sx={{ minHeight: "calc(100vh - 57px - 25px)", pl: pagesSpaces, pr: pagesSpaces }}>
                     {children}
                 </Container>
             </>

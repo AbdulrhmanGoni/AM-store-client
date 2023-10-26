@@ -1,3 +1,4 @@
+"use client"
 import ProductCard from './ProductCard';
 import { useMediaQuery, Grid } from '@mui/material';
 

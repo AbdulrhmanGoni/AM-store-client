@@ -12,9 +12,8 @@ import PriceDisplayer from "@/components/PriceDisplayer";
 import ToggleFavorite from "@/components/ToggleFavorite";
 import { LoadingButton } from "@mui/lab";
 // import CommentsSection from "@/components/CommentsSection";
-import { ProductImagesDisplayer } from "@abdulrhmangoni/am-store-library";
+import { ProductImagesDisplayer, ProductAvailabationState } from "@abdulrhmangoni/am-store-library";
 import { useRouter } from "next/navigation";
-import AvailabationState from "./ProductAvailabationState";
 
 
 export default function ProductDetails({ product }) {
@@ -83,7 +82,7 @@ export default function ProductDetails({ product }) {
                             alignItems: "center",
                             gap: 1
                         }}>
-                            <AvailabationState visitAllAmount amount={product.amount} />
+                            <ProductAvailabationState visitAllAmount amount={product.amount} />
                         </Typography>
                     </ListItem>
                     <Divider />

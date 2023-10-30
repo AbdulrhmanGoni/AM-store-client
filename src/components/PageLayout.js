@@ -33,7 +33,7 @@ export default function PageLayout({ children, maxWidth, title, thisProtectedPag
     if (render) {
         return isAllowed ?
             <>
-                <AppBar position="fixed">
+                <AppBar elevation={1} position="fixed">
                     <Container maxWidth={maxWidth} sx={{ display: "flex", alignItems: "center", gap: 2, height: "57px" }}>
                         <IconButton onClick={back} sx={{ color: "inherit" }}><Reply /></IconButton>
                         <Typography variant="h6" sx={{ fontWeight: "bold", flexGrow: 1 }}>{title}</Typography>
@@ -41,7 +41,14 @@ export default function PageLayout({ children, maxWidth, title, thisProtectedPag
                     </Container>
                 </AppBar>
                 <Box sx={{ height: "57px", position: "relative", mb: "25px" }} />
-                <Container maxWidth={maxWidth} sx={{ minHeight: "calc(100vh - 57px - 25px)", pl: pagesSpaces, pr: pagesSpaces }}>
+                <Container
+                    maxWidth={maxWidth}
+                    className='flex-column'
+                    sx={{
+                        height: "calc(100vh - 57px - 25px)",
+                        pl: pagesSpaces,
+                        pr: pagesSpaces
+                    }}>
                     {children}
                 </Container>
             </>

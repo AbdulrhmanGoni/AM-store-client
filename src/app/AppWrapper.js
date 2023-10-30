@@ -1,17 +1,31 @@
 "use client"
-import { createContext } from "react";
 import useUserLogging from "@/hooks/useUserLogging";
 import { ErrorThrower, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
+import { Box, useTheme } from "@mui/material";
 
-export const ThemeContext = createContext(null);
 
 export default function AppWrapper({ children }) {
 
-    const { isLoading, isNetworkError, isServerError } = useUserLogging();
+    const { isLoading, isNetworkError, isServerError, renderApp } = useUserLogging();
+    const { palette: { primary, background, text } } = useTheme();
 
     return (
-        <html lang="en">
-            <body>
+        <Box
+            lang="en"
+            component="html"
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+                "*::-webkit-scrollbar": { bgcolor: background.paper },
+                "*::-webkit-scrollbar-thumb": { bgcolor: primary.main },
+                "& input:autofill": {
+                    boxShadow: `0 0 0 100px ${background.default} inset !important`,
+                    WebkitTextFillColor: `${text.primary} !important`
+                }
+            }}
+        >
+            <Box component="body">
                 {
                     isLoading ? <LoadingPage />
                         : isNetworkError ? <ErrorThrower
@@ -26,10 +40,10 @@ export default function AppWrapper({ children }) {
                                 illustratorType="server"
                                 fullPage withRefreshButton
                             />
-                                : [children]
+                                : renderApp && children
                 }
                 <LoadingCircle staticCircle darkBg />
-            </body>
-        </html>
+            </Box>
+        </Box>
     );
 }

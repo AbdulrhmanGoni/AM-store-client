@@ -10,7 +10,7 @@ import { host } from '@/CONSTANT/hostName';
 import { ReadMore } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 
-export default function NavBar() {
+export default function MainAppBar() {
 
     const media = useMediaQuery("(min-width: 700px)");
     const { push } = useRouter();
@@ -18,13 +18,18 @@ export default function NavBar() {
     return (
         <Box>
             <Toolbar />
-            <AppBar position="fixed">
+            <AppBar elevation={1} position="fixed">
                 <Container maxWidth="lg">
                     <Toolbar sx={{ padding: "0 !important" }}>
                         <Typography
+                            sx={{
+                                display: { xs: 'none', sm: 'block' },
+                                overflow: "visible",
+                                mr: 2,
+                                fontWeight: "bold"
+                            }}
                             variant="h6"
                             noWrap
-                            sx={{ display: { xs: 'none', sm: 'block' }, overflow: "visible", mr: 2 }}
                         >
                             AM STORE
                         </Typography>

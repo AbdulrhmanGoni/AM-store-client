@@ -7,6 +7,10 @@ import { catagoriesInfo } from "@/dataBase/Categories/CATEGORIES";
 import { Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
 
+export const metadata = {
+  title: "AM Store"
+}
+
 export default function HomePage() {
 
   const mobileDevice = useMediaQuery("(max-width: 599px)");
@@ -37,6 +41,3 @@ export default function HomePage() {
   )
 }
 
-export const metadata = {
-  title: "AM Store"
-}

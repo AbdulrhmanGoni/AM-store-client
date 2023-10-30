@@ -22,7 +22,7 @@ export const ShoppingCartIconC = ({ color }) => {
     }, [shoppingCart])
 
     return (
-        <Badge color="info" badgeContent={count}>
+        <Badge color="primary" badgeContent={count}>
             <ShoppingCart color={color} onClick={() => push("/shopping-cart")} sx={fs} />
         </Badge>
     );
@@ -35,7 +35,7 @@ export const FavoriteIconC = ({ color }) => {
     const favorites = useSelector(state => state.favorites);
 
     return (
-        <Badge color="info" badgeContent={favorites ? favorites.length : 0}>
+        <Badge color="primary" badgeContent={favorites ? favorites.length : 0}>
             <FolderSpecial color={color} onClick={() => push("/favorites")} sx={fs} />
         </Badge>
     );

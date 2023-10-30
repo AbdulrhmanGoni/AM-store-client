@@ -1,9 +1,6 @@
-import { useContext } from 'react';
-import { styled } from '@mui/material/styles';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import { ThemeContext } from '@/app/layout';
+"use client"
+import { FormGroup, FormControlLabel, Switch, styled } from '@mui/material';
+import { useCookies } from 'react-cookie';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 54,
@@ -54,19 +51,23 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 export default function SwitchTheme() {
 
-    const { toggleMode, isLightMode } = useContext(ThemeContext);
+    const [{ AM_Store_client_site_theme: mode }, setCoockies] = useCookies();
 
     function switchTheme() {
-        toggleMode(state => !state)
-        localStorage.setItem("isLightMode", JSON.stringify(!isLightMode))
+        setCoockies("AM_Store_client_site_theme", mode === "light" ? "dark" : "light")
     }
 
     return (
         <FormGroup>
             <FormControlLabel
                 sx={{ "& lable": { mr: 0 } }}
-                control={<MaterialUISwitch checked={isLightMode} />}
-                onChange={switchTheme}
+                control={
+                    <MaterialUISwitch
+                        onChange={switchTheme}
+                        checked={!(mode === "dark")}
+                    />
+                }
+                label=""
             />
         </FormGroup>
     );

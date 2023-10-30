@@ -11,9 +11,10 @@ export default function useUserLogging() {
 
     const dispatch = useDispatch();
     const [cookies] = useCookies();
-    const { isLoading, isError, isFulfilled, setState } = useFetchState(null);
+    const { isLoading, isError, setState } = useFetchState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
+    const [renderApp, setRendrApp] = useState(false);
 
     useEffect(() => {
         const userId = cookies.userId;
@@ -24,6 +25,7 @@ export default function useUserLogging() {
                 dispatch(setCart_localy(data.shoppingCart));
                 dispatch(setFavorites_localy(data.favorites));
                 setState("fulfilled");
+                setRendrApp(true)
             })
             .catch((error) => {
                 if (!navigator.onLine) {
@@ -31,15 +33,19 @@ export default function useUserLogging() {
                 } else if (!error.response?.status) {
                     setIsServerError(true);
                 }
+                setRendrApp(true)
             })
-            .finally(() => { setState() })
+            .finally(() => {
+                setState();
+                setRendrApp(true)
+            })
     }, []);
 
     return {
         isLoading,
         isNetworkError,
         isError,
-        isFulfilled,
-        isServerError
+        isServerError,
+        renderApp
     }
 }

@@ -1,7 +1,9 @@
 "use client"
 import { useState } from 'react';
 import { Box, Menu, MenuItem, ListItemIcon, Divider } from '@mui/material';
-import { FavoriteIconC, ShoppingCartIconC, UserAccountIconC } from './main_Icons_Links';
+import CustomUserAccountIcon from './CustomUserAccountIcon';
+import CustomFavoriteIcon from './CustomFavoriteIcon';
+import CustomShoppingCartIcon from './CustomShoppingCartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { Feedback, Inbox, LocationOn, Payment, Logout } from '@mui/icons-material';
 import { userLogOut } from '@/dataBase/userData_slice';
@@ -13,19 +15,19 @@ import { useRouter } from 'next/navigation';
 const menulinks = [
     {
         path: "/user-profile",
-        icon: <UserAccountIconC />,
+        icon: <CustomUserAccountIcon />,
         title: "Profile",
         divider: true,
         auth: true
     },
     {
         path: "/shopping-cart",
-        icon: <ShoppingCartIconC />,
+        icon: <CustomShoppingCartIcon />,
         title: "Shopping Cart"
     },
     {
         path: "/favorites",
-        icon: <FavoriteIconC />,
+        icon: <CustomFavoriteIcon />,
         title: "Favorites"
     },
     {
@@ -62,13 +64,7 @@ export default function AccountMenu() {
     const [, , removeCookies] = useCookies();
     const [anchorEl, setAnchorEl] = useState(null);
     const [feedbackFormState, setOpenFeedbackState] = useState(false);
-    const open = Boolean(anchorEl);
-
     const userData = useSelector(state => state.userData);
-
-    const handleClick = (event) => { setAnchorEl(event.currentTarget) };
-
-    const handleClose = () => { setAnchorEl(null) };
 
     const goTo = (path, auth) => {
         if (auth) {
@@ -113,23 +109,24 @@ export default function AccountMenu() {
         setAnchorEl(null);
     };
 
+    const open = Boolean(anchorEl);
 
     return (
         <>
             <Box
-                onClick={handleClick}
+                onClick={(event) => { setAnchorEl(event.currentTarget) }}
                 size="small"
                 aria-controls={open ? 'account-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
             >
-                <UserAccountIconC />
+                <CustomUserAccountIcon />
             </Box>
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
-                onClose={handleClose}
+                onClose={() => { setAnchorEl(null) }}
                 slotProps={
                     {
                         paper: {

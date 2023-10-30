@@ -4,7 +4,8 @@ import {
 } from '@mui/material';
 import TotalPriceInCart from './TotalPriceInCart';
 import AccountMenu from './AccountMenu';
-import { ShoppingCartIconC, FavoriteIconC } from './main_Icons_Links';
+import CustomFavoriteIcon from './CustomFavoriteIcon';
+import CustomShoppingCartIcon from './CustomShoppingCartIcon';
 import { SearchForProductsField } from '@abdulrhmangoni/am-store-library';
 import { host } from '@/CONSTANT/hostName';
 import { ReadMore } from '@mui/icons-material';
@@ -49,7 +50,7 @@ export default function MainAppBar() {
                                     size="small"
                                     aria-label="show Shopping Cart Content"
                                     color="inherit">
-                                    <ShoppingCartIconC />
+                                    <CustomShoppingCartIcon />
                                 </IconButton>
                             </Box>
                             <IconButton
@@ -57,7 +58,7 @@ export default function MainAppBar() {
                                 aria-label="show favoriets List"
                                 color="inherit"
                             >
-                                <FavoriteIconC />
+                                <CustomFavoriteIcon />
                             </IconButton>
                             <IconButton
                                 size="small"

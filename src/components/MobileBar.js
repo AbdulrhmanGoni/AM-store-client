@@ -1,6 +1,7 @@
+"use client"
 import { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material';
-import { pagesLinks } from "./main_Icons_Links";
+import mobileBarLinks from "./MobileBarLinks";
 import { useRouter } from 'next/navigation';
 
 
@@ -19,23 +20,23 @@ export default function MobileBar() {
             }}
             showLabels
             value={currentPage}
-            onChange={(_, page) => {
-                setPage(page);
-            }}
+            onChange={(_, page) => { setPage(page) }}
         >
-            {pagesLinks.map(
-                (link) => <BottomNavigationAction
-                    key={link.name}
-                    onClick={() => push(link.path)}
-                    sx={{
-                        p: 0,
-                        maxWidth: "fit-content !important",
-                        minWidth: "fit-content !important"
-                    }}
-                    label={link.name}
-                    icon={link.icon}
-                />
-            )}
+            {
+                mobileBarLinks.map(
+                    (link) => <BottomNavigationAction
+                        key={link.name}
+                        onClick={() => push(link.path)}
+                        sx={{
+                            p: 0,
+                            maxWidth: "fit-content !important",
+                            minWidth: "fit-content !important"
+                        }}
+                        label={link.name}
+                        icon={link.icon}
+                    />
+                )
+            }
         </BottomNavigation>
     );
 }

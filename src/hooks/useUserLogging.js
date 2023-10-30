@@ -18,27 +18,27 @@ export default function useUserLogging() {
 
     useEffect(() => {
         const userId = cookies.userId;
-        setState("loading");
-        customFetchFunc(`log-in/${userId}`)
-            .then(data => {
-                dispatch(setUserData({ ...data.userData, state: true }));
-                dispatch(setCart_localy(data.shoppingCart));
-                dispatch(setFavorites_localy(data.favorites));
-                setState("fulfilled");
-                setRendrApp(true)
-            })
-            .catch((error) => {
-                if (!navigator.onLine) {
-                    setIsNetworkError(true);
-                } else if (!error.response?.status) {
-                    setIsServerError(true);
-                }
-                setRendrApp(true)
-            })
-            .finally(() => {
-                setState();
-                setRendrApp(true)
-            })
+        if (userId) {
+            setState("loading");
+            customFetchFunc(`log-in/${userId}`)
+                .then(data => {
+                    dispatch(setUserData({ ...data.userData, state: true }));
+                    dispatch(setCart_localy(data.shoppingCart));
+                    dispatch(setFavorites_localy(data.favorites));
+                    setState("fulfilled");
+                })
+                .catch((error) => {
+                    if (!navigator.onLine) {
+                        setIsNetworkError(true);
+                    } else if (!error.response?.status) {
+                        setIsServerError(true);
+                    }
+                })
+                .finally(() => {
+                    setState();
+                })
+        }
+        setRendrApp(true)
     }, []);
 
     return {

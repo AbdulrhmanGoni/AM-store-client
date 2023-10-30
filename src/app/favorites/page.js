@@ -20,17 +20,21 @@ function FavoritesPage() {
     const [isError, setError] = useState();
 
     function fetchProducts() {
-        customFetch("products", "POST", { productsIds })
-            .then(setProducts)
-            .catch(setError)
-            .finally(() => setLoading(false));
+        if (productsIds) {
+            customFetch("products", "POST", { productsIds })
+                .then(setProducts)
+                .catch(setError)
+                .finally(() => setLoading(false));
+        } else {
+            setProducts([])
+        }
     }
 
     useEffect(() => {
         setProducts(state => state?.filter(item => productsIds.includes(item._id)))
     }, [productsIds])
 
-    useEffect(() => { fetchProducts() }, [])
+    useEffect(fetchProducts, [productsIds])
 
     function clear() {
         loadingControl(true);
@@ -38,60 +42,75 @@ function FavoritesPage() {
             .then(res => {
                 if (res) {
                     dispatch(clearFavorites_localy());
-                    setData([]);
                 }
             })
             .catch(() => message("Clearing products failed", "error"))
             .finally(() => { loadingControl(false) })
     }
 
+    return isLoading ?
+        <LoadingCircle />
+        : isError ? <Error />
+            : products ?
+                products.length ?
+                    <PageContent clear={clear} /> : <Empty />
+                : null
+
+}
+
+
+function PageContent({ clear }) {
     return (
-        isLoading ?
-            <LoadingCircle />
-            : isError ?
-                <ErrorThrower
-                    title="Something went wrong"
-                    message="There is Something Wrong, may its network error or unexpected error"
-                    illustratorType='unexpected'
-                    withRefreshButton
-                />
-                : products ?
-                    products.length ?
-                        <>
-                            <Paper
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                    mb: 2, p: 2
-                                }}
-                            >
-                                <Typography variant='h6'>Favorites</Typography>
-                                <ActionAlert
-                                    title="Clear favorites"
-                                    message="Are you sure you want to remove all products in your favorites?"
-                                    action={clear}
-                                >
-                                    <Button
-                                        variant='contained'
-                                        size='small'
-                                        startIcon={<CleaningServices />}
-                                        color='error'>
-                                        Clear Favorites
-                                    </Button>
-                                </ActionAlert>
-                            </Paper>
-                            <ProductsDisplayer>{products}</ProductsDisplayer>
-                        </>
-                        :
-                        <ErrorThrower
-                            hideAlertMsg
-                            title="Favorites is empty"
-                            illustratorType='empty'
-                        />
-                    : null
+        <>
+            <Paper
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    mb: 2, p: 2
+                }}
+            >
+                <Typography variant='h6'>Favorites</Typography>
+                <ActionAlert
+                    title="Clear favorites"
+                    message="Are you sure you want to remove all products in your favorites?"
+                    action={clear}
+                >
+                    <Button
+                        variant='contained'
+                        size='small'
+                        startIcon={<CleaningServices />}
+                        color='error'>
+                        Clear Favorites
+                    </Button>
+                </ActionAlert>
+            </Paper>
+            <ProductsDisplayer>{products}</ProductsDisplayer>
+        </>
     )
 }
+
+function Empty() {
+    return (
+        <ErrorThrower
+            hideAlertMsg
+            title="Favorites is empty"
+            illustratorType='empty'
+        />
+    )
+}
+
+function Error() {
+    return (
+        <ErrorThrower
+            title="Something went wrong"
+            message="There is Something Wrong, may its network error or unexpected error"
+            illustratorType='unexpected'
+            withRefreshButton
+        />
+    )
+}
+
 
 export default FavoritesPage;

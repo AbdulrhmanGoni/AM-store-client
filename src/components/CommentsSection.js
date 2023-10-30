@@ -1,6 +1,6 @@
 "use client"
 import { Alert, Box, Button, CircularProgress, IconButton, List, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
 import CommentViewer from './CommentViewer';
 import { addComment } from '@/dataBase/actions/commentsActions';
 import { useSelector } from 'react-redux';
@@ -66,7 +66,7 @@ const CommentsSection = () => {
     }
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1, p: "40px 0px" }}>
+        <Box className="flex-column-center gap1 full-width" p="40px 0px">
             <TextFieldWithImojis
                 placeholder="What is your opinion about this product"
                 handleSubmit={handleAddComment}

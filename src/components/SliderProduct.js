@@ -1,10 +1,9 @@
 "use client"
-import "./SliderProduct.css"
+import styles from "./SliderProducts.module.css"
 import { useEffect, useState, useRef } from "react";
 import { Alert, Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import ProductCard from "./ProductCard";
-import { createArray } from "./ShoppingCartController";
 import { useFetch } from "@/hooks/useFetch";
 import { ProductLoadingCard } from "./ProductLoadingCard";
 
@@ -22,9 +21,9 @@ export default function SliderProduct({ theCatagory }) {
 
     useEffect(() => {
         products.length && setSlidersWidth((products.length * cardWidth) + (products.length - 1 * 15));
-    }, [cardWidth]);
+    }, [cardWidth, products.length]);
 
-    const loadingCards = createArray(10).map((_, index) => <ProductLoadingCard key={index} cardWidth={cardWidth} />)
+    const loadingCards = Array.from(Array(5)).map((_, index) => <ProductLoadingCard key={index} cardWidth={cardWidth} />)
 
     const floatBtnStyle = {
         width: "35px",
@@ -39,12 +38,12 @@ export default function SliderProduct({ theCatagory }) {
 
     return (
         <Box sx={{ position: "relative" }}>
-            <div ref={containerRef} className="sliderProductContainer">
-                <div className="sliderProduct" style={{ width: `${slidersWidth}px`, minHeight: "375px" }}>
+            <div ref={containerRef} className={styles.sliderProductContainer}>
+                <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "375px" }}>
                     {
                         isLoading ? loadingCards
                             : isError ?
-                                <Alert className="flex-center" sx={{ width: "100%" }} severity="error">
+                                <Alert className="flex-center full-width" severity="error">
                                     Fetching Products Failed
                                 </Alert>
                                 : products?.map((product) => {
@@ -59,20 +58,25 @@ export default function SliderProduct({ theCatagory }) {
                     }
                 </div>
             </div>
-            <IconButton
-                sx={{ "&:hover": { ...bgHover }, ...floatBtnStyle, left: "0px" }}
-                onClick={() => scrollBtns(-(cardWidth + 15))}
-                className="scrollToLeftBtn"
-            >
-                <ArrowBackIosNew size="small" />
-            </IconButton>
-            <IconButton
-                sx={{ "&:hover": { ...bgHover }, ...floatBtnStyle, right: "0px" }}
-                onClick={() => scrollBtns(cardWidth + 15)}
-                className="scrollToRightBtn"
-            >
-                <ArrowForwardIos size="small" />
-            </IconButton>
+            {
+                products &&
+                <>
+                    <IconButton
+                        sx={{ "&:hover": { ...bgHover }, ...floatBtnStyle, left: "0px" }}
+                        onClick={() => scrollBtns(-(cardWidth + 15))}
+                        className={styles.scrollToLeftBtn}
+                    >
+                        <ArrowBackIosNew size="small" />
+                    </IconButton>
+                    <IconButton
+                        sx={{ "&:hover": { ...bgHover }, ...floatBtnStyle, right: "0px" }}
+                        onClick={() => scrollBtns(cardWidth + 15)}
+                        className={styles.scrollToRightBtn}
+                    >
+                        <ArrowForwardIos size="small" />
+                    </IconButton>
+                </>
+            }
         </Box>
     );
 }

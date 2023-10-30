@@ -3,7 +3,7 @@ import { Box, Button, Paper } from '@mui/material';
 import Comment from './Comment';
 import { useSelector } from 'react-redux';
 import useLikesAndDislikes from '../hooks/useLikesAndDislikes';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
 import CommentOptionsMenu from './CommentOptionsMenu';
 import { Reply } from '@mui/icons-material';
 import useReplyField from '../hooks/useReplyField';

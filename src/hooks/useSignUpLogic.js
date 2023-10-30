@@ -8,7 +8,7 @@ import { setUserData } from '@/dataBase/userData_slice';
 import { setShoppingCart } from '@/dataBase/actions/shoppingCart_slice_actions';
 import { setFavorites } from '@/dataBase/actions/favorites_slice_actions';
 import { useSpeedMessage } from './useSpeedMessage';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 
 export default function useSignUpLogic() {
@@ -59,11 +59,14 @@ export default function useSignUpLogic() {
         return thereIsError ? false : password1
     }
 
-    function signUpRequest(path, newUser, emailErr) {
+    function signUpRequest(path, newUser) {
         customFetch(path, "POST", newUser)
-            .then(data => {
-                if (data) complateSingUp(data);
-                else emailErr()
+            .then(res => {
+                if (res.ok) complateSingUp(res.payload);
+                else {
+                    message(res.message, "warning");
+                    setEmailState({ state: false, msg: res.message ?? "There is unexpected error" })
+                }
             })
             .catch(() => { message("There is unexpected error", "error"); })
             .finally(() => { loadingControl(false); })
@@ -75,13 +78,7 @@ export default function useSignUpLogic() {
             avatar: userInfo.picture,
             userName: userInfo.name,
         }
-
-        userInfo.email_verified &&
-            signUpRequest(
-                "sign-up/google-auth",
-                newUser,
-                () => { message("Your email already registred", "warning", 10000) }
-            )
+        userInfo.email_verified && signUpRequest("sign-up/google-auth", newUser)
     }
 
     async function complateSingUp({ userData, token }) {
@@ -104,11 +101,7 @@ export default function useSignUpLogic() {
 
         if (userName && userEmail && userPassword) {
             loadingControl(true);
-            signUpRequest(
-                "sign-up",
-                { userName, userEmail, userPassword },
-                () => { setEmailState({ state: false, msg: "This Email Is Already Used" }) }
-            )
+            signUpRequest("sign-up", { userName, userEmail, userPassword })
         }
     };
 

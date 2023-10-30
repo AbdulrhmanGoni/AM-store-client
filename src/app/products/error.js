@@ -17,10 +17,7 @@ export default function Error({ error, reset }) {
             >
                 <Button
                     variant='contained'
-                    onClick={
-                        // Attempt to recover by trying to re-render the segment
-                        () => reset()
-                    }
+                    onClick={ () => reset() }
                 >
                     Try again
                 </Button>

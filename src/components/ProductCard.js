@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from 'react';
 import {
     Card, CardMedia, Rating, Divider, Box,
@@ -46,16 +47,12 @@ export default function ProductCard({ theProduct, sx }) {
             if (productInCart) { setAsInCart(true); }
             else { setAsInCart(false); }
         }
-    }, [shoppingCart]);
+    }, [_id, shoppingCart]);
 
     return (
         <Card
-            sx={{
-                m: 0, display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                ...sx,
-            }}>
+            className='flex-column'
+            sx={{ m: 0, justifyContent: "space-between", ...sx }}>
             <Box sx={{ position: "relative" }}>
                 <CardMedia
                     component="img"
@@ -75,8 +72,8 @@ export default function ProductCard({ theProduct, sx }) {
                     {title}
                 </Typography>
             </CardContent>
-            <Box sx={{ display: "flex", alignItems: "center", p: "0px 8px" }}>
-                <Rating name="half-rating-read" precision={0.5} size='small' value={rate} readOnly />
+            <Box className="flex-row-center-start" sx={{ p: "0px 8px" }}>
+                <Rating precision={0.5} size='small' value={rate} readOnly />
                 <Typography variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</Typography>
             </Box>
             <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>

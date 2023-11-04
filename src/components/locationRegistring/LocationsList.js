@@ -13,7 +13,7 @@ export default function LocationsList({ theSelected, setTheSelected, chooses }) 
         setTheSelected(event.target.value);
     }
 
-    useEffect(() => { !locationsList.length && chooses("add_location") }, [locationsList]);
+    useEffect(() => { !locationsList?.length && chooses("add_location") }, [locationsList]);
 
     return (
         <Box sx={{

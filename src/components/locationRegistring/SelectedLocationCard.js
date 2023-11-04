@@ -16,15 +16,13 @@ export default function SelectedLocationCard({ style, actionIcon }) {
     const userId = useSelector(state => state.userData?._id);
     const [isLoading, setIsLoading] = useState(false);
 
-    async function bringLocations(userId) {
-        setIsLoading(true)
-        await dispatch(fetchLocations(userId))
-        setIsLoading(false)
-    }
-
     useEffect(() => {
-        !(selectedLocation && locationsList) && bringLocations(userId)
-    }, [userId]);
+        if (!locationsList) {
+            setIsLoading(true)
+            dispatch(fetchLocations(userId))
+            setIsLoading(false)
+        }
+    }, [dispatch, locationsList, userId]);
 
     if (isLoading || selectedLocation) {
         const { country, city, street, theName, phone, type } = selectedLocation ?? {};

@@ -73,6 +73,7 @@ export default function CheckOutPage() {
                         message("Sorry, Something went wrong");
                     }
                 })
+                .catch(() => message("There is unexpected error in the server"))
                 .finally(() => loadingControl(false));
         }
     }

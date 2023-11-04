@@ -19,7 +19,7 @@ export default function LocationsManegement({ defualtDisplay, control, float, us
     const [isChanged, setChange] = useState(false);
     const [toRender, setRender] = useState(null);
 
-    function handleRender() {
+    useEffect(() => {
         if (["locations_list", "add_location", "map"].includes(defualtDisplay)) {
             setRender(defualtDisplay);
         }
@@ -30,15 +30,9 @@ export default function LocationsManegement({ defualtDisplay, control, float, us
                 setRender("add_location");
             }
         }
-    }
+    }, [defualtDisplay, locationsList]);
 
-    useEffect(() => { handleRender() }, [locationsList]);
-
-    useEffect(() => {
-        if (selectedLocation) {
-            setTheSelected(selectedLocation.id);
-        }
-    }, [selectedLocation]);
+    useEffect(() => { selectedLocation && setTheSelected(selectedLocation.id) }, [selectedLocation]);
 
     useEffect(() => {
         if (selectedLocation) {
@@ -83,9 +77,8 @@ export default function LocationsManegement({ defualtDisplay, control, float, us
             component="form"
             onSubmit={onSave}
             elevation={1}
+            className='flex-column'
             sx={{
-                display: "flex",
-                flexDirection: "column",
                 border: "solid #eee 1px",
                 borderRadius: 1,
                 width: float ? { xs: "96vw", sm: "500px", md: "800px" } : { width: "100%" }

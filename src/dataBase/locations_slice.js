@@ -19,10 +19,10 @@ const Locations = createSlice({
         }
     },
     extraReducers: (bulter) => {
-        bulter.addCase(fetchLocations.fulfilled, (state, action) => action.payload);
-        bulter.addCase(setSelectedLocation.fulfilled, (state, action) => action.payload);
-        bulter.addCase(addNewLocation.fulfilled, (state, action) => action.payload);
-        bulter.addCase(deleteLocation.fulfilled, (state, action) => action.payload);
+        bulter.addCase(fetchLocations.fulfilled, (_, action) => action.payload);
+        bulter.addCase(setSelectedLocation.fulfilled, (_, action) => action.payload);
+        bulter.addCase(addNewLocation.fulfilled, (_, action) => action.payload);
+        bulter.addCase(deleteLocation.fulfilled, (_, action) => action.payload);
     }
 })
 

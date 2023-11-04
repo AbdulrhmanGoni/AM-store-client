@@ -17,14 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <Provider store={dataCenter}>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider>
-          <CookiesProvider>
-            <CssBaseline />
-            <AppWrapper>
+        <CookiesProvider>
+          <CssBaseline />
+          <AppWrapper>
+            <SnackbarProvider>
               {children}
-            </AppWrapper>
-          </CookiesProvider>
-        </SnackbarProvider>
+            </SnackbarProvider>
+          </AppWrapper>
+        </CookiesProvider>
       </ThemeProvider>
     </Provider>
   );

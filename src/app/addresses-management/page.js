@@ -14,17 +14,16 @@ export default function AddressManagement() {
     const { locationsList } = useSelector(state => state.locations);
     const [isLoading, setIsLoading] = useState(false);
 
-    async function bringLocations(userId) {
-        setIsLoading(true)
-        await dispatch(fetchLocations(userId))
-        setIsLoading(false)
-    }
 
     useEffect(() => {
-        !(locationsList) && bringLocations(userId)
-    }, [userId]);
-
-    return ( (isLoading || locationsList) &&
+        if (!locationsList) {
+            setIsLoading(true)
+            dispatch(fetchLocations(userId))
+            setIsLoading(false)
+        }
+    }, [dispatch, locationsList, userId]);
+    
+    return ((isLoading || locationsList) &&
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <ElementWithLoadingState
                 isLoading={isLoading}

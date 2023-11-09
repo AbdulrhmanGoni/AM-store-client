@@ -14,14 +14,18 @@ const OverlayHoverLink = ({ target, linkStyle, bgStyle, text, customAction, disa
     }
 
     return (
-        <Box sx={{
-            "&:hover": { opacity: disable ? 0 : 1 },
-            transition: ".4s",
-            position: "absolute", width: "100%", opacity: 0,
-            height: "100%", top: 0, display: "flex",
-            alignItems: "center", justifyContent: "center",
-            backgroundColor: "#00000054", color: "white", ...bgStyle
-        }}>
+        <Box
+            className="flex-center full-width full-height"
+            sx={{
+                "&:hover": { opacity: disable ? 0 : 1 },
+                transition: ".4s",
+                position: "absolute", 
+                opacity: 0, top: 0, 
+                backgroundColor: "#00000054", 
+                color: "white", 
+                ...bgStyle
+            }}
+        >
             <Typography variant='body2'
                 sx={{
                     cursor: disable ? "default" : "pointer",

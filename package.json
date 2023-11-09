@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@abdulrhmangoni/am-store-library": "^1.4.7",
+    "@abdulrhmangoni/am-store-library": "^1.5.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.13",
@@ -28,6 +28,7 @@
     "react-redux": "^8.1.3"
   },
   "devDependencies": {
+    "@types/node": "20.9.0",
     "eslint": "^8.51.0",
     "eslint-config-next": "^13.5.4"
   }

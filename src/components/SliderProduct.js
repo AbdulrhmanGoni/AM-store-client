@@ -2,7 +2,7 @@
 import styles from "./SliderProducts.module.css"
 import { useEffect, useState, useRef } from "react";
 import { Alert, Box, IconButton, useMediaQuery } from '@mui/material';
-import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowForwardIos, Refresh } from '@mui/icons-material';
 import ProductCard from "./ProductCard";
 import { useFetch } from "@/hooks/useFetch";
 import { ProductLoadingCard } from "./ProductLoadingCard";
@@ -15,7 +15,7 @@ export default function SliderProduct({ theCatagory }) {
     const media = useMediaQuery("(max-width: 600px)");
     const cardWidth = media ? 160 : 230;
     const [slidersWidth, setSlidersWidth] = useState(cardWidth * 10);
-    const { data: products, isLoading, isError } = useFetch(`products/?category=${theCatagory}&limit=10`, { init: [] })
+    const { data: products, isLoading, isError, refetch } = useFetch(`products/?category=${theCatagory}&limit=10`, { init: [] })
 
     const scrollBtns = (move) => { containerRef.current.scrollLeft += move }
 
@@ -43,7 +43,11 @@ export default function SliderProduct({ theCatagory }) {
                     {
                         isLoading ? loadingCards
                             : isError ?
-                                <Alert className="flex-center full-width" severity="error">
+                                <Alert
+                                    className="flex-center full-width"
+                                    severity="error"
+                                    action={<IconButton onClick={() => refetch()}><Refresh /></IconButton>}
+                                >
                                     Fetching Products Failed
                                 </Alert>
                                 : products?.map((product) => {

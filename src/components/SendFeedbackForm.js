@@ -5,21 +5,26 @@ import { Bar } from './locationRegistring/LocationsManegement'
 import { Close } from '@mui/icons-material'
 import sendFeedback from '../dataBase/actions/sendFeedback'
 import { useSelector } from 'react-redux'
+import { useSpeedMessage } from '@/hooks/useSpeedMessage'
 
 
-export default function SendEmailForm({ open, close }) {
+export default function SendFeedbackForm({ open, close }) {
 
-    const userData = useSelector(state => state.userData);
+    const userEmail = useSelector(state => state.userData?.userEmail);
+    const { message } = useSpeedMessage();
 
     async function sendEmail(ev) {
         ev.preventDefault();
-        const userEmail = userData ? userData.userEmail : undefined;
         const form = new FormData(ev.currentTarget);
-        const title = form.get("title");
         const subject = form.get("subject");
-        if (title && subject) {
-            await sendFeedback({ userEmail, title, subject });
-            close();
+        const body = form.get("body");
+        if (subject && body) {
+            sendFeedback({ userEmail, subject, body })
+                .catch((() => message("There is unexpected error happends")))
+                .then((({ ok, message: msg }) => {
+                    ok && message(msg, "success"); close();
+                    !ok && message(msg, "error");
+                }));
         }
     }
 
@@ -44,13 +49,13 @@ export default function SendEmailForm({ open, close }) {
                 </Bar>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <TextField label="Title" id='title' name='title' fullWidth />
+                        <TextField label="Subject" name='subject' fullWidth />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Subject" id='subject' name='subject' type='textarea' multiline minRows={4} />
+                        <TextField fullWidth label="Body" name='body' type='textarea' multiline minRows={4} />
                     </Grid>
                     <Grid sx={{ display: "flex", flexDirection: "row-reverse" }} item xs={12}>
-                        <Button type='submit' variant='contained' >Send</Button>
+                        <Button size='small' type='submit' variant='contained'>Send</Button>
                     </Grid>
                 </Grid>
             </Paper>

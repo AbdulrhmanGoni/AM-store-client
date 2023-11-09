@@ -3,10 +3,10 @@ export function useSpeedMessage() {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    function message(message, type, auto_hide_duration) {
+    function message(message, type = "error", autoHideDuration = 5000) {
         enqueueSnackbar(message, {
-            variant: type ?? "error",
-            autoHideDuration: auto_hide_duration ?? 5000,
+            variant: type,
+            autoHideDuration,
             style: { fontFamily: "roboto" }
         });
     }

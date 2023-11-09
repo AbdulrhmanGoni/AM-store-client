@@ -6,7 +6,13 @@ import { Box, useTheme } from "@mui/material";
 
 export default function AppWrapper({ children }) {
 
-    const { isLoading, isNetworkError, isServerError, renderApp } = useUserLogging();
+    const {
+        isLoading,
+        isNetworkError,
+        isServerError,
+        isUnexpected,
+        renderApp
+    } = useUserLogging();
     const { palette: { primary, background, text } } = useTheme();
 
     return (
@@ -28,19 +34,25 @@ export default function AppWrapper({ children }) {
             <Box component="body">
                 {
                     isLoading ? <LoadingPage />
-                        : isNetworkError ? <ErrorThrower
-                            title="Network Error"
-                            message="There is problem in your internet, please check your internet"
-                            illustratorType="network"
+                        : isUnexpected ? <ErrorThrower
+                            title="Uunexpected Error"
+                            message="There is unexpected error happends, try refreshing the page"
+                            illustratorType="unexpected"
                             fullPage withRefreshButton
                         />
                             : isServerError ? <ErrorThrower
-                                message="There is unexpected error from the server, refresh the page or come back later"
                                 title="Server Error"
+                                message="There is unexpected error from the server, refresh the page or come back later"
                                 illustratorType="server"
                                 fullPage withRefreshButton
                             />
-                                : renderApp && children
+                                : isNetworkError ? <ErrorThrower
+                                    title="Network Error"
+                                    message="There is problem in your internet, please check your internet"
+                                    illustratorType="network"
+                                    fullPage withRefreshButton
+                                />
+                                    : renderApp && children
                 }
                 <LoadingCircle staticCircle darkBg />
             </Box>

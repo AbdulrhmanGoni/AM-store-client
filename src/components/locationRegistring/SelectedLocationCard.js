@@ -15,6 +15,7 @@ export default function SelectedLocationCard({ style, actionIcon }) {
     const { selectedLocation, locationsList } = useSelector(state => state.locations);
     const userId = useSelector(state => state.userData?._id);
     const [isLoading, setIsLoading] = useState(false);
+    const [render, setRender] = useState(false);
 
     useEffect(() => {
         if (!locationsList) {
@@ -24,7 +25,9 @@ export default function SelectedLocationCard({ style, actionIcon }) {
         }
     }, [dispatch, locationsList, userId]);
 
-    if (isLoading || selectedLocation) {
+    useEffect(() => { setRender(true) }, []);
+
+    if (isLoading || selectedLocation || render) {
         const { country, city, street, theName, phone, type } = selectedLocation ?? {};
         return (
             <Paper sx={{ ...style, p: isLoading ? 2 : 1 }}>
@@ -68,20 +71,22 @@ export default function SelectedLocationCard({ style, actionIcon }) {
             </Paper>
         )
     }
-    else if (locationsList) return (
-        <Alert
-            action={
-                !pageUrl.match("addresses-management") &&
-                <LMControl size='small' startIcon={<LocationOn />} text="Open Locations Manegement" />
-            }
-            sx={{ width: "100%", mb: 1, alignItems: "center" }}
-            severity="warning">
-            {
-                locationsList.length > 0 ?
-                    "You Didn't Select Any Location As Selected"
-                    :
-                    "You Didn't Add Your Location Yet"
-            }
-        </Alert>
-    )
+    else if (render) {
+        return (
+            <Alert
+                action={
+                    !pageUrl.match("addresses-management") &&
+                    <LMControl size='small' startIcon={<LocationOn />} text="Open Locations Manegement" />
+                }
+                sx={{ width: "100%", mb: 1, alignItems: "center" }}
+                severity="warning">
+                {
+                    locationsList?.length > 0 ?
+                        "You Didn't Select Any Location As Selected"
+                        :
+                        "You Didn't Add Your Location Yet"
+                }
+            </Alert>
+        )
+    }
 }

@@ -14,6 +14,7 @@ export default function useUserLogging() {
     const { isLoading, isError, setState } = useFetchState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
+    const [isUnexpected, setIsUnexpected] = useState(false);
     const [renderApp, setRendrApp] = useState(false);
 
     useEffect(() => {
@@ -32,11 +33,9 @@ export default function useUserLogging() {
                         setIsNetworkError(true);
                     } else if (!error.response?.status) {
                         setIsServerError(true);
-                    }
+                    } else setIsUnexpected(true);
                 })
-                .finally(() => {
-                    setState();
-                })
+                .finally(() => setState());
         }
         setRendrApp(true)
     }, []);
@@ -46,6 +45,7 @@ export default function useUserLogging() {
         isNetworkError,
         isError,
         isServerError,
+        isUnexpected,
         renderApp
     }
 }

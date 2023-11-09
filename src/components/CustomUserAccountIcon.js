@@ -21,23 +21,29 @@ export default function CustomUserAccountIcon({ clickEvent, color }) {
 
     if (userData) {
         return (
-            <Avatar
-                sx={{
-                    width: 28,
-                    height: 28,
-                    mb: { xs: "4px", sm: 0 },
-                    bgcolor: "primary.main",
-                    cursor: "pointer"
-                }}
-                onClick={handleClick}
-                src={userData.avatar}>
-                {userData.userName[0]}
-            </Avatar>
+            <Badge
+                color="warning"
+                invisible={userData?.hisEmailVerified}
+                variant="dot"
+            >
+                <Avatar
+                    sx={{
+                        width: 28,
+                        height: 28,
+                        mb: { xs: "4px", sm: 0 },
+                        bgcolor: "primary.main",
+                        cursor: "pointer"
+                    }}
+                    onClick={handleClick}
+                    src={userData.avatar}>
+                    {userData.userName[0]}
+                </Avatar>
+            </Badge>
         )
     }
     else {
         return (
-            <Badge color="warning" variant={userData ? null : "dot"}>
+            <Badge color="warning" invisible={userData} variant="dot">
                 <AccountCircle color={color} sx={{ fontSize: "1.7rem !important" }}
                     onClick={handleClick}
                 />

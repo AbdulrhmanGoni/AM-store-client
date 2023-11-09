@@ -12,6 +12,9 @@ const userData = createSlice({
         setNewAvatar_localy: (state, action) => {
             return Object.assign({}, { ...state, avatar: action.payload });
         },
+        setEmailAsVerified_localy: (state) => {
+            return Object.assign({}, { ...state, hisEmailVerified: true });
+        },
         userLogOut: () => null
     },
     extraReducers: (bulter) => {
@@ -23,6 +26,7 @@ export const {
     setUserData,
     setNewUserName_localy,
     setNewAvatar_localy,
+    setEmailAsVerified_localy,
     userLogOut
 } = userData.actions;
 export default userData.reducer;

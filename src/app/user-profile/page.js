@@ -1,6 +1,6 @@
 "use client"
 import { useRef, useState } from "react";
-import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Typography, Box } from "@mui/material";
+import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Typography, Box, Badge, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit, Email, LockOutlined, LockReset, Person } from "@mui/icons-material";
 import { setNewUserName } from "@/dataBase/actions/userData_slice_actions";
@@ -11,14 +11,23 @@ import SetUserAvatarForm from "@/components/SetUserAvatarForm";
 import TextFieldContainer from "@/components/TextFieldContainer";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
 import ImageDispayer from "@/components/ImageDispayer";
+import pagesSpaces from "@/CONSTANT/pagesSpaces";
+import { useRouter } from "next/navigation";
 
-const passwordHeading = (passwordLength) => "*".repeat(passwordLength)
-const textFieldIconStyle = { color: 'primary.main', mr: 1, my: 0.5 };
+const textFieldIconStyle = { color: 'primary.main' };
 
 export default function UserProfile() {
 
     const dispatch = useDispatch();
-    const userData = useSelector(state => state.userData);
+    const { push } = useRouter();
+    const {
+        userName,
+        _id: userId,
+        hisEmailVerified,
+        avatar,
+        userEmail
+    } = useSelector(state => state.userData ?? {});
+
     const { message } = useSpeedMessage();
     const [userNameIsChangeed, setUserNameState] = useState(false);
     const [changePasswordForm, setChangePasswordFormState] = useState(false);
@@ -27,12 +36,12 @@ export default function UserProfile() {
     const userNameFieldRef = useRef();
 
     function userNameChanges(event) {
-        setUserNameState(userData.userName !== event.target.value);
+        setUserNameState(userName !== event.target.value);
     }
 
     async function updateUserInfo() {
         const newName = userNameFieldRef.current?.value;
-        setNewUserName({ newName, userId: userData._id })
+        setNewUserName({ newName, userId })
             .then(name => {
                 if (name === newName) {
                     dispatch(setNewUserName_localy(name));
@@ -52,33 +61,34 @@ export default function UserProfile() {
     }
 
     return (
-        userData &&
-        <Card elevation={2} sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2, borderRadius: 1 }}>
-            <Paper elevation={1} sx={{ p: 2, borderRadius: 1 }} >
+        <Card elevation={2} className="flex-column gap2" sx={{ p: pagesSpaces }}>
+            <Paper elevation={1} sx={{ p: pagesSpaces }} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant="h6">General Info</Typography>
                     </Grid>
-                    <Grid sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} item xs={12} sm={3} md={2}>
+                    <Grid className="flex-center" item xs={12} sm={3} md={2}>
                         <Box sx={{ width: "120px", height: "120px", position: "relative" }}>
                             <Avatar
                                 sx={{ width: "100%", height: "100%" }}
-                                src={userData?.avatar}
+                                src={avatar}
                             />
                             <OverlayHoverLink
                                 text="View Avatar"
-                                disable={!userData?.avatar}
+                                disable={!avatar}
                                 customAction={() => setOpenAvatar(true)}
                                 bgStyle={{ borderRadius: "50%" }} />
                             <IconButton onClick={() => setEditIsOpen(true)} sx={editIconStyle}>
                                 <Edit />
                             </IconButton>
-                            {openAvatar && <ImageDispayer
-                                imagesList={[userData.avatar]}
-                                title={userData.userName}
-                                openedImage={0}
-                                closeer={() => setOpenAvatar(false)}
-                            />}
+                            {
+                                openAvatar && <ImageDispayer
+                                    imagesList={[avatar]}
+                                    title={userName}
+                                    openedImage={0}
+                                    closeer={() => setOpenAvatar(false)}
+                                />
+                            }
                         </Box>
                     </Grid>
                     <Grid sx={{ display: "flex", flexDirection: "column", gap: 2 }} item xs={12} sm={9} md={10}>
@@ -88,15 +98,34 @@ export default function UserProfile() {
                                 fullWidth
                                 inputRef={userNameFieldRef}
                                 onChange={userNameChanges}
-                                defaultValue={userData.userName}
+                                defaultValue={userName}
                                 name="User-Name"
                                 label="User Name"
                                 variant="standard"
                             />
                         </TextFieldContainer>
                         <TextFieldContainer>
-                            <Email sx={textFieldIconStyle} />
-                            <TextField fullWidth disabled defaultValue={userData.userEmail} id="User-Email" label="User Email" variant="standard" />
+                            <Tooltip
+                                title={
+                                    hisEmailVerified ?
+                                        ""
+                                        : "Your email is not verified, click to verify it"
+                                }
+                                onClick={() => { !hisEmailVerified && push("/email-verification") }}
+                                sx={{ cursor: hisEmailVerified ? "auto" : "pointer" }}
+                            >
+                                <Badge invisible={hisEmailVerified} variant="dot" color="warning">
+                                    <Email sx={textFieldIconStyle} />
+                                </Badge>
+                            </Tooltip>
+                            <TextField
+                                fullWidth
+                                disabled
+                                defaultValue={userEmail}
+                                id="User-Email"
+                                label="User Email"
+                                variant="standard"
+                            />
                         </TextFieldContainer>
                     </Grid>
                     {
@@ -126,7 +155,7 @@ export default function UserProfile() {
                                         <TextField
                                             sx={{ width: "100%" }}
                                             disabled
-                                            defaultValue={passwordHeading(8)}
+                                            defaultValue="* * * * * * * *"
                                             id="User-Password"
                                             label="User Password"
                                             variant="standard"

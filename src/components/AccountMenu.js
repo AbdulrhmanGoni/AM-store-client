@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { Box, Menu, MenuItem, ListItemIcon, Divider } from '@mui/material';
+import { Box, Menu, MenuItem, ListItemIcon, Divider, Badge } from '@mui/material';
 import CustomUserAccountIcon from './CustomUserAccountIcon';
 import CustomFavoriteIcon from './CustomFavoriteIcon';
 import CustomShoppingCartIcon from './CustomShoppingCartIcon';
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Feedback, Inbox, LocationOn, Payment, Logout } from '@mui/icons-material';
 import { userLogOut } from '@/dataBase/userData_slice';
 import SwitchTheme from './SwitchTheme';
-import SendEmailForm from './SendEmailForm';
+import SendEmailForm from './SendFeedbackForm';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 

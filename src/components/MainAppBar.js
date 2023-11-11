@@ -20,8 +20,8 @@ export default function MainAppBar() {
         <Box>
             <Toolbar />
             <AppBar elevation={1} position="fixed">
-                <Container maxWidth="lg">
-                    <Toolbar sx={{ padding: "0 !important" }}>
+                <Container sx={{ p: { xs: "0px 8px", sm: "0px 16px" } }} maxWidth="lg">
+                    <Toolbar color='icons' sx={{ padding: "0 !important" }}>
                         <Typography
                             sx={{
                                 display: { xs: 'none', sm: 'block' },
@@ -49,21 +49,21 @@ export default function MainAppBar() {
                                 <IconButton
                                     size="small"
                                     aria-label="show Shopping Cart Content"
-                                    color="inherit">
+                                    color="icons">
                                     <CustomShoppingCartIcon />
                                 </IconButton>
                             </Box>
                             <IconButton
                                 size="small"
                                 aria-label="show favoriets List"
-                                color="inherit"
+                                color="icons"
                             >
                                 <CustomFavoriteIcon />
                             </IconButton>
                             <IconButton
                                 size="small"
                                 aria-label="show favoriets List"
-                                color="inherit"
+                                color="icons"
                             >
                                 <AccountMenu />
                             </IconButton>

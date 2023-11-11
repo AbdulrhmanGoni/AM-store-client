@@ -11,7 +11,7 @@ export function createArray(num) {
     return arr;
 }
 
-export default function ShoppingCartController({ productId }) {
+export default function ProductCountInCart({ productId }) {
 
     const dispatch = useDispatch();
 

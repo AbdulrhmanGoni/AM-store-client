@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { Box, Menu, MenuItem, ListItemIcon, Divider, Badge } from '@mui/material';
+import { Box, Menu, MenuItem, ListItemIcon, Divider } from '@mui/material';
 import CustomUserAccountIcon from './CustomUserAccountIcon';
 import CustomFavoriteIcon from './CustomFavoriteIcon';
 import CustomShoppingCartIcon from './CustomShoppingCartIcon';
@@ -154,7 +154,7 @@ export default function AccountMenu() {
                                     zIndex: 0,
                                 },
                                 '& .MuiListItemIcon-root .MuiSvgIcon-root': {
-                                    color: "primary.main"
+                                    color: "icons.main"
                                 },
                             }
                         }

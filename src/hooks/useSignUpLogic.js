@@ -87,8 +87,8 @@ export default function useSignUpLogic() {
         setCookies("userId", userId, { maxAge });
         setCookies("access-token", token, { maxAge });
         dispatch(setUserData({ userData, state: true }));
-        shoppingCart && shoppingCart.length && await setShoppingCart({ shoppingCart, userId })
-        favorites && favorites.length && await setFavorites({ favorites, userId })
+        shoppingCart && shoppingCart.length && await setShoppingCart({ shoppingCart, userId });
+        favorites && favorites.length && await setFavorites({ favorites, userId });
         window.location.replace("/");
     }
 

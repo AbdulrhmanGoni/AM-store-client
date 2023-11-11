@@ -7,7 +7,7 @@ export default function Layout({ children }) {
 
     return (
         <PageLayout
-            thisProtectedPage
+            signUpRequired
             title="Email Verification"
             maxWidth="md"
         >

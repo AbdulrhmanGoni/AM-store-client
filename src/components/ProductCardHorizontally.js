@@ -10,7 +10,7 @@ import {  removeFromCart } from "@/dataBase/actions/shoppingCart_slice_actions"
 import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
-import ShoppingCartController from './ShoppingCartController';
+import ProductCountInCart from './ProductCountInCart';
 import { ActionAlert, ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
 
 
@@ -81,7 +81,7 @@ export default function ProductCardHorizontally(props) {
                 {actionSec && <>
                     <Divider sx={{ m: "5px 0px" }} />
                     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 3 }}>
-                        <ShoppingCartController productId={id} />
+                        <ProductCountInCart productId={id} />
                         <Box sx={{ flexGrow: 1 }}>
                             {!amount && <ProductAvailabationState style={{ width: "fit-content" }} amount={amount} />}
                         </Box>

@@ -4,7 +4,7 @@ export default function Layout({ children }) {
 
     return (
         <PageLayout
-            thisProtectedPage
+            signUpRequired
             redirect="/shopping-cart"
             title="Checkout"
             maxWidth="lg"

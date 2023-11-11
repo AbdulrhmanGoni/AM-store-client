@@ -19,7 +19,14 @@ export default function HomePage() {
   return (
     <>
       <MainAppBar />
-      <Container maxWidth="lg" sx={{ height: "100%", mb: "57px" }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          height: "100%",
+          mb: "57px",
+          p: { xs: "0px 8px", sm: "0px 16px" }
+        }}
+      >
         {
           catagoriesInfo.map(({ name: category }) => {
             return (

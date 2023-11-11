@@ -6,7 +6,7 @@ import PriceDisplayer from './PriceDisplayer'
 import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice'
-import { discountCobone, setSummaryPrice } from '@/dataBase/checkoutSummary_slice'
+import { discountCobone, setSummaryPrice, removeDiscount } from '@/dataBase/checkoutSummary_slice'
 import { applyDiscount } from '@/dataBase/Categories/cobones'
 import { getcobones } from '@/dataBase/actions/cobones_slice_actions'
 
@@ -95,7 +95,7 @@ export default function Summary() {
 
     return (
         <Paper elevation={1}>
-            <List sx={{ display: "flex", flexDirection: "column", p: "0px 8px", gap: 1, width: "100%" }}>
+            <List className='flex-column gap1 full-width' sx={{ p: "0px 8px" }}>
                 <ListItem sx={{ p: 1 }}>
                     <Typography variant='h6'>Summary</Typography>
                 </ListItem>
@@ -131,6 +131,12 @@ export default function Summary() {
                             defaultValue={usedCobone}
                             disabled={discount ? true : false}
                             helperText={!isValidCobone ? "The Cobone Is Invalid" : ""}
+                            onChange={(e) => {
+                                if (e.target.value?.length == 0) {
+                                    setCoboneState(true);
+                                    dispatch(removeDiscount());
+                                }
+                            }}
                             id="discountCobone"
                             label="Cobone"
                             variant="standard"

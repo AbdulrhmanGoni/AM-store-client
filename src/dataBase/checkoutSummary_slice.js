@@ -13,8 +13,16 @@ const checkoutSummary = createSlice({
         clearCheckoutSummary: () => {
             return { totalPrice: 0, discountCobone: null };
         },
+        removeDiscount: (state) => {
+            return { totalPrice: state.totalPrice, discountCobone: null };
+        }
     }
 });
 
-export const { setSummaryPrice, discountCobone, clearCheckoutSummary } = checkoutSummary.actions;
+export const {
+    setSummaryPrice,
+    discountCobone,
+    clearCheckoutSummary,
+    removeDiscount
+} = checkoutSummary.actions;
 export default checkoutSummary.reducer;

@@ -39,18 +39,23 @@ export default function SliderProduct({ theCatagory }) {
     return (
         <Box sx={{ position: "relative" }}>
             <div ref={containerRef} className={styles.sliderProductContainer}>
-                <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "375px" }}>
+                <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "345px" }}>
                     {
                         isLoading ? loadingCards
                             : isError ?
                                 <Alert
                                     className="flex-center full-width"
                                     severity="error"
+                                    sx={{
+                                        "& .MuiAlert-action": {
+                                            ml: "0px"
+                                        }
+                                    }}
                                     action={<IconButton onClick={() => refetch()}><Refresh /></IconButton>}
                                 >
                                     Fetching Products Failed
                                 </Alert>
-                                : products?.map((product) => {
+                                : products.map((product) => {
                                     return (
                                         <ProductCard
                                             key={product._id}
@@ -63,7 +68,7 @@ export default function SliderProduct({ theCatagory }) {
                 </div>
             </div>
             {
-                products &&
+                !!products.length &&
                 <>
                     <IconButton
                         sx={{ "&:hover": { ...bgHover }, ...floatBtnStyle, left: "0px" }}

@@ -16,34 +16,25 @@ import { addNewOrder } from '@/dataBase/actions/orders_actions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { applyDiscount } from '@/dataBase/Categories/cobones';
 import { ActionAlert, loadingControl } from '@abdulrhmangoni/am-store-library';
-import { useRouter } from 'next/navigation';
 
 
-export default function CheckOutPage() {
 
-    const { replace } = useRouter();
-    const [allowRender, setAllowRender] = useState(false);
+export default function CheckoutPage() {
+
     const shoppingCart = useSelector(state => state.shoppingCart);
     const userId = useSelector(state => state.userData?._id);
     const cobones = useSelector(state => state.cobones);
     const { selectedLocation } = useSelector(state => state.locations);
     const { totalPrice, discountCobone } = useSelector(state => state.checkoutSummary);
     const paymentMethod = useSelector(state => state.userPaymentMethods.choosedMethod);
-
+    
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
 
     function checkIfItValidToCheckout() {
-        if (paymentMethod && selectedLocation) {
-            return true;
-        } else {
-            if (!paymentMethod) {
-                message("Select Your Payment Method Please");
-            }
-            if (!selectedLocation) {
-                message("Select Your Location Please");
-            }
-        }
+        !paymentMethod && message("Select Your Payment Method Please");
+        !selectedLocation && message("Select Your Location Please");
+        return paymentMethod && selectedLocation;
     }
 
     function completingCheckout() {
@@ -78,13 +69,7 @@ export default function CheckOutPage() {
         }
     }
 
-    useEffect(() => {
-        if (shoppingCart?.length > 0) setAllowRender(true)
-        else replace("/shopping-cart")
-    }, [replace, shoppingCart]);
-
     return (
-        allowRender &&
         <Grid container spacing={2} sx={{ flexDirection: { md: "row-reverse" }, mb: { xs: "43px" } }}>
             <Grid item md={8} sx={{ overflowY: "auto", width: "100%" }}>
                 <Grid container spacing={2}>
@@ -102,7 +87,7 @@ export default function CheckOutPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item md={4} sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }} >
+            <Grid className='flex-column gap2 full-width' item md={4}>
                 <Summary />
                 <ActionAlert
                     title="Are you sure to continue?"
@@ -118,7 +103,7 @@ export default function CheckOutPage() {
                         Complate
                     </Button>
                 </ActionAlert>
-                <Box sx={{ p: "5px", display: "flex", flexDirection: "column", height: "400px", overflow: "auto", gap: 1 }}>
+                <Box className="flex-column gap1" sx={{ p: "5px", height: "400px", overflow: "auto" }}>
                     {
                         shoppingCart.map((product) => (
                             <ProductSmallCard key={product._id} theProduct={product} />

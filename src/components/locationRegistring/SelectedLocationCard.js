@@ -1,86 +1,105 @@
-import { LocationOn, PinDrop } from "@mui/icons-material";
-import { Alert, Divider, Paper, Typography } from "@mui/material";
+import { LocationOn, PinDrop, Refresh } from "@mui/icons-material";
+import { Alert, Divider, IconButton, Paper, Skeleton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import LocationCardRow from "./LocationCardRow";
-import LMControl from "./LMControl";
 import { useEffect, useState } from "react";
-import { fetchLocations } from "@/dataBase/actions/locations_slice_actions";
 import { usePathname } from "next/navigation";
-import { ElementWithLoadingState } from "@abdulrhmangoni/am-store-library";
+import useLocationActions from "@/hooks/useLocationActions";
+import { setUserLocations } from "@/dataBase/locations_slice";
+import LocationsManegementWindow from "./LocationsManegementWindow";
 
 export default function SelectedLocationCard({ style, actionIcon }) {
 
     const pageUrl = usePathname();
+    const { fetchLocations } = useLocationActions();
     const dispatch = useDispatch();
     const { selectedLocation, locationsList } = useSelector(state => state.locations);
     const userId = useSelector(state => state.userData?._id);
     const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const [render, setRender] = useState(false);
 
     useEffect(() => {
         if (!locationsList) {
             setIsLoading(true)
-            dispatch(fetchLocations(userId))
-            setIsLoading(false)
+            fetchLocations(userId)
+                .then(userLocations => {
+                    dispatch(setUserLocations(userLocations));
+                    isError && setIsError(false);
+                })
+                .catch(() => { !isError && setIsError(true); })
+                .finally(() => setIsLoading(false));
         }
-    }, [dispatch, locationsList, userId]);
+    }, [selectedLocation, userId]);
 
     useEffect(() => { setRender(true) }, []);
 
-    if (isLoading || selectedLocation || render) {
-        const { country, city, street, theName, phone, type } = selectedLocation ?? {};
-        return (
-            <Paper sx={{ ...style, p: isLoading ? 2 : 1 }}>
-                <LocationCardRow sx={{ justifyContent: "space-between", p: isLoading ? 0 : "" }}>
-                    <ElementWithLoadingState
-                        isLoading={isLoading}
-                        height={25}
-                        width={100}
-                        element={
-                            <Typography className="flex-row-center">
-                                <PinDrop sx={{ color: 'primary.main', mr: 1 }} />
-                                {type}
-                            </Typography>
-                        }
-                    />
-                    <ElementWithLoadingState
-                        isLoading={isLoading}
-                        height={25}
-                        width={85}
-                        element={actionIcon}
-                    />
-                </LocationCardRow>
-                <Divider sx={{ m: "4px 0px" }} />
-                <ElementWithLoadingState isLoading={isLoading} width={150} height={25}
-                    element={<LocationCardRow theKey="Name" value={theName} />}
-                />
-                <Divider sx={{ m: "4px 0px" }} />
-                <ElementWithLoadingState isLoading={isLoading} width={250} height={25}
-                    element={<LocationCardRow theKey="Address" value={[country, city, street].join(", ")} />}
-                />
-                <Divider sx={{ m: "4px 0px" }} />
-                <ElementWithLoadingState isLoading={isLoading} width={150} height={25}
-                    element={<LocationCardRow theKey="Phone" value={phone} />}
-                />
-            </Paper>
-        )
-    }
-    else if (render) {
-        return (
+    if (render) {
+        if (selectedLocation) {
+            const { country, city, street, theName, phone, type } = selectedLocation;
+            return (
+                <Paper sx={{ ...style, p: isLoading ? 2 : 1 }}>
+                    <LocationCardRow sx={{ justifyContent: "space-between", p: isLoading ? 0 : "4px 12px" }}>
+                        <Typography className="flex-row-center">
+                            <PinDrop sx={{ color: 'primary.main', mr: 1 }} />
+                            {type}
+                        </Typography>
+                        {actionIcon}
+                    </LocationCardRow>
+                    <Divider sx={{ m: "4px 0px" }} />
+                    <LocationCardRow theKey="Name" value={theName} />
+                    <Divider sx={{ m: "4px 0px" }} />
+                    <LocationCardRow theKey="Address" value={[country, city, street].join(", ")} />
+                    <Divider sx={{ m: "4px 0px" }} />
+                    <LocationCardRow theKey="Phone" value={phone} />
+                </Paper>
+            )
+        }
+        else if (isLoading) return <SelectedLocationCardLoading style={style} />
+        else if (isError) return (
             <Alert
-                action={
-                    !pageUrl.match("addresses-management") &&
-                    <LMControl size='small' startIcon={<LocationOn />} text="Open Locations Manegement" />
-                }
-                sx={{ width: "100%", mb: 1, alignItems: "center" }}
-                severity="warning">
-                {
-                    locationsList?.length > 0 ?
-                        "You Didn't Select Any Location As Selected"
-                        :
-                        "You Didn't Add Your Location Yet"
-                }
+                action={<IconButton onClick={() => { "refetch()" }} size="small"><Refresh /></IconButton>}>
+                Failed to fetch the selected location
             </Alert>
         )
+        else return (<Alert
+            action={
+                !pageUrl.match("addresses-management") &&
+                <LocationsManegementWindow
+                    buttonProps={{
+                        size: 'small',
+                        startIcon: <LocationOn />,
+                        color: "warning",
+                        children: "Open Locations Manegement"
+                    }}
+                />
+            }
+            sx={{ width: "100%", mb: 1, alignItems: "center" }}
+            severity="warning">
+            {
+                locationsList?.length > 0 ?
+                    "You Didn't Select Any Location As Selected"
+                    :
+                    "You Didn't Add Your Location Yet"
+            }
+        </Alert>
+        )
     }
+}
+
+function SelectedLocationCardLoading({ style }) {
+    return (
+        <Paper sx={{ p: 2, ...style }}>
+            <LocationCardRow sx={{ justifyContent: "space-between", p: 0 }}>
+                <Skeleton variant="rounded" height={25} width={100} />
+                <Skeleton variant="rounded" height={25} width={85} />
+            </LocationCardRow>
+            <Divider sx={{ m: "4px 0px" }} />
+            <Skeleton variant="rounded" height={25} />
+            <Divider sx={{ m: "4px 0px" }} />
+            <Skeleton variant="rounded" height={25} />
+            <Divider sx={{ m: "4px 0px" }} />
+            <Skeleton variant="rounded" height={25} />
+        </Paper>
+    )
 }

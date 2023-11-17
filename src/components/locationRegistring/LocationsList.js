@@ -13,7 +13,7 @@ export default function LocationsList({ theSelected, setTheSelected, chooses }) 
         setTheSelected(event.target.value);
     }
 
-    useEffect(() => { !locationsList?.length && chooses("add_location") }, [locationsList]);
+    useEffect(() => { !locationsList?.length && chooses("add_location") }, [chooses, locationsList]);
 
     return (
         <Box sx={{
@@ -28,7 +28,7 @@ export default function LocationsList({ theSelected, setTheSelected, chooses }) 
                     name="LocationsList"
                 >
                     {
-                        locationsList.map((location, index) => {
+                        locationsList?.map((location, index) => {
                             return (
                                 <LocationCard
                                     key={index}

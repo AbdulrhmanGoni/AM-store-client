@@ -7,7 +7,7 @@ import SectionTitle from '@/components/SectionTitle';
 import PaymentMethodForm from '@/components/paymentSystem/PaymentMethodForm';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
 import ProductSmallCard from '@/components/ProductSmallCard';
-import LMControl from '@/components/locationRegistring/LMControl';
+import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
 import { clearCheckoutSummary } from '@/dataBase/checkoutSummary_slice';
 import getCurrentDate from '@/functions/getCurrentDate';
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice';
@@ -25,7 +25,7 @@ export default function CheckoutPage() {
     const { selectedLocation } = useSelector(state => state.locations);
     const { totalPrice, discountCobone } = useSelector(state => state.checkoutSummary);
     const paymentMethod = useSelector(state => state.userPaymentMethods.choosedMethod);
-    
+
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
 
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
                     if (res.ok) {
                         dispatch(clearCheckoutSummary());
                         window.location.replace("/");
-                    } 
+                    }
                     else message("Sorry, Something went wrong");
                 })
                 .catch(() => message("There is unexpected error in the server"))

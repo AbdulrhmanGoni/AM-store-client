@@ -2,25 +2,24 @@ import {
     AccountCircle, AddLocation, AddRoad, LocalPhone, LocationCity, Public, SmsOutlined
 } from '@mui/icons-material';
 
-import {
-    Box, Button, Card, Grid, TextField,
-} from '@mui/material';
-
+import { Box, Button, Card, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewLocation } from '@/dataBase/actions/locations_slice_actions';
 import generateRandomId from '@/functions/generateRandomId';
+import useLocationActions from '@/hooks/useLocationActions';
+import { addNewLocation_localy } from '@/dataBase/locations_slice';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 
-const CridetCardForm = () => {
-
+export default function AddLocationForm() {
     const boxStyle = { display: 'flex', alignItems: 'flex-end' }
     const styleInput = { width: "100%" }
     const styleIcon = { color: 'primary.main', mr: 1, my: 0.5 }
 
     const dispatch = useDispatch();
+    const { addNewLocation } = useLocationActions();
+    const { message } = useSpeedMessage();
     const userData = useSelector(state => state.userData);
-
 
     const [nameValidationState, setNameValidationState] = useState(false);
     const [numberValidationState, setNumberValidationState] = useState(false);
@@ -28,7 +27,7 @@ const CridetCardForm = () => {
     const [cityValidationState, setCityValidationState] = useState(false);
     const [streetValidationState, setStreetValidationState] = useState(false);
 
-    const validLength = (param, length) => param.length >= length
+    const validLength = (param, length) => param.length >= length;
 
     function handleNameField() {
         let value = document.getElementById("theNameField").value;
@@ -107,7 +106,12 @@ const CridetCardForm = () => {
                 type: "Home",
                 id: generateRandomId() + "location"
             }
-            dispatch(addNewLocation({ userId: userData._id, theLocation }));
+            const payload = { userId: userData._id, theLocation };
+
+            addNewLocation(payload)
+                .then(() => dispatch(addNewLocation_localy(theLocation)))
+                .catch(() => message("Adding a new location failed"))
+
         }
     }
 
@@ -157,5 +161,3 @@ const CridetCardForm = () => {
         </Card>
     )
 }
-
-export default CridetCardForm;

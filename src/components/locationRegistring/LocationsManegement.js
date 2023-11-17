@@ -5,18 +5,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import LocationsList from './LocationsList';
 import AddLocationForm from './AddLocationForm';
 import GoogleMaps from './GoogleMaps';
-import { AddLocation, Close, Map } from '@mui/icons-material';
-import { setSelectedLocation } from '@/dataBase/actions/locations_slice_actions';
+import { AddLocation, AddLocationAlt, Close, Map, MyLocation } from '@mui/icons-material';
+import useLocationActions from '@/hooks/useLocationActions';
+import { setSelectedLocation_localy } from '@/dataBase/locations_slice';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import { loadingControl } from '@abdulrhmangoni/am-store-library';
+import { LoadingButton } from '@mui/lab';
 
 
-export default function LocationsManegement({ defualtDisplay, control, float, userId }) {
+export default function LocationsManegement({ defualtDisplay, control, float }) {
 
     const maxWidth = useMediaQuery("(max-width: 600px)");
-    const dispatch = useDispatch();
-    const { selectedLocation, locationsList } = useSelector(state => state.locations)
-    const [theSelected, setTheSelected] = useState(null);
     const { palette: { mode } } = useTheme(null);
+    const dispatch = useDispatch();
+    const { setSelectedLocation } = useLocationActions();
+    const { message } = useSpeedMessage();
+    const { selectedLocation, locationsList } = useSelector(state => state.locations)
+    const userId = useSelector(state => state.userData?._id)
+    const [theSelected, setTheSelected] = useState(null);
     const [isChanged, setChange] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const [toRender, setRender] = useState(null);
 
     useEffect(() => {
@@ -63,12 +71,19 @@ export default function LocationsManegement({ defualtDisplay, control, float, us
         event.preventDefault();
         if (theSelected) {
             const newSelected = locationsList.find((location) => location.id === theSelected);
-            dispatch(setSelectedLocation({ userId: userId, theLocation: newSelected }));
+            const payload = { userId, theLocation: newSelected };
+            setIsSaving(true);
+            setSelectedLocation(payload)
+                .then(() => dispatch(setSelectedLocation_localy(newSelected)))
+                .catch(() => message("Setting the selected location failed."))
+                .finally(() => {
+                    setIsSaving(false)
+                    float && control(false);
+                })
         }
-        if (float) { control(false) }
     }
 
-    const btnSize = maxWidth ? "small" : null;
+    const btnSize = maxWidth ? "small" : "medium";
     const btnContainer = { display: "flex", gap: 1, flexBasis: { xs: "100%", sm: "initial" } };
     const btnStyle = { width: { xs: "100%", sm: "initial" } };
 
@@ -78,13 +93,12 @@ export default function LocationsManegement({ defualtDisplay, control, float, us
             onSubmit={onSave}
             elevation={1}
             className='flex-column'
-            sx={{
-                border: "solid #eee 1px",
-                borderRadius: 1,
-                width: float ? { xs: "96vw", sm: "500px", md: "800px" } : { width: "100%" }
-            }}>
-            <Bar dividerBotton>
-                <Typography variant='h6'>Select Delivery Address</Typography>
+            sx={{ width: float ? { xs: "96vw", sm: "500px", md: "800px" } : { width: "100%" } }}>
+            <Bar sx={{ bgcolor: "background.paper" }} dividerBotton>
+                <Typography className='flex-row-center-start gap1' variant='h6'>
+                    {toRender === "locations_list" ? <MyLocation /> : <AddLocationAlt />}
+                    {toRender === "locations_list" ? "Select Delivery Address" : "Add a location"}
+                </Typography>
                 {float && <IconButton onClick={() => control(false)}><Close /></IconButton>}
             </Bar>
             <Box sx={{ p: 1, height: "400px", overflow: "auto" }}>
@@ -108,12 +122,28 @@ export default function LocationsManegement({ defualtDisplay, control, float, us
                 <Box sx={btnContainer}>
                     {
                         toRender !== "locations_list" ?
-                            <Button onClick={() => setRender("locations_list")} sx={btnStyle} size={`${btnSize}`} variant='outlined'>Cancel</Button>
+                            <Button
+                                onClick={() => setRender("locations_list")}
+                                sx={btnStyle}
+                                size={`${btnSize}`}
+                                variant='outlined'
+                            >
+                                Cancel
+                            </Button>
                             : null
                     }
                     {
                         isChanged && toRender === "locations_list" ?
-                            <Button type='submit' onClick={onSave} sx={btnStyle} size={`${btnSize}`} variant='contained'>Save</Button>
+                            <LoadingButton
+                                type='submit'
+                                onClick={onSave}
+                                sx={btnStyle}
+                                size={`${btnSize}`}
+                                variant='contained'
+                                loading={isSaving}
+                            >
+                                Save
+                            </LoadingButton>
                             : null
                     }
                 </Box>

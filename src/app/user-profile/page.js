@@ -42,13 +42,12 @@ export default function UserProfile() {
     async function updateUserInfo() {
         const newName = userNameFieldRef.current?.value;
         setNewUserName({ newName, userId })
-            .then(name => {
-                if (name === newName) {
-                    dispatch(setNewUserName_localy(name));
-                    setUserNameState(false);
-                    message("UserName Changed Successfully", "success");
-                }
-            });
+            .then(() => {
+                dispatch(setNewUserName_localy(newName));
+                setUserNameState(false);
+                message("UserName Changed Successfully", "success");
+            })
+            .catch(() => message("Changeding UserName failed for unknown reason"))
     }
 
     const editIconStyle = {

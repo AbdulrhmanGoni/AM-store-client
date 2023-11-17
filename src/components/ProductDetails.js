@@ -6,7 +6,6 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { ShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
-import { addToCart } from "@/dataBase/actions/shoppingCart_slice_actions"
 import { addToCart_localy } from "@/dataBase/shoppingCart_slice"
 import PriceDisplayer from "@/components/PriceDisplayer";
 import ToggleFavorite from "@/components/ToggleFavorite";
@@ -14,6 +13,8 @@ import { LoadingButton } from "@mui/lab";
 import CommentsSection from "@/components/CommentsSection";
 import { ProductImagesDisplayer, ProductAvailabationState } from "@abdulrhmangoni/am-store-library";
 import { useRouter } from "next/navigation";
+import { useSpeedMessage } from "@/hooks/useSpeedMessage";
+import useShoppingCartActions from "@/hooks/useShoppingCartActions";
 
 
 export default function ProductDetails({ product }) {
@@ -21,7 +22,9 @@ export default function ProductDetails({ product }) {
     const productId = product._id
 
     const { push } = useRouter();
+    const { addToCart } = useShoppingCartActions();
     const dispatch = useDispatch();
+    const { message } = useSpeedMessage();
 
     const userData = useSelector(state => state.userData);
     const shoppingCart = useSelector(state => state.shoppingCart);
@@ -31,9 +34,10 @@ export default function ProductDetails({ product }) {
     const addToShoppingCart = async () => {
         if (userData) {
             setLoading(true);
-            await addToCart({ productId, userId: userData._id })
-                .then(product => dispatch(addToCart_localy(product)))
-            setLoading(false);
+            addToCart({ productId, userId: userData._id })
+                .then(() => dispatch(addToCart_localy(product)))
+                .catch(() => message("Adding product failed for unknown reason"))
+                .finally(() => setLoading(false))
         } else {
             dispatch(addToCart_localy(product));
         }

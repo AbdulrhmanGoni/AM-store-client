@@ -2,25 +2,32 @@
 import ProductCardHorizontally from '@/components/ProductCardHorizontally';
 import { Box, Button, Grid, List, ListItem, Paper, Typography } from '@mui/material';
 import Summary from '@/components/Summary';
-import { clearCart } from '@/dataBase/actions/shoppingCart_slice_actions';
 import { clearCart_localy } from '@/dataBase/shoppingCart_slice';
 import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
 import { useDispatch, useSelector } from 'react-redux';
 import GoToCheckoutButton from '@/components/GoToCheckoutButton';
+import useShoppingCartActions from '@/hooks/useShoppingCartActions';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 export default function ShoppingCartPage() {
 
+    const { clearCart } = useShoppingCartActions();
     const dispatch = useDispatch();
+    const { message } = useSpeedMessage();
 
     const shoppingCart = useSelector(state => state.shoppingCart);
     const userData = useSelector(state => state.userData);
 
     function clearShoppingCart() {
-        if (userData) dispatch(clearCart(userData._id));
+        if (userData) {
+            clearCart(userData._id)
+                .then(() => dispatch(clearCart_localy()))
+                .catch(() => message("Clearing cart failed for unknown reason"))
+        }
         else { dispatch(clearCart_localy()) };
     }
 
-    return shoppingCart.length ?
+    return shoppingCart?.length ?
         <Grid container spacing={2} sx={{ mb: { xs: "43px" } }}>
             <Grid item md={4} width="100%">
                 <Summary />

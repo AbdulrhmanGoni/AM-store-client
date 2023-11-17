@@ -3,7 +3,7 @@ import CategoriesBar from '@/components/CategoriesBar';
 import SearchForProducts from '@/components/SearchForProducts';
 import { Suspense } from 'react';
 import SearchResultsPage from '@/components/SearchResultsPage';
-
+import { LoadingCircle } from './layout';
 
 export default function Products({ searchParams }) {
 
@@ -13,7 +13,7 @@ export default function Products({ searchParams }) {
             <Paper sx={{ p: 1, mb: 4, borderRadius: 1 }}>
                 <SearchForProducts />
             </Paper>
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <Suspense fallback={<LoadingCircle />}>
                 <SearchResultsPage searchParams={new URLSearchParams(searchParams).toString()} />
             </Suspense>
         </>

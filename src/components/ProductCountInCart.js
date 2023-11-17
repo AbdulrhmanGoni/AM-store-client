@@ -2,8 +2,8 @@ import { Divider, FormControl, InputLabel, MenuItem, Select } from '@mui/materia
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart_localy } from '../dataBase/shoppingCart_slice';
-import { addToCart } from '../dataBase/actions/shoppingCart_slice_actions';
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
+import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 
 export function createArray(num) {
     const arr = [];
@@ -15,6 +15,7 @@ export default function ProductCountInCart({ productId }) {
 
     const dispatch = useDispatch();
 
+    const { addToCart } = useShoppingCartActions();
     const shoppingCart = useSelector(state => state.shoppingCart);
     const userId = useSelector(state => state.userData?._id);
     let [count, setCount] = useState(0);
@@ -26,12 +27,12 @@ export default function ProductCountInCart({ productId }) {
         if (value !== count) {
             if (userId) {
                 loadingControl(true);
-                await addToCart({ userId, productId, count: event.target.value })
-                    .then(product => dispatch(addToCart_localy(product)))
-                    .catch(() => { /* nothing for now */ })
-                loadingControl(false);
+                addToCart({ userId, productId, count: event.target.value })
+                    .then(() => dispatch(addToCart_localy({ ...theProduct, count: event.target.value })))
+                    .catch(() => { message("Setting product' count failed for unknown reason") })
+                    .finally(() => loadingControl(false))
             } else {
-                dispatch(addToCart_localy({ _id: productId, count: event.target.value }));
+                dispatch(addToCart_localy({ ...theProduct, count: event.target.value }));
             }
         }
     };

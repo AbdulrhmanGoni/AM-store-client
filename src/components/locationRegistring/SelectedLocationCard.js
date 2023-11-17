@@ -51,21 +51,15 @@ export default function SelectedLocationCard({ style, actionIcon }) {
                     />
                 </LocationCardRow>
                 <Divider sx={{ m: "4px 0px" }} />
-                <ElementWithLoadingState
-                    isLoading={isLoading}
-                    height={25}
+                <ElementWithLoadingState isLoading={isLoading} width={150} height={25}
                     element={<LocationCardRow theKey="Name" value={theName} />}
                 />
                 <Divider sx={{ m: "4px 0px" }} />
-                <ElementWithLoadingState
-                    isLoading={isLoading}
-                    height={25}
+                <ElementWithLoadingState isLoading={isLoading} width={250} height={25}
                     element={<LocationCardRow theKey="Address" value={[country, city, street].join(", ")} />}
                 />
                 <Divider sx={{ m: "4px 0px" }} />
-                <ElementWithLoadingState
-                    isLoading={isLoading}
-                    height={25}
+                <ElementWithLoadingState isLoading={isLoading} width={150} height={25}
                     element={<LocationCardRow theKey="Phone" value={phone} />}
                 />
             </Paper>

@@ -1,10 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-    clearCart,
-    fetchShoppingCart,
-    removeFromCart
-} from "./actions/shoppingCart_slice_actions";
-
 
 const shoppingCartSlice = createSlice({
     initialState: [],
@@ -37,11 +31,6 @@ const shoppingCartSlice = createSlice({
         setCart_localy: (_, action) => action.payload,
         removeFromCart_localy: (state, action) => state.filter((item) => item._id !== action.payload),
         clearCart_localy: () => []
-    },
-    extraReducers: (bulter) => {
-        bulter.addCase(fetchShoppingCart.fulfilled, (_, action) => action.payload);
-        bulter.addCase(removeFromCart.fulfilled, (_, action) => action.payload);
-        bulter.addCase(clearCart.fulfilled, (_, action) => action.payload);
     }
 })
 

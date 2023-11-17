@@ -1,5 +1,4 @@
 "use client"
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Grid } from '@mui/material';
 import { Edit, Payment } from '@mui/icons-material';
@@ -16,7 +15,6 @@ import { addNewOrder } from '@/dataBase/actions/orders_actions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { applyDiscount } from '@/dataBase/Categories/cobones';
 import { ActionAlert, loadingControl } from '@abdulrhmangoni/am-store-library';
-
 
 
 export default function CheckoutPage() {
@@ -51,7 +49,7 @@ export default function CheckoutPage() {
                 paymentMethod,
                 state: "Completed",
                 expectedDeliveryDate: getCurrentDate(7),
-                deliveryPrice: totalPrice > includeLimit ? "Free" : deliveryPrice,
+                deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
                 discountCobone: { name: discountCobone, value: discount },
             }
             loadingControl(true);
@@ -60,9 +58,8 @@ export default function CheckoutPage() {
                     if (res.ok) {
                         dispatch(clearCheckoutSummary());
                         window.location.replace("/");
-                    } else {
-                        message("Sorry, Something went wrong");
-                    }
+                    } 
+                    else message("Sorry, Something went wrong");
                 })
                 .catch(() => message("There is unexpected error in the server"))
                 .finally(() => loadingControl(false));

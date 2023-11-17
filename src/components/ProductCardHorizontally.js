@@ -6,25 +6,30 @@ import {
 import { Delete } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart_localy } from "@/dataBase/shoppingCart_slice"
-import {  removeFromCart } from "@/dataBase/actions/shoppingCart_slice_actions"
 import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import ProductCountInCart from './ProductCountInCart';
 import { ActionAlert, ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
+import useShoppingCartActions from '@/hooks/useShoppingCartActions';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 
 export default function ProductCardHorizontally(props) {
 
     let { id, images, title, description, price, amount, actionSec = true, imgWidth, displayCount, noPrice } = props
 
+    const { removeFromCart } = useShoppingCartActions();
     const dispatch = useDispatch();
+    const { message } = useSpeedMessage();
     const userData = useSelector(state => state.userData);
     const [rate, setRate] = useState(3.5);
 
     function deleteFromShoppingCart() {
         if (userData) {
-            dispatch(removeFromCart({ productId: id, userId: userData._id }));
+            removeFromCart({ productId: id, userId: userData._id })
+                .then(() => dispatch(removeFromCart_localy(id)))
+                .catch(() => message("Removing product failed for unknown reason"))
         } else {
             dispatch(removeFromCart_localy(id));
         }

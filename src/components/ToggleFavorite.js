@@ -18,8 +18,8 @@ export default function ToggleFavoriet({ productId, style }) {
         if (userData) {
             setLoading(true);
             await toggleFavorites({ productId, userId: userData._id })
-                .then(productId => {
-                    if (productId) {
+                .then(res => {
+                    if (res) {
                         dispatch(toggleFavorites_localy(productId));
                     }
                 })

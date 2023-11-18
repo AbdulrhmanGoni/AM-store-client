@@ -30,15 +30,14 @@ export default function LocationCard({ locationData, children, id, isSelected, s
     const { country, city, street, theName, phone, type } = locationData;
 
     return (
-        <Box>
+        <Box position="relative">
             <Paper
-                sx={{
-                    border: "solid 2px transparent",
-                    borderColor: isSelected === id ? "primary.main" : null,
-                    p: "4px 0px",
-                    border: "solid 1px rgb(255, 255, 255, .12)"
-                }}
                 onClick={() => setTheSelected(id)}
+                sx={{
+                    border: "solid 1px",
+                    borderColor: isSelected === id ? "primary.main" : "divider",
+                    p: "4px 0px"
+                }}
             >
                 <LocationCardRow sx={{ p: "0px 0px 0px 12px" }}>
                     <LocationOn sx={{ color: 'primary.main', mr: 1 }} />
@@ -46,18 +45,6 @@ export default function LocationCard({ locationData, children, id, isSelected, s
                     <LocationCardRow sx={{ flexGrow: 1, justifyContent: "flex-start", ml: 2, p: "8px 0px" }}>
                         {children}
                     </LocationCardRow>
-                    {
-                        pagePath !== "checkout" &&
-                        <ActionAlert
-                            action={deleteTheLocation}
-                            title="delete the location"
-                            message="know that you can't undo if you continue this process"
-                        >
-                            <IconButton color={loading ? "info" : "error"}>
-                                {loading ? <CircularProgress size={22} /> : <Delete />}
-                            </IconButton>
-                        </ActionAlert>
-                    }
                 </LocationCardRow>
                 <Divider sx={{ m: "4px 0px" }} />
                 <LocationCardRow theKey="Name" value={theName} />
@@ -66,6 +53,21 @@ export default function LocationCard({ locationData, children, id, isSelected, s
                 <Divider sx={{ m: "4px 0px" }} />
                 <LocationCardRow theKey="Phone" value={phone} />
             </Paper>
+            {
+                pagePath !== "checkout" &&
+                <ActionAlert
+                    action={deleteTheLocation}
+                    title="delete the location"
+                    message="know that you can't undo if you continue this process"
+                >
+                    <IconButton
+                        sx={{ position: "absolute", top: 5, right: 5 }}
+                        color={loading ? "info" : "error"}
+                    >
+                        {loading ? <CircularProgress size={22} /> : <Delete />}
+                    </IconButton>
+                </ActionAlert>
+            }
         </Box>
     );
 }

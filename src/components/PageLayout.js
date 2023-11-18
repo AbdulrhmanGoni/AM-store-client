@@ -37,7 +37,18 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                 <AppBar elevation={1} position="fixed">
                     <Container maxWidth={maxWidth} sx={{ display: "flex", alignItems: "center", gap: 2, height: "57px" }}>
                         <IconButton onClick={back} sx={{ color: "inherit" }}><Reply /></IconButton>
-                        <Typography variant="h6" sx={{ fontWeight: "bold", flexGrow: 1 }}>{title}</Typography>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontWeight: "bold",
+                                flexGrow: 1,
+                                textOverflow: "ellipsis",
+                                overflow: "hidden",
+                                textWrap: "nowrap"
+                            }}
+                        >
+                            {title}
+                        </Typography>
                         <AccountMenu />
                     </Container>
                 </AppBar>

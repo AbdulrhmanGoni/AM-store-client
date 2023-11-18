@@ -1,51 +1,52 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Card, Divider, FormControlLabel, Radio, Alert } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import CridetCardsList from './CridetCardsList';
-import CridetCardForm from './AddCridetCardForm';
+import CridetCardsList from './CreditCardsList';
+import CridetCardForm from './AddCreditCardForm';
 import SelectedCridetCard from './SelectedCridetCard';
-import { choosePaymentMethod } from '@/dataBase/userPaymentMethods_slice';
+import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/dataBase/userPaymentMethods_slice';
 import { ElementWithLoadingState } from '@abdulrhmangoni/am-store-library';
-import { fetchPaymentMethods } from '@/dataBase/actions/userPaymentMethods_slice_actions';
+import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 
 
-
-export default function PaymentMethodForm() {
+export default function PaymentMethodsManagement() {
 
     const dispatch = useDispatch();
+    const { fetchPaymentMethods } = usePaymentMethodsActions();
     const { cardsList, choosedMethod } = useSelector(state => state.userPaymentMethods);
     const userId = useSelector(state => state.userData?._id);
     const [paymentMethodType, setPaymentMethodType] = useState(null);
     const [toRender, setRender] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isFetchError, setFetchError] = useState(false);
 
     function handlePaymentMethod(event) {
         setPaymentMethodType(event.target.value);
         if (event.target.value === "Cash") {
-            dispatch(choosePaymentMethod("Cash"));
+            dispatch(setChoosedPaymentMethod_localy("Cash"));
         } else {
-            dispatch(choosePaymentMethod(null));
+            dispatch(setChoosedPaymentMethod_localy(null));
         }
     }
 
-    async function bringPaymentMethods(userId) {
-        setIsLoading(true)
-        await dispatch(fetchPaymentMethods(userId))
-        setIsLoading(false)
-    }
-
-    useEffect(() => { bringPaymentMethods(userId) }, [userId]);
+    useEffect(() => {
+        setIsLoading(true);
+        fetchPaymentMethods()
+            .then((userPaymentMethods) => {
+                dispatch(setUserPaymentMethods(userPaymentMethods));
+                isFetchError && setFetchError(false)
+            })
+            .catch(() => !isFetchError && setFetchError(true))
+            .finally(() => setIsLoading(false))
+    }, [userId]);
 
     useEffect(() => {
         if (choosedMethod && typeof (choosedMethod) !== "string") {
             setPaymentMethodType("Card");
             setRender("selected");
         }
-        else if (cardsList) {
-            setRender("cards_list");
-        } else {
-            setRender("add_card");
-        }
+        else if (cardsList) setRender("cards_list");
+        else setRender("add_card");
     }, [choosedMethod, cardsList]);
 
 

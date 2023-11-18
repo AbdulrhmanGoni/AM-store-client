@@ -1,9 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-    deleteCreditCard,
-    fetchPaymentMethods,
-    setCreditCard
-} from "./actions/userPaymentMethods_slice_actions";
 
 const userPaymentMethods = createSlice({
     initialState: {
@@ -12,19 +7,28 @@ const userPaymentMethods = createSlice({
     },
     name: "userPaymentMethods",
     reducers: {
-        choosePaymentMethod: (state, action) => {
-            return state = {
-                cardsList: state.cardsList,
-                choosedMethod: action.payload
-            };
+        setUserPaymentMethods: (_, action) => action.payload,
+        setChoosedPaymentMethod_localy: (state, action) => { return { ...state, choosedMethod: action.payload } },
+        addCreditCard_localy: (state, action) => {
+            return {
+                choosedMethod: action.payload,
+                cardsList: [action.payload, ...state.cardsList]
+            }
         },
-    },
-    extraReducers: (bulter) => {
-        bulter.addCase(fetchPaymentMethods.fulfilled, (_, action) => action.payload);
-        bulter.addCase(setCreditCard.fulfilled, (_, action) => action.payload);
-        bulter.addCase(deleteCreditCard.fulfilled, (_, action) => action.payload);
+        deleteCreditCard_localy: (state, action) => {
+            return {
+                choosedMethod: state.choosedMethod?.number === action.payload ? null : state.choosedMethod,
+                cardsList: state.cardsList.filter(card => card.number !== action.payload)
+            }
+        }
     }
 })
 
-export const { choosePaymentMethod } = userPaymentMethods.actions;
+export const {
+    setUserPaymentMethods,
+    setChoosedPaymentMethod_localy,
+    addCreditCard_localy,
+    deleteCreditCard_localy
+} = userPaymentMethods.actions;
+
 export default userPaymentMethods.reducer;

@@ -36,14 +36,14 @@ const menulinks = [
         title: "Orders"
     },
     {
-        path: "/addresses-management",
+        path: "/locations-management",
         icon: <LocationOn />,
-        title: "Addresses"
+        title: "Location"
     },
     {
         path: "/payment-methods-management",
         icon: <Payment />,
-        title: "Payment",
+        title: "Payments",
         divider: true
     },
     {

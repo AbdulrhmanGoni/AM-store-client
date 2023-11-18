@@ -1,27 +1,23 @@
-import {
-    AddCard, CalendarMonthOutlined, Payment, PinOutlined, Portrait, Reply
-} from '@mui/icons-material';
-import {
-    Button, FormControl, Grid, Input,
-    InputLabel
-} from '@mui/material';
+import { addCreditCard_localy } from '@/dataBase/userPaymentMethods_slice';
+import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import { AddCard, CalendarMonthOutlined, Payment, PinOutlined, Portrait, Reply } from '@mui/icons-material';
+import { Button, FormControl, Grid, Input, InputLabel } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { setCreditCard } from '../../dataBase/actions/userPaymentMethods_slice_actions';
+import { useDispatch } from 'react-redux';
 
-
-const CridetCardForm = ({ chooses }) => {
+export default function AddCridetCardForm({ chooses }) {
 
     const styleInput = { width: "100%" };
-
     const dispatch = useDispatch();
-    const { userData } = useSelector(state => state);
-
+    const { message } = useSpeedMessage();
+    const { addCridetCard } = usePaymentMethodsActions();
+    const [isAdding, setIsAdding] = useState(false);
     const [nameValidationState, setNameValidationState] = useState(false);
     const [cardNumberValidationState, setCardNumberValidationState] = useState(false);
     const [dateValidationState, setDateValidationState] = useState(false);
     const [cvvValidationState, setCvvValidationState] = useState(false);
-
 
     function isValidNumber(param, length) {
         let isNumber = param.split("").every((num) => !isNaN(parseInt(num)))
@@ -86,18 +82,23 @@ const CridetCardForm = ({ chooses }) => {
         }
     }
 
-    function addCridetCard() {
-        let theName = handleCardName();
-        let cardNumber = handleCardNumber();
-        let endDate = handleCartExpirationDate();
-        let cvv = handleCvv();
+    function addtheCard() {
+        let
+            theName = handleCardName(),
+            cardNumber = handleCardNumber(),
+            endDate = handleCartExpirationDate(),
+            cvv = handleCvv();
 
         if (theName && cardNumber && endDate && cvv) {
             const theCard = { theName, number: cardNumber, expired: endDate }
-            dispatch(setCreditCard({ userId: userData._id, theCard }));
+            setIsAdding(true);
+            addCridetCard(theCard)
+                .then(() => dispatch(addCreditCard_localy(theCard)))
+                .catch(() => message("Adding card failed for unknown reason"))
+                .finally(() => setIsAdding(false))
+
         }
     }
-
 
     return (
         <Grid container spacing={2}>
@@ -140,11 +141,26 @@ const CridetCardForm = ({ chooses }) => {
                 </FormControl>
             </Grid>
             <Grid item xs={12}>
-                <Button onClick={addCridetCard} sx={{ mr: 2 }} size='small' startIcon={<AddCard />} variant='contained'>Add</Button>
-                <Button onClick={() => chooses("cards_list")} sx={{ mr: 2 }} size='small' startIcon={<Reply />} variant='contained'>Back</Button>
+                <LoadingButton
+                    onClick={addtheCard}
+                    sx={{ mr: 2 }}
+                    size='small'
+                    startIcon={<AddCard />}
+                    variant='contained'
+                    loading={isAdding}
+                >
+                    Add
+                </LoadingButton>
+                <Button
+                    onClick={() => chooses("cards_list")}
+                    sx={{ mr: 2 }}
+                    size='small'
+                    startIcon={<Reply />}
+                    variant='contained'
+                >
+                    Back
+                </Button>
             </Grid>
         </Grid>
     )
 }
-
-export default CridetCardForm;

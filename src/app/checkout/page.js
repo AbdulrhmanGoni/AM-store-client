@@ -4,7 +4,7 @@ import { Box, Button, Grid } from '@mui/material';
 import { Edit, Payment } from '@mui/icons-material';
 import Summary from '@/components/Summary';
 import SectionTitle from '@/components/SectionTitle';
-import PaymentMethodForm from '@/components/paymentSystem/PaymentMethodForm';
+import PaymentMethodsManagement from '@/components/paymentSystem/PaymentMethodsManagement';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
 import ProductSmallCard from '@/components/ProductSmallCard';
 import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
@@ -79,7 +79,7 @@ export default function CheckoutPage() {
                     </Grid>
                     <Grid item width="100%">
                         <SectionTitle titleStyle={{ pb: 1 }} title="Payment">
-                            <PaymentMethodForm />
+                            <PaymentMethodsManagement />
                         </SectionTitle>
                     </Grid>
                 </Grid>

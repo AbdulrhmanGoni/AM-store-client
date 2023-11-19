@@ -3,8 +3,7 @@ import { useRef, useState } from "react";
 import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Typography, Box, Badge, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit, Email, LockOutlined, LockReset, Person } from "@mui/icons-material";
-import { setNewUserName } from "@/dataBase/actions/userData_slice_actions";
-import { setNewUserName_localy } from "@/dataBase/userData_slice";
+import { changeUserName_localy } from "@/dataBase/userData_slice";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import OverlayHoverLink from "@/components/OverlayHoverLink";
 import SetUserAvatarForm from "@/components/SetUserAvatarForm";
@@ -13,6 +12,7 @@ import ChangePasswordForm from "@/components/ChangePasswordForm";
 import ImageDispayer from "@/components/ImageDispayer";
 import pagesSpaces from "@/CONSTANT/pagesSpaces";
 import { useRouter } from "next/navigation";
+import useUserDataActions from "@/hooks/useUserDataActions";
 
 const textFieldIconStyle = { color: 'primary.main' };
 
@@ -20,14 +20,8 @@ export default function UserProfile() {
 
     const dispatch = useDispatch();
     const { push } = useRouter();
-    const {
-        userName,
-        _id: userId,
-        hisEmailVerified,
-        avatar,
-        userEmail
-    } = useSelector(state => state.userData ?? {});
-
+    const { userName, hisEmailVerified, avatar, userEmail } = useSelector(state => state.userData ?? {});
+    const { changeUserName } = useUserDataActions()
     const { message } = useSpeedMessage();
     const [userNameIsChangeed, setUserNameState] = useState(false);
     const [changePasswordForm, setChangePasswordFormState] = useState(false);
@@ -41,9 +35,9 @@ export default function UserProfile() {
 
     async function updateUserInfo() {
         const newName = userNameFieldRef.current?.value;
-        setNewUserName({ newName, userId })
+        changeUserName(newName)
             .then(() => {
-                dispatch(setNewUserName_localy(newName));
+                dispatch(changeUserName_localy(newName));
                 setUserNameState(false);
                 message("UserName Changed Successfully", "success");
             })
@@ -105,11 +99,7 @@ export default function UserProfile() {
                         </TextFieldContainer>
                         <TextFieldContainer>
                             <Tooltip
-                                title={
-                                    hisEmailVerified ?
-                                        ""
-                                        : "Your email is not verified, click to verify it"
-                                }
+                                title={hisEmailVerified ? "" : "Your email is not verified, click to verify it"}
                                 onClick={() => { !hisEmailVerified && push("/email-verification") }}
                                 sx={{ cursor: hisEmailVerified ? "auto" : "pointer" }}
                             >

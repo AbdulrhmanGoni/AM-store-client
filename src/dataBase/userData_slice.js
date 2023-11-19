@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserData } from "./actions/userData_slice_actions";
 
 const userData = createSlice({
     initialState: null,
     name: "User Data",
     reducers: {
         setUserData: (_, action) => action.payload,
-        setNewUserName_localy: (state, action) => {
+        changeUserName_localy: (state, action) => {
             return Object.assign({}, { ...state, userName: action.payload });
         },
         setNewAvatar_localy: (state, action) => {
@@ -16,15 +15,12 @@ const userData = createSlice({
             return Object.assign({}, { ...state, hisEmailVerified: true });
         },
         userLogOut: () => null
-    },
-    extraReducers: (bulter) => {
-        bulter.addCase(fetchUserData.fulfilled, (_, action) => action.payload);
     }
 })
 
 export const {
     setUserData,
-    setNewUserName_localy,
+    changeUserName_localy,
     setNewAvatar_localy,
     setEmailAsVerified_localy,
     userLogOut

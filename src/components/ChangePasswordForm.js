@@ -1,17 +1,16 @@
 import { useRef, useState } from "react";
 import { Cancel, LockOpen, LockOutlined, LockPerson, LockReset, Password } from "@mui/icons-material";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { changeUserPassword, passwordChecker } from "@/dataBase/actions/userData_slice_actions";
 import TextFieldContainer from "./TextFieldContainer";
 import { ActionAlert } from "@abdulrhmangoni/am-store-library";
-import { LoadingButton, loadingButtonClasses } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
+import useUserDataActions from "@/hooks/useUserDataActions";
 
 const ErrorMessage = ({ mesage }) => <Typography sx={{ m: "5px 0px 0px 32px" }} variant="body2" color="error">{mesage}</Typography>
 
 export default function ChangePasswordForm({ control, message }) {
 
-    const userId = useSelector(state => state.userData?._id);
+    const { changeUserPassword, passwordChecker } = useUserDataActions();
     const currentPasswordRef = useRef();
     const newPassword1Ref = useRef();
     const newPassword2Ref = useRef();
@@ -23,8 +22,8 @@ export default function ChangePasswordForm({ control, message }) {
 
     async function checkPassword() {
         const currentPassword = currentPasswordRef.current?.value;
-        setLoading(true)
-        const res = await passwordChecker(userId, currentPassword)
+        setLoading(true);
+        const res = await passwordChecker(currentPassword)
             .then((res) => {
                 setCurrentPassword(currentPassword);
                 setIsPassworRedyToChange(res);
@@ -52,8 +51,8 @@ export default function ChangePasswordForm({ control, message }) {
     }
 
     function changePassword(currentPassword, newPassword) {
-        setLoading(true)
-        changeUserPassword({ userId, currentPassword, newPassword })
+        setLoading(true);
+        changeUserPassword({ currentPassword, newPassword })
             .then((res) => {
                 if (res) {
                     message("Password changed successfully", "success");

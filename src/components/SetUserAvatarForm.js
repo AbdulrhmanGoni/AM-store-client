@@ -3,14 +3,14 @@ import { Box, IconButton, Paper, alpha, useTheme } from "@mui/material";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import WaveBg from "./WaveBg";
 import { Cancel, Upload } from "@mui/icons-material";
-import useImageUploader from "@/hooks/useImageUploader";
+import useAvatarUploader from "@/hooks/useAvatarUploader";
 import { LoadingButton } from "@mui/lab";
 
 export default function SetUserAvatarForm({ close }) {
 
     const { palette: { primary } } = useTheme();
     const { message } = useSpeedMessage();
-    const imageUploader = useImageUploader();
+    const imageUploader = useAvatarUploader();
     const [isUpLoading, setIsUpLoading] = useState(false);
 
     async function handleSubmit(event) {

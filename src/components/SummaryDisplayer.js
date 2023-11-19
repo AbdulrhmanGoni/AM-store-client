@@ -2,7 +2,7 @@ import { Box, Divider, List, ListItem, Paper, TextField, Typography, useMediaQue
 import PriceDisplayer from './PriceDisplayer'
 import { Discount } from '@mui/icons-material'
 import deliveryPrice from '@/CONSTANT/deliveryPrice'
-import { findOriginalPrice } from '@/dataBase/Categories/cobones';
+import { findOriginalPrice } from '@/functions/cobones';
 
 
 export default function SummaryDisplayer({ total, discount, delivery, items }) {
@@ -30,7 +30,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                 <Li>
                     <TextTitle>Items ({items})</TextTitle>
                     <PriceDisplayer
-                        price={ discount.value ? original : total }
+                        price={discount.value ? original : total}
                         style={priceStyle}
                     />
                 </Li>

@@ -8,4 +8,6 @@
 # production
 /build
 
+/src/ignoreTemporarily
+
 next.config.js

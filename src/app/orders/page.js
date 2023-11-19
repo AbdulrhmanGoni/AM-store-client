@@ -35,7 +35,7 @@ export default function OrdersPage() {
                     <Tab sx={btnStyle} label="Pending Orders" />
                 </Tabs>
             </Box>
-            <List className='flex-column-center' sx={{ gap: 1, position: "relative" }}>
+            <List className='flex-column-center gap1' sx={{ position: "relative" }}>
                 {
                     isLoading ? <LoadingCircle style={{ height: "100%", position: "relative", minHeight: undefined }} />
                         : isError ? <UnexpectedError /> :

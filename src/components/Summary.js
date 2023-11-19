@@ -7,7 +7,7 @@ import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice'
 import { discountCobone, setSummaryPrice, removeDiscount } from '@/dataBase/checkoutSummary_slice'
-import { applyDiscount } from '@/dataBase/Categories/cobones'
+import { applyDiscount } from '@/functions/cobones'
 import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
 import { setDiscountCobones } from '@/dataBase/cobones_slice'
 

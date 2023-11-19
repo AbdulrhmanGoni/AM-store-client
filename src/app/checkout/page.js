@@ -11,10 +11,10 @@ import LMControl from '@/components/locationRegistring/LocationsManegementWindow
 import { clearCheckoutSummary } from '@/dataBase/checkoutSummary_slice';
 import getCurrentDate from '@/functions/getCurrentDate';
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice';
-import { addNewOrder } from '@/dataBase/actions/orders_actions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { applyDiscount } from '@/dataBase/Categories/cobones';
+import { applyDiscount } from '@/functions/cobones';
 import { ActionAlert, loadingControl } from '@abdulrhmangoni/am-store-library';
+import useOrdersActions from '@/hooks/useOrdersActions';
 
 
 export default function CheckoutPage() {
@@ -25,6 +25,7 @@ export default function CheckoutPage() {
     const { selectedLocation } = useSelector(state => state.locations);
     const { totalPrice, discountCobone } = useSelector(state => state.checkoutSummary);
     const paymentMethod = useSelector(state => state.userPaymentMethods.choosedMethod);
+    const { addNewOrder } = useOrdersActions();
 
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
@@ -37,10 +38,12 @@ export default function CheckoutPage() {
 
     function completingCheckout() {
         if (checkIfItValidToCheckout()) {
-            const discount = cobones[discountCobone]
-            const products = shoppingCart.map((product) => {
-                return `${product._id}-${product.count}-${applyDiscount(product.price, discount)}-${product.category}`
+            const discount = cobones[discountCobone];
+            const products = shoppingCart.map(({ price, category, count, _id }) => {
+                const priceAfterDiscount = applyDiscount(price, discount)
+                return `${_id}-${count}-${priceAfterDiscount}-${category}`
             });
+
             const theOrder = {
                 userId,
                 location: selectedLocation,
@@ -52,8 +55,9 @@ export default function CheckoutPage() {
                 deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
                 discountCobone: { name: discountCobone, value: discount },
             }
+
             loadingControl(true);
-            addNewOrder({ theOrder, userId })
+            addNewOrder(theOrder)
                 .then(res => {
                     if (res.ok) {
                         dispatch(clearCheckoutSummary());
@@ -93,7 +97,13 @@ export default function CheckoutPage() {
                 >
                     <Button
                         variant='contained'
-                        sx={{ width: "100%", bottom: "0", left: "0", zIndex: "500", position: { xs: "fixed", md: "relative" } }}
+                        sx={{
+                            width: "100%",
+                            bottom: "0",
+                            left: "0",
+                            zIndex: "500",
+                            position: { xs: "fixed", md: "relative" }
+                        }}
                         startIcon={<Payment />}
                         size="large"
                     >

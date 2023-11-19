@@ -3,7 +3,7 @@ import MainAppBar from '@/components/MainAppBar';
 import MobileBar from '@/components/MobileBar';
 import SectionTitle from "@/components/SectionTitle";
 import SliderProduct from "@/components/SliderProduct";
-import { catagoriesInfo } from "@/dataBase/Categories/CATEGORIES";
+import { catagoriesInfo } from "@/CONSTANT/CATEGORIES";
 import { Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
 

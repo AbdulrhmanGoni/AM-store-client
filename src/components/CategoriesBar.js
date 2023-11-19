@@ -1,7 +1,7 @@
 
 "use client"
 import { useEffect, useState } from 'react';
-import { catagoriesInfo } from '@/dataBase/Categories/CATEGORIES';
+import { catagoriesInfo } from '@/CONSTANT/CATEGORIES';
 import { Container, Tabs, Tab, Paper, useMediaQuery } from '@mui/material';
 import useProductsSearchParams from '@/hooks/useProductsSearchParams';
 

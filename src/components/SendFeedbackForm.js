@@ -3,7 +3,7 @@ import { Grid, TextField, Typography, IconButton, Paper, Button } from '@mui/mat
 import OverlayBg from './OverlayBg'
 import { Bar } from './locationRegistring/LocationsManegement'
 import { Close } from '@mui/icons-material'
-import sendFeedback from '../dataBase/actions/sendFeedback'
+import sendFeedback from '../functions/sendFeedback'
 import { useSelector } from 'react-redux'
 import { useSpeedMessage } from '@/hooks/useSpeedMessage'
 

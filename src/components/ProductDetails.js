@@ -10,7 +10,6 @@ import { addToCart_localy } from "@/dataBase/shoppingCart_slice"
 import PriceDisplayer from "@/components/PriceDisplayer";
 import ToggleFavorite from "@/components/ToggleFavorite";
 import { LoadingButton } from "@mui/lab";
-import CommentsSection from "@/components/CommentsSection";
 import { ProductImagesDisplayer, ProductAvailabationState } from "@abdulrhmangoni/am-store-library";
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
@@ -110,7 +109,7 @@ export default function ProductDetails({ product }) {
                     </List>
                 </Grid>
             </Grid>
-            <CommentsSection />
+            {/* <CommentsSection /> */}
         </Box>
     )
 }

@@ -20,7 +20,7 @@ export default function ShoppingCartPage() {
 
     function clearShoppingCart() {
         if (userData) {
-            clearCart(userData._id)
+            clearCart()
                 .then(() => dispatch(clearCart_localy()))
                 .catch(() => message("Clearing cart failed for unknown reason"))
         }

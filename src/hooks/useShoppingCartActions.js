@@ -1,32 +1,30 @@
 import customFetch from '@/functions/customFetch';
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
+import { useSelector } from 'react-redux';
 
 export default function useShoppingCartActions() {
 
-    const path = id => `users/${id}/shopping-cart`;
+    const userId = useSelector(state => state.userData?._id);
+    const path = `users/${userId}/shopping-cart`;
 
-    const setShoppingCart = async ({ userId, shoppingCart }) => {
-        return await customFetch(path(userId), "POST", { shoppingCart, type: "set_new_cart" });
+    const setShoppingCart = async (shoppingCart) => {
+        return await customFetch(path, "POST", { shoppingCart, type: "set_new_cart" });
     }
 
-    const fetchShoppingCart =  async (userId) => {
-        return await customFetch(path(userId));
-    }
-
-    const clearCart = async (userId) => {
+    const clearCart = async () => {
         loadingControl(true);
-        const data = await customFetch(path(userId), "DELETE", { type: "clear" })
+        const data = await customFetch(path, "DELETE", { type: "clear" })
         loadingControl(false);
         return data;
     }
 
-    const addToCart = async ({ userId, productId, count }) => {
-        return await customFetch(path(userId), "POST", { productId, count, type: "add_Item" })
+    const addToCart = async ({ productId, count }) => {
+        return await customFetch(path, "POST", { productId, count, type: "add_Item" })
     }
 
-    const removeFromCart = async ({ userId, productId }) => {
+    const removeFromCart = async (productId) => {
         loadingControl(true);
-        const response = await customFetch(path(userId), "DELETE", { productId })
+        const response = await customFetch(path, "DELETE", { productId })
         loadingControl(false);
         return response;
     }
@@ -35,7 +33,6 @@ export default function useShoppingCartActions() {
         addToCart,
         removeFromCart,
         clearCart,
-        setShoppingCart,
-        fetchShoppingCart
+        setShoppingCart
     }
 }

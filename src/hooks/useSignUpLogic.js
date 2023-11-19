@@ -5,17 +5,17 @@ import customFetch from '@/functions/customFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import { setUserData } from '@/dataBase/userData_slice';
-import { setShoppingCart } from '@/dataBase/actions/shoppingCart_slice_actions';
-import { setFavorites } from '@/dataBase/actions/favorites_slice_actions';
 import { useSpeedMessage } from './useSpeedMessage';
-// import { useRouter } from 'next/navigation';
+import useFavoritesActions from './useFavoritesActions';
+import useShoppingCartActions from './useShoppingCartActions';
 
 
 export default function useSignUpLogic() {
 
     const { message } = useSpeedMessage();
-    // const { back } = useRouter();
     const dispatch = useDispatch();
+    const { setShoppingCart } = useShoppingCartActions();
+    const { setFavorites } = useFavoritesActions();
     const [nameState, setNameState] = useState(true);
     const [passwordState, setPasswordState] = useState({ state: true, msg: "" });
     const [emailState, setEmailState] = useState({ state: true, msg: "" });
@@ -87,8 +87,8 @@ export default function useSignUpLogic() {
         setCookies("userId", userId, { maxAge });
         setCookies("access-token", token, { maxAge });
         dispatch(setUserData({ userData, state: true }));
-        shoppingCart && shoppingCart.length && await setShoppingCart({ shoppingCart, userId });
-        favorites && favorites.length && await setFavorites({ favorites, userId });
+        shoppingCart && shoppingCart.length && await setShoppingCart(shoppingCart);
+        favorites && favorites.length && await setFavorites(favorites);
         window.location.replace("/");
     }
 

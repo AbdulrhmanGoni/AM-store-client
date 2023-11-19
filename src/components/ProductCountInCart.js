@@ -22,17 +22,17 @@ export default function ProductCountInCart({ productId }) {
 
     const theProduct = shoppingCart.find((item) => item._id === productId);
 
-    const changeCount = async (event) => {
-        let value = event.target.value;
+    const changeCount = async ({ target }) => {
+        let value = target.value;
         if (value !== count) {
             if (userId) {
                 loadingControl(true);
-                addToCart({ userId, productId, count: event.target.value })
-                    .then(() => dispatch(addToCart_localy({ ...theProduct, count: event.target.value })))
+                addToCart({ productId, count: value })
+                    .then(() => dispatch(addToCart_localy({ ...theProduct, count: value })))
                     .catch(() => { message("Setting product' count failed for unknown reason") })
                     .finally(() => loadingControl(false))
             } else {
-                dispatch(addToCart_localy({ ...theProduct, count: event.target.value }));
+                dispatch(addToCart_localy({ ...theProduct, count: value }));
             }
         }
     };

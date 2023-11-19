@@ -27,7 +27,7 @@ export default function ProductCardHorizontally(props) {
 
     function deleteFromShoppingCart() {
         if (userData) {
-            removeFromCart({ productId: id, userId: userData._id })
+            removeFromCart(id)
                 .then(() => dispatch(removeFromCart_localy(id)))
                 .catch(() => message("Removing product failed for unknown reason"))
         } else {
@@ -36,7 +36,7 @@ export default function ProductCardHorizontally(props) {
     }
 
     return (
-        <Card elevation={1}
+        <Card
             sx={{
                 display: "flex",
                 flexDirection: { xs: "column", sm: "row" },

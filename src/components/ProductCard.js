@@ -36,7 +36,7 @@ export default function ProductCard({ theProduct, sx }) {
     async function addToShoppingCart() {
         if (userData) {
             setLoading(true);
-            addToCart({ productId: _id, userId: userData._id })
+            addToCart({ productId: _id })
                 .then(() => dispatch(addToCart_localy(theProduct)))
                 .catch(() => message("Adding product failed for unknown reason"))
                 .finally(() => setLoading(false))

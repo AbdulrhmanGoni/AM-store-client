@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Divider, List, ListItem, Paper, TextField, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Divider, List, ListItem, Paper, TextField, Typography, useMediaQuery, Skeleton } from '@mui/material'
 import TotalPriceInCart from './TotalPriceInCart'
 import PriceDisplayer from './PriceDisplayer'
 import { Close, Discount, Done } from '@mui/icons-material'
@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice'
 import { discountCobone, setSummaryPrice, removeDiscount } from '@/dataBase/checkoutSummary_slice'
 import { applyDiscount } from '@/dataBase/Categories/cobones'
-import { getcobones } from '@/dataBase/actions/cobones_slice_actions'
+import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
+import { setDiscountCobones } from '@/dataBase/cobones_slice'
 
 export default function Summary() {
 
@@ -23,6 +24,7 @@ export default function Summary() {
     const totalPriceInCart = shoppingCart.reduce((acc, current) => acc + current.price * current.count, 0);
     const [isValidCobone, setCoboneState] = useState(true);
     const [discount, setDiscount] = useState(null);
+    const [isFetchingDiscountCobones, setIsFetchingDiscountCobones] = useState(false);
     const [includeDeliveryPrice, setDeliveryPriceState] = useState(true);
 
 
@@ -42,7 +44,11 @@ export default function Summary() {
 
     useEffect(() => {
         if (!cobones) {
-            dispatch(getcobones());
+            setIsFetchingDiscountCobones(true);
+            fetchDiscountCobones()
+                .then((discountCobone) => dispatch(setDiscountCobones(discountCobone)))
+                .catch(() => { })
+                .finally(() => setIsFetchingDiscountCobones(false))
         }
     }, []);
 
@@ -123,35 +129,45 @@ export default function Summary() {
                     <PriceDisplayer price={totalPrice} style={{ ...priceStyle, color: "red", fontSize: "20px" }} />
                 </Li>
                 <Divider />
-                <Li style={{ pb: 2 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'flex-end', flexGrow: "1" }}>
-                        <Discount sx={{ color: 'primary.main', mr: 1, my: 0.5, fontSize: "1rem" }} />
-                        <TextField
-                            error={!isValidCobone}
-                            defaultValue={usedCobone}
-                            disabled={discount ? true : false}
-                            helperText={!isValidCobone ? "The Cobone Is Invalid" : ""}
-                            onChange={(e) => {
-                                if (e.target.value?.length == 0) {
-                                    setCoboneState(true);
-                                    dispatch(removeDiscount());
-                                }
-                            }}
-                            id="discountCobone"
-                            label="Cobone"
-                            variant="standard"
-                            sx={{ flexGrow: "1" }}
-                        />
-                    </Box>
-                    <Button variant='contained' sx={{ ml: 2, p: 0, minWidth: "40px", alignSelf: "flex-end" }} >
-                        {
-                            discount ?
-                                <Close onClick={resetCoboneField} />
-                                :
-                                <Done onClick={handleCoboneField} />
-                        }
-                    </Button>
-                </Li>
+                {
+                    isFetchingDiscountCobones ? (
+                        <Box className="flex-row-center gap1">
+                            <Skeleton variant='rounded' height={35} width="100%" />
+                            <Skeleton variant='rounded' height={35} width={40} />
+                        </Box>
+                    )
+                        : cobones && (
+                            <Li style={{ p: 0, pb: 2 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'flex-end', flexGrow: "1" }}>
+                                    <Discount sx={{ color: 'primary.main', mr: 1, my: 0.5, fontSize: "1rem" }} />
+                                    <TextField
+                                        error={!isValidCobone}
+                                        defaultValue={usedCobone}
+                                        disabled={discount}
+                                        helperText={!isValidCobone ? "The Cobone Is Invalid" : ""}
+                                        onChange={(e) => {
+                                            if (e.target.value?.length == 0) {
+                                                setCoboneState(true);
+                                                dispatch(removeDiscount());
+                                            }
+                                        }}
+                                        id="discountCobone"
+                                        label="Cobone"
+                                        variant="standard"
+                                        sx={{ flexGrow: "1" }}
+                                    />
+                                </Box>
+                                <Button variant='contained' sx={{ ml: 2, p: 0, minWidth: "40px", alignSelf: "flex-end" }} >
+                                    {
+                                        discount ?
+                                            <Close onClick={resetCoboneField} />
+                                            :
+                                            <Done onClick={handleCoboneField} />
+                                    }
+                                </Button>
+                            </Li>
+                        )
+                }
             </List>
         </Paper>
     )

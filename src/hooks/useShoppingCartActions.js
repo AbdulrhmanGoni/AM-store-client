@@ -8,7 +8,8 @@ export default function useShoppingCartActions() {
     const path = `users/${userId}/shopping-cart`;
 
     const setShoppingCart = async (shoppingCart) => {
-        return await customFetch(path, "POST", { shoppingCart, type: "set_new_cart" });
+        const productsIds = shoppingCart.map(product => `${product._id}-${product.count}`);
+        return await customFetch(path, "POST", { productsIds, type: "set_new_cart" });
     }
 
     const clearCart = async () => {

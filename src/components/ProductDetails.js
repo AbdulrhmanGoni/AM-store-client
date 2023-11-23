@@ -14,6 +14,7 @@ import { ProductImagesDisplayer, ProductAvailabationState } from "@abdulrhmangon
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";
+import CommentsSection from "@/components/CommentsSection";
 
 
 export default function ProductDetails({ product }) {
@@ -109,7 +110,7 @@ export default function ProductDetails({ product }) {
                     </List>
                 </Grid>
             </Grid>
-            {/* <CommentsSection /> */}
+            <CommentsSection />
         </Box>
     )
 }

@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { CircularProgress, IconButton } from '@mui/material';
+import { CircularProgress, IconButton, MenuItem, Menu } from '@mui/material';
 import { Delete, Edit, MoreVert } from '@mui/icons-material';
 
-export default function CommentOptionsMenu({ style, isOwner, deleteFun, editFun, styleReplace}) {
+export default function CommentOptionsMenu({ style, isOwner, deleteFun }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [loadingDelete, setLoadingDelete] = useState(false);
     const open = Boolean(anchorEl);
@@ -24,10 +22,10 @@ export default function CommentOptionsMenu({ style, isOwner, deleteFun, editFun,
         setLoadingDelete(false);
     };
 
-    const styleIcon = styleReplace ?? { right: 4, top: 4, position: "absolute", ...style }
+    const styleIcon = { right: 4, top: 4, position: "absolute", ...style }
 
     return (
-        isOwner && 
+        isOwner &&
         <div style={styleIcon}>
             <IconButton
                 aria-controls={open ? 'demo-positioned-menu' : undefined}

@@ -16,11 +16,20 @@ function NotFound({ productId }) {
     />
 }
 
-function Unexpected() {
+export function Unexpected() {
     return <ErrorThrower
         illustratorType="unexpected"
         title="Unexpected Error"
         message='There are unexpected error, check your internet or refresh the page'
+        withRefreshButton
+    />
+}
+
+export function ServerError() {
+    return <ErrorThrower
+        illustratorType="server"
+        title="Server Error"
+        message='There are unexpected error from the server, check your internet or refresh the page'
         withRefreshButton
     />
 }

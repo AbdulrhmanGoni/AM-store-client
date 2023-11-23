@@ -1,11 +1,12 @@
 
 import { Send } from '@mui/icons-material';
-import { Avatar, Box, Button } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import InputEmoji from 'react-input-emoji'
 
-export default function TextFieldWithImojis({ initialValue, placeholder, handleSubmit, buttonProps }) {
+export default function TextFieldWithImojis({ initialValue, placeholder, handleSubmit, buttonProps, Loading }) {
 
     const userData = useSelector(state => state.userData);
     const [inputValue, setInputValue] = useState(initialValue);
@@ -26,17 +27,18 @@ export default function TextFieldWithImojis({ initialValue, placeholder, handleS
                 onChange={(text) => setInputValue(text)}
                 borderRadius={5}
                 placeholder={placeholder} />
-            <Button
+            <LoadingButton
                 variant='contained'
                 size='small'
                 sx={{ alignSelf: "stretch" }}
                 endIcon={<Send />}
                 type='submit'
                 disabled={!userData?._id}
+                loading={Loading}
                 {...buttonProps}
             >
                 Send
-            </Button>
+            </LoadingButton>
         </Box>
     )
 }

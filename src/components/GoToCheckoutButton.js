@@ -4,11 +4,13 @@ import { ExitToApp, Payment } from '@mui/icons-material'
 import { Button, Tooltip } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 export default function GoToCheckoutButton() {
 
     const { push } = useRouter();
     const shoppingCart = useSelector(state => state.shoppingCart);
+    const { message } = useSpeedMessage();
     const userData = useSelector(state => state.userData);
 
     function IfTheCartValidToCheckout() {
@@ -16,7 +18,7 @@ export default function GoToCheckoutButton() {
             message("there is item in your cart out of stock", "error", 10000);
             return false;
         }
-        else if (!shoppingCart.every(pro => pro.count < pro.amount)) {
+        else if (!shoppingCart.every(pro => pro.count <= pro.amount)) {
             message("there is item in your cart its amount decremented", "error", 10000);
             return false;
         } else return true;

@@ -25,7 +25,7 @@ export default function SignUpPage() {
     } = useSignUpLogic();
 
     return (
-        <FormsPagesContainer bgImage={"./sky3.jpg"}>
+        <FormsPagesContainer bgImage={"./looking-to-galaxy.png"}>
             <Box
                 sx={{
                     marginTop: 8,

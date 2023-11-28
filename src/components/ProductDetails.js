@@ -14,7 +14,7 @@ import { ProductImagesDisplayer, ProductAvailabationState } from "@abdulrhmangon
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";
-import CommentsSection from "@/components/CommentsSection";
+import CommentsSection from "@/components/ProductCommentsSection";
 
 
 export default function ProductDetails({ product }) {

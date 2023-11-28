@@ -11,7 +11,7 @@ import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
 import { timeAgo } from '@abdulrhmangoni/am-store-library';
 
 
-const CommentViewer = ({ commenterData: { userName, avatar }, theComment, setChanges, }) => {
+const CommentViewer = ({ commenterData: { userName, avatar }, theComment, setChanges, cardId }) => {
 
     const { text, commenterId, id: commentId, likes, dislikes, createdAt, isNewComment } = theComment;
 
@@ -46,7 +46,7 @@ const CommentViewer = ({ commenterData: { userName, avatar }, theComment, setCha
     useEffect(() => { isNewComment && setCommentCardBehavior("0%") }, []);
 
     return (
-        <Box sx={{ p: "1px" }}>
+        <Box id={cardId} sx={{ p: "1px" }}>
             <Paper className="flex-column gap1" sx={{
                 p: "0px 8px",
                 position: "relative",

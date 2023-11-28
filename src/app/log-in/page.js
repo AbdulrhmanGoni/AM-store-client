@@ -60,7 +60,7 @@ export default function LogInPage() {
                             />
                             {
                                 thereIsError &&
-                                <ErrorMessageTag messge="There Are Issue in Email Or password, Try Again With More verify" />
+                                <ErrorMessageTag messge="There is issue in email Or password, Try again with more verifying" />
                             }
                         </Grid>
                         <Grid item>

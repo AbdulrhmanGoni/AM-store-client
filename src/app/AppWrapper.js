@@ -42,7 +42,7 @@ export default function AppWrapper({ children }) {
                         />
                             : isServerError ? <ErrorThrower
                                 title="Server Error"
-                                message="There is unexpected error from the server, refresh the page or come back later"
+                                message="There is unexpected error from the server, Come back later"
                                 illustratorType="server"
                                 fullPage withRefreshButton
                             />

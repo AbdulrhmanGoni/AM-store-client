@@ -15,6 +15,7 @@ import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { applyDiscount } from '@/functions/cobones';
 import { ActionAlert, loadingControl } from '@abdulrhmangoni/am-store-library';
 import useOrdersActions from '@/hooks/useOrdersActions';
+import pagesSpaces from '@/CONSTANT/pagesSpaces';
 
 
 export default function CheckoutPage() {
@@ -88,7 +89,7 @@ export default function CheckoutPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid className='flex-column gap2 full-width' item md={4}>
+            <Grid className='full-width' item md={4}>
                 <Summary />
                 <ActionAlert
                     title="Are you sure to continue?"
@@ -97,13 +98,7 @@ export default function CheckoutPage() {
                 >
                     <Button
                         variant='contained'
-                        sx={{
-                            width: "100%",
-                            bottom: "0",
-                            left: "0",
-                            zIndex: "500",
-                            position: { xs: "fixed", md: "relative" }
-                        }}
+                        sx={{ width: "100%", my: pagesSpaces }}
                         startIcon={<Payment />}
                         size="large"
                     >

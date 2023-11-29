@@ -7,10 +7,6 @@ import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 import { useSelector } from 'react-redux';
 
 
-export const metadata = {
-    title: "Orders"
-}
-
 export default function OrdersPage() {
 
     const userId = useSelector(state => state.userData?._id);

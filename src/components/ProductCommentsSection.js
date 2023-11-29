@@ -7,10 +7,10 @@ import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import TextFieldWithImojis from './TextFieldWithImojis';
 import { Refresh } from '@mui/icons-material';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
-import isElementInViewport from '@/functions/isElementInViewport';
+import { useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
 
 export default function ProductCommentsSection() {
-    
+
     const userData = useSelector(state => state.userData);
     const { message } = useSpeedMessage();
     const { addComment, getProductComments } = useProductsCommentsActions();
@@ -67,14 +67,6 @@ export default function ProductCommentsSection() {
         }
     }
 
-    function appearingMonitor() {
-        const targetElement = document.getElementById("last-comment-card");
-        if (targetElement && isElementInViewport(targetElement)) {
-            getNextPage()
-            targetElement.removeAttribute("id")
-        }
-    }
-
     useEffect(() => {
         if (sliceNumber && !thereIsNoMore) {
             setIsLoading(true);
@@ -91,11 +83,7 @@ export default function ProductCommentsSection() {
         }
     }, [sliceNumber])
 
-    useEffect(() => {
-        window.addEventListener('scroll', appearingMonitor);
-        window.addEventListener('resize', appearingMonitor);
-        appearingMonitor();
-    }, [thereIsNoMore])
+    useWhenElementAppears("last-comment-card", getNextPage);
 
     return (
         <Box className="flex-column-center gap1 full-width" p="40px 0px">

@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Alert, Box, Button, CircularProgress, IconButton, List, Typography } from '@mui/material';
 import CommentViewer from './CommentViewer';
 import { useSelector } from 'react-redux';
@@ -8,27 +8,29 @@ import TextFieldWithImojis from './TextFieldWithImojis';
 import { Refresh } from '@mui/icons-material';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
 import { useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
+import useSlicedFetch from '@/hooks/useSlicedFetch';
 
 export default function ProductCommentsSection() {
 
     const userData = useSelector(state => state.userData);
     const { message } = useSpeedMessage();
-    const { addComment, getProductComments } = useProductsCommentsActions();
+    const { addComment, path } = useProductsCommentsActions();
     const [commentsOpened, setCommentsOpened] = useState(false);
-    const [comments, setComments] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const [thereIsNoMore, setThereIsNoMore] = useState(false);
-    const [sliceNumber, setSliceNumber] = useState(0);
-    const [newCommentsList, setNewCommentsList] = useState([]);
     const [addingLoading, setAddingLoading] = useState(false);
 
-    function getNextPage() {
-        !thereIsNoMore && setSliceNumber(state => ++state);
-    }
+    const {
+        data,
+        isLoading,
+        isError,
+        getNextSlice,
+        addNewItem,
+        deleteItem
+    } = useSlicedFetch(path, { contentName: "comments" });
+
+    useWhenElementAppears("last-comment-card", getNextSlice);
 
     function openCommentsSection() {
-        getNextPage()
+        getNextSlice()
         setCommentsOpened(true);
     }
 
@@ -41,22 +43,19 @@ export default function ProductCommentsSection() {
             setAddingLoading(true)
             addComment(commentData)
                 .then(commentId => {
-                    setComments(comments => [
-                        {
-                            ...commentData,
-                            id: commentId,
-                            commenterData: {
-                                userName: userData.userName,
-                                avatar: userData.avatar
-                            },
-                            createdAt: new Date().toISOString(),
-                            likes: [],
-                            dislikes: [],
-                            isNewComment: true
+                    const theNewComment = {
+                        ...commentData,
+                        id: commentId,
+                        commenterData: {
+                            userName: userData.userName,
+                            avatar: userData.avatar
                         },
-                        ...comments
-                    ]);
-                    setNewCommentsList(theList => [commentId, ...theList]);
+                        createdAt: new Date().toISOString(),
+                        likes: [],
+                        dislikes: [],
+                        isNewComment: true
+                    }
+                    addNewItem(theNewComment, commentId);
                     clearField();
                     if (!commentsOpened) {
                         openCommentsSection()
@@ -66,24 +65,6 @@ export default function ProductCommentsSection() {
                 .finally(() => setAddingLoading(false))
         }
     }
-
-    useEffect(() => {
-        if (sliceNumber && !thereIsNoMore) {
-            setIsLoading(true);
-            getProductComments(sliceNumber)
-                .then(({ comments, thereIsMore }) => {
-                    !thereIsMore && setThereIsNoMore(true);
-                    if (comments?.length) {
-                        setComments(state => [...state, ...comments.filter(com => !newCommentsList.includes(com.id))])
-                        isError && setIsError(false);
-                    }
-                })
-                .catch(() => setIsError(true))
-                .finally(() => { setIsLoading(false) })
-        }
-    }, [sliceNumber])
-
-    useWhenElementAppears("last-comment-card", getNextPage);
 
     return (
         <Box className="flex-column-center gap1 full-width" p="40px 0px">
@@ -96,32 +77,32 @@ export default function ProductCommentsSection() {
                 commentsOpened &&
                 <>
                     {
-                        comments.length ?
+                        data.length ?
                             <List className='flex-column gap1 full-width'>
                                 {
-                                    comments.map((comment, index) => {
+                                    data.map((comment, index) => {
                                         return <CommentViewer
                                             key={comment.id}
-                                            cardId={comments.length - 1 === index ? "last-comment-card" : undefined}
+                                            cardId={data.length - 1 === index ? "last-comment-card" : undefined}
                                             theComment={comment}
                                             commenterData={comment.commenterData}
-                                            setChanges={setComments}
+                                            deleteTheComment={() => deleteItem(comment.id)}
                                         />
                                     })
                                 }
                             </List>
-                            : isLoading ? null
-                                : <Typography variant='h6' sx={{ p: "20px 8px", m: "0px auto" }}>
+                            : isLoading || isError ? null
+                                : data && <Typography variant='h6' sx={{ p: "20px 8px", m: "0px auto" }}>
                                     There are no comments for this product
                                 </Typography>
                     }
                 </>
             }
             {
-                isLoading ? <Box sx={{ m: "30px 0px" }}><CircularProgress /></Box>
+                isLoading ? <Box sx={{ my: 3 }}><CircularProgress /></Box>
                     : isError ?
                         <Alert
-                            action={<IconButton onClick={getNextPage}><Refresh /></IconButton>}
+                            action={<IconButton onClick={getNextSlice}><Refresh /></IconButton>}
                             sx={{ width: "100%" }}
                             severity='error'
                         >

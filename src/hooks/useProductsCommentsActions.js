@@ -31,6 +31,7 @@ export default function useProductsCommentsActions() {
         getProductComments,
         addComment,
         setLikeOrDislike,
-        deleteComment
+        deleteComment,
+        path
     }
 }

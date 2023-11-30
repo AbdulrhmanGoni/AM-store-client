@@ -11,7 +11,7 @@ import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
 import { timeAgo } from '@abdulrhmangoni/am-store-library';
 
 
-const CommentViewer = ({ commenterData: { userName, avatar }, theComment, setChanges, cardId }) => {
+const CommentViewer = ({ commenterData: { userName, avatar }, theComment, deleteTheComment, cardId }) => {
 
     const { text, commenterId, id: commentId, likes, dislikes, createdAt, isNewComment } = theComment;
 
@@ -35,9 +35,7 @@ const CommentViewer = ({ commenterData: { userName, avatar }, theComment, setCha
             .then(() => {
                 setDeleteCommentBehavior(commentId);
                 waitFor(0.5)
-                    .then(() => {
-                        setChanges(comments => comments.filter(comment => comment.id !== commentId))
-                    });
+                    .then(deleteTheComment);
             })
             .catch(() => message("Failed delete", "error"))
     }

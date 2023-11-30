@@ -98,7 +98,3 @@ export default function LogInPage() {
         </FormsPagesContainer>
     );
 }
-
-export const metadata = {
-    title: "Log in to AM Store"
-}

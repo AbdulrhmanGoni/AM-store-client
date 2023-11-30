@@ -6,7 +6,7 @@ import formatDate from "@/functions/formatDate";
 import { useRouter } from "next/navigation";
 
 
-export default function Order({ order }) {
+export default function OrderCard({ order, cardId }) {
 
     const { push } = useRouter();
 
@@ -21,13 +21,13 @@ export default function Order({ order }) {
     const { city, country, street } = order.location;
 
     return (
-        <Card elevation={1} sx={{ width: "100%" }}>
+        <Card id={cardId} sx={{ width: "100%" }}>
             <Box className="orderBar" sx={{
                 position: "relative",
                 display: "flex",
                 flexFlow: "row wrap",
                 alignItems: "center",
-                backgroundColor: "primary.main",
+                bgcolor: "primary.main",
                 p: "4px 8px", color: "white"
             }}>
                 <Typography>{order._id}</Typography>
@@ -42,7 +42,7 @@ export default function Order({ order }) {
                     {order.products.map((item) => (
                         <ImageListItem
                             key={item._id}
-                            sx={{ justifyContent: "center", alignItems: "center" }}
+                            className="flex-center"
                         >
                             <Box component="img"
                                 src={item.images[0]}

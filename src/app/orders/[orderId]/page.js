@@ -4,13 +4,11 @@ import SummaryDisplayer from '@/components/SummaryDisplayer';
 import ProductCardHorizontally from '@/components/ProductCardHorizontally';
 import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 import { useFetch } from '@/hooks/useFetch';
-import { useSelector } from 'react-redux';
 
 
 export default function OrderDetails({ params: { orderId } }) {
 
-    const userId = useSelector(state => state.userData?._id);
-    const path = `users/${userId}/orders/${orderId}`
+    const path = `orders/${orderId}`
     const ordersReturnType = "ordersReturnType=_paymentMethod,_location,_updatedAt,_userId"
     const productsReturnType = "productsReturnType=basic"
     const queries = `?${ordersReturnType}&${productsReturnType}`

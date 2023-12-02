@@ -8,7 +8,7 @@ export default function error() {
 }
 
 
-function NotFound({ productId }) {
+export function NotFound({ productId }) {
     return <ErrorThrower
         message={`We Couldn't Found Product with id: '${productId}'`}
         title="404 Not Found"

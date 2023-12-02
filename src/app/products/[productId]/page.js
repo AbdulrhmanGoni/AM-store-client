@@ -1,14 +1,14 @@
 import ProductDetails from "@/components/ProductDetails"
 import serverFetch from "@/functions/serverFetch"
-import { ServerError } from "./error"
+import { Unexpected, NotFound } from "./error"
 
 export default async function Page({ params: { productId } }) {
-
     try {
-        const data = await serverFetch(`products/${productId}`)
-        return <ProductDetails product={data} />
-    } catch (error) {
-        console.log(error)
-        return <ServerError />
+        const response = await serverFetch(`products/${productId}`);
+        return response == null ? <NotFound productId={productId} />
+            : response ? <ProductDetails product={response} />
+                : <Unexpected />
+    } catch {
+        return <Unexpected />
     }
 }

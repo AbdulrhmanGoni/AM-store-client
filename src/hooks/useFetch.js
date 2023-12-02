@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import customFetch from "@/functions/customFetch";
 
-export const useFetch = (url, { init, depended, fetchCondition } = {}) => {
+export const useFetch = (url, { init, dependencies, fetchCondition } = {}) => {
 
     const pass = fetchCondition === undefined ? true : fetchCondition;
 
@@ -27,7 +27,7 @@ export const useFetch = (url, { init, depended, fetchCondition } = {}) => {
                 })
                 .finally(() => setLoading(false));
         }
-    }, [url, refetched, depended]);
+    }, [url, refetched, dependencies]);
 
     return {
         data,
@@ -36,6 +36,7 @@ export const useFetch = (url, { init, depended, fetchCondition } = {}) => {
         statusCode,
         isLoading,
         setData,
-        refetch: () => refetch(v => ++v)
+        refetch: () => refetch(v => ++v),
+        refetched
     };
 };

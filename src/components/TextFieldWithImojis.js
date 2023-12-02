@@ -1,39 +1,52 @@
-
 import { Send } from '@mui/icons-material';
 import { Avatar, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import InputEmoji from 'react-input-emoji'
+import InputEmoji from 'react-input-emoji';
 
-export default function TextFieldWithImojis({ initialValue, placeholder, handleSubmit, buttonProps, Loading }) {
+export default function TextFieldWithImojis(props) {
+
+    const {
+        initialValue,
+        placeholder,
+        handleSubmit,
+        buttonProps,
+        Loading,
+        disabled
+    } = props;
 
     const userData = useSelector(state => state.userData);
     const [inputValue, setInputValue] = useState(initialValue);
 
     function submit(event) {
-        event.preventDefault();
+        event?.preventDefault?.();
         handleSubmit(inputValue, () => setInputValue(""));
     }
 
     return (
         <Box
-            component="form" onSubmit={submit}
-            sx={commentSectionStyle}
+            component="form"
+            onSubmit={submit}
+            sx={commentSectionStyle(disabled)}
+            className={disabled ? "disabled-element" : undefined}
         >
             {userData?._id && <Avatar src={userData?.avatar} sx={{ width: 35, height: 35 }} />}
             <InputEmoji
                 value={inputValue}
                 onChange={(text) => setInputValue(text)}
+                onEnter={() => { !(!userData?._id || disabled || Loading) && submit() }}
                 borderRadius={5}
-                placeholder={placeholder} />
+                placeholder={placeholder}
+                keepOpened
+            />
             <LoadingButton
                 variant='contained'
                 size='small'
                 sx={{ alignSelf: "stretch" }}
                 endIcon={<Send />}
                 type='submit'
-                disabled={!userData?._id}
+                disabled={!userData?._id || disabled}
                 loading={Loading}
                 {...buttonProps}
             >
@@ -43,11 +56,17 @@ export default function TextFieldWithImojis({ initialValue, placeholder, handleS
     )
 }
 
-const commentSectionStyle = {
-    display: "flex", alignItems: "center", width: "100%", gap: 1, bgcolor: "background.default",
-    "& .react-emoji": { border: "1px solid", borderColor: "primary.main", borderRadius: 1, },
-    "& .react-input-emoji--container": { m: 0, bgcolor: "transparent", border: "none" },
-    "& .react-input-emoji--input": { p: 1, color: "text.primary" },
-    "& .react-input-emoji--button": { mt: "4px" },
-    "& .react-input-emoji--button > svg": { width: "20px", height: "20px" }
+const commentSectionStyle = (disabled) => {
+    const brColors = disabled ? "gray" : "primary.main"
+    const textColors = disabled ? "gray" : "text.primary"
+    return {
+        display: "flex", alignItems: "center", width: "100%", gap: 1, bgcolor: "background.default",
+        "& .react-emoji": { border: "1px solid", borderColor: textColors, borderRadius: 1 },
+        "& .react-emoji:hover": { borderColor: brColors },
+        "& .react-emoji:has(.react-input-emoji--input:focus)": { borderColor: brColors },
+        "& .react-input-emoji--container": { m: 0, bgcolor: "transparent", border: "none" },
+        "& .react-input-emoji--input": { p: 1, color: textColors },
+        "& .react-input-emoji--button": { mt: "4px" },
+        "& .react-input-emoji--button > svg": { width: "20px", height: "20px" }
+    }
 }

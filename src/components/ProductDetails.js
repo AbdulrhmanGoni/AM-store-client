@@ -50,67 +50,72 @@ export default function ProductDetails({ product }) {
     }, [productId, shoppingCart]);
 
     return (
-        <Box className="flex-column-center-between full-height" >
-            <Grid container spacing={{ xs: 1, md: 3 }}>
-                <Grid item xs={12} sm={6}>
-                    <ProductImagesDisplayer images={product.images} />
+        <>
+            <Box
+                sx={{ height: "calc(100vh - 57px - 25px)", }}
+                className="flex-column-center-between"
+            >
+                <Grid container spacing={{ xs: 1, md: 3 }}>
+                    <Grid item xs={12} sm={6}>
+                        <ProductImagesDisplayer images={product.images} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <List disablePadding>
+                            <ListItem>
+                                <Typography variant="h6">{product.title}</Typography>
+                            </ListItem>
+                            <ListItem>
+                                <Typography>Series: {product.series}</Typography>
+                            </ListItem>
+                            <ListItem>
+                                <Typography>{product.description}</Typography>
+                            </ListItem>
+                            <ListItem>
+                                <PriceDisplayer currency="$" price={product.price} />
+                            </ListItem>
+                            <ListItem sx={{ justifyContent: "space-between" }}>
+                                <Typography variant='subtitle2' sx={{
+                                    fontSize: "13px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1
+                                }}>
+                                    <Rating precision={0.5} size='small' value={3.5} readOnly /> (82)
+                                </Typography>
+                                <ToggleFavorite productId={productId} />
+                            </ListItem>
+                            <ListItem sx={{ justifyContent: "space-between" }}>
+                                <Typography variant='subtitle2' sx={{
+                                    fontSize: "13px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1
+                                }}>
+                                    <ProductAvailabationState visitAllAmount amount={product.amount} />
+                                </Typography>
+                            </ListItem>
+                            <Divider />
+                            <ListItem disablePadding sx={{ gap: 1, justifyContent: "space-between", mt: 1 }}>
+                                {
+                                    isInCart ?
+                                        <Button
+                                            sx={{ width: "100%" }}
+                                            size="small" variant="contained"
+                                            onClick={() => push("/shopping-cart")}
+                                            startIcon={<ShoppingCartCheckout />}>
+                                            Go To Shopping Cart
+                                        </Button>
+                                        :
+                                        <LoadingButton loading={loadingBtn} sx={{ width: "100%" }} size="small" onClick={addToShoppingCart} variant="contained" startIcon={<ShoppingCart />}>
+                                            Add To Cart
+                                        </LoadingButton>
+                                }
+                            </ListItem>
+                        </List>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <List disablePadding>
-                        <ListItem>
-                            <Typography variant="h6">{product.title}</Typography>
-                        </ListItem>
-                        <ListItem>
-                            <Typography>Series: {product.series}</Typography>
-                        </ListItem>
-                        <ListItem>
-                            <Typography>{product.description}</Typography>
-                        </ListItem>
-                        <ListItem>
-                            <PriceDisplayer currency="$" price={product.price} />
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "space-between" }}>
-                            <Typography variant='subtitle2' sx={{
-                                fontSize: "13px",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1
-                            }}>
-                                <Rating precision={0.5} size='small' value={3.5} readOnly /> (82)
-                            </Typography>
-                            <ToggleFavorite productId={productId} />
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "space-between" }}>
-                            <Typography variant='subtitle2' sx={{
-                                fontSize: "13px",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1
-                            }}>
-                                <ProductAvailabationState visitAllAmount amount={product.amount} />
-                            </Typography>
-                        </ListItem>
-                        <Divider />
-                        <ListItem disablePadding sx={{ gap: 1, justifyContent: "space-between", mt: 1 }}>
-                            {
-                                isInCart ?
-                                    <Button
-                                        sx={{ width: "100%" }}
-                                        size="small" variant="contained"
-                                        onClick={() => push("/shopping-cart")}
-                                        startIcon={<ShoppingCartCheckout />}>
-                                        Go To Shopping Cart
-                                    </Button>
-                                    :
-                                    <LoadingButton loading={loadingBtn} sx={{ width: "100%" }} size="small" onClick={addToShoppingCart} variant="contained" startIcon={<ShoppingCart />}>
-                                        Add To Cart
-                                    </LoadingButton>
-                            }
-                        </ListItem>
-                    </List>
-                </Grid>
-            </Grid>
+            </Box>
             <CommentsSection />
-        </Box>
+        </>
     )
 }

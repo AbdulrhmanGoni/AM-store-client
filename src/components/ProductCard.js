@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import {
     Card, CardMedia, Rating, Divider, Box,
-    CardContent, CardActions, Typography
+    CardContent, CardActions, Typography,
+    CircularProgress
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,7 +97,8 @@ export default function ProductCard({ theProduct, sx }) {
                     size='small'
                     sx={{
                         fontSize: { xs: "0.5rem", sm: "0.65rem" },
-                        "& svg": { width: { xs: "1rem", sm: "1.2rem" } }
+                        "& svg": { width: "1rem" },
+                        "& .MuiButton-startIcon": { ml: "3px" },
                     }}
                     loading={loading}
                     loadingPosition="start"

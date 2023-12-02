@@ -13,7 +13,7 @@ export default function useProductsCommentsActions() {
     }
 
     async function addComment(comment) {
-        return await customFetch(path, "POST", { comment, type: "newComment" });
+        return await customFetch(path + "?type=newComment", "POST", { comment });
     }
 
     async function deleteComment({ commentId, commenterId }) {
@@ -24,7 +24,7 @@ export default function useProductsCommentsActions() {
     }
 
     async function setLikeOrDislike(action) {
-        return await customFetch(path, "POST", { action, type: "like||dislike" });
+        return await customFetch(path + "?type=like-dislike", "POST", action);
     }
 
     return {

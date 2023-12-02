@@ -30,13 +30,7 @@ export default function LogInPage() {
 
     return (
         <FormsPagesContainer bgImage={"./sky2.jpg"}>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
+            <Box className="flex-column-center">
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><Login /></Avatar>
                 <Typography component="h1" variant="h5">Log In</Typography>
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>

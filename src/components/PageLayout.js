@@ -56,11 +56,8 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                 <Container
                     maxWidth={maxWidth}
                     className='flex-column'
-                    sx={{
-                        height: "calc(100vh - 57px - 25px)",
-                        pl: pagesSpaces,
-                        pr: pagesSpaces
-                    }}>
+                    sx={{ px: pagesSpaces }}
+                >
                     {children}
                 </Container>
             </>

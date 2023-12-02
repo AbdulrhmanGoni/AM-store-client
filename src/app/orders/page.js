@@ -17,8 +17,8 @@ export default function OrdersPage() {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
                 <Tabs value={filter} onChange={handleChange}>
-                    <Tab sx={btnStyle} label="Completed Orders" />
-                    <Tab sx={btnStyle} label="Pending Orders" />
+                    <Tab sx={btnStyle} label="Completed" />
+                    <Tab sx={btnStyle} label="Pending" />
                 </Tabs>
             </Box>
             {ordersStates[filter] == "Completed" ? <OrdersList orderState="Completed" /> : null}

@@ -30,7 +30,7 @@ export default function OrderDetails({ params: { orderId } }) {
                             </Box>
                         </Grid>
                         <Grid item md={8}>
-                            <Box sx={{ overflowY: "auto", maxHeight: "calc(100vh - 57px - 32px)", p: "6px 0px" }}>
+                            <Box sx={{ p: "6px 0px" }}>
                                 <Grid container spacing={2}>
                                     {order.products.map((product) => {
                                         return (

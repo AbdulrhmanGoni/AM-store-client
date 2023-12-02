@@ -2,7 +2,7 @@ import { Box, Divider, Grid, Skeleton } from "@mui/material";
 
 export default function loading() {
     return (
-        <Grid container spacing={{ xs: 2, md: 3 }} sx={{ minHeight: "calc(100vh - 87px)", mb: 2 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mb: 2 }}>
             <Grid item xs={12} sm={6}>
                 <Box width="100%">
                     <Skeleton variant="rounded" sx={{ mb: 1.5 }} width="100%" height={300} />

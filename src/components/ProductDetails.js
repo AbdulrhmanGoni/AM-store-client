@@ -51,10 +51,7 @@ export default function ProductDetails({ product }) {
 
     return (
         <>
-            <Box
-                sx={{ height: "calc(100vh - 57px - 25px)", }}
-                className="flex-column-center-between"
-            >
+            <Box className="flex-column-center-between" sx={{ flexGrow: 1 }}>
                 <Grid container spacing={{ xs: 1, md: 3 }}>
                     <Grid item xs={12} sm={6}>
                         <ProductImagesDisplayer images={product.images} />

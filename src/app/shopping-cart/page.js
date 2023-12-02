@@ -52,7 +52,7 @@ export default function ShoppingCartPage() {
                         </Button>
                     </ActionAlert>
                 </Paper>
-                <Box sx={{ overflowY: "auto", maxHeight: "calc(100vh - 57px - 65px)" }} >
+                <Box>
                     <List className='flex-column gap1'>
                         {
                             shoppingCart.map((product) => {

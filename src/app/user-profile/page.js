@@ -1,8 +1,9 @@
 "use client"
 import { useRef, useState } from "react";
 import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Typography, Box, Badge, Tooltip } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
-import { Edit, Email, LockOutlined, LockReset, Person } from "@mui/icons-material";
+import { Edit, Email, LockOutlined, LockReset, Person, Save } from "@mui/icons-material";
 import { changeUserName_localy } from "@/dataBase/userData_slice";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import OverlayHoverLink from "@/components/OverlayHoverLink";
@@ -13,6 +14,7 @@ import ImageDispayer from "@/components/ImageDispayer";
 import pagesSpaces from "@/CONSTANT/pagesSpaces";
 import { useRouter } from "next/navigation";
 import useUserDataActions from "@/hooks/useUserDataActions";
+import { P } from "@abdulrhmangoni/am-store-library";
 
 const textFieldIconStyle = { color: 'primary.main' };
 
@@ -23,6 +25,7 @@ export default function UserProfile() {
     const { userName, hisEmailVerified, avatar, userEmail } = useSelector(state => state.userData ?? {});
     const { changeUserName } = useUserDataActions()
     const { message } = useSpeedMessage();
+    const [changingUserNameLoading, setChangingUserNameLoading] = useState(false);
     const [userNameIsChangeed, setUserNameState] = useState(false);
     const [changePasswordForm, setChangePasswordFormState] = useState(false);
     const [editIsOpen, setEditIsOpen] = useState(false);
@@ -35,6 +38,7 @@ export default function UserProfile() {
 
     async function updateUserInfo() {
         const newName = userNameFieldRef.current?.value;
+        setChangingUserNameLoading(true);
         changeUserName(newName)
             .then(() => {
                 dispatch(changeUserName_localy(newName));
@@ -42,6 +46,7 @@ export default function UserProfile() {
                 message("UserName Changed Successfully", "success");
             })
             .catch(() => message("Changeding UserName failed for unknown reason"))
+            .finally(() => setChangingUserNameLoading(false));
     }
 
     const editIconStyle = {
@@ -120,50 +125,57 @@ export default function UserProfile() {
                     {
                         userNameIsChangeed &&
                         <Grid sx={{ display: "flex", justifyContent: "flex-end" }} item xs={12}>
-                            <Button size="small" onClick={updateUserInfo} variant="contained">Save</Button>
+                            <LoadingButton
+                                loading={changingUserNameLoading}
+                                size="small"
+                                onClick={updateUserInfo}
+                                variant="contained"
+                                startIcon={<Save />}
+                                loadingPosition="start"
+                            >
+                                Save
+                            </LoadingButton>
                         </Grid>
                     }
                 </Grid>
             </Paper>
-            <Paper elevation={1} sx={{ p: 2, borderRadius: 1 }} >
+            <Paper sx={{ p: 2, borderRadius: 1 }} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography variant="h6">Security</Typography>
+                        <P variant="h6">Security</P>
                     </Grid>
                     {
                         changePasswordForm ?
-                            <ChangePasswordForm
-                                control={setChangePasswordFormState}
-                                message={message}
-                            />
-                            :
-                            <>
-                                <Grid item xs={12} sm={6}>
-                                    <TextFieldContainer>
-                                        <LockOutlined sx={textFieldIconStyle} />
-                                        <TextField
+                            <ChangePasswordForm control={setChangePasswordFormState} />
+                            : (
+                                <>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextFieldContainer>
+                                            <LockOutlined sx={textFieldIconStyle} />
+                                            <TextField
+                                                sx={{ width: "100%" }}
+                                                disabled
+                                                defaultValue="* * * * * * * *"
+                                                id="User-Password"
+                                                label="User Password"
+                                                variant="standard"
+                                            />
+                                        </TextFieldContainer>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}
+                                        sx={{ display: "flex", alignItems: "flex-end" }}
+                                    >
+                                        <Button
+                                            size="small"
+                                            onClick={() => setChangePasswordFormState(true)}
                                             sx={{ width: "100%" }}
-                                            disabled
-                                            defaultValue="* * * * * * * *"
-                                            id="User-Password"
-                                            label="User Password"
-                                            variant="standard"
-                                        />
-                                    </TextFieldContainer>
-                                </Grid>
-                                <Grid item xs={12} sm={6}
-                                    sx={{ display: "flex", alignItems: "flex-end" }}
-                                >
-                                    <Button
-                                        size="small"
-                                        onClick={() => setChangePasswordFormState(true)}
-                                        sx={{ width: "100%" }}
-                                        startIcon={<LockReset />}
-                                        variant="outlined">
-                                        Change Password
-                                    </Button>
-                                </Grid>
-                            </>
+                                            startIcon={<LockReset />}
+                                            variant="outlined">
+                                            Change Password
+                                        </Button>
+                                    </Grid>
+                                </>
+                            )
                     }
                 </Grid>
             </Paper>

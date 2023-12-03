@@ -5,16 +5,18 @@ import TextFieldContainer from "./TextFieldContainer";
 import { ActionAlert } from "@abdulrhmangoni/am-store-library";
 import { LoadingButton } from "@mui/lab";
 import useUserDataActions from "@/hooks/useUserDataActions";
+import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 
 const ErrorMessage = ({ mesage }) => <Typography sx={{ m: "5px 0px 0px 32px" }} variant="body2" color="error">{mesage}</Typography>
 
-export default function ChangePasswordForm({ control, message }) {
+export default function ChangePasswordForm({ control }) {
 
     const { changeUserPassword, passwordChecker } = useUserDataActions();
+    const { message } = useSpeedMessage();
     const currentPasswordRef = useRef();
     const newPassword1Ref = useRef();
     const newPassword2Ref = useRef();
-    const [currentPasswordState, setCurrentPasswordState] = useState(true);
+    const [currentPasswordState, setCurrentPasswordState] = useState({ state: true, message: "" });
     const [newPasswordState, setNewPasswordState] = useState(true);
     const [isPassworRedyToChange, setIsPassworRedyToChange] = useState(false);
     const [currentPassword, setCurrentPassword] = useState("");
@@ -25,13 +27,17 @@ export default function ChangePasswordForm({ control, message }) {
         setLoading(true);
         const res = await passwordChecker(currentPassword)
             .then((res) => {
-                setCurrentPassword(currentPassword);
+                res && setCurrentPassword(currentPassword);
                 setIsPassworRedyToChange(res);
-                setCurrentPasswordState(res);
+                setCurrentPasswordState({ state: res, message: res ? "" : "Wrong password !, Try again" });
                 return res;
             })
-            .catch(() => { setCurrentPasswordState(false); return false })
+            .catch(() => {
+                setCurrentPasswordState({ state: false, message: "Unexpected error !, Try again" });
+                return false
+            })
             .finally(() => setLoading(false))
+
         return res;
     }
 
@@ -66,13 +72,13 @@ export default function ChangePasswordForm({ control, message }) {
     function closeForm() { control(false); }
 
     return (
-        <Box component="form" sx={{ p: 2, width: "100%" }}>
+        <Box component="form" onSubmit={(e) => e.preventDefault()} sx={{ p: 2, width: "100%" }}>
             <Grid container sx={{ "& label": { fontSize: "15px" } }} spacing={2}>
                 <Grid item xs={12}>
                     <TextFieldContainer>
                         {
-                            isPassworRedyToChange ? <LockOpen sx={textFieldIconStyle(currentPasswordState)} /> :
-                                <LockOutlined sx={textFieldIconStyle(currentPasswordState)} />
+                            isPassworRedyToChange ? <LockOpen sx={textFieldIconStyle(currentPasswordState.state)} /> :
+                                <LockOutlined sx={textFieldIconStyle(currentPasswordState.state)} />
                         }
                         <TextField
                             fullWidth
@@ -82,10 +88,10 @@ export default function ChangePasswordForm({ control, message }) {
                             label="Enter current password"
                             variant="standard"
                             disabled={isPassworRedyToChange}
-                            error={!currentPasswordState}
+                            error={!currentPasswordState.state}
                         />
                     </TextFieldContainer>
-                    {!currentPasswordState && <ErrorMessage mesage="It is invalid password!" />}
+                    {!currentPasswordState.state && <ErrorMessage mesage={currentPasswordState.message} />}
                 </Grid>
                 {
                     isPassworRedyToChange &&

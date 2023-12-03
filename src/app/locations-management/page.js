@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsManegement from '@/components/locationRegistring/LocationsManegement';
@@ -51,8 +51,8 @@ export default function LocationsManegementPage() {
                         }
                     />
                     <ElementWithLoadingState
-                        isLoading={isLoading}
                         height={500}
+                        isLoading={isLoading}
                         element={<LocationsManegement />}
                     />
                 </Box>

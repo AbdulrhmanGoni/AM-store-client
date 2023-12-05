@@ -1,26 +1,28 @@
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from "@/functions/customFetch";
+import { useSelector } from 'react-redux';
 
 
 export default function useLocationActions() {
 
-    const path = id => `users/${id}/locations`;
+    const userId = useSelector(state => state.userData?._id);
+    const path = `users/${userId}/locations`;
 
-    const fetchLocations = async (userId) => { return await customFetch(path(userId)) }
+    const fetchLocations = async () => { return await customFetch(path) }
 
-    const setSelectedLocation = async ({ userId, theLocation }) => {
-        return await customFetch(path(userId), "POST", { theLocation, type: "newSelected" });
+    const setSelectedLocation = async (theLocation) => {
+        return await customFetch(path, "POST", { theLocation, type: "newSelected" });
     }
 
-    const addNewLocation = async ({ userId, theLocation }) => {
+    const addNewLocation = async (theLocation) => {
         loadingControl(true);
-        const data = await customFetch(path(userId), "POST", { theLocation, type: "addNewLocation" });
+        const data = await customFetch(path, "POST", { theLocation, type: "addNewLocation" });
         loadingControl(false);
         return data;
     }
 
-    const deleteLocation = async ({ userId, locationId }) => {
-        return await customFetch(path(userId), "DELETE", { locationId });
+    const deleteLocation = async (locationId) => {
+        return await customFetch(path, "DELETE", { locationId });
     }
 
     return {

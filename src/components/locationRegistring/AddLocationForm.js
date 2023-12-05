@@ -4,8 +4,7 @@ import {
 
 import { Box, Button, Card, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import generateRandomId from '@/functions/generateRandomId';
+import { useDispatch } from 'react-redux';
 import useLocationActions from '@/hooks/useLocationActions';
 import { addNewLocation_localy } from '@/dataBase/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
@@ -19,7 +18,6 @@ export default function AddLocationForm() {
     const dispatch = useDispatch();
     const { addNewLocation } = useLocationActions();
     const { message } = useSpeedMessage();
-    const userData = useSelector(state => state.userData);
 
     const [nameValidationState, setNameValidationState] = useState(false);
     const [numberValidationState, setNumberValidationState] = useState(false);
@@ -103,12 +101,10 @@ export default function AddLocationForm() {
                 city: city,
                 street: Street,
                 moreDetails: more,
-                type: "Home",
-                id: generateRandomId() + "location"
+                type: "Home"
             }
-            const payload = { userId: userData._id, theLocation };
 
-            addNewLocation(payload)
+            addNewLocation(theLocation)
                 .then(() => dispatch(addNewLocation_localy(theLocation)))
                 .catch(() => message("Adding a new location failed"))
 

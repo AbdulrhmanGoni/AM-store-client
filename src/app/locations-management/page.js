@@ -21,7 +21,7 @@ export default function LocationsManegementPage() {
     useEffect(() => {
         if (!locationsList) {
             setIsLoading(true);
-            fetchLocations(userId)
+            fetchLocations()
                 .then(userLocations => {
                     dispatch(setUserLocations(userLocations));
                     isError && setIsError(false);

@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Divider, IconButton, Paper, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Delete, LocationOn } from '@mui/icons-material';
 import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 import { useParams } from 'next/navigation';
@@ -15,13 +15,11 @@ export default function LocationCard({ locationData, children, id, isSelected, s
     const { deleteLocation } = useLocationActions();
     const { message } = useSpeedMessage();
     const { pagePath } = useParams();
-    const userData = useSelector(state => state.userData);
     const [loading, setLoading] = useState(false);
 
     function deleteTheLocation() {
-        const payload = { userId: userData._id, locationId: id };
         setLoading(true);
-        deleteLocation(payload)
+        deleteLocation(id)
             .then(() => dispatch(deleteLocation_localy(id)))
             .catch(() => message("deleting the location failed"))
             .finally(() => setLoading(false));

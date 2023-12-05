@@ -9,7 +9,6 @@ import { AddLocation, AddLocationAlt, Close, Map, MyLocation } from '@mui/icons-
 import useLocationActions from '@/hooks/useLocationActions';
 import { setSelectedLocation_localy } from '@/dataBase/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import { LoadingButton } from '@mui/lab';
 
 
@@ -21,7 +20,6 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
     const { setSelectedLocation } = useLocationActions();
     const { message } = useSpeedMessage();
     const { selectedLocation, locationsList } = useSelector(state => state.locations)
-    const userId = useSelector(state => state.userData?._id)
     const [theSelected, setTheSelected] = useState(null);
     const [isChanged, setChange] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
@@ -71,9 +69,8 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
         event.preventDefault();
         if (theSelected) {
             const newSelected = locationsList.find((location) => location.id === theSelected);
-            const payload = { userId, theLocation: newSelected };
             setIsSaving(true);
-            setSelectedLocation(payload)
+            setSelectedLocation(newSelected)
                 .then(() => dispatch(setSelectedLocation_localy(newSelected)))
                 .catch(() => message("Setting the selected location failed."))
                 .finally(() => {

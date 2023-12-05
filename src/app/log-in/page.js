@@ -5,7 +5,7 @@ import {
 } from '@mui/material/';
 import { Login } from '@mui/icons-material';
 import Link from 'next/link';
-import { useGoogleAuth, loadingControl } from '@abdulrhmangoni/am-store-library';
+import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
 import useLogInLogic from '@/hooks/useLogInLogic';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
@@ -17,7 +17,7 @@ export default function LogInPage() {
     const {
         handleSubmit,
         logInWithGoogle,
-        logInWithGoogleFailed,
+        onLogInWithGoogleFailed,
         thereIsError,
         notValidEmail
     } = useLogInLogic();
@@ -82,9 +82,8 @@ export default function LogInPage() {
                     </Typography>
                 </Link>
                 <AuthButton
-                    onAgree={() => { loadingControl(true) }}
                     onSuccess={logInWithGoogle}
-                    onError={logInWithGoogleFailed}
+                    onError={onLogInWithGoogleFailed}
                     text='Log in with Google'
                     mode="light"
                 />

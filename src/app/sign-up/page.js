@@ -6,7 +6,7 @@ import {
 } from '@mui/material/';
 import { PersonAddAlt1 } from '@mui/icons-material';
 import useSignUpLogic from '@/hooks/useSignUpLogic';
-import { useGoogleAuth, loadingControl } from '@abdulrhmangoni/am-store-library';
+import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
 import Link from 'next/link';
@@ -20,8 +20,8 @@ export default function SignUpPage() {
         passwordState,
         nameState,
         handleSubmit,
-        signWithGoogle,
-        signWithGoogleFailed
+        signUpWithGoogle,
+        onSignedUpFailed
     } = useSignUpLogic();
 
     return (
@@ -122,9 +122,8 @@ export default function SignUpPage() {
                         </Typography>
                     </Link>
                     <AuthButton
-                        onAgree={() => { loadingControl(true) }}
-                        onSuccess={signWithGoogle}
-                        onError={signWithGoogleFailed}
+                        onSuccess={signUpWithGoogle}
+                        onError={onSignedUpFailed}
                         text="Sign up with Google"
                         mode="light"
                     />
@@ -136,11 +135,7 @@ export default function SignUpPage() {
 
 const colorCondition = (condition) => {
     return {
-        "& input": {
-            color: condition ? "white" : "#d32f2f !important"
-        },
-        "& fieldset": {
-            borderColor: !condition ? "red !important" : "white"
-        }
+        "& input": { color: condition ? "white" : "#d32f2f !important" },
+        "& fieldset": { borderColor: !condition ? "red !important" : "white" }
     }
 }

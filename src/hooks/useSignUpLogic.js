@@ -47,38 +47,37 @@ export default function useSignUpLogic() {
 
     function passwordValidate(password1, password2) {
         let msg = "The two passwords must be "
-        let toShortMsg = msg + "longer than 5 characters"
-        let toShort = password1.length < 6
+        let tooShortMsg = msg + "longer than 5 characters"
+        let tooShort = password1.length < 6
         let notSimilarMsg = msg + "similar"
         let notSimilar = password1 !== password2
-        let thereIsError = toShort || notSimilar
+        let thereIsError = tooShort || notSimilar
         setPasswordState({
             state: thereIsError ? false : true,
-            msg: toShort ? toShortMsg : notSimilar ? notSimilarMsg : ""
+            msg: tooShort ? tooShortMsg : notSimilar ? notSimilarMsg : ""
         });
         return thereIsError ? false : password1
     }
 
-    function signUpRequest(path, newUser) {
-        customFetch(path, "POST", newUser)
+    function signUpRequest(path, body, withGoogle) {
+        loadingControl(true);
+        customFetch(path, "POST", body)
             .then(res => {
+                console.log(res)
                 if (res.ok) complateSingUp(res.payload);
                 else {
-                    message(res.message, "warning");
-                    setEmailState({ state: false, msg: res.message ?? "There is unexpected error" })
+                    message(res.message, "warning", 10000);
+                    !withGoogle && setEmailState({ state: false, msg: res.message })
                 }
             })
-            .catch(() => { message("There is unexpected error", "error"); })
-            .finally(() => { loadingControl(false); })
+            .catch(() => {
+                message("Failed to sign up you, There is unexpected error");
+            })
+            .finally(() => loadingControl(false))
     }
 
-    async function signWithGoogle(userInfo) {
-        const newUser = {
-            userEmail: userInfo.email,
-            avatar: userInfo.picture,
-            userName: userInfo.name,
-        }
-        userInfo.email_verified && signUpRequest("sign-up/google-auth", newUser)
+    async function signUpWithGoogle(googleUserAccessToken) {
+        signUpRequest("sign-up/google-auth", { googleUserAccessToken }, true)
     }
 
     async function complateSingUp({ userData, token }) {
@@ -100,7 +99,6 @@ export default function useSignUpLogic() {
         const userPassword = passwordValidate(data.get('password'), data.get('verifyPassword'));
 
         if (userName && userEmail && userPassword) {
-            loadingControl(true);
             signUpRequest("sign-up", { userName, userEmail, userPassword })
         }
     };
@@ -110,7 +108,7 @@ export default function useSignUpLogic() {
         nameState,
         emailState,
         handleSubmit,
-        signWithGoogle,
-        signWithGoogleFailed: () => { message("Signing with Google Failed", "error") },
+        signUpWithGoogle,
+        onSignedUpFailed: () => { message("Signing with Google Failed", "error") },
     }
 }

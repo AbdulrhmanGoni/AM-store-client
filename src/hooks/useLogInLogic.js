@@ -4,12 +4,9 @@ import { useSpeedMessage } from "./useSpeedMessage";
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from "../functions/customFetch";
 import isValidEmail from "../functions/isValidEmail";
-// import { useRouter } from "next/navigation";
-
 
 export default function useLogInLogic() {
 
-    // const { back } = useRouter();
     const { message } = useSpeedMessage();
     const [, setCookies] = useCookies();
     const [thereIsError, setErrorState] = useState(false);
@@ -22,8 +19,9 @@ export default function useLogInLogic() {
         window.location.replace("/");
     }
 
-    async function logInRequest(path, { userPassword, userEmail }, emailError) {
-        customFetch(path, "POST", { userPassword, userEmail })
+    async function logInRequest(path, body, emailError) {
+        loadingControl(true);
+        customFetch(path, "POST", body)
             .then(respons => {
                 respons && complateLogIn(respons);
                 !respons && emailError(respons);
@@ -32,16 +30,15 @@ export default function useLogInLogic() {
             .finally(() => { loadingControl(false) })
     }
 
-    async function logInWithGoogle(userInfo) {
-        userInfo.email_verified &&
-            logInRequest(
-                "log-in/google-auth", { userEmail: userInfo.email },
-                (res) => {
-                    if (res === false) {
-                        message("This email signed up with another sign up method", "warning", 10000)
-                    } else message("You did not create an account before, Sign up first", "error", 10000)
-                }
-            )
+    async function logInWithGoogle(googleUserAccessToken) {
+        logInRequest(
+            "log-in/google-auth", { googleUserAccessToken },
+            (res) => {
+                if (res === false) {
+                    message("This email signed up with another sign up method", "warning", 10000)
+                } else message("You did not signed up with us before, Sign up first", "error", 10000)
+            }
+        )
     }
 
     const handleSubmit = async (event) => {
@@ -68,7 +65,7 @@ export default function useLogInLogic() {
         notValidEmail,
         handleSubmit,
         logInWithGoogle,
-        logInWithGoogleFailed: () => {
+        onLogInWithGoogleFailed: () => {
             message("Logging with Google is failed", "error", 10000)
         }
     }

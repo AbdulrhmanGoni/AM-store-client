@@ -9,8 +9,7 @@ export default function useLogInLogic() {
 
     const { message } = useSpeedMessage();
     const [, setCookies] = useCookies();
-    const [thereIsError, setErrorState] = useState(false);
-    const [notValidEmail, setNotValidEmail] = useState(false);
+    const [errorState, setErrorState] = useState({ status: true, message: "" });
 
     function complateLogIn({ userId, accessToken }) {
         let maxAge = 3600 * 24 * 20;
@@ -19,26 +18,20 @@ export default function useLogInLogic() {
         window.location.replace("/");
     }
 
-    async function logInRequest(path, body, emailError) {
+    async function logInRequest(path, body, isFiledError) {
         loadingControl(true);
         customFetch(path, "POST", body)
-            .then(respons => {
-                respons && complateLogIn(respons);
-                !respons && emailError(respons);
+            .then((response) => { complateLogIn(response) })
+            .catch((error) => {
+                const errorMessage = error.response?.data?.message || "There is unexpected error";
+                if (isFiledError) setErrorState({ message: errorMessage, status: false });
+                else message(errorMessage, "error", 10000);
             })
-            .catch(() => { message("There is unexpected error", "error"); })
-            .finally(() => { loadingControl(false) })
+            .finally(() => loadingControl(false))
     }
 
     async function logInWithGoogle(googleUserAccessToken) {
-        logInRequest(
-            "log-in/google-auth", { googleUserAccessToken },
-            (res) => {
-                if (res === false) {
-                    message("This email signed up with another sign up method", "warning", 10000)
-                } else message("You did not signed up with us before, Sign up first", "error", 10000)
-            }
-        )
+        logInRequest("log-in/google-auth", { googleUserAccessToken })
     }
 
     const handleSubmit = async (event) => {
@@ -50,23 +43,23 @@ export default function useLogInLogic() {
 
         if (validateForm(userEmail)) {
             loadingControl(true)
-            logInRequest("log-in", { userEmail, userPassword }, () => { setErrorState(true) })
+            logInRequest("log-in", { userEmail, userPassword }, true)
         }
     };
 
     function validateForm(email) {
         let isValid = isValidEmail(email)
-        !isValid && setNotValidEmail(true)
+        !isValid && setErrorState({ message: "You entered an invalid email", status: false })
         return isValid
     }
 
     return {
-        thereIsError,
-        notValidEmail,
         handleSubmit,
         logInWithGoogle,
         onLogInWithGoogleFailed: () => {
             message("Logging with Google is failed", "error", 10000)
-        }
+        },
+        emailOrPasswordErrorMessage: errorState.message,
+        emailOrPasswordError: !errorState.status
     }
 }

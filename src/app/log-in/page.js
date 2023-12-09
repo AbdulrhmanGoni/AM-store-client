@@ -18,15 +18,9 @@ export default function LogInPage() {
         handleSubmit,
         logInWithGoogle,
         onLogInWithGoogleFailed,
-        thereIsError,
-        notValidEmail
+        emailOrPasswordErrorMessage,
+        emailOrPasswordError
     } = useLogInLogic();
-
-    const sxTexFieldOutline = {
-        "& fieldset": {
-            borderColor: thereIsError || notValidEmail ? "red !important" : "white"
-        }
-    }
 
     return (
         <FormsPagesContainer bgImage={"./sky2.jpg"}>
@@ -35,31 +29,30 @@ export default function LogInPage() {
                 <Typography component="h1" variant="h5">Log In</Typography>
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sx={sxTexFieldOutline}>
+                        <Grid item xs={12}>
                             <TextField
                                 fullWidth
                                 name="email"
                                 id="email"
                                 label="Email Address"
+                                error={emailOrPasswordError}
                             />
-                            {notValidEmail && <ErrorMessageTag messge="This is invalid email" />}
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
+                                placeholder='Enter your password here'
                                 name="password"
                                 label="Password"
                                 type="password"
                                 id="password"
+                                error={emailOrPasswordError}
                             />
-                            {
-                                thereIsError &&
-                                <ErrorMessageTag messge="There is issue in email Or password, Try again with more verifying" />
-                            }
+                            {emailOrPasswordError && <ErrorMessageTag messge={emailOrPasswordErrorMessage} />}
                         </Grid>
                         <Grid item>
-                            <Link href={"change-password"} style={{ textDecoration: "underline" }}>
-                                forget your password? change it
+                            <Link href="/forget-password" style={{ textDecoration: "underline" }}>
+                                forget your password? reset it
                             </Link>
                         </Grid>
                     </Grid>

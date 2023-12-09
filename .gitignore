@@ -11,3 +11,5 @@
 /src/ignoreTemporarily
 
 next.config.js
+
+.prettierignore

@@ -7,7 +7,7 @@ export default function CantAccessMessage() {
     const { push } = useRouter();
 
     return (
-        <Box>
+        <Box className="flex-column-center" sx={{ minHeight: "100vh" }}>
             <ErrorThrower
                 title='You have to sign up first'
                 hideAlertMsg

@@ -21,7 +21,6 @@ export default function Page() {
     const [isLodading, setIsLodading] = useState(false);
     const [codeFieldStatus, setCodeFieldStatus] = useState({ isError: false, message: "", value: "" });
 
-
     function submitCode(verificationCode) {
         setIsLodading(true);
         customFetch("email-verification", "POST", { verificationCode, userEmail: userData?.userEmail })
@@ -52,9 +51,9 @@ export default function Page() {
                         back();
                     }
                 })
-                .catch((err) => {
-                    if (err.response?.status == tooManyRequestsCode) {
-                        setCurrentState({ status: tooManyRequestsCode, message: err.response?.statusText })
+                .catch((error) => {
+                    if (error.response?.status == tooManyRequestsCode) {
+                        setCurrentState({ status: tooManyRequestsCode, message: error.response?.statusText })
                     }
                     else setCurrentState({ status: "Email didn't send" })
                 })
@@ -79,7 +78,7 @@ export default function Page() {
                 hideAlertMsg
             >
                 <Box
-                    onSubmit={(e) => e.preventDefault()}
+                    onSubmit={(event) => event.preventDefault()}
                     component="form"
                     mb={2}
                 >
@@ -140,7 +139,7 @@ export default function Page() {
             )
                 : currentState.status === "Email didn't send" ? (
                     <ErrorThrower
-                        title='Ops! Something wrong happends'
+                        title='Ops! Something wrong happeneds'
                         customIllustrator={
                             <Box
                                 component="img"
@@ -152,7 +151,7 @@ export default function Page() {
                         withRefreshButton
                     >
                         <Typography>
-                            Something wrong happends while we try to send the verification code to your email.
+                            Something wrong happeneds while we try to send the verification code to your email.
                         </Typography>
                     </ErrorThrower>
                 )

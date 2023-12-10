@@ -145,8 +145,8 @@ export default function Summary() {
                                         defaultValue={usedCobone}
                                         disabled={discount}
                                         helperText={!isValidCobone ? "The Cobone Is Invalid" : ""}
-                                        onChange={(e) => {
-                                            if (e.target.value?.length == 0) {
+                                        onChange={(event) => {
+                                            if (event.target.value?.length == 0) {
                                                 setCoboneState(true);
                                                 dispatch(removeDiscount());
                                             }

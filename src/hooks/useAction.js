@@ -26,9 +26,9 @@ export const useAction = (path, method, body, { dependent, init, fetchCondition 
                     setData(data)
                     isError && setError(null);
                 })
-                .catch((err) => {
-                    setStatusCode(err?.response?.status)
-                    setError(new Error(err))
+                .catch((error) => {
+                    setStatusCode(error?.response?.status)
+                    setError(new Error(error))
                 })
                 .finally(() => handleLoading(false));
         }

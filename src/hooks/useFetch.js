@@ -20,10 +20,10 @@ export const useFetch = (url, { init, dependencies, fetchCondition } = {}) => {
                     setData(data)
                     isError && setIsError(false);
                 })
-                .catch((err) => {
-                    setStatusCode(err?.response?.status)
+                .catch((error) => {
+                    setStatusCode(error?.response?.status)
                     setIsError(true);
-                    setError(new Error(err))
+                    setError(new Error(error))
                 })
                 .finally(() => setLoading(false));
         }

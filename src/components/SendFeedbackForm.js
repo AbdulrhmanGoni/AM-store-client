@@ -20,7 +20,7 @@ export default function SendFeedbackForm({ open, close }) {
         const body = form.get("body");
         if (subject && body) {
             sendFeedback({ userEmail, subject, body })
-                .catch((() => message("There is unexpected error happends")))
+                .catch((() => message("There is unexpected error happeneds")))
                 .then((({ ok, message: msg }) => {
                     ok && message(msg, "success"); close();
                     !ok && message(msg, "error");

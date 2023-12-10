@@ -100,8 +100,8 @@ export default function AccountMenu() {
         removeCookies("userId");
         removeCookies("access-token");
         dispatch(userLogOut());
-        window.location.replace("/");
         window.location.reload();
+        window.location.replace("/");
     };
 
     function openFeedbackForm() {

@@ -81,17 +81,25 @@ export default function Page() {
         const thePassword = formdata.get("the-new-password-again");
         const thePassword2 = formdata.get("the-new-password");
         if (thePassword === thePassword2) {
-            const payload = { newPassword: thePassword, userEmail }
-            completingChangingPassword(payload,
-                () => {
-                    setLeftPropertyOfCards({
-                        forgetPasswordCard: "-300%",
-                        verificationCard: "-200%",
-                        changePasswordForm: "-100%",
-                        doneMessage: "0%"
-                    });
-                }
-            );
+            if (thePassword.length > 5) {
+                const payload = { newPassword: thePassword, userEmail }
+                completingChangingPassword(payload,
+                    () => {
+                        setLeftPropertyOfCards({
+                            forgetPasswordCard: "-300%",
+                            verificationCard: "-200%",
+                            changePasswordForm: "-100%",
+                            doneMessage: "0%"
+                        });
+                    },
+                    () => { setLeftPropertyOfCards(initialLeftPropertyOfCards) }
+                );
+            } else {
+                setNewPasswordFieldStatus({
+                    status: false,
+                    message: "The password should consist of 6 characters at least"
+                });
+            }
         } else {
             setNewPasswordFieldStatus({
                 status: false,
@@ -210,6 +218,7 @@ export default function Page() {
                         name="the-new-password"
                         placeholder="Enter the new password"
                         label="The new password"
+                        type="password"
                         error={newPasswordFieldError}
                         {...sharedTextFieldProps}
                     />
@@ -217,6 +226,7 @@ export default function Page() {
                         name="the-new-password-again"
                         placeholder="Enter the new password again"
                         label="The new password again"
+                        type="password"
                         error={newPasswordFieldError}
                         helperText={newPasswordFieldMessage}
                         {...sharedTextFieldProps}

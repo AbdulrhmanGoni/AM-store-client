@@ -20,9 +20,6 @@ export default function AppWrapper({ children }) {
             lang="en"
             component="html"
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
                 "*::-webkit-scrollbar": { bgcolor: background.paper },
                 "*::-webkit-scrollbar-thumb": { bgcolor: primary.main },
                 "& input:autofill": {
@@ -36,7 +33,7 @@ export default function AppWrapper({ children }) {
                     isLoading ? <LoadingPage />
                         : isUnexpected ? <ErrorThrower
                             title="Uunexpected Error"
-                            message="There is unexpected error happends, try refreshing the page"
+                            message="There is unexpected error happeneds, try refreshing the page"
                             illustratorType="unexpected"
                             fullPage withRefreshButton
                         />

@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { AppBar, Box, Container, IconButton, Typography } from '@mui/material'
-import { Reply } from '@mui/icons-material'
-import { useRouter } from 'next/navigation'
+import { AppBar, Box, Container, IconButton, Typography } from '@mui/material';
+import { Reply } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 import checkUserState from '@/functions/checkUserState';
 import CantAccessMessage from './CantAccessMessage';
 import { useSelector } from 'react-redux';

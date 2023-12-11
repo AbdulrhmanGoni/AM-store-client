@@ -1,6 +1,6 @@
 "use client"
 import {
-    Box, Grid, Checkbox,
+    Box, Grid, Checkbox, Paper,
     FormControlLabel, TextField,
     Button, Avatar, Typography
 } from '@mui/material/';
@@ -10,6 +10,7 @@ import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
 import Link from 'next/link';
+import pagesSpaces from '@/CONSTANT/pagesSpaces';
 
 
 export default function SignUpPage() {
@@ -25,13 +26,13 @@ export default function SignUpPage() {
     } = useSignUpLogic();
 
     return (
-        <FormsPagesContainer bgImage={"./looking-to-galaxy.png"}>
-            <Box
+        <FormsPagesContainer bgImage={"./sky1.jpg"}>
+            <Paper
+                className='flex-column-center'
                 sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    mt: 8,
+                    bgcolor: "transparent",
+                    p: pagesSpaces
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><PersonAddAlt1 /></Avatar>
@@ -128,7 +129,7 @@ export default function SignUpPage() {
                         mode="light"
                     />
                 </Box>
-            </Box>
+            </Paper>
         </FormsPagesContainer>
     );
 }

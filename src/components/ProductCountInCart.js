@@ -5,11 +5,6 @@ import { addToCart_localy } from '../dataBase/shoppingCart_slice';
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 
-export function createArray(num) {
-    const arr = [];
-    for (let i = 1; i <= num; i++) { arr.push(i) }
-    return arr;
-}
 
 export default function ProductCountInCart({ productId }) {
 
@@ -52,10 +47,16 @@ export default function ProductCountInCart({ productId }) {
                     value={count}
                     label="Count"
                     onChange={changeCount}
+                    MenuProps={{ sx: { maxHeight: "335px" } }}
                 >
-                    <MenuItem className='shoppingCartControler' value={count ?? 1}>{count ?? 1}</MenuItem>
+                    <MenuItem value={count ?? 1}>{count ?? 1}</MenuItem>
                     <Divider />
-                    {createArray(theProduct.amount).map((num) => <MenuItem key={num} value={num}>{num}</MenuItem>)}
+                    {
+                        Array.from(Array(theProduct.amount)).map((_, index) => {
+                            index++
+                            return <MenuItem key={index} value={index}>{index}</MenuItem>
+                        })
+                    }
                 </Select>
             </FormControl>
         )

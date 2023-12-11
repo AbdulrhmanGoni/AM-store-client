@@ -1,14 +1,12 @@
 "use client"
-import {
-    Box, Grid, TextField,
-    Button, Avatar, Typography
-} from '@mui/material/';
+import { Box, Grid, TextField, Paper, Button, Avatar, Typography } from '@mui/material/';
 import { Login } from '@mui/icons-material';
 import Link from 'next/link';
 import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
 import useLogInLogic from '@/hooks/useLogInLogic';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
+import pagesSpaces from '@/CONSTANT/pagesSpaces';
 
 
 export default function LogInPage() {
@@ -24,7 +22,13 @@ export default function LogInPage() {
 
     return (
         <FormsPagesContainer bgImage={"./sky2.jpg"}>
-            <Box className="flex-column-center">
+            <Paper
+                className="flex-column-center"
+                sx={{
+                    p: pagesSpaces,
+                    bgcolor: "transparent"
+                }}
+            >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><Login /></Avatar>
                 <Typography component="h1" variant="h5">Log In</Typography>
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -52,7 +56,7 @@ export default function LogInPage() {
                         </Grid>
                         <Grid item>
                             <Link href="/forget-password" style={{ textDecoration: "underline" }}>
-                                forget your password? reset it
+                                Forget your password? Reset it
                             </Link>
                         </Grid>
                     </Grid>
@@ -71,7 +75,7 @@ export default function LogInPage() {
                     style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
                 >
                     <Typography sx={{ textDecoration: "underline", mb: 2 }}>
-                        you don&apos;t have an account? Sign up
+                        You don&apos;t have an account? Sign up
                     </Typography>
                 </Link>
                 <AuthButton
@@ -80,7 +84,7 @@ export default function LogInPage() {
                     text='Log in with Google'
                     mode="light"
                 />
-            </Box>
+            </Paper>
         </FormsPagesContainer>
     );
 }

@@ -39,19 +39,6 @@ a {
   line-clamp: 5;
 }
 
-.MuiList-root:has(.shoppingCartControler) {
-  max-height: 250px;
-}
-
-:is(.customForm) :is(input::placeholder, label, input) {
-  color: white;
-  letter-spacing: 1px !important;
-}
-
-:is(.customForm) :is(fieldset) {
-  border-color: white !important;
-}
-
 .disabled-element {
   opacity: 0.5;
   pointer-events: none;

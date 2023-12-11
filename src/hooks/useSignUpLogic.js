@@ -63,11 +63,13 @@ export default function useSignUpLogic() {
         loadingControl(true);
         customFetch(path, "POST", body)
             .then(res => {
-                console.log(res)
                 if (res.ok) complateSingUp(res.payload);
                 else {
-                    message(res.message, "warning", 10000);
-                    !withGoogle && setEmailState({ state: false, msg: res.message })
+                    if (withGoogle) {
+                        message(res.message, "warning", 10000);
+                    } else {
+                        setEmailState({ state: false, msg: res.message })
+                    }
                 }
             })
             .catch(() => {

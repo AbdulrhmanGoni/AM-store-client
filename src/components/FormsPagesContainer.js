@@ -4,7 +4,7 @@ import PageWidthBG from './PageWidthBG'
 export default function FormsPagesContainer({ children, bgImage }) {
     return (
         <PageWidthBG bgImage={bgImage}>
-            <Container className='customForm' maxWidth="xs">
+            <Container maxWidth="xs">
                 <CssBaseline />
                 {children}
             </Container>

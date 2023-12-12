@@ -14,7 +14,7 @@ export default function loading() {
                     <Skeleton variant="rounded" width="100%" height={42} />
                     <Skeleton variant="rounded" width="100%" height={100} />
                     <Skeleton variant="rounded" width={75} height={35} />
-                    <Box className="flex-center-between">
+                    <Box className="flex-row-center-between">
                         <Skeleton variant="rounded" width={120} height={25} />
                         <Skeleton variant="rounded" width={35} height={35} />
                     </Box>

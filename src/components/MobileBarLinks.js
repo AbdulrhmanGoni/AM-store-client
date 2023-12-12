@@ -22,7 +22,6 @@ const links = [
     },
     {
         name: "My Account",
-        path: "/user-account",
         icon: <AccountMenu />
     },
 ]

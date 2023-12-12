@@ -38,14 +38,14 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                     discount.value &&
                     <Li>
                         <TextTitle style={{ color: "primary.main" }}>discount: {discount.value * 100}%</TextTitle>
-                        <PriceDisplayer price={original * discount.value} operation="-" />
+                        <PriceDisplayer price={original * discount.value} operator="-" />
                     </Li>
                 }
                 <Li>
                     <TextTitle>Delivery:</TextTitle>
                     {
                         delivery ?
-                            <PriceDisplayer price={deliveryPrice} operation={"+"} style={priceStyle} />
+                            <PriceDisplayer price={deliveryPrice} operator={"+"} style={priceStyle} />
                             : <Typography sx={{ color: "success.main" }} variant='body2'>Free</Typography>
                     }
                 </Li>

@@ -86,14 +86,16 @@ export default function ProductCommentsSection() {
         <Box className="flex-column-center gap1 full-width" p="40px 0px">
             <AlertTooltip
                 type="info"
-                title='Only who has bought this product before can let comment'
+                title={!areUserCanComment && 'Only who has bought this product before can let comment'}
             >
-            <TextFieldWithImojis
-                placeholder="What is your opinion about this product"
-                handleSubmit={handleAddComment}
-                Loading={addingLoading}
-                disabled={!areUserCanComment}
-            />
+                <div style={{ width: "100%" }}>
+                    <TextFieldWithImojis
+                        placeholder="What is your opinion about this product"
+                        handleSubmit={handleAddComment}
+                        Loading={addingLoading}
+                        disabled={!areUserCanComment}
+                    />
+                </div>
             </AlertTooltip>
             {
                 commentsOpened &&

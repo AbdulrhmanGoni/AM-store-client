@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Card, Divider, FormControlLabel, Radio, Alert } from '@mui/material';
+import { Box, Card, Divider, FormControlLabel, Radio, Alert, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import CridetCardsList from './CreditCardsList';
 import CridetCardForm from './AddCreditCardForm';
@@ -7,6 +7,7 @@ import SelectedCridetCard from './SelectedCridetCard';
 import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/dataBase/userPaymentMethods_slice';
 import { ElementWithLoadingState } from '@abdulrhmangoni/am-store-library';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
+import { Refresh } from '@mui/icons-material';
 
 
 export default function PaymentMethodsManagement() {
@@ -19,6 +20,7 @@ export default function PaymentMethodsManagement() {
     const [toRender, setRender] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isFetchError, setFetchError] = useState(false);
+    const [refreshFetchingPaymentMethods, setRefreshFetchingPaymentMethods] = useState(false);
 
     function handlePaymentMethod(event) {
         setPaymentMethodType(event.target.value);
@@ -38,7 +40,7 @@ export default function PaymentMethodsManagement() {
             })
             .catch(() => !isFetchError && setFetchError(true))
             .finally(() => setIsLoading(false))
-    }, [userId]);
+    }, [userId, refreshFetchingPaymentMethods]);
 
     useEffect(() => {
         if (choosedMethod && typeof (choosedMethod) !== "string") {
@@ -60,7 +62,7 @@ export default function PaymentMethodsManagement() {
     }
 
     return (
-        <Card elevation={1} component="form" sx={{ display: "flex", flexDirection: "column", p: 1, borderRadius: 2 }}>
+        <Card component="form" className='flex-column' sx={{ p: 1, borderRadius: 2 }}>
             <Box sx={{ p: 2, borderRadius: 2 }}>
                 <FormControlLabel
                     sx={{ fontWeight: "900" }}
@@ -83,23 +85,40 @@ export default function PaymentMethodsManagement() {
             </Box>
             <Divider sx={{ mb: 1, mt: 1 }} />
             <Box sx={{ p: 2, borderRadius: 2 }}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                    <ElementWithLoadingState height={42}
-                        isLoading={isLoading}
-                        element={
-                            <FormControlLabel
-                                value="Card"
-                                control={<Radio />}
-                                label="Cridet Card"
-                                labelPlacement="end"
-                                checked={paymentMethodType === "Card"}
-                                onClick={handlePaymentMethod}
-                            />
-                        }
-                    />
-                    <ElementWithLoadingState height={75} isLoading={isLoading}
-                        element={paymentMethodType === "Card" ? <><Divider /><ToRender renderId={toRender} /></> : null}
-                    />
+                <Box className="flex-column gap1">
+                    {
+                        isFetchError ? (
+                            <Alert
+                                severity="error"
+                                action={
+                                    <IconButton onClick={() => setRefreshFetchingPaymentMethods(s => ++s)}>
+                                        <Refresh />
+                                    </IconButton>
+                                }
+                            >
+                                Failed to fetch your payment methods
+                            </Alert>
+                        )
+                            :
+                            <>
+                                <ElementWithLoadingState height={42}
+                                    isLoading={isLoading}
+                                    element={
+                                        <FormControlLabel
+                                            value="Card"
+                                            control={<Radio />}
+                                            label="Cridet Card"
+                                            labelPlacement="end"
+                                            checked={paymentMethodType === "Card"}
+                                            onClick={handlePaymentMethod}
+                                        />
+                                    }
+                                />
+                                <ElementWithLoadingState height={75} isLoading={isLoading}
+                                    element={paymentMethodType === "Card" ? <><Divider /><ToRender renderId={toRender} /></> : null}
+                                />
+                            </>
+                    }
                 </Box>
             </Box>
         </Card>

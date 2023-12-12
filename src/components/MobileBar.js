@@ -1,42 +1,39 @@
 "use client"
-import { useState } from 'react';
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { IconButton, Paper } from '@mui/material';
 import mobileBarLinks from "./MobileBarLinks";
 import { useRouter } from 'next/navigation';
+import { P } from '@abdulrhmangoni/am-store-library';
 
 
 export default function MobileBar() {
 
-    const [currentPage, setPage] = useState(0);
     const { push } = useRouter()
 
     return (
-        <BottomNavigation
+        <Paper
             sx={{
                 display: { xs: "flex", sm: "none" },
-                justifyContent: "space-around", p: "8px 0px",
-                width: "100%", position: "fixed", height: "65px",
-                zIndex: 500, bottom: 0, left: 0
+                justifyContent: "space-around",
+                width: "100%",
+                position: "fixed",
+                zIndex: 500,
+                bottom: 0, left: 0
             }}
-            showLabels
-            value={currentPage}
-            onChange={(_, page) => { setPage(page) }}
         >
             {
                 mobileBarLinks.map(
-                    (link) => <BottomNavigationAction
+                    (link) => <IconButton
                         key={link.name}
-                        onClick={() => push(link.path)}
-                        sx={{
-                            p: 0,
-                            maxWidth: "fit-content !important",
-                            minWidth: "fit-content !important"
-                        }}
-                        label={link.name}
-                        icon={link.icon}
-                    />
+                        onClick={() => link.path && push(link.path)}
+                        className='flex-column-center'
+                        sx={{ p: 1, flex: 1 }}
+                    >
+                        {link.icon}
+                        <P fontSize=".7rem">{link.name}</P>
+                    </IconButton>
                 )
             }
-        </BottomNavigation>
+        </Paper>
     );
 }
+

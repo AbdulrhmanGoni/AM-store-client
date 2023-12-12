@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react';
 import {
     Card, CardMedia, Rating, Divider, Box,
-    CardContent, CardActions, Typography,
-    CircularProgress
+    CardContent, CardActions, Typography
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +19,7 @@ import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 export default function ProductCard({ theProduct, sx }) {
 
-    const { _id, images, title, amount, price } = theProduct;
+    const { _id, images, title, amount, price, discount } = theProduct;
 
     const { addToCart } = useShoppingCartActions();
     const dispatch = useDispatch();
@@ -56,8 +55,8 @@ export default function ProductCard({ theProduct, sx }) {
 
     return (
         <Card
-            className='flex-column'
-            sx={{ m: 0, justifyContent: "space-between", ...sx }}>
+            className='flex-column-between'
+            sx={{ m: 0, ...sx }}>
             <Box sx={{ position: "relative" }}>
                 <CardMedia
                     component="img"
@@ -81,12 +80,18 @@ export default function ProductCard({ theProduct, sx }) {
                 <Rating precision={0.5} size='small' value={rate} readOnly />
                 <Typography variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</Typography>
             </Box>
-            <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
-                <PriceDisplayer currency="$" price={price} />
+            <CardActions
+                disableSpacing
+                sx={{
+                    justifyContent: "space-between",
+                    alignItems: "flex-end", p: 1
+                }}
+            >
+                <PriceDisplayer currency="$" price={price} discount={discount} />
                 <ProductAvailabationState amount={amount} />
             </CardActions>
             <Divider />
-            <CardActions disableSpacing sx={{ justifyContent: "space-between", p: 1 }}>
+            <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
                 <ToggleFavorite productId={_id} />
                 <LoadingButton
                     disabled={!amount}
@@ -97,6 +102,7 @@ export default function ProductCard({ theProduct, sx }) {
                     size='small'
                     sx={{
                         fontSize: { xs: "0.5rem", sm: "0.65rem" },
+                        p: .5, pr: 1,
                         "& svg": { width: "1rem" },
                         "& .MuiButton-startIcon": { ml: "3px" },
                     }}

@@ -114,13 +114,13 @@ export default function Summary() {
                     discount &&
                     <Li>
                         <TextTitle style={{ color: "primary.main" }}>discount: {discount * 100}%</TextTitle>
-                        <PriceDisplayer price={totalPriceInCart * discount} operation="-" />
+                        <PriceDisplayer price={totalPriceInCart * discount} operator="-" />
                     </Li>
                 }
                 <Li>
                     <TextTitle>Delivery:</TextTitle>
                     {
-                        includeDeliveryPrice ? <PriceDisplayer price={deliveryPrice} operation={"+"} style={priceStyle} /> :
+                        includeDeliveryPrice ? <PriceDisplayer price={deliveryPrice} operator={"+"} style={priceStyle} /> :
                             <Typography sx={{ color: "success.main" }} variant='body2'>Free</Typography>
                     }
                 </Li>

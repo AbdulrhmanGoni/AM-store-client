@@ -1,27 +1,63 @@
+import { applyDiscount } from '@/functions/cobones';
 import { nDecorator } from '@abdulrhmangoni/am-store-library';
-import { Typography } from '@mui/material';
-import React from 'react';
+import { Typography, Box, useMediaQuery } from '@mui/material';
 
-const PriceDisplayer = ({ price, currency = "$", style, variant, currencyStyle, operation }) => {
+const PriceDisplayer = (props) => {
 
-    const defaultCurrencyStyle = {
-        fontSize: "14px",
-        transform: "translate(0px, -5px)",
-        display: "inline-block",
-        margin: "0 2px 0 0",
-        ...currencyStyle
-    }
+    const mobileDevice = useMediaQuery("(max-width: 600px)")
+    const {
+        price,
+        currency = "$",
+        style,
+        operator,
+        discount
+    } = props;
+    const priceFontSize = mobileDevice ? ".88rem" : "1.02rem";
+    const currencyFontSize = mobileDevice ? ".72rem" : ".8rem";
 
     return (
-        <Typography variant={variant} sx={{ display: "inline-flex", p: "5px", ...style }}>
-            <span
-                style={{ ...defaultCurrencyStyle, ...currencyStyle }}>
-                {currency}
-            </span>
-            {operation ?? null}
-            {nDecorator(price?.toFixed(2))}
-        </Typography>
+        <Box
+            sx={{
+                display: "inline-flex",
+                flexDirection: "column",
+                ...style
+            }}
+        >
+            {
+                discount &&
+                <Box
+                    className='flex-row-center gap1'
+                    sx={{ fontSize: currencyFontSize, ml: 1 }}
+                >
+                    <span
+                        style={{
+                            color: 'gray',
+                            textDecoration: "line-through"
+                        }}
+                    >
+                        {price?.toFixed(2)}
+                    </span>
+                    <span style={{ color: 'red' }}>{discount * 100}%</span>
+                </Box>
+            }
+            <Box className="flex-row">
+                <span
+                    style={{
+                        fontSize: currencyFontSize,
+                        transform: "translate(0px, -5px)",
+                        display: "inline-block",
+                        margin: "0 2px 0 0",
+                        ...style
+                    }}>
+                    {currency}
+                </span>
+                <Typography style={{ fontSize: priceFontSize, ...style }}>
+                    {operator ?? null}{nDecorator((discount ? applyDiscount(price, discount) : price)?.toFixed(2))}
+                </Typography>
+            </Box>
+        </Box>
     );
 }
+
 
 export default PriceDisplayer;

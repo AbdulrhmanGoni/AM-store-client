@@ -42,7 +42,7 @@ a {
 .disabled-element {
   opacity: 0.5;
   pointer-events: none;
-  color: gray;
+  color: rgb(136, 136, 136);
 
   * {
     pointer-events: none;

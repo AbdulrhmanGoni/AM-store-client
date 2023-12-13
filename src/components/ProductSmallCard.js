@@ -9,7 +9,7 @@ export default function ProductSmallCard({ theProduct }) {
     const [rate, setRate] = useState(3.5);
 
     return (
-        <Paper elevation={1} sx={{ display: "flex", gap: 1, p: 1 }}>
+        <Paper sx={{ display: "flex", gap: 1, p: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }}>
                 <CardMedia
                     component="img"

@@ -58,15 +58,7 @@ export default function ShoppingCartPage() {
                             shoppingCart.map((product) => {
                                 return (
                                     <ListItem disablePadding key={product._id}>
-                                        <ProductCardHorizontally
-                                            id={product._id}
-                                            images={product.images}
-                                            title={product.title}
-                                            description={product.description}
-                                            price={product.price}
-                                            amount={product.amount}
-                                            theProduct={product}
-                                        />
+                                        <ProductCardHorizontally theProduct={product} />
                                     </ListItem>
                                 )
                             })

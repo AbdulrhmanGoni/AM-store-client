@@ -39,24 +39,7 @@ export default function CheckoutPage() {
 
     function completingCheckout() {
         if (checkIfItValidToCheckout()) {
-            const discount = cobones[discountCobone];
-            const products = shoppingCart.map(({ price, category, count, _id }) => {
-                const priceAfterDiscount = applyDiscount(price, discount)
-                return `${_id}-${count}-${priceAfterDiscount}-${category}`
-            });
-
-            const theOrder = {
-                userId,
-                location: selectedLocation,
-                products,
-                totalPrice,
-                paymentMethod,
-                state: "Completed",
-                expectedDeliveryDate: getCurrentDate(7),
-                deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
-                discountCobone: { name: discountCobone, value: discount },
-            }
-
+            const theOrder = prepareNewOrder();
             loadingControl(true);
             addNewOrder(theOrder)
                 .then(res => {
@@ -68,6 +51,26 @@ export default function CheckoutPage() {
                 })
                 .catch(() => message("There is unexpected error in the server"))
                 .finally(() => loadingControl(false));
+        }
+    }
+
+    function prepareNewOrder() {
+        const discount = cobones[discountCobone];
+        const products = shoppingCart.map(({ price, discount: customDiscount, category, count, _id }) => {
+            const priceAfterDiscount = applyDiscount(applyDiscount(price, customDiscount), discount)
+            return `${_id}-${count}-${priceAfterDiscount}-${category}`
+        })
+
+        return {
+            userId,
+            location: selectedLocation,
+            products,
+            totalPrice,
+            paymentMethod,
+            state: "Completed",
+            expectedDeliveryDate: getCurrentDate(7),
+            deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
+            discountCobone: { name: discountCobone, value: discount },
         }
     }
 

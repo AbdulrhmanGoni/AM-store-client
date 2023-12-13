@@ -17,7 +17,8 @@ import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 export default function ProductCardHorizontally(props) {
 
-    let { id, images, title, description, price, amount, actionSec = true, imgWidth, displayCount, noPrice } = props
+    let { theProduct, actionsSec = true, imgWidth, displayCount, withoutPrice } = props;
+    let { id, images, title, description, price, discount, amount } = theProduct;
 
     const { removeFromCart } = useShoppingCartActions();
     const dispatch = useDispatch();
@@ -62,7 +63,7 @@ export default function ProductCardHorizontally(props) {
                 <Typography className='limitationLines2' variant='body1'>{description}</Typography>
                 <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 3 }}>
                     <Box>
-                        {!noPrice && <PriceDisplayer currency="$" price={price} />}
+                        {!withoutPrice && <PriceDisplayer discount={discount} currency="$" price={price} />}
                         <Typography variant='subtitle2' sx={{
                             fontSize: "13px",
                             display: "flex",
@@ -83,7 +84,7 @@ export default function ProductCardHorizontally(props) {
                     }
                     <ToggleFavorite productId={id} />
                 </Box>
-                {actionSec && <>
+                {actionsSec && <>
                     <Divider sx={{ m: "5px 0px" }} />
                     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 3 }}>
                         <ProductCountInCart productId={id} />

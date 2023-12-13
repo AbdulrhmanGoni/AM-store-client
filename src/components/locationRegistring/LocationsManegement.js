@@ -88,7 +88,7 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
         <Card
             component="form"
             onSubmit={onSave}
-            elevation={1}
+
             className='flex-column'
             sx={{ width: float ? { xs: "96vw", sm: "500px", md: "800px" } : { width: "100%" } }}>
             <Bar sx={{ bgcolor: "background.paper" }} dividerBotton>

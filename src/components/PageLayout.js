@@ -34,7 +34,7 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
     if (render) {
         return isAllowed ?
             <>
-                <AppBar elevation={1} position="fixed">
+                <AppBar position="fixed">
                     <Container maxWidth={maxWidth} sx={{ display: "flex", alignItems: "center", gap: 2, height: "57px" }}>
                         <IconButton onClick={back} sx={{ color: "inherit" }}><Reply /></IconButton>
                         <Typography

@@ -60,7 +60,7 @@ export default function UserProfile() {
 
     return (
         <Card elevation={2} className="flex-column gap2" sx={{ p: pagesSpaces }}>
-            <Paper elevation={1} sx={{ p: pagesSpaces }} >
+            <Paper sx={{ p: pagesSpaces }} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant="h6">General Info</Typography>

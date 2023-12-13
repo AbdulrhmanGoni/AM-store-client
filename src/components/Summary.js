@@ -10,6 +10,7 @@ import { discountCobone, setSummaryPrice, removeDiscount } from '@/dataBase/chec
 import { applyDiscount } from '@/functions/cobones'
 import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
 import { setDiscountCobones } from '@/dataBase/cobones_slice'
+import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum'
 
 export default function Summary() {
 
@@ -21,7 +22,7 @@ export default function Summary() {
     const cobones = useSelector(state => state.cobones);
     const totalPrice = useSelector(state => state.checkoutSummary.totalPrice);
     const usedCobone = useSelector(state => state.checkoutSummary.discountCobone);
-    const totalPriceInCart = shoppingCart.reduce((acc, current) => acc + current.price * current.count, 0);
+    const totalPriceInCart = calculateShoppingCartSum(shoppingCart);
     const [isValidCobone, setCoboneState] = useState(true);
     const [discount, setDiscount] = useState(null);
     const [isFetchingDiscountCobones, setIsFetchingDiscountCobones] = useState(false);
@@ -66,7 +67,7 @@ export default function Summary() {
     }
 
     function handleCoboneField() {
-        const coboneInput = document.getElementById("discountCobone").value;
+        const coboneInput = document.getElementById("discountCoboneField").value;
         if (coboneInput.length > 0) {
             if (!checkCobone(coboneInput)) {
                 setCoboneState(false);
@@ -100,7 +101,7 @@ export default function Summary() {
     const priceStyle = { fontSize: media ? "15px" : "16px" }
 
     return (
-        <Paper elevation={1}>
+        <Paper>
             <List className='flex-column gap1 full-width' sx={{ p: "0px 8px" }}>
                 <ListItem sx={{ p: 1 }}>
                     <Typography variant='h6'>Summary</Typography>
@@ -143,7 +144,7 @@ export default function Summary() {
                                     <TextField
                                         error={!isValidCobone}
                                         defaultValue={usedCobone}
-                                        disabled={discount}
+                                        disabled={!!discount}
                                         helperText={!isValidCobone ? "The Cobone Is Invalid" : ""}
                                         onChange={(event) => {
                                             if (event.target.value?.length == 0) {
@@ -151,8 +152,8 @@ export default function Summary() {
                                                 dispatch(removeDiscount());
                                             }
                                         }}
-                                        id="discountCobone"
-                                        label="Cobone"
+                                        id="discountCoboneField"
+                                        label="Discount cobone"
                                         variant="standard"
                                         sx={{ flexGrow: "1" }}
                                     />

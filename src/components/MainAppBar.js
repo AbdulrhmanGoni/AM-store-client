@@ -19,7 +19,7 @@ export default function MainAppBar() {
     return (
         <Box>
             <Toolbar />
-            <AppBar elevation={1} position="fixed">
+            <AppBar position="fixed">
                 <Container sx={{ p: { xs: "0px 8px", sm: "0px 16px" } }} maxWidth="lg">
                     <Toolbar color='icons' sx={{ padding: "0 !important" }}>
                         <Typography

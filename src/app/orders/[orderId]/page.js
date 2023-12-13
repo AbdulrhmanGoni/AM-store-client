@@ -37,14 +37,9 @@ export default function OrderDetails({ params: { orderId } }) {
                                             <Grid key={product._id} item xs={12}>
                                                 <ProductCardHorizontally
                                                     imgWidth="150px"
-                                                    id={product._id}
-                                                    images={product.images}
-                                                    title={product.title}
-                                                    description={product.description}
-                                                    price={product.price}
                                                     theProduct={product}
-                                                    actionSec={false}
-                                                    noPrice={true}
+                                                    actionsSec={false}
+                                                    withoutPrice={true}
                                                     displayCount={product.count}
                                                 />
                                             </Grid>

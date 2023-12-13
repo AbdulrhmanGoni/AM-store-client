@@ -55,7 +55,7 @@ export default function ProductCard({ theProduct, sx }) {
 
     return (
         <Card
-            className='flex-column-between'
+            className='flex-column j-between'
             sx={{ m: 0, ...sx }}>
             <Box sx={{ position: "relative" }}>
                 <CardMedia

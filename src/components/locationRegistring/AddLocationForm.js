@@ -112,7 +112,7 @@ export default function AddLocationForm() {
     }
 
     return (
-        <Card sx={{ p: "16px 8px", m: 0, width: "100%" }} elevation={1}>
+        <Card sx={{ p: "16px 8px", m: 0, width: "100%" }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>

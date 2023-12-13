@@ -21,7 +21,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
     const priceStyle = { fontSize: media ? "15px" : "16px" }
 
     return (
-        <Paper elevation={1}>
+        <Paper>
             <List sx={{ display: "flex", flexDirection: "column", p: "0px 8px", gap: 1, width: "100%", boxShadow: "green 0 0 8px -5px" }}>
                 <ListItem sx={{ p: 1 }}>
                     <Typography variant='h6'>Summary</Typography>

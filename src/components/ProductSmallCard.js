@@ -9,7 +9,7 @@ export default function ProductSmallCard({ theProduct }) {
     const [rate, setRate] = useState(3.5);
 
     return (
-        <Paper elevation={1} sx={{ display: "flex", gap: 1, p: 1 }}>
+        <Paper sx={{ display: "flex", gap: 1, p: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }}>
                 <CardMedia
                     component="img"
@@ -23,9 +23,9 @@ export default function ProductSmallCard({ theProduct }) {
                 />
                 <OverlayHoverLink linkStyle={{ fontSize: "12px" }} target={`/products/${productId}`} />
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+            <Box className="flex-column-center a-start" sx={{ flexGrow: 1 }}>
                 <Typography variant='subtitle2' className='limitationLines1'>{title}</Typography>
-                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 2 }}>
+                <Box className="flex-row-center-start gap2">
                     <PriceDisplayer
                         style={{ fontSize: "1rem" }}
                         variant="subtitle2"

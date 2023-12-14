@@ -2,14 +2,16 @@ import { cloneElement, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from '@mui/icons-material';
 import useProductsCommentsActions from './useProductsCommentsActions';
+import { useSelector } from 'react-redux';
 
-const CommentActions = ({ onClick, actionType, value, icon }) => {
+const CommentActions = ({ onClick, actionType, value, icon, disabled }) => {
 
     return (
         <Button
             onClick={() => onClick(actionType)}
             sx={{ p: 0 }}
             endIcon={cloneElement(icon, { fontSize: 'small' })}
+            disabled={disabled}
             variant=''
         >
             <span style={{ fontSize: 12 }}>{value}</span>
@@ -17,21 +19,19 @@ const CommentActions = ({ onClick, actionType, value, icon }) => {
     );
 }
 
-const useLikesAndDislikes = (props) => {
+export default function useLikesAndDislikes({ likes, dislikes, productId, commentId }) {
 
-    const {
-        initialLikes,
-        initialDislikes,
-        isLikesCondetion,
-        isDislikesCondetion,
-        actionInfo
-    } = props;
+    const userId = useSelector(state => state.userData?._id);
+
+    const
+        isLikesCondetion = likes?.includes(userId),
+        isDislikesCondetion = dislikes?.includes(userId)
 
     const { setLikeOrDislike } = useProductsCommentsActions();
     const [likesState, setLikesState] = useState(false);
-    const [likesCount, setLikesCount] = useState(initialLikes ?? 0);
+    const [likesCount, setLikesCount] = useState(likes?.length ?? 0);
     const [dislikesState, setDisLikesState] = useState(false);
-    const [dislikesCount, setDisLikesCount] = useState(initialDislikes ?? 0);
+    const [dislikesCount, setDisLikesCount] = useState(dislikes?.length ?? 0);
 
     function handleLikeState(type) {
         if (type === "init") {
@@ -72,8 +72,8 @@ const useLikesAndDislikes = (props) => {
     }
 
     function likeAndDislikeAction(actionType, undo) {
-        if (actionInfo.userId) {
-            setLikeOrDislike({ actionType, ...actionInfo, undo });
+        if (userId) {
+            setLikeOrDislike({ actionType, productId, commentId, userId, undo });
         }
         if (actionType === "like") {
             handleLikeState("action");
@@ -98,6 +98,7 @@ const useLikesAndDislikes = (props) => {
                 onClick={() => likeAndDislikeAction("like", likesState)}
                 value={likesCount}
                 icon={likesState ? <ThumbUp /> : <ThumbUpOffAlt />}
+                disabled={!!userId}
             />
         )
     }
@@ -108,6 +109,7 @@ const useLikesAndDislikes = (props) => {
                 onClick={() => likeAndDislikeAction("dislike", dislikesState)}
                 value={dislikesCount}
                 icon={dislikesState ? <ThumbDown /> : <ThumbDownOffAlt />}
+                disabled={!!userId}
             />
         )
     }
@@ -121,5 +123,3 @@ const useLikesAndDislikes = (props) => {
         DislikeButton
     }
 }
-
-export default useLikesAndDislikes;

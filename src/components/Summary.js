@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Divider, List, ListItem, Paper, TextField, useMediaQuery, Skeleton } from '@mui/material'
-import TotalPriceInCart from './TotalPriceInCart'
 import PriceDisplayer from './PriceDisplayer'
 import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
@@ -111,7 +110,7 @@ export default function Summary() {
                 <Divider />
                 <Li>
                     <TextTitle>Items ({shoppingCart.length})</TextTitle>
-                    {<TotalPriceInCart style={priceStyle} />}
+                    <PriceDisplayer price={totalPriceInCart} style={priceStyle} />
                 </Li>
                 {
                     discount &&

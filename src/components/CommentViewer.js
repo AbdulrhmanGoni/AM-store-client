@@ -19,13 +19,7 @@ const CommentViewer = ({ commenterData: { userName, avatar }, theComment, delete
     const { deleteComment } = useProductsCommentsActions(productId);
     const userId = useSelector(state => state.userData?._id);
     const { message } = useSpeedMessage();
-    const { LikeButton, DislikeButton } = useLikesAndDislikes({
-        initialLikes: likes.length,
-        initialDislikes: dislikes.length,
-        isLikesCondetion: likes.includes(userId),
-        isDislikesCondetion: dislikes.includes(userId),
-        actionInfo: { productId, commentId, userId }
-    })
+    const { LikeButton, DislikeButton } = useLikesAndDislikes({ likes, dislikes, productId, commentId });
 
     const [commentCardBehavior, setCommentCardBehavior] = useState(isNewComment ? "-100%" : "0%");
     const [deleteCommentBehavior, setDeleteCommentBehavior] = useState(false);

@@ -51,7 +51,7 @@ export default function AppWrapper({ children }) {
                                 />
                                     : renderApp && children
                 }
-                <LoadingCircle staticCircle darkBg />
+                {renderApp && <LoadingCircle staticCircle darkBg />}
             </Box>
         </Box>
     );

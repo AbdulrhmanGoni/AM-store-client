@@ -1,6 +1,6 @@
 "use client"
-import { TextField, Typography, Box, } from "@mui/material"
-import { ErrorThrower, AlertTooltip } from "@abdulrhmangoni/am-store-library"
+import { TextField, Box, } from "@mui/material"
+import { ErrorThrower, AlertTooltip, P } from "@abdulrhmangoni/am-store-library"
 import { Img } from "@/app/forget-password/page";
 import customFetch from "@/functions/customFetch";
 import { useState } from "react";
@@ -96,7 +96,7 @@ export default function SendingVerificationCodeHandler(props) {
                     />
                 </AlertTooltip>
             </Box>
-            <Typography sx={{ fontSize: "1.20rem" }}>{description}</Typography>
+            <P sx={{ fontSize: "1.20rem" }}>{description}</P>
         </ErrorThrower>
     )
 }

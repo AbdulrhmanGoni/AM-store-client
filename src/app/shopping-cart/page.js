@@ -1,9 +1,9 @@
 "use client"
 import ProductCardHorizontally from '@/components/ProductCardHorizontally';
-import { Box, Button, Grid, List, ListItem, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid, List, ListItem, Paper } from '@mui/material';
 import Summary from '@/components/Summary';
 import { clearCart_localy } from '@/dataBase/shoppingCart_slice';
-import { ErrorThrower, ActionAlert } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, ActionAlert, P } from '@abdulrhmangoni/am-store-library';
 import { useDispatch, useSelector } from 'react-redux';
 import GoToCheckoutButton from '@/components/GoToCheckoutButton';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
@@ -35,7 +35,7 @@ export default function ShoppingCartPage() {
             </Grid>
             <Grid item md={8} width="100%">
                 <Paper className="flex-row-center-between" sx={{ p: 1, }}>
-                    <Typography variant='h6'>Products In Cart</Typography>
+                    <P variant='h6'>Products In Cart</P>
                     <ActionAlert
                         title="Clear shopping cart"
                         message="Are you sure you want to remove all products in shopping cart?"

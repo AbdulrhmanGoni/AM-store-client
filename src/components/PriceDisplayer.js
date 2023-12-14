@@ -1,6 +1,6 @@
 import { applyDiscount } from '@/functions/cobones';
-import { nDecorator } from '@abdulrhmangoni/am-store-library';
-import { Typography, Box, useMediaQuery } from '@mui/material';
+import { nDecorator, P } from '@abdulrhmangoni/am-store-library';
+import { Box, useMediaQuery } from '@mui/material';
 
 const PriceDisplayer = (props) => {
 
@@ -51,9 +51,9 @@ const PriceDisplayer = (props) => {
                     }}>
                     {currency}
                 </span>
-                <Typography style={{ fontSize: priceFontSize, ...style }}>
+                <P style={{ fontSize: priceFontSize, ...style }}>
                     {operator ?? null}{nDecorator((discount ? applyDiscount(price, discount) : price)?.toFixed(2))}
-                </Typography>
+                </P>
             </Box>
         </Box>
     );

@@ -1,10 +1,11 @@
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import { P } from "@abdulrhmangoni/am-store-library";
 
 export default function SectionTitle({ style, title, titleStyle, buttonText, action, children }) {
     return (
         <div className="flex-column" style={{ width: "100%", ...style }}>
             <div className="flex-row-center-between">
-                <Typography variant="h6"
+                <P variant="h6"
                     sx={{
                         fontSize: { xs: 18, sm: 21 },
                         fontWeight: "bold",
@@ -12,7 +13,7 @@ export default function SectionTitle({ style, title, titleStyle, buttonText, act
                         ...titleStyle
                     }} >
                     {title}
-                </Typography>
+                </P>
                 {action && buttonText && <Button size="small" variant="contained" onClick={action}>{buttonText}</Button>}
             </div>
             {children}

@@ -1,12 +1,12 @@
 "use client"
 import {
-    AppBar, Container, Box, Toolbar, IconButton, Typography, useMediaQuery
+    AppBar, Container, Box, Toolbar, IconButton, useMediaQuery
 } from '@mui/material';
 import TotalPriceInCart from './TotalPriceInCart';
 import AccountMenu from './AccountMenu';
 import CustomFavoriteIcon from './CustomFavoriteIcon';
 import CustomShoppingCartIcon from './CustomShoppingCartIcon';
-import { SearchForProductsField } from '@abdulrhmangoni/am-store-library';
+import { SearchForProductsField, P } from '@abdulrhmangoni/am-store-library';
 import { host } from '@/CONSTANT/hostName';
 import { ReadMore } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
@@ -22,7 +22,7 @@ export default function MainAppBar() {
             <AppBar position="fixed">
                 <Container sx={{ p: { xs: "0px 8px", sm: "0px 16px" } }} maxWidth="lg">
                     <Toolbar color='icons' sx={{ padding: "0 !important" }}>
-                        <Typography
+                        <P
                             sx={{
                                 display: { xs: 'none', sm: 'block' },
                                 overflow: "visible",
@@ -33,7 +33,7 @@ export default function MainAppBar() {
                             noWrap
                         >
                             AM STORE
-                        </Typography>
+                        </P>
                         <SearchForProductsField
                             hostName={host}
                             fieldSize='small'

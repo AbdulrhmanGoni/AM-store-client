@@ -37,7 +37,5 @@ export default function useCustomTheme() {
             }
         }
     })
-
-    return theme
 }
 

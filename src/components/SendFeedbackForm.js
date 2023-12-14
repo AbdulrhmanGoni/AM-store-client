@@ -1,11 +1,12 @@
 "use client"
-import { Grid, TextField, Typography, IconButton, Paper, Button } from '@mui/material'
+import { Grid, TextField, IconButton, Paper, Button } from '@mui/material'
 import OverlayBg from './OverlayBg'
 import { Bar } from './locationRegistring/LocationsManegement'
 import { Close } from '@mui/icons-material'
 import sendFeedback from '../functions/sendFeedback'
 import { useSelector } from 'react-redux'
 import { useSpeedMessage } from '@/hooks/useSpeedMessage'
+import { P } from "@abdulrhmangoni/am-store-library";
 
 
 export default function SendFeedbackForm({ open, close }) {
@@ -40,9 +41,9 @@ export default function SendFeedbackForm({ open, close }) {
                 elevation={2}
             >
                 <Bar dividerBotton sx={{ p: "0px 0px 8px" }}>
-                    <Typography variant='h6'>
+                    <P variant='h6'>
                         Tell us your feedback
-                    </Typography>
+                    </P>
                     <IconButton onClick={() => close()}>
                         <Close />
                     </IconButton>

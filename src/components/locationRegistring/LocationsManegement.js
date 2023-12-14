@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { Box, Button, Divider, IconButton, Typography, useMediaQuery, Alert, Card, useTheme } from '@mui/material';
+import { Box, Button, Divider, IconButton, useMediaQuery, Alert, Card, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsList from './LocationsList';
 import AddLocationForm from './AddLocationForm';
@@ -10,7 +10,7 @@ import useLocationActions from '@/hooks/useLocationActions';
 import { setSelectedLocation_localy } from '@/dataBase/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { LoadingButton } from '@mui/lab';
-
+import { P } from "@abdulrhmangoni/am-store-library";
 
 export default function LocationsManegement({ defualtDisplay, control, float }) {
 
@@ -92,10 +92,10 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
             className='flex-column'
             sx={{ width: float ? { xs: "96vw", sm: "500px", md: "800px" } : { width: "100%" } }}>
             <Bar sx={{ bgcolor: "background.paper" }} dividerBotton>
-                <Typography className='flex-row-center-start gap1' variant='h6'>
+                <P className='flex-row-center-start gap1' variant='h6'>
                     {toRender === "locations_list" ? <MyLocation /> : <AddLocationAlt />}
                     {toRender === "locations_list" ? "Select Delivery Address" : "Add a location"}
-                </Typography>
+                </P>
                 {float && <IconButton onClick={() => control(false)}><Close /></IconButton>}
             </Bar>
             <Box sx={{ p: 1, height: "400px", overflow: "auto" }}>

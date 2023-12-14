@@ -1,4 +1,5 @@
-import { Box, Typography, useMediaQuery } from "@mui/material"
+import { Box, useMediaQuery } from "@mui/material"
+import { P } from "@abdulrhmangoni/am-store-library";
 
 export default function LocationCardRow({ theKey, value, children, sx }) {
 
@@ -16,8 +17,8 @@ export default function LocationCardRow({ theKey, value, children, sx }) {
                     children
                     :
                     <>
-                        <Typography width={width600px ? 70 : 100} variant='subtitle2'>{theKey}: </Typography>
-                        <Typography variant='body2'>{value}</Typography>
+                        <P width={width600px ? 70 : 100} variant='subtitle2'>{theKey}: </P>
+                        <P variant='body2'>{value}</P>
                     </>
             }
         </Box>

@@ -1,9 +1,10 @@
-import { Box, Button, Card, Chip, Divider, ImageList, ImageListItem, Typography } from "@mui/material";
+import { Box, Button, Card, Chip, Divider, ImageList, ImageListItem } from "@mui/material";
 import PriceDisplayer from "./PriceDisplayer";
 import { ReadMore } from "@mui/icons-material";
 import OverlayHoverLink from "./OverlayHoverLink";
 import formatDate from "@/functions/formatDate";
 import { useRouter } from "next/navigation";
+import { P } from "@abdulrhmangoni/am-store-library";
 
 
 export default function OrderCard({ order, cardId }) {
@@ -12,9 +13,9 @@ export default function OrderCard({ order, cardId }) {
 
     const RowInfo = ({ children, sx, title }) => {
         return (
-            <Typography sx={{ display: "flex", alignItems: "center", fontWeight: "bold", gap: 1, p: 1, ...sx }} variant='subtitle1'>
-                {title}<Typography component='span' variant="body2">{children}</Typography>
-            </Typography>
+            <P sx={{ display: "flex", alignItems: "center", fontWeight: "bold", gap: 1, p: 1, ...sx }} variant='subtitle1'>
+                {title}<P component='span' variant="body2">{children}</P>
+            </P>
         )
     }
 
@@ -30,7 +31,7 @@ export default function OrderCard({ order, cardId }) {
                 bgcolor: "primary.main",
                 p: "4px 8px", color: "white"
             }}>
-                <Typography>{order._id}</Typography>
+                <P>{order._id}</P>
             </Box>
             <Box sx={{
                 display: "flex", p: "6px 10px",

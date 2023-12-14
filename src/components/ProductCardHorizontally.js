@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
     Card, CardMedia, Rating, Divider,
-    Input, Typography, Box, Button, FormControl,
+    Input, Box, Button, FormControl,
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import ProductCountInCart from './ProductCountInCart';
-import { ActionAlert, ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
+import { ActionAlert, ProductAvailabationState, P } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
@@ -59,26 +59,26 @@ export default function ProductCardHorizontally(props) {
                 <OverlayHoverLink target={`/products/${id}`} />
             </Box>
             <Box className="flex-column gap1 j-between" sx={{ flexGrow: 1 }}>
-                <Typography variant='h6'>{title}</Typography>
-                <Typography className='limitationLines2' variant='body1'>{description}</Typography>
+                <P variant='h6'>{title}</P>
+                <P className='limitationLines2' variant='body1'>{description}</P>
                 <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 3 }}>
                     <Box>
                         {!withoutPrice && <PriceDisplayer discount={discount} currency="$" price={price} />}
-                        <Typography variant='subtitle2' sx={{
+                        <P variant='subtitle2' sx={{
                             fontSize: "13px",
                             display: "flex",
                             alignItems: "center",
                             gap: 1
                         }}>
                             <Rating precision={0.5} size='small' value={rate} readOnly /> (82)
-                        </Typography>
+                        </P>
                     </Box>
                     {
                         displayCount &&
                         <FormControl fullWidth variant="standard">
                             <Input
                                 defaultValue={displayCount} disabled sx={{ width: "80px" }}
-                                startAdornment={<Typography sx={{ fontSize: ".8rem", mr: .8 }}>Quantity</Typography>}
+                                startAdornment={<P sx={{ fontSize: ".8rem", mr: .8 }}>Quantity</P>}
                             />
                         </FormControl>
                     }

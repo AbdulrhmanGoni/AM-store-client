@@ -1,6 +1,6 @@
 "use client"
 import { useRef, useState } from "react";
-import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Typography, Box, Badge, Tooltip } from "@mui/material";
+import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Box, Badge, Tooltip } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit, Email, LockOutlined, LockReset, Person, Save } from "@mui/icons-material";
@@ -63,7 +63,7 @@ export default function UserProfile() {
             <Paper sx={{ p: pagesSpaces }} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography variant="h6">General Info</Typography>
+                        <P variant="h6">General Info</P>
                     </Grid>
                     <Grid className="flex-center" item xs={12} sm={3} md={2}>
                         <Box sx={{ width: "120px", height: "120px", position: "relative" }}>

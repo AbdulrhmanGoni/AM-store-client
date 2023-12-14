@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Cancel, LockOpen, LockOutlined, LockPerson, LockReset, Password } from "@mui/icons-material";
-import { Box, Grid, TextField, Typography, Button } from "@mui/material";
+import { Box, Grid, TextField, Button } from "@mui/material";
 import TextFieldContainer from "./TextFieldContainer";
-import { ActionAlert } from "@abdulrhmangoni/am-store-library";
+import { ActionAlert, P } from "@abdulrhmangoni/am-store-library";
 import { LoadingButton } from "@mui/lab";
 import useUserDataActions from "@/hooks/useUserDataActions";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
@@ -166,7 +166,7 @@ export default function ChangePasswordForm({ control }) {
     );
 }
 
-const ErrorMessage = ({ mesage }) => <Typography sx={{ m: "5px 0px 0px 32px" }} variant="body2" color="error">{mesage}</Typography>
+const ErrorMessage = ({ mesage }) => <P sx={{ m: "5px 0px 0px 32px" }} variant="body2" color="error">{mesage}</P>
 
 const textFieldIconStyle = (colorCondition) => {
     return { mr: 1, my: 0.5, color: colorCondition ? "primary.main" : "red" }

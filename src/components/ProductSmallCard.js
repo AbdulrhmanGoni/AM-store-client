@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { CardMedia, Rating, Typography, Box, Paper } from '@mui/material';
+import { CardMedia, Rating, Box, Paper } from '@mui/material';
 import PriceDisplayer from './PriceDisplayer';
 import OverlayHoverLink from './OverlayHoverLink';
+import { P } from "@abdulrhmangoni/am-store-library";
 
 export default function ProductSmallCard({ theProduct }) {
 
@@ -24,7 +25,7 @@ export default function ProductSmallCard({ theProduct }) {
                 <OverlayHoverLink linkStyle={{ fontSize: "12px" }} target={`/products/${productId}`} />
             </Box>
             <Box className="flex-column-center a-start" sx={{ flexGrow: 1 }}>
-                <Typography variant='subtitle2' className='limitationLines1'>{title}</Typography>
+                <P variant='subtitle2' className='limitationLines1'>{title}</P>
                 <Box className="flex-row-center-start gap2">
                     <PriceDisplayer
                         style={{ fontSize: "1rem" }}
@@ -33,7 +34,7 @@ export default function ProductSmallCard({ theProduct }) {
                         price={price}
                         discount={discount}
                     />
-                    <Typography variant='body2'>Items({count})</Typography>
+                    <P variant='body2'>Items({count})</P>
                 </Box>
                 <Rating name="half-rating-read" precision={0.5} size='small' value={rate} readOnly />
             </Box>

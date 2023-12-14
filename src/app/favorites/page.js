@@ -1,9 +1,9 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { Typography, Button, Paper, CircularProgress } from '@mui/material';
+import { Button, Paper, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { CleaningServices } from '@mui/icons-material';
-import { ErrorThrower, ActionAlert, LoadingCircle } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, ActionAlert, LoadingCircle, P } from '@abdulrhmangoni/am-store-library';
 import ProductsDisplayer from '@/components/ProductsDisplayer';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import customFetch from '@/functions/customFetch';
@@ -59,7 +59,7 @@ function FavoritesPage() {
                                 mb: 2, p: 2
                             }}
                         >
-                            <Typography variant='h6'>Favorites</Typography>
+                            <P variant='h6'>Favorites</P>
                             <ActionAlert
                                 title="Clear favorites"
                                 message="Are you sure you want to remove all products in your favorites?"
@@ -68,7 +68,7 @@ function FavoritesPage() {
                                 <Button
                                     variant='contained'
                                     size='small'
-                                    startIcon={isClearing ? <CircularProgress size={22} color="primary"/> : <CleaningServices />}
+                                    startIcon={isClearing ? <CircularProgress size={22} color="primary" /> : <CleaningServices />}
                                     color='error'>
                                     Clear Favorites
                                 </Button>

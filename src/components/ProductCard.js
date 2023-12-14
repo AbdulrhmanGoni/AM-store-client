@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import {
     Card, CardMedia, Rating, Divider, Box,
-    CardContent, CardActions, Typography
+    CardContent, CardActions
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ import { addToCart_localy } from '@/dataBase/shoppingCart_slice';
 import { ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import { P } from "@abdulrhmangoni/am-store-library";
 
 
 export default function ProductCard({ theProduct, sx }) {
@@ -72,13 +73,13 @@ export default function ProductCard({ theProduct, sx }) {
             </Box>
             <Divider />
             <CardContent sx={{ p: 1, pb: 0 }}>
-                <Typography variant="subtitle1" sx={{ fontSize: { xs: 14, sm: 18 }, fontWeight: "bold", mb: 1 }}>
+                <P variant="subtitle1" sx={{ fontSize: { xs: 14, sm: 18 }, fontWeight: "bold", mb: 1 }}>
                     {title}
-                </Typography>
+                </P>
             </CardContent>
             <Box className="flex-row-center-start" sx={{ p: "0px 8px" }}>
                 <Rating precision={0.5} size='small' value={rate} readOnly />
-                <Typography variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</Typography>
+                <P variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</P>
             </Box>
             <CardActions
                 disableSpacing

@@ -1,5 +1,5 @@
-import { Avatar, Box, Typography } from "@mui/material";
-
+import { Avatar, Box } from "@mui/material";
+import { P } from "@abdulrhmangoni/am-store-library";
 const Comment = ({ userName, avatar, text, timeAgo, children }) => {
     return (
         <Box className="flex-row gap1 full-width" sx={{ p: "14px 8px" }}>
@@ -7,13 +7,13 @@ const Comment = ({ userName, avatar, text, timeAgo, children }) => {
                 {userName[0]}
             </Avatar>
             <Box className="flex-column gap1">
-                <Typography variant='subtitle2'>
+                <P variant='subtitle2'>
                     {userName}
-                    <Typography component="span" sx={{ fontSize: "12px", ml: 1 }}>
+                    <P component="span" sx={{ fontSize: "12px", ml: 1 }}>
                         {timeAgo}
-                    </Typography>
-                </Typography>
-                <Typography variant='body2'>{text}</Typography>
+                    </P>
+                </P>
+                <P variant='body2'>{text}</P>
                 {children}
             </Box>
         </Box>

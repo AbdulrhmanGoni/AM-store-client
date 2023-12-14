@@ -1,16 +1,15 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { Alert, Box, Button, CircularProgress, IconButton, List, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, IconButton, List } from '@mui/material';
 import CommentViewer from './CommentViewer';
 import { useSelector } from 'react-redux';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import TextFieldWithImojis from './TextFieldWithImojis';
 import { Refresh } from '@mui/icons-material';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
-import { useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
+import { useWhenElementAppears, P, AlertTooltip } from '@abdulrhmangoni/am-store-library';
 import useSlicedFetch from '@/hooks/useSlicedFetch';
 import { useFetch } from '@/hooks/useFetch';
-import { AlertTooltip } from '@abdulrhmangoni/am-store-library';
 
 
 export default function ProductCommentsSection() {
@@ -116,9 +115,9 @@ export default function ProductCommentsSection() {
                                 }
                             </List>
                             : isLoading || isError ? null
-                                : data && <Typography variant='h6' sx={{ p: "20px 8px", m: "0px auto" }}>
+                                : data && <P variant='h6' sx={{ p: "20px 8px", m: "0px auto" }}>
                                     There are no comments for this product
-                                </Typography>
+                                </P>
                     }
                 </>
             }

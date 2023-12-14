@@ -2,11 +2,11 @@
 import {
     Box, Grid, Checkbox, Paper,
     FormControlLabel, TextField,
-    Button, Avatar, Typography
+    Button, Avatar
 } from '@mui/material/';
 import { PersonAddAlt1 } from '@mui/icons-material';
 import useSignUpLogic from '@/hooks/useSignUpLogic';
-import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
+import { useGoogleAuth, P } from '@abdulrhmangoni/am-store-library';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
 import Link from 'next/link';
@@ -36,7 +36,7 @@ export default function SignUpPage() {
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><PersonAddAlt1 /></Avatar>
-                <Typography component="h1" variant="h5">Sign up</Typography>
+                <P component="h1" variant="h5">Sign up</P>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -118,9 +118,9 @@ export default function SignUpPage() {
                             width: "100%"
                         }}
                     >
-                        <Typography textDecoration="underline">
+                        <P textDecoration="underline">
                             Already have an account? Log in
-                        </Typography>
+                        </P>
                     </Link>
                     <AuthButton
                         onSuccess={signUpWithGoogle}

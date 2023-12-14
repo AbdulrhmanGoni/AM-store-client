@@ -1,7 +1,7 @@
-import { Box, CircularProgress, Divider, IconButton, Paper, Typography } from '@mui/material';
+import { Box, CircularProgress, Divider, IconButton, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Delete, LocationOn } from '@mui/icons-material';
-import { ActionAlert } from '@abdulrhmangoni/am-store-library';
+import { ActionAlert, P } from '@abdulrhmangoni/am-store-library';
 import { useParams } from 'next/navigation';
 import LocationCardRow from './LocationCardRow';
 import useLocationActions from '@/hooks/useLocationActions';
@@ -39,7 +39,7 @@ export default function LocationCard({ locationData, children, id, isSelected, s
             >
                 <LocationCardRow sx={{ p: "0px 0px 0px 12px" }}>
                     <LocationOn sx={{ color: 'primary.main', mr: 1 }} />
-                    <Typography>{type}</Typography>
+                    <P>{type}</P>
                     <LocationCardRow sx={{ flexGrow: 1, justifyContent: "flex-start", ml: 2, p: "8px 0px" }}>
                         {children}
                     </LocationCardRow>

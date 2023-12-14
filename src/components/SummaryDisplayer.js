@@ -1,9 +1,9 @@
-import { Box, Divider, List, ListItem, Paper, TextField, Typography, useMediaQuery } from '@mui/material'
+import { Box, Divider, List, ListItem, Paper, TextField, useMediaQuery } from '@mui/material'
 import PriceDisplayer from './PriceDisplayer'
 import { Discount } from '@mui/icons-material'
 import deliveryPrice from '@/CONSTANT/deliveryPrice'
 import { findOriginalPrice } from '@/functions/cobones';
-
+import { P } from "@abdulrhmangoni/am-store-library";
 
 export default function SummaryDisplayer({ total, discount, delivery, items }) {
 
@@ -11,9 +11,9 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
 
     const TextTitle = ({ children, style }) => {
         return (
-            <Typography sx={style} fontWeight="bold" variant={media ? "subtitle2" : "subtitle1"} >
+            <P sx={style} fontWeight="bold" variant={media ? "subtitle2" : "subtitle1"} >
                 {children}
-            </Typography>
+            </P>
         )
     }
 
@@ -24,7 +24,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
         <Paper>
             <List sx={{ display: "flex", flexDirection: "column", p: "0px 8px", gap: 1, width: "100%", boxShadow: "green 0 0 8px -5px" }}>
                 <ListItem sx={{ p: 1 }}>
-                    <Typography variant='h6'>Summary</Typography>
+                    <P variant='h6'>Summary</P>
                 </ListItem>
                 <Divider />
                 <Li>
@@ -46,7 +46,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                     {
                         delivery ?
                             <PriceDisplayer price={deliveryPrice} operator={"+"} style={priceStyle} />
-                            : <Typography sx={{ color: "success.main" }} variant='body2'>Free</Typography>
+                            : <P sx={{ color: "success.main" }} variant='body2'>Free</P>
                     }
                 </Li>
                 <Li>

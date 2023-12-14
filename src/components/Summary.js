@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Divider, List, ListItem, Paper, TextField, Typography, useMediaQuery, Skeleton } from '@mui/material'
+import { Box, Button, Divider, List, ListItem, Paper, TextField, useMediaQuery, Skeleton } from '@mui/material'
 import TotalPriceInCart from './TotalPriceInCart'
 import PriceDisplayer from './PriceDisplayer'
 import { Close, Discount, Done } from '@mui/icons-material'
@@ -11,6 +11,8 @@ import { applyDiscount } from '@/functions/cobones'
 import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
 import { setDiscountCobones } from '@/dataBase/cobones_slice'
 import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum'
+import { P } from "@abdulrhmangoni/am-store-library";
+
 
 export default function Summary() {
 
@@ -84,9 +86,9 @@ export default function Summary() {
 
     const TextTitle = ({ children, style }) => {
         return (
-            <Typography sx={style} fontWeight="bold" variant={media ? "subtitle2" : "subtitle1"} >
+            <P sx={style} fontWeight="bold" variant={media ? "subtitle2" : "subtitle1"} >
                 {children}
-            </Typography>
+            </P>
         )
     }
 
@@ -104,7 +106,7 @@ export default function Summary() {
         <Paper>
             <List className='flex-column gap1 full-width' sx={{ p: "0px 8px" }}>
                 <ListItem sx={{ p: 1 }}>
-                    <Typography variant='h6'>Summary</Typography>
+                    <P variant='h6'>Summary</P>
                 </ListItem>
                 <Divider />
                 <Li>
@@ -122,7 +124,7 @@ export default function Summary() {
                     <TextTitle>Delivery:</TextTitle>
                     {
                         includeDeliveryPrice ? <PriceDisplayer price={deliveryPrice} operator={"+"} style={priceStyle} /> :
-                            <Typography sx={{ color: "success.main" }} variant='body2'>Free</Typography>
+                            <P sx={{ color: "success.main" }} variant='body2'>Free</P>
                     }
                 </Li>
                 <Li>

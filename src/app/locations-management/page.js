@@ -1,10 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider } from '@mui/material';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsManegement from '@/components/locationRegistring/LocationsManegement';
-import { ElementWithLoadingState, ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { ElementWithLoadingState, ErrorThrower, P } from '@abdulrhmangoni/am-store-library';
 import { setUserLocations } from '@/dataBase/locations_slice';
 import useLocationActions from '@/hooks/useLocationActions';
 
@@ -42,9 +42,9 @@ export default function LocationsManegementPage() {
                         height={200}
                         element={
                             <Box>
-                                <Typography sx={{ p: "8px 16px", bgcolor: "background.paper" }} variant='h6'>
+                                <P sx={{ p: "8px 16px", bgcolor: "background.paper" }} variant='h6'>
                                     Selected Location
-                                </Typography>
+                                </P>
                                 <Divider />
                                 <SelectedLocationCard style={{ p: 1 }} />
                             </Box>

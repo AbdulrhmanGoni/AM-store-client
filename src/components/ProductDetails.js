@@ -1,7 +1,7 @@
 "use client"
 import {
     Button, Divider, Grid, Rating,
-    List, ListItem, Typography, Box
+    List, ListItem, Box
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import { addToCart_localy } from "@/dataBase/shoppingCart_slice"
 import PriceDisplayer from "@/components/PriceDisplayer";
 import ToggleFavorite from "@/components/ToggleFavorite";
 import { LoadingButton } from "@mui/lab";
-import { ProductImagesDisplayer, ProductAvailabationState } from "@abdulrhmangoni/am-store-library";
+import { ProductImagesDisplayer, ProductAvailabationState, P } from "@abdulrhmangoni/am-store-library";
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";
@@ -59,27 +59,27 @@ export default function ProductDetails({ product }) {
                     <Grid item xs={12} sm={6}>
                         <List disablePadding>
                             <ListItem>
-                                <Typography variant="h6">{title}</Typography>
+                                <P variant="h6">{title}</P>
                             </ListItem>
                             <ListItem>
-                                <Typography>Series: {series}</Typography>
+                                <P>Series: {series}</P>
                             </ListItem>
                             <ListItem>
-                                <Typography>{description}</Typography>
+                                <P>{description}</P>
                             </ListItem>
                             <ListItem sx={{ justifyContent: "space-between" }}>
                                 <PriceDisplayer discount={discount} currency="$" price={price} />
                                 <ProductAvailabationState visitAllAmount amount={amount} />
                             </ListItem>
                             <ListItem sx={{ justifyContent: "space-between" }}>
-                                <Typography variant='subtitle2' sx={{
+                                <P variant='subtitle2' sx={{
                                     fontSize: "13px",
                                     display: "flex",
                                     alignItems: "center",
                                     gap: 1
                                 }}>
                                     <Rating precision={0.5} size='small' value={3.5} readOnly /> (82)
-                                </Typography>
+                                </P>
                                 <ToggleFavorite productId={productId} />
                             </ListItem>
                             <Divider />

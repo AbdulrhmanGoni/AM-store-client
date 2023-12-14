@@ -1,6 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { P } from "@abdulrhmangoni/am-store-library";
 
 const OverlayHoverLink = ({ target, linkStyle, bgStyle, text, customAction, disable }) => {
 
@@ -19,14 +20,14 @@ const OverlayHoverLink = ({ target, linkStyle, bgStyle, text, customAction, disa
             sx={{
                 "&:hover": { opacity: disable ? 0 : 1 },
                 transition: ".4s",
-                position: "absolute", 
-                opacity: 0, top: 0, 
-                backgroundColor: "#00000054", 
-                color: "white", 
+                position: "absolute",
+                opacity: 0, top: 0,
+                backgroundColor: "#00000054",
+                color: "white",
                 ...bgStyle
             }}
         >
-            <Typography variant='body2'
+            <P variant='body2'
                 sx={{
                     cursor: disable ? "default" : "pointer",
                     "&:hover": { textDecoration: "underline" },
@@ -35,7 +36,7 @@ const OverlayHoverLink = ({ target, linkStyle, bgStyle, text, customAction, disa
                 onClick={() => action()}
             >
                 {text ?? "More Details"}
-            </Typography>
+            </P>
         </Box>
     );
 }

@@ -1,8 +1,8 @@
 "use client"
-import { Box, Grid, TextField, Paper, Button, Avatar, Typography } from '@mui/material/';
+import { Box, Grid, TextField, Paper, Button, Avatar } from '@mui/material/';
 import { Login } from '@mui/icons-material';
 import Link from 'next/link';
-import { useGoogleAuth } from '@abdulrhmangoni/am-store-library';
+import { useGoogleAuth, P } from '@abdulrhmangoni/am-store-library';
 import useLogInLogic from '@/hooks/useLogInLogic';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
@@ -30,7 +30,7 @@ export default function LogInPage() {
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><Login /></Avatar>
-                <Typography component="h1" variant="h5">Log In</Typography>
+                <P component="h1" variant="h5">Log In</P>
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -74,9 +74,9 @@ export default function LogInPage() {
                     href="/sign-up"
                     style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
                 >
-                    <Typography sx={{ textDecoration: "underline", mb: 2 }}>
+                    <P sx={{ textDecoration: "underline", mb: 2 }}>
                         You don&apos;t have an account? Sign up
-                    </Typography>
+                    </P>
                 </Link>
                 <AuthButton
                     onSuccess={logInWithGoogle}

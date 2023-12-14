@@ -1,10 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import customFetch from '@/functions/customFetch';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { ErrorThrower, LoadingPage, AlertTooltip } from '@abdulrhmangoni/am-store-library';
+import { ErrorThrower, LoadingPage, AlertTooltip, P } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';
 import { setEmailAsVerified_localy } from '@/dataBase/userData_slice';
 import { OpenInBrowser } from '@mui/icons-material';
@@ -114,10 +114,10 @@ export default function Page() {
                         />
                     </AlertTooltip>
                 </Box>
-                <Typography sx={{ fontSize: "1.20rem" }}>
+                <P sx={{ fontSize: "1.20rem" }}>
                     We sent a verification mail to your account {userData?.userEmail},
                     Open your inbox and click on verify link to complete your email verification.
-                </Typography>
+                </P>
             </ErrorThrower>
         )
             : currentState.status === "Verified successfully" ? (
@@ -150,9 +150,9 @@ export default function Page() {
                         message='Maybe the problem in your network or in you email'
                         withRefreshButton
                     >
-                        <Typography>
+                        <P>
                             Something wrong happeneds while we try to send the verification code to your email.
-                        </Typography>
+                        </P>
                     </ErrorThrower>
                 )
                     : currentState.status === "Verifying failed" ? (
@@ -184,10 +184,10 @@ export default function Page() {
                                 }
                                 hideAlertMsg
                             >
-                                <Typography>
+                                <P>
                                     You are trying to get verification codes multible times without send them to verify your email
                                     Come back later and try again
-                                </Typography>
+                                </P>
                             </ErrorThrower>
                         )
                             : currentState.status === expiredCode ? (

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowBackIos, ArrowForwardIos, Close } from '@mui/icons-material';
-import { Box, IconButton, Paper, Typography, useMediaQuery } from '@mui/material';
-
+import { Box, IconButton, Paper, useMediaQuery } from '@mui/material';
+import { P } from "@abdulrhmangoni/am-store-library";
 
 export default function ImageDispayer({ imagesList, openedImage, closeer, title }) {
 
@@ -47,10 +47,10 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
         setImageAsCurrent((curren) => {
             if (dir === "left") {
                 return curren === 0 ? theArray.length - 1 : --curren;
-            } 
+            }
             else if (dir === "right") {
                 return theArray.length - 1 === curren ? 0 : ++curren;
-            } 
+            }
             else return curren
         })
     }
@@ -66,7 +66,7 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
                         borderBottom: "1px solid",
                         borderColor: "primary.main"
                     }}>
-                    <Typography variant='h6'>{title}</Typography>
+                    <P variant='h6'>{title}</P>
                     <IconButton
                         onClick={() => closeer(false)}
                         sx={{ color: "primary.main", p: 0 }} >
@@ -80,7 +80,7 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
                         position: "relative",
                         width: "100%", height: "40px"
                     }}>
-                    <Typography sx={{ color: "primary.main" }}>{`${imagesList.length} / ${currentImage + 1}`}</Typography>
+                    <P sx={{ color: "primary.main" }}>{`${imagesList.length} / ${currentImage + 1}`}</P>
                     <ArrowBackIos onClick={() => { navigateBetweenImages("left") }} sx={{ ...arrow, left: "10px" }} />
                     <ArrowForwardIos onClick={() => { navigateBetweenImages("right") }} sx={{ ...arrow, right: "10px" }} />
                 </Paper>

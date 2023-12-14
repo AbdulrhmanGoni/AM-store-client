@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { AppBar, Box, Container, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Container, IconButton } from '@mui/material';
 import { Reply } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import checkUserState from '@/functions/checkUserState';
@@ -8,6 +8,7 @@ import CantAccessMessage from './CantAccessMessage';
 import { useSelector } from 'react-redux';
 import pagesSpaces from '@/CONSTANT/pagesSpaces';
 import AccountMenu from './AccountMenu';
+import { P } from "@abdulrhmangoni/am-store-library";
 
 
 export default function PageLayout({ children, maxWidth, title, signUpRequired, redirect }) {
@@ -37,7 +38,7 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                 <AppBar position="fixed">
                     <Container maxWidth={maxWidth} sx={{ display: "flex", alignItems: "center", gap: 2, height: "57px" }}>
                         <IconButton onClick={back} sx={{ color: "inherit" }}><Reply /></IconButton>
-                        <Typography
+                        <P
                             variant="h6"
                             sx={{
                                 fontWeight: "bold",
@@ -48,7 +49,7 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                             }}
                         >
                             {title}
-                        </Typography>
+                        </P>
                         <AccountMenu />
                     </Container>
                 </AppBar>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Grid } from '@mui/material';
 import { Edit, Payment } from '@mui/icons-material';

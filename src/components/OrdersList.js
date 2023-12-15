@@ -1,7 +1,7 @@
 "use client"
 import { List, Alert, IconButton } from '@mui/material';
 import OrderCard from '@/components/OrderCard';
-import { ErrorThrower, LoadingCircle, useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard, LoadingCircle, useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
 import { useSelector } from 'react-redux';
 import useSlicedFetch from '@/hooks/useSlicedFetch';
 import { Refresh } from '@mui/icons-material';
@@ -58,7 +58,7 @@ export default function OrdersList({ orderState }) {
 }
 
 function NoOrders() {
-    return <ErrorThrower
+    return <IllustrationCard
         title="No Orders Here"
         hideAlertMsg
         disableHeight

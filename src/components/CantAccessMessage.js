@@ -1,4 +1,4 @@
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard } from '@abdulrhmangoni/am-store-library';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
@@ -8,7 +8,7 @@ export default function CantAccessMessage() {
 
     return (
         <Box className="flex-column-center" sx={{ minHeight: "100vh" }}>
-            <ErrorThrower
+            <IllustrationCard
                 title='You have to sign up first'
                 hideAlertMsg
                 illustratorType="signUp"
@@ -17,7 +17,7 @@ export default function CantAccessMessage() {
                     <Button onClick={() => push("/sign-up")} variant="contained">Sign Up</Button>
                     <Button onClick={() => push("/log-in")} variant="outlined">I have an Account</Button>
                 </Box>
-            </ErrorThrower>
+            </IllustrationCard>
         </Box>
     )
 }

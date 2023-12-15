@@ -4,7 +4,7 @@ import { Box, Button, Divider } from '@mui/material';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsManegement from '@/components/locationRegistring/LocationsManegement';
-import { ElementWithLoadingState, ErrorThrower, P } from '@abdulrhmangoni/am-store-library';
+import { ElementWithLoadingState, IllustrationCard, P } from '@abdulrhmangoni/am-store-library';
 import { setUserLocations } from '@/dataBase/locations_slice';
 import useLocationActions from '@/hooks/useLocationActions';
 
@@ -59,7 +59,7 @@ export default function LocationsManegementPage() {
             );
         }
         else if (isError) {
-            <ErrorThrower
+            <IllustrationCard
                 title='Fetching locations failed'
                 message='Fetching your locations data failed for unknown reason'
                 disableHeight
@@ -67,7 +67,7 @@ export default function LocationsManegementPage() {
                 <Box className="flex-row-center">
                     <Button onClick={() => refetch()} variant='contained'>Retry</Button>
                 </Box>
-            </ErrorThrower>
+            </IllustrationCard>
         }
     }
 }

@@ -1,5 +1,5 @@
 "use client"
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library'
+import { IllustrationCard } from '@abdulrhmangoni/am-store-library'
 import { Button } from '@mui/material'
 import { useEffect } from 'react'
 
@@ -9,24 +9,24 @@ export default function Error({ error, reset }) {
     }, [error])
 
     return (
-            <ErrorThrower
-                title="Something Went Wrong!"
-                illustratorType="unexpected"
-                hideAlertMsg
-                disableHeight
+        <IllustrationCard
+            title="Something Went Wrong!"
+            illustratorType="unexpected"
+            hideAlertMsg
+            disableHeight
+        >
+            <Button
+                variant='contained'
+                onClick={() => reset()}
             >
-                <Button
-                    variant='contained'
-                    onClick={ () => reset() }
-                >
-                    Try again
-                </Button>
-            </ErrorThrower>
+                Try again
+            </Button>
+        </IllustrationCard>
     )
 }
 
 export function NotFound() {
-    return <ErrorThrower
+    return <IllustrationCard
         title="No Results"
         illustratorType="notFound"
         hideAlertMsg

@@ -4,7 +4,7 @@ import { Box, Button, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import customFetch from '@/functions/customFetch';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { ErrorThrower, LoadingPage, AlertTooltip, P } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard, LoadingPage, AlertTooltip, P } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';
 import { setEmailAsVerified_localy } from '@/dataBase/userData_slice';
 import { OpenInBrowser } from '@mui/icons-material';
@@ -66,7 +66,7 @@ export default function Page() {
 
     return isLodading ? <LoadingPage />
         : currentState.status === "Email sent" ? (
-            <ErrorThrower
+            <IllustrationCard
                 title='Verify your email now !'
                 customIllustrator={
                     <Box
@@ -118,10 +118,10 @@ export default function Page() {
                     We sent a verification mail to your account {userData?.userEmail},
                     Open your inbox and click on verify link to complete your email verification.
                 </P>
-            </ErrorThrower>
+            </IllustrationCard>
         )
             : currentState.status === "Verified successfully" ? (
-                <ErrorThrower
+                <IllustrationCard
                     title="Coungrates! your email verified successfully"
                     customIllustrator={
                         <Box
@@ -135,10 +135,10 @@ export default function Page() {
                     <Button onClick={() => { back() }} size='small' variant="contained">
                         Back
                     </Button>
-                </ErrorThrower>
+                </IllustrationCard>
             )
                 : currentState.status === "Email didn't send" ? (
-                    <ErrorThrower
+                    <IllustrationCard
                         title='Ops! Something wrong happeneds'
                         customIllustrator={
                             <Box
@@ -153,10 +153,10 @@ export default function Page() {
                         <P>
                             Something wrong happeneds while we try to send the verification code to your email.
                         </P>
-                    </ErrorThrower>
+                    </IllustrationCard>
                 )
                     : currentState.status === "Verifying failed" ? (
-                        <ErrorThrower
+                        <IllustrationCard
                             title={currentState.status}
                             message={currentState.message}
                             customIllustrator={
@@ -170,10 +170,10 @@ export default function Page() {
                             <Button onClick={() => location.reload()} size='small' variant="contained">
                                 try again
                             </Button>
-                        </ErrorThrower>
+                        </IllustrationCard>
                     )
                         : currentState.status == tooManyRequestsCode ? (
-                            <ErrorThrower
+                            <IllustrationCard
                                 title="Too many verification requests!"
                                 customIllustrator={
                                     <Box
@@ -188,10 +188,10 @@ export default function Page() {
                                     You are trying to get verification codes multible times without send them to verify your email
                                     Come back later and try again
                                 </P>
-                            </ErrorThrower>
+                            </IllustrationCard>
                         )
                             : currentState.status === expiredCode ? (
-                                <ErrorThrower
+                                <IllustrationCard
                                     title="Verification code expired!"
                                     message={currentState.message}
                                     withRefreshButton
@@ -202,7 +202,7 @@ export default function Page() {
                                             alt='Illustrator image of expired code'
                                         />
                                     }
-                                ></ErrorThrower>
+                                ></IllustrationCard>
                             )
                                 : null;
 }

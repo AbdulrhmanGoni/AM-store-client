@@ -1,6 +1,6 @@
 "use client"
 import useUserLogging from "@/hooks/useUserLogging";
-import { ErrorThrower, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
+import { IllustrationCard, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
 import { Box, useTheme } from "@mui/material";
 
 
@@ -31,19 +31,19 @@ export default function AppWrapper({ children }) {
             <Box component="body">
                 {
                     isLoading ? <LoadingPage />
-                        : isUnexpected ? <ErrorThrower
+                        : isUnexpected ? <IllustrationCard
                             title="Uunexpected Error"
                             message="There is unexpected error happeneds, try refreshing the page"
                             illustratorType="unexpected"
                             fullPage withRefreshButton
                         />
-                            : isServerError ? <ErrorThrower
+                            : isServerError ? <IllustrationCard
                                 title="Server Error"
                                 message="There is unexpected error from the server, Come back later"
                                 illustratorType="server"
                                 fullPage withRefreshButton
                             />
-                                : isNetworkError ? <ErrorThrower
+                                : isNetworkError ? <IllustrationCard
                                     title="Network Error"
                                     message="There is problem in your internet, please check your internet"
                                     illustratorType="network"

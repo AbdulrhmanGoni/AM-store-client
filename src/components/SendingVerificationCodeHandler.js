@@ -1,6 +1,6 @@
 "use client"
 import { TextField, Box, } from "@mui/material"
-import { ErrorThrower, AlertTooltip, P } from "@abdulrhmangoni/am-store-library"
+import { IllustrationCard, AlertTooltip, P } from "@abdulrhmangoni/am-store-library"
 import { Img } from "@/app/forget-password/page";
 import customFetch from "@/functions/customFetch";
 import { useState } from "react";
@@ -49,7 +49,7 @@ export default function SendingVerificationCodeHandler(props) {
     }
 
     return (
-        <ErrorThrower
+        <IllustrationCard
             title={title}
             hideAlertMsg
             style={style}
@@ -97,6 +97,6 @@ export default function SendingVerificationCodeHandler(props) {
                 </AlertTooltip>
             </Box>
             <P sx={{ fontSize: "1.20rem" }}>{description}</P>
-        </ErrorThrower>
+        </IllustrationCard>
     )
 }

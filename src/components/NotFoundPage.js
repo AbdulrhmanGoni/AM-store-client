@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { ErrorThrower } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard } from '@abdulrhmangoni/am-store-library';
 
 const NotFoundPage = () => {
     return (
-        <ErrorThrower
+        <IllustrationCard
             title="Not Found Page"
             illustratorType="notFound"
             fullPage

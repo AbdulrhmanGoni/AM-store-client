@@ -3,7 +3,7 @@ import ProductCardHorizontally from '@/components/ProductCardHorizontally';
 import { Box, Button, Grid, List, ListItem, Paper } from '@mui/material';
 import Summary from '@/components/Summary';
 import { clearCart_localy } from '@/dataBase/shoppingCart_slice';
-import { ErrorThrower, ActionAlert, P } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard, ActionAlert, P } from '@abdulrhmangoni/am-store-library';
 import { useDispatch, useSelector } from 'react-redux';
 import GoToCheckoutButton from '@/components/GoToCheckoutButton';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
@@ -67,7 +67,7 @@ export default function ShoppingCartPage() {
                 </Box>
             </Grid>
         </Grid>
-        : <ErrorThrower
+        : <IllustrationCard
             hideAlertMsg
             title="Shopping cart is empty"
             illustratorType='empty'

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button, Paper, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { CleaningServices } from '@mui/icons-material';
-import { ErrorThrower, ActionAlert, LoadingCircle, P } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard, ActionAlert, LoadingCircle, P } from '@abdulrhmangoni/am-store-library';
 import ProductsDisplayer from '@/components/ProductsDisplayer';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import customFetch from '@/functions/customFetch';
@@ -84,7 +84,7 @@ function FavoritesPage() {
 
 function Empty() {
     return (
-        <ErrorThrower
+        <IllustrationCard
             hideAlertMsg
             title="Favorites is empty"
             illustratorType='empty'
@@ -94,7 +94,7 @@ function Empty() {
 
 function Error() {
     return (
-        <ErrorThrower
+        <IllustrationCard
             title="Something went wrong"
             message="There is Something Wrong, may its network error or unexpected error"
             illustratorType='unexpected'

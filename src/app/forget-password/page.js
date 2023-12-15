@@ -2,7 +2,7 @@
 import { Container, TextField, Box, Button } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
 import { useState } from "react"
-import { ErrorThrower } from "@abdulrhmangoni/am-store-library"
+import { IllustrationCard } from "@abdulrhmangoni/am-store-library"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import pagesSpaces from "@/CONSTANT/pagesSpaces"
@@ -133,7 +133,7 @@ export default function Page() {
                 position: "relative"
             }}
         >
-            <ErrorThrower
+            <IllustrationCard
                 title="Do you forget your password?"
                 hideAlertMsg
                 style={{ ...cardsStyle, left: forgetPasswordCard }}
@@ -170,7 +170,7 @@ export default function Page() {
                         Request Changing Password
                     </LoadingButton>
                 </form>
-            </ErrorThrower>
+            </IllustrationCard>
             <SendingVerificationCodeHandler
                 title="Prove your ownership first"
                 style={{ ...cardsStyle, left: verificationCard }}
@@ -202,7 +202,7 @@ export default function Page() {
                     "Open your inbox and copy the code and paste it in the field above for proving your identity"
                 }
             />
-            <ErrorThrower
+            <IllustrationCard
                 title="Change your password now"
                 hideAlertMsg
                 style={{ ...cardsStyle, left: changePasswordForm }}
@@ -239,8 +239,8 @@ export default function Page() {
                         Complete Changing Password
                     </LoadingButton>
                 </form>
-            </ErrorThrower>
-            <ErrorThrower
+            </IllustrationCard>
+            <IllustrationCard
                 title="Congrats ! You resetted your password"
                 hideAlertMsg
                 style={{ ...cardsStyle, left: doneMessage }}
@@ -261,7 +261,7 @@ export default function Page() {
                         Log in now
                     </Button>
                 </Box>
-            </ErrorThrower>
+            </IllustrationCard>
         </Container>
     )
 }

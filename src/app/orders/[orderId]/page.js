@@ -2,7 +2,7 @@
 import { Box, Grid } from '@mui/material';
 import SummaryDisplayer from '@/components/SummaryDisplayer';
 import ProductCardHorizontally from '@/components/ProductCardHorizontally';
-import { ErrorThrower, LoadingCircle } from '@abdulrhmangoni/am-store-library';
+import { IllustrationCard, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 import { useFetch } from '@/hooks/useFetch';
 
 
@@ -53,7 +53,7 @@ export default function OrderDetails({ params: { orderId } }) {
 
 function NotFound() {
     return (
-        <ErrorThrower
+        <IllustrationCard
             title='Order not found'
             message="Sorry! We Couldn't Found The Order"
             illustratorType="notFound"
@@ -63,7 +63,7 @@ function NotFound() {
 
 function Unexpected() {
     return (
-        <ErrorThrower
+        <IllustrationCard
             title='Something went wrong'
             hideAlertMsg
             illustratorType="unexpected"

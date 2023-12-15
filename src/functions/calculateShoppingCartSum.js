@@ -1,4 +1,4 @@
-import { applyDiscount } from "./cobones"
+import { applyDiscount } from "@abdulrhmangoni/am-store-library";
 
 export default function calculateShoppingCartSum(shoppingCart) {
     return shoppingCart.reduce((acc, current) => {

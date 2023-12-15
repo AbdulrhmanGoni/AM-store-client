@@ -6,11 +6,10 @@ import {
 import { Delete } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart_localy } from "@/dataBase/shoppingCart_slice"
-import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import ProductCountInCart from './ProductCountInCart';
-import { ActionAlert, ProductAvailabationState, P } from '@abdulrhmangoni/am-store-library';
+import { ActionAlert, ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 

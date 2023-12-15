@@ -1,16 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Divider, List, ListItem, Paper, TextField, useMediaQuery, Skeleton } from '@mui/material'
-import PriceDisplayer from './PriceDisplayer'
 import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice'
 import { discountCobone, setSummaryPrice, removeDiscount } from '@/dataBase/checkoutSummary_slice'
-import { applyDiscount } from '@/functions/cobones'
 import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
 import { setDiscountCobones } from '@/dataBase/cobones_slice'
 import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum'
-import { P } from "@abdulrhmangoni/am-store-library";
+import { P, PriceDisplayer, applyDiscount } from "@abdulrhmangoni/am-store-library";
 
 
 export default function Summary() {

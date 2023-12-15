@@ -7,10 +7,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { ShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
 import { addToCart_localy } from "@/dataBase/shoppingCart_slice"
-import PriceDisplayer from "@/components/PriceDisplayer";
 import ToggleFavorite from "@/components/ToggleFavorite";
 import { LoadingButton } from "@mui/lab";
-import { ProductImagesDisplayer, ProductAvailabationState, P } from "@abdulrhmangoni/am-store-library";
+import { ProductImagesDisplayer, ProductAvailabationState, P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";

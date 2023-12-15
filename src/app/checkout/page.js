@@ -12,8 +12,7 @@ import { clearCheckoutSummary } from '@/dataBase/checkoutSummary_slice';
 import getCurrentDate from '@/functions/getCurrentDate';
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { applyDiscount } from '@/functions/cobones';
-import { ActionAlert, loadingControl } from '@abdulrhmangoni/am-store-library';
+import { ActionAlert, loadingControl, applyDiscount } from '@abdulrhmangoni/am-store-library';
 import useOrdersActions from '@/hooks/useOrdersActions';
 import pagesSpaces from '@/CONSTANT/pagesSpaces';
 

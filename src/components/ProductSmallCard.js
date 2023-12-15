@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { CardMedia, Rating, Box, Paper } from '@mui/material';
-import PriceDisplayer from './PriceDisplayer';
 import OverlayHoverLink from './OverlayHoverLink';
-import { P } from "@abdulrhmangoni/am-store-library";
+import { P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 
 export default function ProductSmallCard({ theProduct }) {
 

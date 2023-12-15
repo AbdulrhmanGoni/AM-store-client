@@ -6,16 +6,14 @@ import {
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import PriceDisplayer from './PriceDisplayer';
 import ToggleFavorite from './ToggleFavorite';
 import OverlayHoverLink from './OverlayHoverLink';
 import { useRouter } from 'next/navigation';
 import { LoadingButton } from '@mui/lab';
 import { addToCart_localy } from '@/dataBase/shoppingCart_slice';
-import { ProductAvailabationState } from '@abdulrhmangoni/am-store-library';
+import { ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { P } from "@abdulrhmangoni/am-store-library";
 
 
 export default function ProductCard({ theProduct, sx }) {

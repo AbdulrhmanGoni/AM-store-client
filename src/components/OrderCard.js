@@ -1,10 +1,9 @@
 import { Box, Button, Card, Chip, Divider, ImageList, ImageListItem } from "@mui/material";
-import PriceDisplayer from "./PriceDisplayer";
 import { ReadMore } from "@mui/icons-material";
 import OverlayHoverLink from "./OverlayHoverLink";
 import formatDate from "@/functions/formatDate";
 import { useRouter } from "next/navigation";
-import { P } from "@abdulrhmangoni/am-store-library";
+import { P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 
 
 export default function OrderCard({ order, cardId }) {

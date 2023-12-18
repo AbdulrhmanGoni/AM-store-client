@@ -59,7 +59,7 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        minHeight: "100vh",
+                        minHeight: "calc(100vh - 57px - 25px)",
                         px: pagesSpaces
                     }}
                 >

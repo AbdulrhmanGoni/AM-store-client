@@ -28,7 +28,7 @@ export default function CommentOptionsMenu({ style, isOwner, deleteFun }) {
         isOwner &&
         <div style={styleIcon}>
             <IconButton
-                aria-controls={open ? 'demo-positioned-menu' : undefined}
+                aria-controls={open ? 'comment-options-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}

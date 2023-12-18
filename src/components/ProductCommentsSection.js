@@ -1,13 +1,12 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { Alert, Box, Button, CircularProgress, IconButton, List } from '@mui/material';
+import { Box, Button, CircularProgress, List } from '@mui/material';
 import CommentViewer from './CommentViewer';
 import { useSelector } from 'react-redux';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import TextFieldWithImojis from './TextFieldWithImojis';
-import { Refresh } from '@mui/icons-material';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
-import { useWhenElementAppears, P, AlertTooltip } from '@abdulrhmangoni/am-store-library';
+import { useWhenElementAppears, P, AlertTooltip, FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
 import useSlicedFetch from '@/hooks/useSlicedFetch';
 import { useFetch } from '@/hooks/useFetch';
 
@@ -124,13 +123,7 @@ export default function ProductCommentsSection() {
             {
                 isLoading ? <Box sx={{ my: 3 }}><CircularProgress /></Box>
                     : isError ?
-                        <Alert
-                            action={<IconButton onClick={getNextSlice}><Refresh /></IconButton>}
-                            sx={{ width: "100%" }}
-                            severity='error'
-                        >
-                            Falied to fetch comments
-                        </Alert>
+                        <FetchFailedAlert refetch={getNextSlice} message='Falied to fetch comments' />
                         : null
             }
             {

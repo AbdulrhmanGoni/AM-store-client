@@ -1,5 +1,5 @@
-import { LocationOn, PinDrop, Refresh } from "@mui/icons-material";
-import { Alert, Divider, IconButton, Paper, Skeleton } from "@mui/material";
+import { LocationOn, PinDrop } from "@mui/icons-material";
+import { Alert, Divider, Paper, Skeleton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import LocationCardRow from "./LocationCardRow";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import useLocationActions from "@/hooks/useLocationActions";
 import { setUserLocations } from "@/dataBase/locations_slice";
 import LocationsManegementWindow from "./LocationsManegementWindow";
-import { P } from "@abdulrhmangoni/am-store-library";
+import { P, FetchFailedAlert } from "@abdulrhmangoni/am-store-library";
 
 
 export default function SelectedLocationCard({ style, actionIcon }) {
@@ -20,6 +20,7 @@ export default function SelectedLocationCard({ style, actionIcon }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [render, setRender] = useState(false);
+    const [refetched, setRefetch] = useState(false);
 
     useEffect(() => {
         if (!locationsList) {
@@ -32,7 +33,7 @@ export default function SelectedLocationCard({ style, actionIcon }) {
                 .catch(() => { !isError && setIsError(true); })
                 .finally(() => setIsLoading(false));
         }
-    }, [selectedLocation, userId]);
+    }, [selectedLocation, userId, refetched]);
 
     useEffect(() => { setRender(true) }, []);
 
@@ -59,10 +60,10 @@ export default function SelectedLocationCard({ style, actionIcon }) {
         }
         else if (isLoading) return <SelectedLocationCardLoading style={style} />
         else if (isError) return (
-            <Alert
-                action={<IconButton onClick={() => { "refetch()" }} size="small"><Refresh /></IconButton>}>
-                Failed to fetch the selected location
-            </Alert>
+            <FetchFailedAlert
+                message="Failed to fetch the selected location"
+                refetch={() => setRefetch(s => ++s)}
+            />
         )
         else return (<Alert
             action={

@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { Box, Button, Divider, IconButton, useMediaQuery, Alert, Card, useTheme } from '@mui/material';
+import { Box, Button, Divider, IconButton, useMediaQuery, Card, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsList from './LocationsList';
 import AddLocationForm from './AddLocationForm';
@@ -61,7 +61,7 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
             );
             case "add_location": return <AddLocationForm chooses={setRender} />;
             case "map": return <GoogleMaps />;
-            default: return <Alert sx={{ mb: 1 }} severity="warning">Eroor</Alert>;
+            default: return;
         }
     }
 

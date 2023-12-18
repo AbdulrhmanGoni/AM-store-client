@@ -4,19 +4,12 @@ import {
     Avatar, Button, ListItem, ListItemAvatar,
     ListItemText
 } from '@mui/material';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 
 export default function SelectedCridetCard({ chooses }) {
 
     const { choosedMethod } = useSelector(state => state.userPaymentMethods);
-
-    useEffect(() => {
-        // if (condition) {
-
-        // }
-    }, [choosedMethod]);
 
     if (choosedMethod) {
         return (
@@ -27,18 +20,18 @@ export default function SelectedCridetCard({ chooses }) {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={choosedMethod.theName} secondary={choosedMethod.number} />
-                <Button 
-                    onClick={() => chooses("cards_list")} 
+                <Button
+                    onClick={() => chooses("cards_list")}
                     size='small' variant='outlined'
-                    startIcon={<ChangeCircleOutlined 
-                    sx={{ fontSize: '23px !important' }} />}>Change Card</Button>
+                    startIcon={<ChangeCircleOutlined
+                        sx={{ fontSize: '23px !important' }} />}>Change Card</Button>
             </ListItem>
         )
     } else {
         <Alert
             sx={{ width: "100%", mb: 1, alignItems: "center" }}
-            severity="error">
-            Something Was Wrong!!
+            severity="warning">
+            No selected card
         </Alert>
     }
 }

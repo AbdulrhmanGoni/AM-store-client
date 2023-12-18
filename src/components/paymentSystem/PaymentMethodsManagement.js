@@ -5,9 +5,8 @@ import CridetCardsList from './CreditCardsList';
 import CridetCardForm from './AddCreditCardForm';
 import SelectedCridetCard from './SelectedCridetCard';
 import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/dataBase/userPaymentMethods_slice';
-import { ElementWithLoadingState } from '@abdulrhmangoni/am-store-library';
+import { ElementWithLoadingState, FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
-import { Refresh } from '@mui/icons-material';
 
 
 export default function PaymentMethodsManagement() {
@@ -79,8 +78,7 @@ export default function PaymentMethodsManagement() {
                             <Divider sx={{ mb: 1 }} />
                             <Alert severity="info">The Delivery Representative Will Delever The Order To The Location You Added </Alert>
                         </>
-                        :
-                        null
+                        : null
                 }
             </Box>
             <Divider sx={{ mb: 1, mt: 1 }} />
@@ -88,16 +86,10 @@ export default function PaymentMethodsManagement() {
                 <Box className="flex-column gap1">
                     {
                         isFetchError ? (
-                            <Alert
-                                severity="error"
-                                action={
-                                    <IconButton onClick={() => setRefreshFetchingPaymentMethods(s => ++s)}>
-                                        <Refresh />
-                                    </IconButton>
-                                }
-                            >
-                                Failed to fetch your payment methods
-                            </Alert>
+                            <FetchFailedAlert
+                                message='Failed to fetch your payment methods'
+                                refetch={() => setRefreshFetchingPaymentMethods(s => ++s)}
+                            />
                         )
                             :
                             <>

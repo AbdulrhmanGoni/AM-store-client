@@ -6,7 +6,7 @@ import { ArrowBackIosNew, ArrowForwardIos, Refresh } from '@mui/icons-material';
 import ProductCard from "./ProductCard";
 import { useFetch } from "@/hooks/useFetch";
 import { ProductLoadingCard } from "./ProductLoadingCard";
-
+import { FetchFailedAlert } from "@abdulrhmangoni/am-store-library";
 
 
 export default function SliderProduct({ theCatagory }) {
@@ -43,18 +43,10 @@ export default function SliderProduct({ theCatagory }) {
                     {
                         isLoading ? loadingCards
                             : isError ?
-                                <Alert
-                                    className="flex-center full-width"
-                                    severity="error"
-                                    sx={{
-                                        "& .MuiAlert-action": {
-                                            ml: "0px"
-                                        }
-                                    }}
-                                    action={<IconButton onClick={() => refetch()}><Refresh /></IconButton>}
-                                >
-                                    Fetching Products Failed
-                                </Alert>
+                                <FetchFailedAlert
+                                    message="Fetching Products Failed"
+                                    refetch={() => refetch()}
+                                />
                                 : products.map((product) => {
                                     return (
                                         <ProductCard

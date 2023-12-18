@@ -41,7 +41,7 @@ export default function CreditCardsList({ theList, chooses }) {
         <>
             <List className='flex-column full-width' sx={{ p: 1 }}>
                 {
-                    theList?.length > 0 ?
+                    theList?.length ?
                         theList.map((card) => (
                             <CreditCard
                                 key={card.number}

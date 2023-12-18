@@ -1,10 +1,14 @@
 "use client"
-import { List, Alert, IconButton } from '@mui/material';
+import { List } from '@mui/material';
 import OrderCard from '@/components/OrderCard';
-import { IllustrationCard, LoadingCircle, useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
+import {
+    IllustrationCard,
+    LoadingCircle,
+    useWhenElementAppears,
+    FetchFailedAlert
+} from '@abdulrhmangoni/am-store-library';
 import { useSelector } from 'react-redux';
 import useSlicedFetch from '@/hooks/useSlicedFetch';
-import { Refresh } from '@mui/icons-material';
 
 
 export default function OrdersList({ orderState }) {
@@ -50,7 +54,7 @@ export default function OrdersList({ orderState }) {
             </List>
             {
                 isLoading ? <LoadingCircle style={{ height: "100%", position: "relative", minHeight: undefined, my: 3 }} />
-                    : isError ? <UnexpectedError />
+                    : isError ? <FetchFailedAlert refetch={getNextSlice} message='Falied to fetch comments' />
                         : !orders.length && isSuccess && <NoOrders />
             }
         </>
@@ -64,16 +68,4 @@ function NoOrders() {
         disableHeight
         illustratorType='empty'
     />
-}
-
-function UnexpectedError({ getNextSlice }) {
-    return (
-        <Alert
-            action={<IconButton onClick={getNextSlice}><Refresh /></IconButton>}
-            sx={{ width: "100%" }}
-            severity='error'
-        >
-            Falied to fetch comments
-        </Alert>
-    )
 }

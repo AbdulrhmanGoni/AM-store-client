@@ -27,7 +27,7 @@ export const useFetch = (url, { init, dependencies, fetchCondition } = {}) => {
                 })
                 .finally(() => setLoading(false));
         }
-    }, [url, refetched, dependencies]);
+    }, [url, refetched, dependencies, pass]);
 
     return {
         data,

@@ -6,21 +6,28 @@ import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import ProductCard from "./ProductCard";
 import { useFetch } from "@/hooks/useFetch";
 import { ProductLoadingCard } from "./ProductLoadingCard";
-import { FetchFailedAlert } from "@abdulrhmangoni/am-store-library";
+import { FetchFailedAlert, useWhenElementAppears } from "@abdulrhmangoni/am-store-library";
 
 
-export default function SliderProduct({ theCatagory }) {
+export default function SliderProduct({ requestPath, sliderId }) {
 
     const containerRef = useRef();
     const media = useMediaQuery("(max-width: 600px)");
+    const productsCount = 10;
     const cardWidth = media ? 160 : 230;
-    const [slidersWidth, setSlidersWidth] = useState(cardWidth * 10);
-    const { data: products, isLoading, isError, refetch } = useFetch(`products/?category=${theCatagory}&limit=10`, { init: [] })
+    const [slidersWidth, setSlidersWidth] = useState(cardWidth * productsCount);
+    const [startFetching, setStartFetching] = useState(false);
+    useWhenElementAppears(`${sliderId}-slider`, () => setStartFetching(true));
+    const fetchOprions = { init: [], fetchCondition: startFetching };
+    const { data: products, isLoading, isError, refetch } = useFetch(requestPath, fetchOprions);
 
-    const scrollBtns = (move) => { containerRef.current.scrollLeft += move }
+    const scrollBtns = (move) => { containerRef.current.scrollLeft += move };
 
     useEffect(() => {
-        products.length && setSlidersWidth((products.length * cardWidth) + (products.length - 1 * 15));
+        const gapsBetweenCards = 15;
+        const spacesSizeBetweenCards = products.length - 1 * gapsBetweenCards;
+        const cardsWidth = products.length * cardWidth
+        products.length && setSlidersWidth(cardsWidth + spacesSizeBetweenCards);
     }, [cardWidth, products.length]);
 
     const loadingCards = Array.from(Array(5)).map((_, index) => <ProductLoadingCard key={index} cardWidth={cardWidth} />)
@@ -37,7 +44,7 @@ export default function SliderProduct({ theCatagory }) {
     const bgHover = { backgroundColor: "rgba(0, 0, 0, 0.4)" }
 
     return (
-        <Box sx={{ position: "relative" }}>
+        <Box id={`${sliderId}-slider`} sx={{ position: "relative" }}>
             <div ref={containerRef} className={styles.sliderProductContainer}>
                 <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "345px" }}>
                     {
@@ -53,6 +60,7 @@ export default function SliderProduct({ theCatagory }) {
                                             key={product._id}
                                             sx={{ width: cardWidth }}
                                             theProduct={product}
+                                            isBestSelling={sliderId === "top-products"}
                                         />
                                     )
                                 })

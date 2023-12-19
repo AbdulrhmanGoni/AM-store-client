@@ -80,7 +80,15 @@ export default function CheckoutPage() {
                     <Grid item width={"100%"}>
                         <SectionTitle titleStyle={{ pb: 1 }} title="Location">
                             <SelectedLocationCard
-                                actionIcon={<LMControl size='small' startIcon={<Edit />} text="Change" />}
+                                actionIcon={
+                                    <LMControl
+                                        buttonProps={{
+                                            size: 'small',
+                                            startIcon: <Edit />,
+                                            children: "Change"
+                                        }}
+                                    />
+                                }
                             />
                         </SectionTitle>
                     </Grid>

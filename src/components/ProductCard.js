@@ -14,9 +14,9 @@ import { addToCart_localy } from '@/dataBase/shoppingCart_slice';
 import { ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import Image from "next/image";
 
-
-export default function ProductCard({ theProduct, sx }) {
+export default function ProductCard({ theProduct, sx, isBestSelling }) {
 
     const { _id, images, title, amount, price, discount } = theProduct;
 
@@ -55,8 +55,14 @@ export default function ProductCard({ theProduct, sx }) {
     return (
         <Card
             className='flex-column j-between'
-            sx={{ m: 0, ...sx }}>
-            <Box sx={{ position: "relative" }}>
+            sx={{ m: 0, ...sx }}
+        >
+            <Box
+                sx={{
+                    position: "relative",
+                    bgcolor: ({ palette: { mode } }) => mode === "dark" ? "white" : "black"
+                }}
+            >
                 <CardMedia
                     component="img"
                     sx={{
@@ -70,25 +76,43 @@ export default function ProductCard({ theProduct, sx }) {
                 <OverlayHoverLink target={`/products/${_id}`} />
             </Box>
             <Divider />
-            <CardContent sx={{ p: 1, pb: 0 }}>
-                <P variant="subtitle1" sx={{ fontSize: { xs: 14, sm: 18 }, fontWeight: "bold", mb: 1 }}>
+            <CardContent sx={{ p: 1, position: "relative" }}>
+                {
+                    isBestSelling && <Image
+                        src="/best-seller.svg"
+                        alt="Best seller background image"
+                        width={40}
+                        height={40}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            position: "absolute",
+                            bottom: 0,
+                            right: 0,
+                            opacity: 0.1
+                        }}
+                    />
+                }
+                <P
+                    variant="subtitle1"
+                    className='limitationLines2'
+                    sx={{
+                        fontSize: { xs: 14, sm: 18 },
+                        fontWeight: "bold",
+                        mb: 1
+                    }}
+                >
                     {title}
                 </P>
+                <Box className="flex-row-center-start">
+                    <Rating precision={0.5} size='small' value={rate} readOnly />
+                    <P variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</P>
+                </Box>
+                <Box className="flex-row-center-between a-end">
+                    <PriceDisplayer currency="$" price={price} discount={discount} />
+                    <ProductAvailabationState amount={amount} />
+                </Box>
             </CardContent>
-            <Box className="flex-row-center-start" sx={{ p: "0px 8px" }}>
-                <Rating precision={0.5} size='small' value={rate} readOnly />
-                <P variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</P>
-            </Box>
-            <CardActions
-                disableSpacing
-                sx={{
-                    justifyContent: "space-between",
-                    alignItems: "flex-end", p: 1
-                }}
-            >
-                <PriceDisplayer currency="$" price={price} discount={discount} />
-                <ProductAvailabationState amount={amount} />
-            </CardActions>
             <Divider />
             <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
                 <ToggleFavorite productId={_id} />

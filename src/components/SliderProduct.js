@@ -1,5 +1,5 @@
 "use client"
-import styles from "./SliderProducts.module.css"
+import styles from "./SliderProducts.module.css";
 import { useEffect, useState, useRef } from "react";
 import { Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
@@ -20,8 +20,60 @@ export default function SliderProduct({ requestPath, sliderId }) {
     useWhenElementAppears(`${sliderId}-slider`, () => setStartFetching(true));
     const fetchOprions = { init: [], fetchCondition: startFetching };
     const { data: products, isLoading, isError, refetch } = useFetch(requestPath, fetchOprions);
-
+    const [autoScrollSliderConfig, setAutoScrollSliderConfig] = useState({ cardIndexForMovingTo: 1, direction: "right" });
     const scrollBtns = (move) => { containerRef.current.scrollLeft += move };
+
+    function handleAutoMovingSlider(currentConfig, { moveToRight, moveToLeft }) {
+        const { direction, cardIndexForMovingTo } = currentConfig;
+        if (direction == "right") {
+            if (productsCount - 1 > cardIndexForMovingTo) {
+                moveToRight();
+                return {
+                    ...currentConfig,
+                    cardIndexForMovingTo: cardIndexForMovingTo + 1
+                }
+            } else {
+                moveToLeft();
+                return {
+                    direction: "left",
+                    cardIndexForMovingTo: cardIndexForMovingTo - 1
+                }
+            }
+        } else {
+            if (0 < cardIndexForMovingTo) {
+                moveToLeft();
+                return {
+                    ...currentConfig,
+                    cardIndexForMovingTo: cardIndexForMovingTo - 1
+                }
+            } else {
+                moveToRight();
+                return {
+                    direction: "right",
+                    cardIndexForMovingTo: cardIndexForMovingTo + 1
+                }
+            }
+        }
+    }
+
+    const sliderScroll = () => {
+        const container = containerRef.current
+        const { cardIndexForMovingTo } = autoScrollSliderConfig
+        const targetCard = container?.children[0]?.children[cardIndexForMovingTo]
+        if (targetCard && container) {
+            const movingDistance = container.offsetLeft - targetCard.offsetLeft;
+            const option = {
+                moveToRight() { container.scrollLeft -= movingDistance },
+                moveToLeft() { container.scrollLeft += movingDistance }
+            }
+            setAutoScrollSliderConfig((currentConfig) => handleAutoMovingSlider(currentConfig, option))
+        }
+    };
+
+    useEffect(() => {
+        const timeoutId = setInterval(sliderScroll, 7000);
+        return () => { clearInterval(timeoutId) };
+    }, []);
 
     useEffect(() => {
         const gapsBetweenCards = 15;
@@ -30,7 +82,9 @@ export default function SliderProduct({ requestPath, sliderId }) {
         products.length && setSlidersWidth(cardsWidth + spacesSizeBetweenCards);
     }, [cardWidth, products.length]);
 
-    const loadingCards = Array.from(Array(5)).map((_, index) => <ProductLoadingCard key={index} cardWidth={cardWidth} />)
+    const loadingCards = Array.from(Array(5)).map((_, index) => (
+        <ProductLoadingCard key={index} cardWidth={cardWidth} />
+    ))
 
     const floatBtnStyle = {
         width: "35px",

@@ -1,8 +1,5 @@
 "use client"
-import {
-    Button, Divider, Grid, Rating,
-    List, ListItem, Box
-} from "@mui/material";
+import { Divider, Grid, Box, alpha } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { ShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
@@ -13,12 +10,13 @@ import { ProductImagesDisplayer, ProductAvailabationState, P, PriceDisplayer } f
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";
-import CommentsSection from "@/components/ProductCommentsSection";
-
+import ProductCommentsSection from "@/components/ProductCommentsSection";
+import useAreUserBoughtTheProductBefore from "@/hooks/useAreUserBoughtTheProductBefore";
+import ProductRatingSection from "./ProductRatingSection";
 
 export default function ProductDetails({ product }) {
 
-    const { _id: productId, title, price, series, images, description, discount, amount } = product;
+    const { _id: productId, title, price, series, images, description, discount, amount, rating } = product;
 
     const { push } = useRouter();
     const { addToCart } = useShoppingCartActions();
@@ -30,7 +28,7 @@ export default function ProductDetails({ product }) {
     const [isInCart, setAsInCart] = useState(false);
     const [loadingBtn, setLoading] = useState(false);
 
-    const addToShoppingCart = async () => {
+    function addToShoppingCart() {
         if (userData) {
             setLoading(true);
             addToCart({ productId, userId: userData._id })
@@ -42,6 +40,8 @@ export default function ProductDetails({ product }) {
         }
     }
 
+    const { areUserBoughtTheProductBefore } = useAreUserBoughtTheProductBefore({ productId });
+
     useEffect(() => {
         let theProduct = shoppingCart.find(item => item._id === productId);
         if (theProduct) { setAsInCart(true) }
@@ -51,58 +51,51 @@ export default function ProductDetails({ product }) {
     return (
         <>
             <Box className="flex-column-center-between" sx={{ flexGrow: 1 }}>
-                <Grid container spacing={{ xs: 1, md: 3 }}>
+                <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <ProductImagesDisplayer images={images} />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <List disablePadding>
-                            <ListItem>
-                                <P variant="h6">{title}</P>
-                            </ListItem>
-                            <ListItem>
-                                <P>Series: {series}</P>
-                            </ListItem>
-                            <ListItem>
-                                <P>{description}</P>
-                            </ListItem>
-                            <ListItem sx={{ justifyContent: "space-between" }}>
-                                <PriceDisplayer discount={discount} currency="$" price={price} />
-                                <ProductAvailabationState visitAllAmount amount={amount} />
-                            </ListItem>
-                            <ListItem sx={{ justifyContent: "space-between" }}>
-                                <P variant='subtitle2' sx={{
-                                    fontSize: "13px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 1
+                    <Grid className="flex-column" item xs={12} sm={6} gap={2}>
+                        <P variant="h6">{title}</P>
+                        <Box className="flex-row-center-start gap1" sx={{ fontSize: "13px" }}>
+                            <P fontWeight="bold">Series :</P>
+                            <P
+                                sx={{
+                                    p: "2px 7px",
+                                    bgcolor: ({ palette: { primary } }) => alpha(primary.main, .35),
+                                    borderRadius: .5
                                 }}>
-                                    <Rating precision={0.5} size='small' value={3.5} readOnly /> (82)
-                                </P>
-                                <ToggleFavorite productId={productId} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem disablePadding sx={{ gap: 1, justifyContent: "space-between", mt: 1 }}>
-                                {
-                                    isInCart ?
-                                        <Button
-                                            sx={{ width: "100%" }}
-                                            size="small" variant="contained"
-                                            onClick={() => push("/shopping-cart")}
-                                            startIcon={<ShoppingCartCheckout />}>
-                                            Go To Shopping Cart
-                                        </Button>
-                                        :
-                                        <LoadingButton loading={loadingBtn} sx={{ width: "100%" }} size="small" onClick={addToShoppingCart} variant="contained" startIcon={<ShoppingCart />}>
-                                            Add To Cart
-                                        </LoadingButton>
-                                }
-                            </ListItem>
-                        </List>
+                                {series}
+                            </P>
+                        </Box>
+                        <P>{description}</P>
+                        <Box className="flex-row-center-between">
+                            <PriceDisplayer discount={discount} currency="$" price={price} />
+                            <ProductAvailabationState amount={amount} />
+                        </Box>
+                        <Box className="flex-row-center-between gap1">
+                            <LoadingButton
+                                loading={loadingBtn}
+                                sx={{ flexBasis: "50%" }}
+                                size="small"
+                                onClick={isInCart ? () => push("/shopping-cart") : addToShoppingCart}
+                                variant="contained"
+                                startIcon={isInCart ? <ShoppingCartCheckout /> : <ShoppingCart />}
+                            >
+                                {isInCart ? "Go To Shopping Cart" : "Add To Cart"}
+                            </LoadingButton>
+                            <ToggleFavorite productId={productId} />
+                        </Box>
+                        <Divider />
+                        <ProductRatingSection
+                            productId={productId}
+                            areUserCanLetRating={areUserBoughtTheProductBefore}
+                            productRating={rating}
+                        />
                     </Grid>
                 </Grid>
             </Box>
-            <CommentsSection />
+            <ProductCommentsSection areUserCanComment={areUserBoughtTheProductBefore} />
         </>
     )
 }

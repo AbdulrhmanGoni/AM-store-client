@@ -8,23 +8,15 @@ import TextFieldWithImojis from './TextFieldWithImojis';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
 import { useWhenElementAppears, P, AlertTooltip, FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
 import useSlicedFetch from '@/hooks/useSlicedFetch';
-import { useFetch } from '@/hooks/useFetch';
 
 
-export default function ProductCommentsSection() {
+export default function ProductCommentsSection({ areUserCanComment }) {
 
     const userData = useSelector(state => state.userData);
     const { message } = useSpeedMessage();
     const { addComment, path } = useProductsCommentsActions();
     const [commentsOpened, setCommentsOpened] = useState(false);
     const [addingLoading, setAddingLoading] = useState(false);
-
-    const {
-        data: areUserCanComment,
-        isError: checkingAreUserCanCommentError,
-        refetch: retryCheckingAreUserCanComment,
-        refetched: checkingAreUserCanCommentTries
-    } = useFetch(path.replace("comments", "are-user-can-comment") + `?userId=${userData?._id}`);
 
     const {
         data,
@@ -73,12 +65,6 @@ export default function ProductCommentsSection() {
                 .finally(() => setAddingLoading(false))
         }
     }
-
-    useEffect(() => {
-        if (checkingAreUserCanCommentError && !areUserCanComment && checkingAreUserCanCommentTries < 3) {
-            retryCheckingAreUserCanComment();
-        }
-    }, [checkingAreUserCanCommentTries, checkingAreUserCanCommentError, areUserCanComment, retryCheckingAreUserCanComment]);
 
     return (
         <Box className="flex-column-center gap1 full-width" p="40px 0px">

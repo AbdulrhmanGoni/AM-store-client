@@ -10,7 +10,11 @@ export default function ProductSmallCard({ theProduct }) {
 
     return (
         <Paper sx={{ display: "flex", gap: 1, p: 1 }}>
-            <Box sx={{ display: "flex", justifyContent: "center", position: "relative" }}>
+            <Box
+                className="flex-row j-center"
+                bgcolor={({ palette: { mode } }) => mode === "light" ? "black" : "white"}
+                position="relative"
+            >
                 <CardMedia
                     component="img"
                     src={images[0]}

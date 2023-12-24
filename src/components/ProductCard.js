@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
 import {
     Card, CardMedia, Rating, Divider, Box,
@@ -18,7 +18,7 @@ import Image from "next/image";
 
 export default function ProductCard({ theProduct, sx, isBestSelling }) {
 
-    const { _id, images, title, amount, price, discount } = theProduct;
+    const { _id, images, title, amount, price, discount, rating } = theProduct;
 
     const { addToCart } = useShoppingCartActions();
     const dispatch = useDispatch();
@@ -27,7 +27,6 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
 
     const shoppingCart = useSelector(state => state.shoppingCart);
     const userData = useSelector(state => state.userData);
-    const [rate] = useState(2.5);
     const [isInCart, setAsInCart] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -105,8 +104,8 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                     {title}
                 </P>
                 <Box className="flex-row-center-start">
-                    <Rating precision={0.5} size='small' value={rate} readOnly />
-                    <P variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">(46)</P>
+                    <Rating precision={0.5} size='small' value={rating.ratingAverage} readOnly />
+                    <P variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">({rating.reviews})</P>
                 </Box>
                 <Box className="flex-row-center-between a-end">
                     <PriceDisplayer currency="$" price={price} discount={discount} />

@@ -43,15 +43,19 @@ export default function ProductCardHorizontally(props) {
                 width: "100%", gap: 2, p: 1,
                 position: "relative"
             }}>
-            <Box className="flex-center" position="relative" >
+            <Box
+                className="flex-center"
+                bgcolor={({ palette: { mode } }) => mode === "light" ? "black" : "white"}
+                position="relative"
+            >
                 <CardMedia
                     component="img"
                     src={images[0]}
                     alt={id}
                     sx={{
                         height: "100%",
-                        maxHeight: "155px",
-                        width: imgWidth ?? "200px",
+                        maxHeight: "185px",
+                        width: imgWidth ?? "185px",
                         objectFit: "contain"
                     }}
                 />

@@ -75,7 +75,8 @@ export default function UserProfile() {
                                 text="View Avatar"
                                 disable={!avatar}
                                 customAction={() => setOpenAvatar(true)}
-                                bgStyle={{ borderRadius: "50%" }} />
+                                bgStyle={{ borderRadius: "50%" }}
+                            />
                             <IconButton onClick={() => setEditIsOpen(true)} sx={editIconStyle}>
                                 <Edit />
                             </IconButton>

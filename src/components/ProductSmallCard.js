@@ -1,6 +1,7 @@
 import { CardMedia, Rating, Box, Paper } from '@mui/material';
 import OverlayHoverLink from './OverlayHoverLink';
 import { P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
+import ProductCardImageWithHoverLink from './ProductCardImageWithHoverLink';
 
 export default function ProductSmallCard({ theProduct }) {
 
@@ -8,23 +9,16 @@ export default function ProductSmallCard({ theProduct }) {
 
     return (
         <Paper sx={{ display: "flex", gap: 1, p: 1 }}>
-            <Box
-                className="flex-row j-center"
-                bgcolor={({ palette: { mode } }) => mode === "light" ? "black" : "white"}
-                position="relative"
-            >
-                <CardMedia
-                    component="img"
-                    src={images[0]}
-                    alt={productId}
-                    style={{
-                        height: "100px",
-                        width: "120px",
-                        objectFit: "contain"
-                    }}
-                />
-                <OverlayHoverLink linkStyle={{ fontSize: "12px" }} target={`/products/${productId}`} />
-            </Box>
+            <ProductCardImageWithHoverLink
+                productId={productId}
+                linkStyle={{ fontSize: "12px" }}
+                imageSrc={images[0]}
+                imageStyle={{
+                    height: "100px",
+                    width: "120px",
+                    objectFit: "contain"
+                }}
+            />
             <Box className="flex-column-center a-start" sx={{ flexGrow: 1 }}>
                 <P variant='subtitle2' className='limitationLines1'>{title}</P>
                 <Box className="flex-row-center-start gap2">
@@ -37,7 +31,12 @@ export default function ProductSmallCard({ theProduct }) {
                     />
                     <P variant='body2'>Items({count})</P>
                 </Box>
-                <Rating precision={0.5} size='small' value={rating?.ratingAverage} readOnly />
+                <Rating
+                    precision={0.5}
+                    size='small'
+                    value={rating?.ratingAverage}
+                    readOnly
+                />
             </Box>
         </Paper>
     );

@@ -12,6 +12,7 @@ import ProductCountInCart from './ProductCountInCart';
 import { ActionAlert, ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import ProductCardImageWithHoverLink from './ProductCardImageWithHoverLink';
 
 
 export default function ProductCardHorizontally(props) {
@@ -42,24 +43,16 @@ export default function ProductCardHorizontally(props) {
                 width: "100%", gap: 2, p: 1,
                 position: "relative"
             }}>
-            <Box
-                className="flex-center"
-                bgcolor={({ palette: { mode } }) => mode === "light" ? "black" : "white"}
-                position="relative"
-            >
-                <CardMedia
-                    component="img"
-                    src={images[0]}
-                    alt={id}
-                    sx={{
-                        height: "100%",
-                        maxHeight: "185px",
-                        width: imgWidth ?? "185px",
-                        objectFit: "contain"
-                    }}
-                />
-                <OverlayHoverLink target={`/products/${id}`} />
-            </Box>
+            <ProductCardImageWithHoverLink
+                productId={id}
+                imageSrc={images[0]}
+                imageStyle={{
+                    height: "100%",
+                    maxHeight: "185px",
+                    width: imgWidth ?? "185px",
+                    objectFit: "contain"
+                }}
+            />
             <Box className="flex-column gap1 j-between" sx={{ flexGrow: 1 }}>
                 <P variant='h6'>{title}</P>
                 <P className='limitationLines2' flex="1" variant='body1'>{description}</P>

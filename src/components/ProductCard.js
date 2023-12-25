@@ -15,6 +15,7 @@ import { ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import Image from "next/image";
+import ProductCardImageWithHoverLink from './ProductCardImageWithHoverLink';
 
 export default function ProductCard({ theProduct, sx, isBestSelling }) {
 
@@ -56,24 +57,15 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
             className='flex-column j-between'
             sx={{ m: 0, ...sx }}
         >
-            <Box
-                sx={{
-                    position: "relative",
-                    bgcolor: ({ palette: { mode } }) => mode === "dark" ? "white" : "black"
+            <ProductCardImageWithHoverLink
+                productId={_id}
+                imageSrc={images[0]}
+                imageStyle={{
+                    height: { xs: 120, sm: 185 },
+                    userSelect: "none",
+                    objectFit: "contain"
                 }}
-            >
-                <CardMedia
-                    component="img"
-                    sx={{
-                        height: { xs: 120, sm: 185 },
-                        userSelect: "none",
-                        objectFit: "contain"
-                    }}
-                    image={images[0]}
-                    alt="product Image">
-                </CardMedia>
-                <OverlayHoverLink target={`/products/${_id}`} />
-            </Box>
+            />
             <Divider />
             <CardContent sx={{ p: 1, position: "relative" }}>
                 {

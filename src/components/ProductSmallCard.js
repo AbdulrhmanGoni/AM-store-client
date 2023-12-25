@@ -1,12 +1,10 @@
-import { useState } from 'react';
 import { CardMedia, Rating, Box, Paper } from '@mui/material';
 import OverlayHoverLink from './OverlayHoverLink';
 import { P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 
 export default function ProductSmallCard({ theProduct }) {
 
-    const { _id: productId, title, price, count, images, discount } = theProduct;
-    const [rate, setRate] = useState(3.5);
+    const { _id: productId, title, price, count, images, discount, rating } = theProduct;
 
     return (
         <Paper sx={{ display: "flex", gap: 1, p: 1 }}>
@@ -39,7 +37,7 @@ export default function ProductSmallCard({ theProduct }) {
                     />
                     <P variant='body2'>Items({count})</P>
                 </Box>
-                <Rating name="half-rating-read" precision={0.5} size='small' value={rate} readOnly />
+                <Rating precision={0.5} size='small' value={rating?.ratingAverage} readOnly />
             </Box>
         </Paper>
     );

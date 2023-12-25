@@ -98,7 +98,7 @@ export default function useLikesAndDislikes({ likes, dislikes, productId, commen
                 onClick={() => likeAndDislikeAction("like", likesState)}
                 value={likesCount}
                 icon={likesState ? <ThumbUp /> : <ThumbUpOffAlt />}
-                disabled={!!userId}
+                disabled={!userId}
             />
         )
     }
@@ -109,7 +109,7 @@ export default function useLikesAndDislikes({ likes, dislikes, productId, commen
                 onClick={() => likeAndDislikeAction("dislike", dislikesState)}
                 value={dislikesCount}
                 icon={dislikesState ? <ThumbDown /> : <ThumbDownOffAlt />}
-                disabled={!!userId}
+                disabled={!userId}
             />
         )
     }

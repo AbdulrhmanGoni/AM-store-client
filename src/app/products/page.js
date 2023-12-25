@@ -6,7 +6,6 @@ import SearchResultsPage from '@/components/SearchResultsPage';
 import { LoadingCircle } from './layout';
 
 export default function Products({ searchParams }) {
-
     return (
         <>
             <CategoriesBar />

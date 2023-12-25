@@ -30,7 +30,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
 
     return (
         <Box
-            className="flex-row-center-between gap2"
+            className="flex-row j-between gap2"
             sx={{ flexFlow: "row wrap" }}
         >
             {

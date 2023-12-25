@@ -10,7 +10,7 @@ export default function SearchForProducts() {
 
     const { push } = useRouter();
     const params = useSearchParams();
-    const { setParam } = useProductsSearchParams();
+    const { setParam, getParam } = useProductsSearchParams();
 
     return (
         <SearchForProductsField
@@ -20,7 +20,9 @@ export default function SearchForProducts() {
             disableResultsList
             additionalFilter={params.get("category")}
             defaultValue={params.get("title")}
-            onEnter={(searchInput) => { searchInput && setParam("title", searchInput) }}
+            onEnter={(searchInput) => {
+                searchInput !== getParam("title") && setParam("title", searchInput)
+            }}
         />
     )
 }

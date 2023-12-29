@@ -3,42 +3,6 @@ a {
   color: inherit;
 }
 
-.limitationLines1,
-.limitationLines2,
-.limitationLines3,
-.limitationLines4,
-.limitationLines5 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
-.limitationLines1 {
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-}
-
-.limitationLines2 {
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-}
-
-.limitationLines3 {
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-}
-
-.limitationLines4 {
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-}
-
-.limitationLines5 {
-  -webkit-line-clamp: 5;
-  line-clamp: 5;
-}
-
 .disabled-element {
   opacity: 0.5;
   pointer-events: none;

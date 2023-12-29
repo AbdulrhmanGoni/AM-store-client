@@ -7,7 +7,7 @@ import AddLocationForm from './AddLocationForm';
 import GoogleMaps from './GoogleMaps';
 import { AddLocation, AddLocationAlt, Close, Map, MyLocation } from '@mui/icons-material';
 import useLocationActions from '@/hooks/useLocationActions';
-import { setSelectedLocation_localy } from '@/dataBase/locations_slice';
+import { setSelectedLocation_localy } from '@/state-management/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { LoadingButton } from '@mui/lab';
 import { P } from "@abdulrhmangoni/am-store-library";

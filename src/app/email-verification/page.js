@@ -6,7 +6,7 @@ import customFetch from '@/functions/customFetch';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { IllustrationCard, LoadingPage, AlertTooltip, P } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';
-import { setEmailAsVerified_localy } from '@/dataBase/userData_slice';
+import { setEmailAsVerified_localy } from '@/state-management/userData_slice';
 import { OpenInBrowser } from '@mui/icons-material';
 
 export default function Page() {

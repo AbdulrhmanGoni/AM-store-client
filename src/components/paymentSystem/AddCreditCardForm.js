@@ -1,4 +1,4 @@
-import { addCreditCard_localy } from '@/dataBase/userPaymentMethods_slice';
+import { addCreditCard_localy } from '@/state-management/userPaymentMethods_slice';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { AddCard, CalendarMonthOutlined, Payment, PinOutlined, Portrait, Reply } from '@mui/icons-material';

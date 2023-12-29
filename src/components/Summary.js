@@ -4,9 +4,9 @@ import { Box, Button, Divider, List, ListItem, Paper, TextField, useMediaQuery, 
 import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice'
-import { discountCobone, setSummaryPrice, removeDiscount } from '@/dataBase/checkoutSummary_slice'
+import { discountCobone, setSummaryPrice, removeDiscount } from '@/state-management/checkoutSummary_slice'
 import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
-import { setDiscountCobones } from '@/dataBase/cobones_slice'
+import { setDiscountCobones } from '@/state-management/cobones_slice'
 import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum'
 import { P, PriceDisplayer, applyDiscount } from "@abdulrhmangoni/am-store-library";
 

@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart_localy } from "@/dataBase/shoppingCart_slice"
+import { removeFromCart_localy } from "@/state-management/shoppingCart_slice"
 import ToggleFavorite from './ToggleFavorite';
 import ProductCountInCart from './ProductCountInCart';
 import { ActionAlert, ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';

@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useCookies } from "react-cookie";
 import useFetchState from './useFetchState';
 import customFetchFunc from "@/functions/customFetch";
-import { setUserData } from '@/dataBase/userData_slice';
-import { setCart_localy } from '@/dataBase/shoppingCart_slice';
-import { setFavorites_localy } from '@/dataBase/favorites_slice';
+import { setUserData } from '@/state-management/userData_slice';
+import { setCart_localy } from '@/state-management/shoppingCart_slice';
+import { setFavorites_localy } from '@/state-management/favorites_slice';
 
 export default function useUserLogging() {
 

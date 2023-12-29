@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CridetCardsList from './CreditCardsList';
 import CridetCardForm from './AddCreditCardForm';
 import SelectedCridetCard from './SelectedCridetCard';
-import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/dataBase/userPaymentMethods_slice';
+import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/state-management/userPaymentMethods_slice';
 import { ElementWithLoadingState, FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 

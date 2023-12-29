@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import LocationCardRow from './LocationCardRow';
 import useLocationActions from '@/hooks/useLocationActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import { deleteLocation_localy } from '@/dataBase/locations_slice';
+import { deleteLocation_localy } from '@/state-management/locations_slice';
 import { useState } from 'react';
 
 export default function LocationCard({ locationData, children, id, isSelected, setTheSelected }) {

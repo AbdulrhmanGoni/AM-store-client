@@ -8,7 +8,7 @@ import ProductsDisplayer from '@/components/ProductsDisplayer';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import customFetch from '@/functions/customFetch';
 import useFavoritesActions from '@/hooks/useFavoritesActions';
-import { clearFavorites_localy } from '@/dataBase/favorites_slice';
+import { clearFavorites_localy } from '@/state-management/favorites_slice';
 
 
 function FavoritesPage() {

@@ -1,7 +1,7 @@
 import { Divider, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart_localy } from '../dataBase/shoppingCart_slice';
+import { addToCart_localy } from '../state-management/shoppingCart_slice';
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 

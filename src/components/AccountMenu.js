@@ -6,7 +6,7 @@ import CustomFavoriteIcon from './CustomFavoriteIcon';
 import CustomShoppingCartIcon from './CustomShoppingCartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { Feedback, Inbox, LocationOn, Payment, Logout } from '@mui/icons-material';
-import { userLogOut } from '@/dataBase/userData_slice';
+import { userLogOut } from '@/state-management/userData_slice';
 import SwitchTheme from './SwitchTheme';
 import SendEmailForm from './SendFeedbackForm';
 import { useCookies } from 'react-cookie';

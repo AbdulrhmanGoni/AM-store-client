@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, CircularProgress, Tooltip } from '@mui/material';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { toggleFavorites_localy } from '../dataBase/favorites_slice';
+import { toggleFavorites_localy } from '../state-management/favorites_slice';
 import useFavoritesActions from '@/hooks/useFavoritesActions';
 
 export default function ToggleFavoriet({ productId, style }) {

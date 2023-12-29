@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ToggleFavorite from './ToggleFavorite';
 import { useRouter } from 'next/navigation';
 import { LoadingButton } from '@mui/lab';
-import { addToCart_localy } from '@/dataBase/shoppingCart_slice';
+import { addToCart_localy } from '@/state-management/shoppingCart_slice';
 import { ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';

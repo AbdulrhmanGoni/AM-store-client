@@ -6,7 +6,7 @@ import { Box, Button, Card, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import useLocationActions from '@/hooks/useLocationActions';
-import { addNewLocation_localy } from '@/dataBase/locations_slice';
+import { addNewLocation_localy } from '@/state-management/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 
 

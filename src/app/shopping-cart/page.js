@@ -2,7 +2,7 @@
 import ProductCardHorizontally from '@/components/ProductCardHorizontally';
 import { Box, Button, Grid, List, ListItem, Paper } from '@mui/material';
 import Summary from '@/components/Summary';
-import { clearCart_localy } from '@/dataBase/shoppingCart_slice';
+import { clearCart_localy } from '@/state-management/shoppingCart_slice';
 import { IllustrationCard, ActionAlert, P } from '@abdulrhmangoni/am-store-library';
 import { useDispatch, useSelector } from 'react-redux';
 import GoToCheckoutButton from '@/components/GoToCheckoutButton';

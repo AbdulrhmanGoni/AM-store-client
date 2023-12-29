@@ -5,7 +5,7 @@ import LocationCardRow from "./LocationCardRow";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import useLocationActions from "@/hooks/useLocationActions";
-import { setUserLocations } from "@/dataBase/locations_slice";
+import { setUserLocations } from "@/state-management/locations_slice";
 import LocationsManegementWindow from "./LocationsManegementWindow";
 import { P, FetchFailedAlert } from "@abdulrhmangoni/am-store-library";
 

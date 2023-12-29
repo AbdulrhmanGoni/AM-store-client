@@ -4,7 +4,7 @@ import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import customFetch from '@/functions/customFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
-import { setUserData } from '@/dataBase/userData_slice';
+import { setUserData } from '@/state-management/userData_slice';
 import { useSpeedMessage } from './useSpeedMessage';
 import useFavoritesActions from './useFavoritesActions';
 import useShoppingCartActions from './useShoppingCartActions';

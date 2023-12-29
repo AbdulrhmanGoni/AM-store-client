@@ -4,7 +4,7 @@ import { Avatar, Button, Card, Grid, IconButton, Paper, TextField, Box, Badge, T
 import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit, Email, LockOutlined, LockReset, Person, Save } from "@mui/icons-material";
-import { changeUserName_localy } from "@/dataBase/userData_slice";
+import { changeUserName_localy } from "@/state-management/userData_slice";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import OverlayHoverLink from "@/components/OverlayHoverLink";
 import SetUserAvatarForm from "@/components/SetUserAvatarForm";

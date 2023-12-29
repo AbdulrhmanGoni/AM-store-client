@@ -3,7 +3,7 @@ import { Divider, Grid, Box, alpha } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { ShoppingCart, ShoppingCartCheckout } from "@mui/icons-material";
-import { addToCart_localy } from "@/dataBase/shoppingCart_slice"
+import { addToCart_localy } from "@/state-management/shoppingCart_slice"
 import ToggleFavorite from "@/components/ToggleFavorite";
 import { LoadingButton } from "@mui/lab";
 import { ProductImagesDisplayer, ProductAvailabationState, P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";

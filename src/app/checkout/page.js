@@ -8,7 +8,7 @@ import PaymentMethodsManagement from '@/components/paymentSystem/PaymentMethodsM
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
 import ProductSmallCard from '@/components/ProductSmallCard';
 import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
-import { clearCheckoutSummary } from '@/dataBase/checkoutSummary_slice';
+import { clearCheckoutSummary } from '@/state-management/checkoutSummary_slice';
 import getCurrentDate from '@/functions/getCurrentDate';
 import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';

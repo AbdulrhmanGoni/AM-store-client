@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
-import { setChoosedPaymentMethod_localy } from '@/dataBase/userPaymentMethods_slice';
+import { setChoosedPaymentMethod_localy } from '@/state-management/userPaymentMethods_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import CreditCard from './CreditCard';
 

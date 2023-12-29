@@ -5,7 +5,7 @@ import SelectedLocationCard from '@/components/locationRegistring/SelectedLocati
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsManegement from '@/components/locationRegistring/LocationsManegement';
 import { ElementWithLoadingState, IllustrationCard, P } from '@abdulrhmangoni/am-store-library';
-import { setUserLocations } from '@/dataBase/locations_slice';
+import { setUserLocations } from '@/state-management/locations_slice';
 import useLocationActions from '@/hooks/useLocationActions';
 
 export default function LocationsManegementPage() {

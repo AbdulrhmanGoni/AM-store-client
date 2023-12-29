@@ -9,13 +9,13 @@ import Image from 'next/image';
 import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
-import { deleteCreditCard_localy } from '@/dataBase/userPaymentMethods_slice';
+import { deleteCreditCard_localy } from '@/state-management/userPaymentMethods_slice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 
 export default function CreditCard({ onSelect, card: { number, theName }, selectedCardNumber }) {
-    
+
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
     const { deleteCreditCard } = usePaymentMethodsActions();

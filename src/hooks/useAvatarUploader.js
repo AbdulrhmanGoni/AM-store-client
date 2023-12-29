@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import customFetch from '../functions/customFetch';
 import { useSpeedMessage } from './useSpeedMessage';
-import { setNewAvatar_localy } from '../dataBase/userData_slice';
+import { setNewAvatar_localy } from '../state-management/userData_slice';
 
 export default function useAvatarUploader() {
 

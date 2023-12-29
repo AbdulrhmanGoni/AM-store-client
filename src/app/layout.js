@@ -5,7 +5,7 @@ import { SnackbarProvider } from 'notistack';
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
-import dataCenter from "@/dataBase/dataCenter"
+import dataCenter from "@/state-management/dataCenter"
 import useCustomTheme from "@/hooks/useCustomTheme";
 import AppWrapper from "./AppWrapper";
 

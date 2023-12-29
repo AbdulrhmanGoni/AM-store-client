@@ -56,7 +56,10 @@ export default function useSlicedFetch(path, options = {}) {
                     !isSuccess && setIsSuccess(true);
                     isError && setIsError(false);
                 })
-                .catch(() => { setIsError(true); setIsSuccess(false) })
+                .catch(() => {
+                    isSuccess && setIsSuccess(false);
+                    !isError && setIsError(true);
+                })
                 .finally(() => { setIsLoading(false) })
         }
     }, [sliceNumber])

@@ -22,6 +22,7 @@ export default function ProductCommentsSection({ areUserCanComment }) {
         data,
         isLoading,
         isError,
+        isSuccess,
         getNextSlice,
         addNewItem,
         deleteItem
@@ -67,7 +68,7 @@ export default function ProductCommentsSection({ areUserCanComment }) {
     }
 
     return (
-        <Box className="flex-column-center gap1 full-width" p="40px 0px">
+        <Box className="flex-column-center-start gap1 full-width" p="40px 0px">
             <AlertTooltip
                 type="info"
                 title={!areUserCanComment && 'Only who has bought this product before can let comment'}
@@ -99,10 +100,11 @@ export default function ProductCommentsSection({ areUserCanComment }) {
                                     })
                                 }
                             </List>
-                            : isLoading || isError ? null
-                                : data && <P variant='h6' sx={{ p: "20px 8px", m: "0px auto" }}>
+                            : !data.length && isSuccess ?
+                                <P variant='h6' sx={{ p: "20px 8px", mx: "auto" }}>
                                     There are no comments for this product
                                 </P>
+                                : null
                     }
                 </>
             }
@@ -114,7 +116,7 @@ export default function ProductCommentsSection({ areUserCanComment }) {
             }
             {
                 !commentsOpened &&
-                <Button sx={{ m: "30px 0px" }} onClick={openCommentsSection} variant='contained'>
+                <Button sx={{ my: 4 }} onClick={openCommentsSection} variant='contained'>
                     Open Comments
                 </Button>
             }

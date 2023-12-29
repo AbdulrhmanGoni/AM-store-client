@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from 'react';
 import {
-    Card, CardMedia, Rating, Divider, Box,
+    Card, Rating, Divider, Box,
     CardContent, CardActions
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import ToggleFavorite from './ToggleFavorite';
-import OverlayHoverLink from './OverlayHoverLink';
 import { useRouter } from 'next/navigation';
 import { LoadingButton } from '@mui/lab';
 import { addToCart_localy } from '@/dataBase/shoppingCart_slice';
@@ -74,6 +73,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                         alt="Best seller background image"
                         width={40}
                         height={40}
+                        loading="lazy"
                         style={{
                             width: "100%",
                             height: "100%",
@@ -96,8 +96,13 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                     {title}
                 </P>
                 <Box className="flex-row-center-start">
-                    <Rating precision={0.5} size='small' value={rating.ratingAverage} readOnly />
-                    <P variant='subtitle2' sx={{ margin: "3px 0px 0px 5px" }} fontSize="0.675rem">({rating.reviews})</P>
+                    <Rating precision={0.5} size='small' value={rating?.ratingAverage} readOnly />
+                    <P
+                        variant='subtitle2'
+                        sx={{ margin: "3px 0px 0px 5px" }}
+                        fontSize="0.675rem">
+                        ({rating?.reviews})
+                    </P>
                 </Box>
                 <Box className="flex-row-center-between a-end">
                     <PriceDisplayer currency="$" price={price} discount={discount} />

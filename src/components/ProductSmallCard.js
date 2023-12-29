@@ -1,5 +1,4 @@
-import { CardMedia, Rating, Box, Paper } from '@mui/material';
-import OverlayHoverLink from './OverlayHoverLink';
+import { Rating, Box, Paper } from '@mui/material';
 import { P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 import ProductCardImageWithHoverLink from './ProductCardImageWithHoverLink';
 

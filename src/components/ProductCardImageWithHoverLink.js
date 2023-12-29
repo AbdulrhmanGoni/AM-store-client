@@ -14,6 +14,7 @@ export default function ProductCardImageWithHoverLink({ productId, linkStyle, im
                 src={imageSrc}
                 alt={`the image of ${productId}`}
                 sx={imageStyle}
+                loading="lazy"
             />
             <OverlayHoverLink
                 linkStyle={linkStyle}

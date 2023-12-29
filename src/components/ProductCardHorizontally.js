@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import {
-    Card, CardMedia, Rating, Divider,
+    Card, Rating, Divider,
     Input, Box, Button, FormControl,
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart_localy } from "@/dataBase/shoppingCart_slice"
 import ToggleFavorite from './ToggleFavorite';
-import OverlayHoverLink from './OverlayHoverLink';
 import ProductCountInCart from './ProductCountInCart';
 import { ActionAlert, ProductAvailabationState, P, PriceDisplayer } from '@abdulrhmangoni/am-store-library';
 import useShoppingCartActions from '@/hooks/useShoppingCartActions';

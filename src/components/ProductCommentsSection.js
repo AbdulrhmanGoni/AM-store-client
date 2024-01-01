@@ -14,7 +14,13 @@ import {
 } from '@abdulrhmangoni/am-store-library';
 import { host } from '@/CONSTANT/hostName';
 
-export default function ProductCommentsSection({ areUserCanComment }) {
+export default function ProductCommentsSection(props) {
+
+    const {
+        areUserCanComment,
+        areUserCanCommentLoading,
+        areUserCanCommentError
+    } = props
 
     const userData = useSelector(state => state.userData);
     const { message } = useSpeedMessage();
@@ -75,8 +81,13 @@ export default function ProductCommentsSection({ areUserCanComment }) {
     return (
         <Box className="flex-column-center-start gap1 full-width" p="40px 0px">
             <AlertTooltip
-                type="info"
-                title={!areUserCanComment && 'Only who has bought this product before can let comment'}
+                type={areUserCanCommentError ? "error" : "info"}
+                title={
+                    !areUserCanComment &&
+                    !areUserCanCommentLoading && (
+                        areUserCanCommentError ? "An error occurred" :
+                            'Only who has bought this product before can let comment')
+                }
             >
                 <div style={{ width: "100%" }}>
                     <TextFieldWithImojis

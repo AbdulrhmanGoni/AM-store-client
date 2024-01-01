@@ -40,7 +40,11 @@ export default function ProductDetails({ product }) {
         }
     }
 
-    const { areUserBoughtTheProductBefore } = useAreUserBoughtTheProductBefore({ productId });
+    const {
+        areUserBoughtTheProductBefore,
+        areUserBoughtTheProductBeforeLoading,
+        areUserBoughtTheProductBeforeError
+    } = useAreUserBoughtTheProductBefore({ productId });
 
     useEffect(() => {
         let theProduct = shoppingCart.find(item => item._id === productId);
@@ -95,7 +99,11 @@ export default function ProductDetails({ product }) {
                     </Grid>
                 </Grid>
             </Box>
-            <ProductCommentsSection areUserCanComment={areUserBoughtTheProductBefore} />
+            <ProductCommentsSection
+                areUserCanComment={areUserBoughtTheProductBefore}
+                areUserCanCommentLoading={areUserBoughtTheProductBeforeLoading}
+                areUserCanCommentError={areUserBoughtTheProductBeforeError}
+            />
         </>
     )
 }

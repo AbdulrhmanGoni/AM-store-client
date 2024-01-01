@@ -22,5 +22,9 @@ export default function useAreUserBoughtTheProductBefore({ productId }) {
         }
     }, [isError, refetched, refetch, isLoading]);
 
-    return { areUserBoughtTheProductBefore: response }
+    return {
+        areUserBoughtTheProductBefore: response,
+        areUserBoughtTheProductBeforeLoading: isLoading,
+        areUserBoughtTheProductBeforeError: isError
+    }
 }

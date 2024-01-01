@@ -5,16 +5,16 @@ import {
     IllustrationCard,
     LoadingCircle,
     useWhenElementAppears,
-    FetchFailedAlert
+    FetchFailedAlert,
+    useSlicedFetch
 } from '@abdulrhmangoni/am-store-library';
 import { useSelector } from 'react-redux';
-import useSlicedFetch from '@/hooks/useSlicedFetch';
-
+import { host } from '@/CONSTANT/hostName';
 
 export default function OrdersList({ orderState }) {
 
     const userId = useSelector(state => state.userData?._id);
-    const path = `users/${userId}/orders`;
+    const path = `${host}/users/${userId}/orders`;
     const ordersReturnType = "ordersReturnType=_paymentMethod,_discountCobone,_updatedAt,_deliveryPrice,_userId";
     const productsReturnType = "productsReturnType=images";
     const ordersState = `state=${orderState}`;
@@ -22,7 +22,6 @@ export default function OrdersList({ orderState }) {
 
     const slicingOptions = {
         queryParams: queries,
-        contentName: "orders",
         itemsIdPropertyName: "_id",
         autoFetchingFirstSlice: true
     }
@@ -32,8 +31,9 @@ export default function OrdersList({ orderState }) {
         isError,
         isLoading,
         isSuccess,
-        getNextSlice
-    } = useSlicedFetch(path, slicingOptions);
+        getNextSlice,
+        refetch
+    } = useSlicedFetch(path, "orders", slicingOptions);
 
     useWhenElementAppears("last-order-card", getNextSlice);
 
@@ -54,7 +54,7 @@ export default function OrdersList({ orderState }) {
             </List>
             {
                 isLoading ? <LoadingCircle style={{ height: "100%", position: "relative", minHeight: undefined, my: 3 }} />
-                    : isError ? <FetchFailedAlert refetch={getNextSlice} message='Falied to fetch comments' />
+                    : isError ? <FetchFailedAlert refetch={refetch} message='Falied to fetch comments' />
                         : !orders.length && isSuccess && <NoOrders />
             }
         </>

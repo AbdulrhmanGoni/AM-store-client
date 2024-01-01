@@ -19,7 +19,6 @@ export default function useAreUserBoughtTheProductBefore({ productId }) {
     useEffect(() => {
         if (isError && !isLoading && refetched < 3) {
             refetch();
-            console.log("refetched")
         }
     }, [isError, refetched, refetch, isLoading]);
 

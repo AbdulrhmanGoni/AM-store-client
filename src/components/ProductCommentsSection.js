@@ -1,14 +1,18 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, CircularProgress, List } from '@mui/material';
 import CommentViewer from './CommentViewer';
 import { useSelector } from 'react-redux';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import TextFieldWithImojis from './TextFieldWithImojis';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
-import { useWhenElementAppears, P, AlertTooltip, FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
-import useSlicedFetch from '@/hooks/useSlicedFetch';
-
+import {
+    useWhenElementAppears,
+    AlertTooltip, P,
+    FetchFailedAlert,
+    useSlicedFetch
+} from '@abdulrhmangoni/am-store-library';
+import { host } from '@/CONSTANT/hostName';
 
 export default function ProductCommentsSection({ areUserCanComment }) {
 
@@ -25,8 +29,9 @@ export default function ProductCommentsSection({ areUserCanComment }) {
         isSuccess,
         getNextSlice,
         addNewItem,
-        deleteItem
-    } = useSlicedFetch(path, { contentName: "comments", itemsIdPropertyName: "id" });
+        deleteItem,
+        refetch
+    } = useSlicedFetch(`${host}/${path}`, "comments", { itemsIdPropertyName: "id" });
 
     useWhenElementAppears("last-comment-card", getNextSlice);
 
@@ -111,7 +116,7 @@ export default function ProductCommentsSection({ areUserCanComment }) {
             {
                 isLoading ? <Box sx={{ my: 3 }}><CircularProgress /></Box>
                     : isError ?
-                        <FetchFailedAlert refetch={getNextSlice} message='Falied to fetch comments' />
+                        <FetchFailedAlert refetch={refetch} message='Falied to fetch comments' />
                         : null
             }
             {

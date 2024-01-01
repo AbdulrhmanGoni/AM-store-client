@@ -1,14 +1,14 @@
 import axios from "axios";
 import { host } from "@/CONSTANT/hostName";
-import cookiesParser from "./cookiesParser";
+import { cookiesParser } from "@abdulrhmangoni/am-store-library";
 
 export default async function customFetch(path, method, body) {
-    const accessToken = cookiesParser().find(cookie => cookie.key === "access-token")?.value
-    const tokenId = cookiesParser().find(cookie => cookie.key === "userId")?.value
+    const { ["access-token"]: accessToken, userId } = cookiesParser()
+
     const api = axios.create({
         headers: {
             'access-token': accessToken,
-            'token-id': tokenId,
+            'token-id': userId,
             'content-type': 'application/json'
         },
     })
@@ -16,6 +16,6 @@ export default async function customFetch(path, method, body) {
     if (method === "DELETE") {
         return (await api.delete(`${host}/${path ?? ""}`, { data: body })).data
     } else {
-        return (await api[method?.toLowerCase()??"get"](`${host}/${path ?? ""}`, body ?? null)).data
+        return (await api[method?.toLowerCase() ?? "get"](`${host}/${path ?? ""}`, body ?? null)).data
     }
 }

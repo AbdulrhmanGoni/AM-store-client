@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import isValidEmail from '@/functions/isValidEmail';
-import { loadingControl } from '@abdulrhmangoni/am-store-library';
+import { loadingControl, useCookies } from '@abdulrhmangoni/am-store-library';
 import customFetch from '@/functions/customFetch';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCookies } from 'react-cookie';
 import { setUserData } from '@/state-management/userData_slice';
 import { useSpeedMessage } from './useSpeedMessage';
 import useFavoritesActions from './useFavoritesActions';
@@ -19,7 +18,7 @@ export default function useSignUpLogic() {
     const [nameState, setNameState] = useState(true);
     const [passwordState, setPasswordState] = useState({ state: true, msg: "" });
     const [emailState, setEmailState] = useState({ state: true, msg: "" });
-    const [, setCookies] = useCookies();
+    const { addCookie } = useCookies();
     const shoppingCart = useSelector(state => state.shoppingCart);
     const favorites = useSelector(state => state.favorites);
 
@@ -85,8 +84,8 @@ export default function useSignUpLogic() {
     async function complateSingUp({ userData, token }) {
         const userId = userData._id;
         let maxAge = 3600 * 24 * 20;
-        setCookies("userId", userId, { maxAge });
-        setCookies("access-token", token, { maxAge });
+        addCookie("userId", userId, maxAge);
+        addCookie("access-token", token, maxAge);
         dispatch(setUserData({ userData, state: true }));
         shoppingCart && shoppingCart.length && await setShoppingCart(shoppingCart);
         favorites && favorites.length && await setFavorites(favorites);

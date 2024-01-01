@@ -9,7 +9,7 @@ import { Feedback, Inbox, LocationOn, Payment, Logout } from '@mui/icons-materia
 import { userLogOut } from '@/state-management/userData_slice';
 import SwitchTheme from './SwitchTheme';
 import SendEmailForm from './SendFeedbackForm';
-import { useCookies } from 'react-cookie';
+import { useCookies } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';
 
 const menulinks = [
@@ -61,7 +61,7 @@ export default function AccountMenu() {
 
     const { push } = useRouter();
     const dispatch = useDispatch();
-    const [, , removeCookies] = useCookies();
+    const { removeCookie } = useCookies();
     const [anchorEl, setAnchorEl] = useState(null);
     const [feedbackFormState, setOpenFeedbackState] = useState(false);
     const userData = useSelector(state => state.userData);
@@ -97,8 +97,8 @@ export default function AccountMenu() {
     }
 
     function logout() {
-        removeCookies("userId");
-        removeCookies("access-token");
+        removeCookie("userId");
+        removeCookie("access-token");
         dispatch(userLogOut());
         window.location.reload();
         window.location.replace("/");

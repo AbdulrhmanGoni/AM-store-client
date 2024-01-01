@@ -3,7 +3,6 @@ import useUserLogging from "@/hooks/useUserLogging";
 import { IllustrationCard, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
 import { Box, useTheme } from "@mui/material";
 
-
 export default function AppWrapper({ children }) {
 
     const {

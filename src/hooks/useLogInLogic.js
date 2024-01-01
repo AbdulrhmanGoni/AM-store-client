@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useSpeedMessage } from "./useSpeedMessage";
-import { loadingControl } from '@abdulrhmangoni/am-store-library';
+import { loadingControl, useCookies } from '@abdulrhmangoni/am-store-library';
 import customFetch from "../functions/customFetch";
 import isValidEmail from "../functions/isValidEmail";
 
 export default function useLogInLogic() {
 
     const { message } = useSpeedMessage();
-    const [, setCookies] = useCookies();
+    const { addCookie } = useCookies();
     const [errorState, setErrorState] = useState({ status: true, message: "" });
 
     function complateLogIn({ userId, accessToken }) {
         let maxAge = 3600 * 24 * 20;
-        setCookies("userId", userId, { maxAge });
-        setCookies("access-token", accessToken, { maxAge });
+        addCookie("userId", userId, maxAge);
+        addCookie("access-token", accessToken, maxAge);
         window.location.replace("/");
     }
 

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@abdulrhmangoni/am-store-library": "^0.8.0",
+    "@abdulrhmangoni/am-store-library": "^0.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.13",
@@ -22,7 +22,6 @@
     "normalize.css": "^8.0.1",
     "notistack": "^3.0.1",
     "react": "^18",
-    "react-cookie": "^7.0.0",
     "react-dom": "^18",
     "react-input-emoji": "^5.6.5",
     "react-redux": "^8.1.3"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useCookies } from "react-cookie";
+import { useCookies } from "@abdulrhmangoni/am-store-library";
 import useFetchState from './useFetchState';
 import customFetchFunc from "@/functions/customFetch";
 import { setUserData } from '@/state-management/userData_slice';
@@ -10,7 +10,7 @@ import { setFavorites_localy } from '@/state-management/favorites_slice';
 export default function useUserLogging() {
 
     const dispatch = useDispatch();
-    const [cookies] = useCookies();
+    const { cookies: { userId } } = useCookies();
     const { isLoading, isError, setState } = useFetchState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
@@ -18,7 +18,6 @@ export default function useUserLogging() {
     const [renderApp, setRendrApp] = useState(false);
 
     useEffect(() => {
-        const userId = cookies.userId;
         if (userId) {
             setState("loading");
             customFetchFunc(`log-in/${userId}`)
@@ -38,7 +37,7 @@ export default function useUserLogging() {
                 .finally(() => setState());
         }
         setRendrApp(true)
-    }, []);
+    }, [userId]);
 
     return {
         isLoading,

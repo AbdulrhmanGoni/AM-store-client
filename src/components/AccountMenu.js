@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { Box, Menu, MenuItem, ListItemIcon, Divider } from '@mui/material';
+import { Box, Menu, MenuItem, ListItemIcon, Divider, IconButton } from '@mui/material';
 import CustomUserAccountIcon from './CustomUserAccountIcon';
 import CustomFavoriteIcon from './CustomFavoriteIcon';
 import CustomShoppingCartIcon from './CustomShoppingCartIcon';
@@ -120,13 +120,21 @@ export default function AccountMenu() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
             >
-                <CustomUserAccountIcon />
+                <IconButton
+                    size="small"
+                    aria-label="show favoriets List"
+                    color="icons"
+                >
+                    <CustomUserAccountIcon />
+                </IconButton>
             </Box>
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
                 onClose={() => { setAnchorEl(null) }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 slotProps={
                     {
                         paper: {
@@ -160,8 +168,6 @@ export default function AccountMenu() {
                         }
                     }
                 }
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 {
                     menulinks.map(({ title, path, icon, action, divider, auth }) => {

@@ -22,7 +22,8 @@ const links = [
     },
     {
         name: "My Account",
-        icon: <AccountMenu />
+        icon: <AccountMenu />,
+        withoutParent: true
     },
 ]
 

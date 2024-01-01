@@ -44,7 +44,7 @@ export default function MainAppBar() {
                             actionWithProductId={(id) => { push(`products/${id}`) }}
                         />
                         <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: { sm: 2 }, alignItems: "center", pl: 1 }}>
-                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Box className="flex-row-center">
                                 {media && <TotalPriceInCart />}
                                 <IconButton
                                     size="small"
@@ -60,13 +60,7 @@ export default function MainAppBar() {
                             >
                                 <CustomFavoriteIcon />
                             </IconButton>
-                            <IconButton
-                                size="small"
-                                aria-label="show favoriets List"
-                                color="icons"
-                            >
-                                <AccountMenu />
-                            </IconButton>
+                            <AccountMenu />
                         </Box>
                     </Toolbar>
                 </Container>

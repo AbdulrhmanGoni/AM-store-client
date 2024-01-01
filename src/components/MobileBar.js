@@ -4,7 +4,6 @@ import mobileBarLinks from "./MobileBarLinks";
 import { useRouter } from 'next/navigation';
 import { P } from '@abdulrhmangoni/am-store-library';
 
-
 export default function MobileBar() {
 
     const { push } = useRouter()
@@ -21,19 +20,26 @@ export default function MobileBar() {
             }}
         >
             {
-                mobileBarLinks.map(
-                    (link) => <IconButton
-                        key={link.name}
-                        onClick={() => link.path && push(link.path)}
-                        className='flex-column-center'
-                        sx={{ p: 1, flex: 1 }}
-                    >
-                        {link.icon}
-                        <P fontSize=".7rem">{link.name}</P>
-                    </IconButton>
-                )
+                mobileBarLinks.map((link) => {
+                    return (
+                        <div className='flex-column-center p1' key={link.name}>
+                            {
+                                link.withoutParent ? link.icon
+                                    : (
+                                        <IconButton
+                                            key={link.name}
+                                            onClick={() => link.path && push(link.path)}
+                                            className='flex-column-center p1'
+                                        >
+                                            {link.icon}
+                                        </IconButton>
+                                    )
+                            }
+                            <P fontSize=".7rem">{link.name}</P>
+                        </div>
+                    )
+                })
             }
         </Paper>
     );
 }
-

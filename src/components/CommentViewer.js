@@ -1,17 +1,15 @@
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import CommentOptionsMenu from './CommentOptionsMenu';
-import Comment from './Comment';
 import useLikesAndDislikes from '@/hooks/useLikesAndDislikes';
 import waitFor from '@/functions/waitFor';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
-import { timeAgo } from '@abdulrhmangoni/am-store-library';
+import { timeAgo, MessageCard } from '@abdulrhmangoni/am-store-library';
 
-
-const CommentViewer = ({ commenterData: { userName, avatar }, theComment, deleteTheComment, cardId }) => {
+export default function CommentViewer({ commenterData: { userName, avatar }, theComment, deleteTheComment, cardId }) {
 
     const { text, commenterId, id: commentId, likes, dislikes, createdAt, isNewComment } = theComment;
 
@@ -38,28 +36,28 @@ const CommentViewer = ({ commenterData: { userName, avatar }, theComment, delete
     useEffect(() => { isNewComment && setCommentCardBehavior("0%") }, []);
 
     return (
-        <Box id={cardId} sx={{ p: "1px" }}>
-            <Paper className="flex-column gap1" sx={{
-                p: "0px 8px",
+        <MessageCard
+            cardId={cardId}
+            userName={userName}
+            avatar={avatar}
+            timeAgo={timeAgo(createdAt)}
+            message={text}
+            cardStyle={{
                 position: "relative",
                 transition: ".4s",
                 transform: `translateX(${commentCardBehavior})`
-            }}>
-                <Comment userName={userName} avatar={avatar} timeAgo={timeAgo(createdAt)} text={text}>
-                    <Box className="flex-column gap1">
-                        <Box sx={{ display: "flex" }}>
-                            <LikeButton />
-                            <DislikeButton />
-                            <CommentOptionsMenu
-                                isOwner={userId === commenterId}
-                                deleteFun={() => deleteCommentFunc({ commentId, commenterId })}
-                            />
-                        </Box>
-                    </Box>
-                </Comment>
-            </Paper>
-        </Box>
+            }}
+        >
+            <Box className="flex-column gap1">
+                <Box sx={{ display: "flex" }}>
+                    <LikeButton />
+                    <DislikeButton />
+                    <CommentOptionsMenu
+                        isOwner={userId === commenterId}
+                        deleteFun={() => deleteCommentFunc({ commentId, commenterId })}
+                    />
+                </Box>
+            </Box>
+        </MessageCard>
     );
 }
-
-export default CommentViewer;

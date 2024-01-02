@@ -2,27 +2,24 @@
 import "@abdulrhmangoni/am-store-library/dist/cjs/global.css"
 import './global.css'
 import { SnackbarProvider } from 'notistack';
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { Provider } from "react-redux";
 import dataCenter from "@/state-management/dataCenter"
-import useCustomTheme from "@/hooks/useCustomTheme";
 import AppWrapper from "./AppWrapper";
+import CustomThemeProvider from "@/components/CustomThemeProvider";
 
 
 export default function RootLayout({ children }) {
-
-  const theme = useCustomTheme();
-
   return (
     <Provider store={dataCenter}>
-      <ThemeProvider theme={theme}>
+      <CustomThemeProvider>
         <CssBaseline />
         <AppWrapper>
           <SnackbarProvider>
             {children}
           </SnackbarProvider>
         </AppWrapper>
-      </ThemeProvider>
+      </CustomThemeProvider>
     </Provider>
   );
 }

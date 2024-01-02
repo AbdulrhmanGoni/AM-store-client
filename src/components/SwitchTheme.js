@@ -1,6 +1,7 @@
 "use client"
 import { FormGroup, FormControlLabel, Switch, styled } from '@mui/material';
-import { useCookies } from '@abdulrhmangoni/am-store-library';
+import { useContext } from 'react';
+import { SwitchThemeContext } from './CustomThemeProvider';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 54,
@@ -51,14 +52,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 export default function SwitchTheme() {
 
-    const {
-        cookies: { AM_Store_client_site_theme: mode },
-        addCookie
-    } = useCookies();
-
-    function switchTheme() {
-        addCookie("AM_Store_client_site_theme", mode === "light" ? "dark" : "light")
-    }
+    const { switchTheme, mode } = useContext(SwitchThemeContext)
 
     return (
         <FormGroup>

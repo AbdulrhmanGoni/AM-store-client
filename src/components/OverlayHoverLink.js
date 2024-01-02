@@ -22,7 +22,7 @@ const OverlayHoverLink = ({ target, linkStyle, bgStyle, text, customAction, disa
                 transition: ".4s",
                 position: "absolute",
                 opacity: 0, top: 0,
-                backgroundColor: "#00000054",
+                bgcolor: "#00000054",
                 color: "white",
                 ...bgStyle
             }}
@@ -30,6 +30,7 @@ const OverlayHoverLink = ({ target, linkStyle, bgStyle, text, customAction, disa
             <P variant='body2'
                 sx={{
                     cursor: disable ? "default" : "pointer",
+                    color: "white",
                     "&:hover": { textDecoration: "underline" },
                     ...linkStyle
                 }}

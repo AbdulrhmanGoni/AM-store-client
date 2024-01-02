@@ -8,6 +8,7 @@ export default function ProductCardImageWithHoverLink({ productId, linkStyle, im
             className="flex-row-center"
             bgcolor={({ palette: { mode } }) => mode === "light" ? "black" : "white"}
             position="relative"
+            sx={{ borderTopLeftRadius: .5, borderTopRightRadius: .5 }}
         >
             <CardMedia
                 component="img"

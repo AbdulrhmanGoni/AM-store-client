@@ -7,9 +7,8 @@ import CustomShoppingCartIcon from './CustomShoppingCartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { Feedback, Inbox, LocationOn, Payment, Logout } from '@mui/icons-material';
 import { userLogOut } from '@/state-management/userData_slice';
-import SwitchTheme from './SwitchTheme';
 import SendEmailForm from './SendFeedbackForm';
-import { useCookies } from '@abdulrhmangoni/am-store-library';
+import { useCookies, SwitchTheme } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';
 
 const menulinks = [

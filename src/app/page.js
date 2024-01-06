@@ -7,6 +7,7 @@ import { catagoriesInfo } from "@/CONSTANT/CATEGORIES";
 import { Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
 
@@ -61,7 +62,14 @@ export default function HomePage() {
           })
         }
       </Container>
-      {mobileDevice && <MobileBar />}
+      <Footer />
+      {
+        mobileDevice &&
+        <>
+          <MobileBar />
+          <div style={{ height: "76px" }} />
+        </>
+      }
     </>
   )
 }

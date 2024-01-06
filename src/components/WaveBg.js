@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material'
 
-export default function WaveBg({style}) {
+export default function WaveBg({ style }) {
     const { palette: { primary: { main } } } = useTheme();
     return (
         <svg

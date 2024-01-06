@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import { ThumbDown, ThumbDownOffAlt, ThumbUp, ThumbUpOffAlt } from '@mui/icons-material';
 import useProductsCommentsActions from './useProductsCommentsActions';
 import { useSelector } from 'react-redux';
+import { useSpeedMessage } from './useSpeedMessage';
 
 const CommentActions = ({ onClick, actionType, value, icon, disabled }) => {
 
@@ -28,6 +29,7 @@ export default function useLikesAndDislikes({ likes, dislikes, productId, commen
         isDislikesCondetion = dislikes?.includes(userId)
 
     const { setLikeOrDislike } = useProductsCommentsActions();
+    const { message } = useSpeedMessage();
     const [likesState, setLikesState] = useState(false);
     const [likesCount, setLikesCount] = useState(likes?.length ?? 0);
     const [dislikesState, setDisLikesState] = useState(false);
@@ -73,7 +75,8 @@ export default function useLikesAndDislikes({ likes, dislikes, productId, commen
 
     function likeAndDislikeAction(actionType, undo) {
         if (userId) {
-            setLikeOrDislike({ actionType, productId, commentId, userId, undo });
+            setLikeOrDislike({ actionType, productId, commentId, userId, undo })
+                .catch(() => { })
         }
         if (actionType === "like") {
             handleLikeState("action");

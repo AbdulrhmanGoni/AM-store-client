@@ -1,2 +1,2 @@
-const pagesSpaces = { xs: 1, sm: 2 }
+const pagesSpaces = { xs: 1.5, sm: 2 }
 export default pagesSpaces

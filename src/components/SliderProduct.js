@@ -100,7 +100,7 @@ export default function SliderProduct({ requestPath, sliderId }) {
     return (
         <Box id={`${sliderId}-slider`} sx={{ position: "relative" }}>
             <div ref={containerRef} className={styles.sliderProductContainer}>
-                <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "345px" }}>
+                <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "310px" }}>
                     {
                         isLoading ? loadingCards
                             : isError ?
@@ -112,7 +112,7 @@ export default function SliderProduct({ requestPath, sliderId }) {
                                     return (
                                         <ProductCard
                                             key={product._id}
-                                            sx={{ width: cardWidth }}
+                                            sx={{ minWidth: cardWidth }}
                                             theProduct={product}
                                             isBestSelling={sliderId === "top-products"}
                                         />

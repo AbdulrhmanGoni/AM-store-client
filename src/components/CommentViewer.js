@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import CommentOptionsMenu from './CommentOptionsMenu';
 import useLikesAndDislikes from '@/hooks/useLikesAndDislikes';
 import waitFor from '@/functions/waitFor';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
-import { timeAgo, MessageCard } from '@abdulrhmangoni/am-store-library';
+import { timeAgo, MessageCard, OptionsMenu } from '@abdulrhmangoni/am-store-library';
+import { Delete } from '@mui/icons-material';
 
 export default function CommentViewer({ commenterData: { userName, avatar }, theComment, deleteTheComment, cardId }) {
 
@@ -52,10 +52,16 @@ export default function CommentViewer({ commenterData: { userName, avatar }, the
                 <Box sx={{ display: "flex" }}>
                     <LikeButton />
                     <DislikeButton />
-                    <CommentOptionsMenu
-                        isOwner={userId === commenterId}
-                        deleteFun={() => deleteCommentFunc({ commentId, commenterId })}
-                    />
+                    {
+                        userId === commenterId &&
+                        <OptionsMenu>
+                            <OptionsMenu.MenuOption
+                                asyncAction={async () => await deleteCommentFunc({ commentId, commenterId })}
+                                optionText="Delete"
+                                optionIcon={<Delete />}
+                            />
+                        </OptionsMenu>
+                    }
                 </Box>
             </Box>
         </MessageCard>

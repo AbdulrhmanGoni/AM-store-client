@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import {
-    Card, Rating, Divider, Box,
+    Card, Rating, Box,
     CardContent, CardActions
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
@@ -65,8 +65,9 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                     objectFit: "contain"
                 }}
             />
-            <Divider />
-            <CardContent sx={{ p: 1, position: "relative" }}>
+            <CardContent
+                sx={{ p: 1, position: "relative", flex: 1 }}
+            >
                 {
                     isBestSelling && <Image
                         src="/best-seller.svg"
@@ -95,7 +96,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                 >
                     {title}
                 </P>
-                <Box className="flex-row-center-start">
+                <Box mb={1} className="flex-row-center-start">
                     <Rating precision={0.5} size='small' value={rating?.ratingAverage} readOnly />
                     <P
                         variant='subtitle2'
@@ -109,8 +110,14 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                     <ProductAvailabationState amount={amount} />
                 </Box>
             </CardContent>
-            <Divider />
-            <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
+            <CardActions
+                disableSpacing
+                sx={{
+                    justifyContent: "space-between",
+                    borderTop: "1px solid",
+                    borderTopColor: "divider"
+                }}
+            >
                 <ToggleFavorite productId={_id} />
                 <LoadingButton
                     disabled={!amount}
@@ -123,7 +130,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                         fontSize: { xs: "0.5rem", sm: "0.65rem" },
                         p: .5, pr: 1,
                         "& svg": { width: "1rem" },
-                        "& .MuiButton-startIcon": { ml: "3px" },
+                        "& .MuiButton-startIcon": { ml: "3px" }
                     }}
                     loading={loading}
                     loadingPosition="start"

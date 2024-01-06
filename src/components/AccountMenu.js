@@ -7,7 +7,7 @@ import CustomShoppingCartIcon from './CustomShoppingCartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { Feedback, Inbox, LocationOn, Payment, Logout } from '@mui/icons-material';
 import { userLogOut } from '@/state-management/userData_slice';
-import SendEmailForm from './SendFeedbackForm';
+import SendFeedbackForm from './SendFeedbackForm';
 import { useCookies, SwitchTheme } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';
 
@@ -189,7 +189,7 @@ export default function AccountMenu() {
                 }
                 <LogoutButton />
             </Menu>
-            <SendEmailForm open={feedbackFormState} close={() => setOpenFeedbackState(false)} />
+            <SendFeedbackForm open={feedbackFormState} close={() => setOpenFeedbackState(false)} />
         </>
     );
 }

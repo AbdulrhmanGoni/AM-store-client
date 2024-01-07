@@ -19,7 +19,7 @@ export default function AppWrapper({ children }) {
             lang="en"
             component="html"
             sx={{
-                "*::-webkit-scrollbar": { bgcolor: background.paper },
+                "*::-webkit-scrollbar": { bgcolor: "transparent" },
                 "*::-webkit-scrollbar-thumb": { bgcolor: primary.main },
                 "& input:autofill": {
                     boxShadow: `0 0 0 100px ${background.default} inset !important`,

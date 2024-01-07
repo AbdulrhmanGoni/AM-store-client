@@ -1,32 +1,22 @@
 "use client";
 import { LinearProgress, Rating, Box } from "@mui/material";
-import { useEffect, useState } from 'react';
 import { P, FetchFailedAlert } from "@abdulrhmangoni/am-store-library";
-import useRatingProduct from "@/hooks/useRatingProduct";
-import { useFetch } from "@/hooks/useFetch";
-import { useSelector } from "react-redux";
+import useRatingProduct, { starsFieldsNames } from "@/hooks/useRatingProduct";
 import ProductRatingSectionLoading from "./ProductRatingSectionLoading";
 
 export default function ProductRatingSection({ areUserCanLetRating, productId }) {
 
-    const userId = useSelector(state => state.userData?._id);
     const {
-        data: ratingDetails,
-        isLoading,
-        isError,
-        refetch
-    } = useFetch(`products/${productId}/rating?userId=${userId}`);
-    const { rateProduct, ratingLoading } = useRatingProduct({ productId });
-    const [productRating, setProductRating] = useState();
-    const [userRating, setRating] = useState(0);
-    const [loadingReating, setLoadingReating] = useState(0);
+        ratingLoading,
+        productRating,
+        userRating,
+        fetchingLoading,
+        fetchingError,
+        refetch,
+        addRating
+    } = useRatingProduct({ productId });
 
-    useEffect(() => {
-        setProductRating(ratingDetails)
-        if (!userRating && ratingDetails?.currentUserRateing) {
-            setRating(ratingDetails?.currentUserRateing);
-        }
-    }, [ratingDetails, userRating])
+    const { ratingAverage } = productRating || {}
 
     return (
         <Box
@@ -34,21 +24,21 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
             sx={{ flexFlow: "row wrap" }}
         >
             {
-                isLoading ? <ProductRatingSectionLoading />
-                    : isError ? <FetchFailedAlert message="Failed to fetch rating details" refetch={refetch} />
+                fetchingLoading ? <ProductRatingSectionLoading />
+                    : fetchingError ? <FetchFailedAlert message="Failed to fetch rating details" refetch={refetch} />
                         : <>
                             <Box className="flex-column j-between">
                                 <Box sx={{ mb: 1.5 }} className="flex-column">
                                     <Box className="flex-row-center-start gap1">
-                                        {productRating?.ratingAverage && <P variant="h6">{productRating.ratingAverage}</P>}
+                                        {ratingAverage && <P variant="h6">{ratingAverage}</P>}
                                         {
-                                            productRating?.ratingAverage ?
-                                                <Rating readOnly precision={.5} value={productRating.ratingAverage} />
+                                            ratingAverage ?
+                                                <Rating readOnly precision={.5} value={ratingAverage} />
                                                 : <Rating emptyLabelText="No reviews" readOnly value={0} />
                                         }
                                     </Box>
-                                    <P variant="subtitle2" ml={!productRating?.reviews && "3px"}>
-                                        {productRating?.reviews ? `Reviews (${productRating?.reviews})` : "No reviews"}
+                                    <P variant="subtitle2" ml={!reviews && "3px"}>
+                                        {reviews ? `Reviews (${reviews})` : "No reviews"}
                                     </P>
                                 </Box>
                                 {
@@ -67,18 +57,13 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                         >
                                             <Rating
                                                 sx={{ width: "fit-content" }}
-                                                value={ratingLoading ? loadingReating : userRating}
-                                                disabled={ratingLoading}
+                                                value={ratingLoading.isLoading ? ratingLoading.newRating : userRating}
+                                                disabled={ratingLoading.isLoading}
                                                 onChange={({ target: { value } }) => {
-                                                    setLoadingReating(+value)
-                                                    rateProduct(+value, () => {
-                                                        setRating(+value)
-                                                        setLoadingReating(0)
-                                                        refetch()
-                                                    })
+                                                    addRating(+value)
                                                 }}
                                             />
-                                            {ratingLoading && <LinearProgress sx={{ width: "100%", position: "absolute", bottom: 0 }} />}
+                                            {ratingLoading.isLoading && <LinearProgress sx={{ width: "100%", position: "absolute", bottom: 0 }} />}
                                         </Box>
                                     </Box>
                                 }
@@ -107,5 +92,3 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
         </Box>
     )
 }
-
-const starsFieldsNames = ["oneStar", "twoStars", "threeStars", "fuorStars", "fiveStars"]

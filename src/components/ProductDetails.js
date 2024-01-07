@@ -48,8 +48,7 @@ export default function ProductDetails({ product }) {
 
     useEffect(() => {
         let theProduct = shoppingCart.find(item => item._id === productId);
-        if (theProduct) { setAsInCart(true) }
-        else { setAsInCart(false) }
+        setAsInCart(!!theProduct)
     }, [productId, shoppingCart]);
 
     return (

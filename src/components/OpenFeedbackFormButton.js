@@ -12,9 +12,9 @@ export default function OpenFeedbackFormButton() {
                 variant='contained'
                 onClick={() => { setOpenFeedbackState(true); }}
                 size='small'
-                sx={{ textTransform: "capitalize" }}
+                sx={{ textTransform: "none" }}
             >
-                Have a feedback?
+                Have a Feedback?
             </Button>
             {
                 feedbackFormState &&

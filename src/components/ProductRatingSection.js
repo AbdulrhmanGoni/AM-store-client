@@ -16,7 +16,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
         addRating
     } = useRatingProduct({ productId });
 
-    const { ratingAverage } = productRating || {}
+    const { ratingAverage, reviews } = productRating || {}
 
     return (
         <Box
@@ -55,14 +55,17 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                                 pb: 1,
                                             }}
                                         >
-                                            <Rating
-                                                sx={{ width: "fit-content" }}
-                                                value={ratingLoading.isLoading ? ratingLoading.newRating : userRating}
-                                                disabled={ratingLoading.isLoading}
-                                                onChange={({ target: { value } }) => {
-                                                    addRating(+value)
-                                                }}
-                                            />
+                                            {
+                                                userRating !== undefined &&
+                                                <Rating
+                                                    sx={{ width: "fit-content" }}
+                                                    value={ratingLoading.isLoading ? ratingLoading.newRating : userRating}
+                                                    disabled={ratingLoading.isLoading}
+                                                    onChange={({ target: { value } }) => {
+                                                        addRating(+value)
+                                                    }}
+                                                />
+                                            }
                                             {ratingLoading.isLoading && <LinearProgress sx={{ width: "100%", position: "absolute", bottom: 0 }} />}
                                         </Box>
                                     </Box>

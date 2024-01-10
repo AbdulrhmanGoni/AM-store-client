@@ -1,5 +1,6 @@
 "use client"
 import useUserLogging from "@/hooks/useUserLogging";
+import useFetchStoreVariable from "@/hooks/useFetchStoreVariable";
 import { IllustrationCard, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
 import { Box, useTheme } from "@mui/material";
 
@@ -12,6 +13,7 @@ export default function AppWrapper({ children }) {
         isUnexpected,
         renderApp
     } = useUserLogging();
+    useFetchStoreVariable();
     const { palette: { primary, background, text } } = useTheme();
 
     return (

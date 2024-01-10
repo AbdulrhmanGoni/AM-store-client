@@ -45,7 +45,6 @@ export default function useRatingProduct({ productId }) {
         productRating.currentUserRateing = newRating
         updateStarsPercentage(currentUserRateing, newRating, productRating.reviews)
         productRating.ratingAverage = updatedTotalStars / productRating.reviews
-        console.log("updatedRating", productRating)
         setProductRating(productRating)
     }
 

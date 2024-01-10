@@ -1,9 +1,8 @@
-
 "use client"
 import { useEffect, useState } from 'react';
-import { catagoriesInfo } from '@/CONSTANT/CATEGORIES';
 import { Container, Tabs, Tab, Paper, useMediaQuery } from '@mui/material';
 import useProductsSearchParams from '@/hooks/useProductsSearchParams';
+import { useSelector } from 'react-redux';
 
 
 export default function CategoriesBar() {
@@ -11,15 +10,16 @@ export default function CategoriesBar() {
     const media = useMediaQuery("(min-width: 400px)");
     const { getParam, setParam, removeParam } = useProductsSearchParams();
     const [currentTap, setTap] = useState(0);
+    const categoriesList = useSelector(state => state.variables.categoriesList);
 
     useEffect(() => {
         let category = getParam("category");
-        if (!category) setTap(0)
-        else setTap(catagoriesInfo.find((cat) => cat.name === category).index)
+        if (category) setTap(categoriesList.indexOf(category) + 1)
+        else setTap(0)
     }, []);
 
     return (
-        <Container className='flex-row-center' sx={{ m: "15px auto", pl: 0, pr: 0, display: "flex" }}>
+        <Container className='flex-row-center' sx={{ m: "15px auto", px: 0 }}>
             <Paper sx={{ maxWidth: { xs: media ? 365 : "100%", sm: 540, lg: 700 } }}>
                 <Tabs
                     value={currentTap}
@@ -28,10 +28,14 @@ export default function CategoriesBar() {
                     scrollButtons
                     allowScrollButtonsMobile
                 >
-                    <Tab onClick={() => removeParam("category")} label="All" key="All" />
+                    <Tab onClick={() => removeParam("category")} label="All" />
                     {
-                        catagoriesInfo.map((cat) => (
-                            <Tab onClick={() => setParam("category", cat.name)} label={cat.name} key={cat.name} />
+                        categoriesList.map((category) => (
+                            <Tab
+                                key={category}
+                                label={category}
+                                onClick={() => { setParam("category", category) }}
+                            />
                         ))
                     }
                 </Tabs>

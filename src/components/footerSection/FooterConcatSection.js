@@ -6,20 +6,26 @@ import { underlineOnHover } from './FooterEndSection';
 
 
 export default function FooterConcatSection() {
+    const iconsLinks = (link) => {
+        return {
+            target: "_blank",
+            href: link
+        }
+    }
     return (
         <>
             <P variant='h6' fontWeight="bolder">Concat me </P>
             <Box className="flex-row a-center py1" ml="-10px" flexWrap="wrap">
-                <IconButton>
+                <IconButton {...iconsLinks("https://github.com/abdulrhmangoni/")}>
                     <GitHub sx={iconsStyles()} />
-                </IconButton>
-                <IconButton>
+                </IconButton >
+                <IconButton {...iconsLinks()}>
                     <LinkedIn sx={iconsStyles("#0a66c2")} />
                 </IconButton>
-                <IconButton>
+                <IconButton {...iconsLinks()}>
                     <Twitter sx={iconsStyles("#1da1f2")} />
                 </IconButton>
-                <IconButton>
+                <IconButton {...iconsLinks()}>
                     <YouTube sx={iconsStyles("red")} />
                 </IconButton>
             </Box>

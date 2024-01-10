@@ -9,8 +9,10 @@ export default function useProductsSearchParams() {
     function setParam(name, value) {
         if (name) {
             const newSearchParams = new URLSearchParams(currentSearchParams);
-            newSearchParams.set(name, value)
-            push(currentUrl + '?' + newSearchParams.toString())
+            if (currentSearchParams.get(name) !== value) {
+                newSearchParams.set(name, value)
+                push(currentUrl + '?' + newSearchParams.toString())
+            }
         }
     }
 

@@ -3,16 +3,17 @@ import MainAppBar from '@/components/MainAppBar';
 import MobileBar from '@/components/MobileBar';
 import SectionTitle from "@/components/SectionTitle";
 import SliderProduct from "@/components/SliderProduct";
-import { catagoriesInfo } from "@/CONSTANT/CATEGORIES";
 import { Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Footer from '@/components/footerSection/Footer';
+import { useSelector } from 'react-redux';
 
 export default function HomePage() {
 
   const mobileDevice = useMediaQuery("(max-width: 599px)");
   const { push } = useRouter();
+  const categoriesList = useSelector(state => state.variables.categoriesList);
 
   return (
     <>
@@ -44,7 +45,7 @@ export default function HomePage() {
           />
         </SectionTitle>
         {
-          catagoriesInfo.map(({ name: category }) => {
+          categoriesList.map(category => {
             return (
               <SectionTitle
                 style={{ padding: "20px 0px" }}

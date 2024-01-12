@@ -9,18 +9,18 @@ export default function useShoppingCartActions() {
 
     const setShoppingCart = async (shoppingCart) => {
         const productsIds = shoppingCart.map(product => `${product._id}-${product.count}`);
-        return await customFetch(path, "POST", { productsIds, type: "set_new_cart" });
+        return await customFetch(path, "PUT", { productsIds });
     }
 
     const clearCart = async () => {
         loadingControl(true);
-        const data = await customFetch(path, "DELETE", { type: "clear" })
+        const data = await customFetch(path, "DELETE", { actionType: "clear" })
         loadingControl(false);
         return data;
     }
 
     const addToCart = async ({ productId, count }) => {
-        return await customFetch(path, "POST", { productId, count, type: "add_Item" })
+        return await customFetch(path, "POST", { productId, count })
     }
 
     const removeFromCart = async (productId) => {

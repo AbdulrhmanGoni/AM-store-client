@@ -7,9 +7,9 @@ export default function useFavoritesActions() {
 
     const path = `users/${userId}/favorites`;
 
-    const setFavorites = async (favorites) => await customFetch(path, "POST", { favorites, type: "setNewFavorites" });
+    const setFavorites = async (favorites) => await customFetch(path, "PUT", { favorites });
 
-    const toggleFavorites = async (productId) => await customFetch(path, "POST", { productId, type: "toggle" });
+    const toggleFavorites = async (productId) => await customFetch(path, "POST", { productId });
 
     const clearFavorites = async () => await customFetch(path, "DELETE");
 

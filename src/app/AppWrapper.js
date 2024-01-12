@@ -10,7 +10,6 @@ export default function AppWrapper({ children }) {
         isLoading,
         isNetworkError,
         isServerError,
-        isUnexpected,
         renderApp
     } = useUserLogging();
     useFetchStoreVariable();
@@ -32,25 +31,19 @@ export default function AppWrapper({ children }) {
             <Box component="body">
                 {
                     isLoading ? <LoadingPage />
-                        : isUnexpected ? <IllustrationCard
-                            title="Uunexpected Error"
-                            message="There is unexpected error happeneds, try refreshing the page"
-                            illustratorType="unexpected"
+                        : isServerError ? <IllustrationCard
+                            title="Server Error"
+                            message="There is unexpected error from the server, Come back later"
+                            illustratorType="server"
                             fullPage withRefreshButton
                         />
-                            : isServerError ? <IllustrationCard
-                                title="Server Error"
-                                message="There is unexpected error from the server, Come back later"
-                                illustratorType="server"
+                            : isNetworkError ? <IllustrationCard
+                                title="Network Error"
+                                message="There is problem in your internet, please check your internet"
+                                illustratorType="network"
                                 fullPage withRefreshButton
                             />
-                                : isNetworkError ? <IllustrationCard
-                                    title="Network Error"
-                                    message="There is problem in your internet, please check your internet"
-                                    illustratorType="network"
-                                    fullPage withRefreshButton
-                                />
-                                    : renderApp && children
+                                : renderApp && children
                 }
                 {renderApp && <LoadingCircle staticCircle darkBg />}
             </Box>

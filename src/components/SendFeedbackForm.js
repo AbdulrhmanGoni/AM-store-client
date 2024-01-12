@@ -19,7 +19,7 @@ export default function SendFeedbackForm({ open, close }) {
     const smallScreen = useMediaQuery("(max-width: 500px)");
     const inputsSize = smallScreen ? "small" : "medium"
 
-    async function sendEmail(ev) {
+    async function sendFeedback(ev) {
         ev.preventDefault();
         const form = new FormData(ev.currentTarget);
         const subject = form.get("subject");
@@ -44,7 +44,7 @@ export default function SendFeedbackForm({ open, close }) {
         <OverlayBg>
             <Paper
                 component="form"
-                onSubmit={sendEmail}
+                onSubmit={sendFeedback}
                 elevation={2}
                 className='flex-column j-start'
                 sx={{

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useCookies } from "@abdulrhmangoni/am-store-library";
 import useFetchState from './useFetchState';
-import customFetchFunc from "@/functions/customFetch";
+import customFetch from "@/functions/customFetch";
 import { setUserData } from '@/state-management/userData_slice';
 import { setCart_localy } from '@/state-management/shoppingCart_slice';
 import { setFavorites_localy } from '@/state-management/favorites_slice';
@@ -14,13 +14,12 @@ export default function useUserLogging() {
     const { isLoading, isError, setState } = useFetchState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
-    const [isUnexpected, setIsUnexpected] = useState(false);
     const [renderApp, setRendrApp] = useState(false);
 
     useEffect(() => {
         if (userId) {
             setState("loading");
-            customFetchFunc(`log-in/${userId}`)
+            customFetch(`log-in/${userId}`)
                 .then(data => {
                     dispatch(setUserData({ ...data.userData, state: true }));
                     dispatch(setCart_localy(data.shoppingCart));
@@ -32,7 +31,7 @@ export default function useUserLogging() {
                         setIsNetworkError(true);
                     } else if (!error.response?.status) {
                         setIsServerError(true);
-                    } else setIsUnexpected(true);
+                    }
                 })
                 .finally(() => setState());
         }
@@ -44,7 +43,6 @@ export default function useUserLogging() {
         isNetworkError,
         isError,
         isServerError,
-        isUnexpected,
         renderApp
     }
 }

@@ -9,7 +9,7 @@ export default async function serverFetch(path) {
     const requestPayload = {
         method: 'GET',
         headers: {
-            'access-token': accessToken,
+            'authorization': `Bearer ${accessToken}`,
             'token-id': tokenId,
             'content-type': 'application/json',
         },

@@ -7,7 +7,7 @@ export default async function customFetch(path, method, body) {
 
     const api = axios.create({
         headers: {
-            'access-token': accessToken,
+            'authorization': `Bearer ${accessToken}`,
             'token-id': userId,
             'content-type': 'application/json'
         },

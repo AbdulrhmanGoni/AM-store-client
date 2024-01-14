@@ -81,13 +81,13 @@ function FavoritesPage() {
                 : null
 }
 
-
 function Empty() {
     return (
         <IllustrationCard
             hideAlertMsg
             title="Favorites is empty"
             illustratorType='empty'
+            style={{ flex: 1 }}
         />
     )
 }
@@ -99,6 +99,7 @@ function Error() {
             message="There is Something Wrong, may its network error or unexpected error"
             illustratorType='unexpected'
             withRefreshButton
+            style={{ flex: 1 }}
         />
     )
 }

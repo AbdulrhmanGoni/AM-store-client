@@ -16,7 +16,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
         addRating
     } = useRatingProduct({ productId });
 
-    const { ratingAverage, reviews } = productRating || {}
+    const { ratingAverage, reviews } = productRating
 
     return (
         <Box
@@ -45,7 +45,11 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                     areUserCanLetRating &&
                                     <Box className="flex-column">
                                         <P variant="subtitle2" ml="3px" color="#faaf00">
-                                            {userRating ? "Your Rating" : "Let your rating now"}
+                                            {
+                                                userRating ? "Your Rating"
+                                                    : areUserCanLetRating ? "Let your rating now"
+                                                        : null
+                                            }
                                         </P>
                                         <Box
                                             className="flex-row-center-start gap"
@@ -56,15 +60,18 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                             }}
                                         >
                                             {
-                                                userRating !== undefined &&
-                                                <Rating
-                                                    sx={{ width: "fit-content" }}
-                                                    value={ratingLoading.isLoading ? ratingLoading.newRating : userRating}
-                                                    disabled={ratingLoading.isLoading}
-                                                    onChange={({ target: { value } }) => {
-                                                        addRating(+value)
-                                                    }}
-                                                />
+                                                ratingLoading.isLoading ?
+                                                    <Rating
+                                                        sx={{ width: "fit-content" }}
+                                                        value={ratingLoading.newRating}
+                                                        disabled={ratingLoading.isLoading}
+                                                    />
+                                                    : userRating !== undefined && areUserCanLetRating &&
+                                                    <Rating
+                                                        sx={{ width: "fit-content" }}
+                                                        value={userRating}
+                                                        onChange={({ target: { value } }) => { addRating(+value) }}
+                                                    />
                                             }
                                             {ratingLoading.isLoading && <LinearProgress sx={{ width: "100%", position: "absolute", bottom: 0 }} />}
                                         </Box>
@@ -82,7 +89,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                                     <LinearProgress
                                                         sx={{ width: "100px", height: "8px" }}
                                                         variant="determinate"
-                                                        value={percentage}
+                                                        value={percentage || 0}
                                                     />
                                                     <P variant="body2">{percentage}%</P>
                                                 </Box>

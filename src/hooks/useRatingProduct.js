@@ -44,23 +44,25 @@ export default function useRatingProduct({ productId }) {
         productRating.reviews += isFirstReview ? 1 : 0
         productRating.currentUserRateing = newRating
         updateStarsPercentage(currentUserRateing, newRating, productRating.reviews)
-        productRating.ratingAverage = updatedTotalStars / productRating.reviews
+        productRating.ratingAverage = +(updatedTotalStars / productRating.reviews).toFixed(0)
         setProductRating(productRating)
     }
 
     function updateStarsPercentage(pastRateing, newRating, totalReviews) {
-        const pastStar = starsFieldsNames[pastRateing - 1]
-        const newStar = starsFieldsNames[newRating - 1]
-        const pastCount = --productRating[pastStar].count
-        const newCount = ++productRating[newStar].count
+        if (pastRateing) {
+            const pastStar = starsFieldsNames[pastRateing - 1]
+            const pastCount = --productRating[pastStar].count
+            productRating[pastStar].percentage = +((pastCount / totalReviews) * 100).toFixed(0)
+        }
 
-        productRating[pastStar].percentage = (pastCount / totalReviews) * 100
-        productRating[newStar].percentage = (newCount / totalReviews) * 100
+        const newStar = starsFieldsNames[newRating - 1]
+        const newCount = ++productRating[newStar].count
+        productRating[newStar].percentage = +((newCount / totalReviews) * 100).toFixed(0)
     }
 
     return {
         ratingLoading,
-        productRating,
+        productRating: productRating || {},
         userRating: productRating?.currentUserRateing,
         fetchingLoading: isLoading,
         fetchingError: isError,

@@ -71,5 +71,6 @@ export default function ShoppingCartPage() {
             hideAlertMsg
             title="Shopping cart is empty"
             illustratorType='empty'
+            style={{ flex: 1 }}
         />
 }

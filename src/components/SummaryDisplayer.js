@@ -1,6 +1,6 @@
 import { Box, Divider, List, ListItem, Paper, TextField, useMediaQuery } from '@mui/material'
 import { Discount } from '@mui/icons-material'
-import deliveryPrice from '@/CONSTANT/deliveryPrice'
+import deliveryPrice from '@/CONSTANTS/deliveryPrice'
 import { P, PriceDisplayer, findOriginalPrice } from "@abdulrhmangoni/am-store-library";
 
 export default function SummaryDisplayer({ total, discount, delivery, items }) {

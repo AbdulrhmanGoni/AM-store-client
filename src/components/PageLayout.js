@@ -5,7 +5,7 @@ import { Reply } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import CantAccessMessage from './CantAccessMessage';
 import { useSelector } from 'react-redux';
-import pagesSpaces from '@/CONSTANT/pagesSpaces';
+import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 import AccountMenu from './AccountMenu';
 import { P } from "@abdulrhmangoni/am-store-library";
 

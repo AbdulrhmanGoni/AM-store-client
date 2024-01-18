@@ -9,7 +9,7 @@ import {
     useSlicedFetch
 } from '@abdulrhmangoni/am-store-library';
 import { useSelector } from 'react-redux';
-import { host } from '@/CONSTANT/hostName';
+import { host } from '@/CONSTANTS/hostName';
 
 export default function OrdersList({ orderState }) {
 

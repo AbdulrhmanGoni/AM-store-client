@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { useSpeedMessage } from '@/hooks/useSpeedMessage'
 import { P } from "@abdulrhmangoni/am-store-library";
 import { useState } from 'react'
-import pagesSpaces from '@/CONSTANT/pagesSpaces'
+import pagesSpaces from '@/CONSTANTS/pagesSpaces'
 import customFetch from '@/functions/customFetch'
 
 

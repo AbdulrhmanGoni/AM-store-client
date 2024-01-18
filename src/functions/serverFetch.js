@@ -1,4 +1,4 @@
-import { host } from "@/CONSTANT/hostName";
+import { host } from "@/CONSTANTS/hostName";
 import { cookies } from "next/headers";
 
 export default async function serverFetch(path) {

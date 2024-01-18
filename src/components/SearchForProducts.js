@@ -1,5 +1,5 @@
 "use client"
-import { host } from '@/CONSTANT/hostName';
+import { host } from '@/CONSTANTS/hostName';
 import useProductsSearchParams from '@/hooks/useProductsSearchParams';
 import { SearchForProductsField } from '@abdulrhmangoni/am-store-library'
 import { ReadMore } from '@mui/icons-material'

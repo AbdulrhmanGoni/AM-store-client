@@ -11,7 +11,7 @@ import SetUserAvatarForm from "@/components/SetUserAvatarForm";
 import TextFieldContainer from "@/components/TextFieldContainer";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
 import ImageDispayer from "@/components/ImageDispayer";
-import pagesSpaces from "@/CONSTANT/pagesSpaces";
+import pagesSpaces from "@/CONSTANTS/pagesSpaces";
 import { useRouter } from "next/navigation";
 import useUserDataActions from "@/hooks/useUserDataActions";
 import { P } from "@abdulrhmangoni/am-store-library";

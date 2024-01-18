@@ -7,7 +7,7 @@ import AccountMenu from './AccountMenu';
 import CustomFavoriteIcon from './CustomFavoriteIcon';
 import CustomShoppingCartIcon from './CustomShoppingCartIcon';
 import { SearchForProductsField, P } from '@abdulrhmangoni/am-store-library';
-import { host } from '@/CONSTANT/hostName';
+import { host } from '@/CONSTANTS/hostName';
 import { ReadMore } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import AMLogo from './AMLogo';

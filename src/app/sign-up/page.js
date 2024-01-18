@@ -10,7 +10,7 @@ import { useGoogleAuth, P } from '@abdulrhmangoni/am-store-library';
 import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
 import Link from 'next/link';
-import pagesSpaces from '@/CONSTANT/pagesSpaces';
+import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 
 
 export default function SignUpPage() {

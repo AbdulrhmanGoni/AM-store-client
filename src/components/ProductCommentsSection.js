@@ -12,7 +12,7 @@ import {
     FetchFailedAlert,
     useSlicedFetch
 } from '@abdulrhmangoni/am-store-library';
-import { host } from '@/CONSTANT/hostName';
+import { host } from '@/CONSTANTS/hostName';
 
 export default function ProductCommentsSection(props) {
 

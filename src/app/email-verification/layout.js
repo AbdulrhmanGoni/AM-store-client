@@ -1,5 +1,5 @@
 "use client"
-import pagesSpaces from "@/CONSTANT/pagesSpaces"
+import pagesSpaces from "@/CONSTANTS/pagesSpaces"
 import PageLayout from "@/components/PageLayout"
 import { Box } from "@mui/material"
 

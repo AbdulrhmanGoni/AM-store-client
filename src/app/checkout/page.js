@@ -10,11 +10,11 @@ import ProductSmallCard from '@/components/ProductSmallCard';
 import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
 import { clearCheckoutSummary } from '@/state-management/checkoutSummary_slice';
 import getCurrentDate from '@/functions/getCurrentDate';
-import deliveryPrice, { includeLimit } from '@/CONSTANT/deliveryPrice';
+import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { ActionAlert, loadingControl, applyDiscount } from '@abdulrhmangoni/am-store-library';
 import useOrdersActions from '@/hooks/useOrdersActions';
-import pagesSpaces from '@/CONSTANT/pagesSpaces';
+import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 
 
 export default function CheckoutPage() {

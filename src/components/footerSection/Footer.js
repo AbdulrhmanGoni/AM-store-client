@@ -1,5 +1,5 @@
 import { Box, Grid, Container, Divider } from '@mui/material';
-import pagesSpaces from '@/CONSTANT/pagesSpaces';
+import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 import FooterLinks from './FooterLinks';
 import FooterEndSection from './FooterEndSection';
 import FooterConcatSection from './FooterConcatSection';

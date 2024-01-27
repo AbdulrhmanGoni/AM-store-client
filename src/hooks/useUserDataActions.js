@@ -8,7 +8,7 @@ export default function useUserDataActions() {
     const path = (route) => `users/${userId}/${route}`;
 
     const changeUserName = async (newName) => {
-        return await customFetch(path("update-user-name"), "PATCH", { newName });
+        return await customFetch(path(""), "PATCH", { newName });
     }
 
     const changeUserPassword = async ({ currentPassword, newPassword }) => {

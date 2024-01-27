@@ -37,13 +37,13 @@ export default function useRatingProduct({ productId }) {
     }
 
     function updateProductRating(newRating) {
-        const { reviews, ratingAverage, currentUserRateing } = productRating;
-        const isFirstReview = !currentUserRateing
+        const { reviews, ratingAverage, currentUserRating } = productRating;
+        const isFirstReview = !currentUserRating
         const totalStars = ratingAverage * reviews;
-        const updatedTotalStars = totalStars + (newRating - currentUserRateing)
+        const updatedTotalStars = totalStars + (newRating - currentUserRating)
         productRating.reviews += isFirstReview ? 1 : 0
-        productRating.currentUserRateing = newRating
-        updateStarsPercentage(currentUserRateing, newRating, productRating.reviews)
+        productRating.currentUserRating = newRating
+        updateStarsPercentage(currentUserRating, newRating, productRating.reviews)
         productRating.ratingAverage = +(updatedTotalStars / productRating.reviews).toFixed(0)
         setProductRating(productRating)
     }
@@ -63,7 +63,7 @@ export default function useRatingProduct({ productId }) {
     return {
         ratingLoading,
         productRating: productRating || {},
-        userRating: productRating?.currentUserRateing,
+        userRating: productRating?.currentUserRating,
         fetchingLoading: isLoading,
         fetchingError: isError,
         refetch,

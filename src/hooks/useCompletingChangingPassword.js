@@ -11,7 +11,7 @@ export default function useCompletingChangingPassword() {
 
     function completingChangingPassword(payload, onSuccess, onFailed) {
         setIsLodading(true);
-        customFetch("forget-password?type=changing-the-password", "POST", { ...payload, changePasswordToken })
+        customFetch("forget-password?type=complete-changing-password", "POST", { ...payload, changePasswordToken })
             .then(() => {
                 onSuccess();
                 setNewPasswordFieldStatus({ message: "", status: true });

@@ -7,7 +7,7 @@ const checkoutSummary = createSlice({
         setSummaryPrice: (state, action) => {
             return { totalPrice: action.payload, discountCobone: state.discountCobone };
         },
-        discountCobone: (state, action) => {
+        includeDiscount: (state, action) => {
             return { discountCobone: action.payload, totalPrice: state.totalPrice };
         },
         clearCheckoutSummary: () => {
@@ -21,7 +21,7 @@ const checkoutSummary = createSlice({
 
 export const {
     setSummaryPrice,
-    discountCobone,
+    includeDiscount,
     clearCheckoutSummary,
     removeDiscount
 } = checkoutSummary.actions;

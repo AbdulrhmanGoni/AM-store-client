@@ -9,7 +9,6 @@ import SelectedLocationCard from '@/components/locationRegistring/SelectedLocati
 import ProductSmallCard from '@/components/ProductSmallCard';
 import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
 import { clearCheckoutSummary } from '@/state-management/checkoutSummary_slice';
-import getCurrentDate from '@/functions/getCurrentDate';
 import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { ActionAlert, loadingControl, applyDiscount } from '@abdulrhmangoni/am-store-library';
@@ -66,8 +65,6 @@ export default function CheckoutPage() {
             products,
             totalPrice,
             paymentMethod,
-            state: "Completed",
-            expectedDeliveryDate: getCurrentDate(7),
             deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
             discountCobone: { name: discountCobone, value: discount },
         }

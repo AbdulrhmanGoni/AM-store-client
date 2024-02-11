@@ -32,10 +32,13 @@ export default function Page() {
                 else message(res.message);
             })
             .catch(({ response }) => {
+                const errorMessage = response?.data.message
                 if (response?.status == expiredCode) {
-                    setCurrentState({ status: expiredCode, message: response?.data.message });
+                    setCurrentState({ status: expiredCode, message: errorMessage });
+                } else if (response?.data.ok === undefined) {
+                    setCurrentState({ status: "Verifying failed", message: errorMessage });
                 }
-                else setCurrentState({ status: "Verifying failed", message: response?.data.message });
+                else message(errorMessage);
             })
             .finally(() => setIsLodading(false));
     }

@@ -8,13 +8,11 @@ import {
     FetchFailedAlert,
     useSlicedFetch
 } from '@abdulrhmangoni/am-store-library';
-import { useSelector } from 'react-redux';
 import { host } from '@/CONSTANTS/hostName';
 
 export default function OrdersList({ orderState }) {
 
-    const userId = useSelector(state => state.userData?._id);
-    const path = `${host}/users/${userId}/orders`;
+    const path = `${host}/orders/users`;
     const ordersReturnType = "ordersReturnType=_paymentMethod,_discountCobone,_updatedAt,_deliveryPrice,_userId";
     const productsReturnType = "productsReturnType=images";
     const ordersState = `state=${orderState}`;

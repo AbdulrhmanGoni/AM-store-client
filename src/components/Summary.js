@@ -4,7 +4,7 @@ import { Box, Button, Divider, List, ListItem, Paper, TextField, useMediaQuery, 
 import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice'
-import { discountCobone, setSummaryPrice, removeDiscount } from '@/state-management/checkoutSummary_slice'
+import { includeDiscount, setSummaryPrice, removeDiscount } from '@/state-management/checkoutSummary_slice'
 import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
 import { setDiscountCobones } from '@/state-management/cobones_slice'
 import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum'
@@ -19,8 +19,7 @@ export default function Summary() {
 
     const shoppingCart = useSelector(state => state.shoppingCart);
     const cobones = useSelector(state => state.cobones);
-    const totalPrice = useSelector(state => state.checkoutSummary.totalPrice);
-    const usedCobone = useSelector(state => state.checkoutSummary.discountCobone);
+    const { totalPrice, discountCobone } = useSelector(state => state.checkoutSummary);
     const totalPriceInCart = calculateShoppingCartSum(shoppingCart);
     const [isValidCobone, setCoboneState] = useState(true);
     const [discount, setDiscount] = useState(null);
@@ -29,7 +28,7 @@ export default function Summary() {
 
 
     useEffect(() => {
-        checkCobone(usedCobone);
+        checkCobone(discountCobone);
         let total = applyDiscount(totalPriceInCart, discount);
         if (total < includeLimit) {
             total += deliveryPrice;
@@ -40,18 +39,17 @@ export default function Summary() {
         }
         dispatch(setSummaryPrice(total));
 
-    }, [totalPriceInCart, discount, usedCobone]);
+    }, [totalPriceInCart, discount, discountCobone]);
 
     useEffect(() => {
         if (!cobones) {
             setIsFetchingDiscountCobones(true);
             fetchDiscountCobones()
-                .then((discountCobone) => dispatch(setDiscountCobones(discountCobone)))
+                .then((cobone) => dispatch(setDiscountCobones(cobone)))
                 .catch(() => { })
                 .finally(() => setIsFetchingDiscountCobones(false))
         }
     }, []);
-
 
     function checkCobone(cobone) {
         if (cobones) {
@@ -71,14 +69,14 @@ export default function Summary() {
             if (!checkCobone(coboneInput)) {
                 setCoboneState(false);
             }
-            dispatch(discountCobone(coboneInput));
+            dispatch(includeDiscount(coboneInput));
         }
     }
 
     function resetCoboneField() {
         setCoboneState(true);
         setDiscount(null);
-        dispatch(discountCobone(null));
+        dispatch(includeDiscount(null));
     }
 
     const TextTitle = ({ children, style }) => {
@@ -142,7 +140,7 @@ export default function Summary() {
                                     <Discount sx={{ color: 'primary.main', mr: 1, my: 0.5, fontSize: "1rem" }} />
                                     <TextField
                                         error={!isValidCobone}
-                                        defaultValue={usedCobone}
+                                        defaultValue={discountCobone}
                                         disabled={!!discount}
                                         helperText={!isValidCobone ? "The Cobone Is Invalid" : ""}
                                         onChange={(event) => {

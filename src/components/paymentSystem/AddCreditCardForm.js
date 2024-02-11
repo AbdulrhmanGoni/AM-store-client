@@ -28,10 +28,9 @@ export default function AddCridetCardForm({ chooses }) {
         }
     }
 
-    function isExpiredDate(inputDate) {
+    function isExpiredDate(expiredDate) {
         const now = new Date();
-        const date = new Date(inputDate);
-        if (date > now) {
+        if (expiredDate > now) {
             return false;
         } else {
             return true;
@@ -62,12 +61,13 @@ export default function AddCridetCardForm({ chooses }) {
 
     function handleCartExpirationDate() {
         let value = document.getElementById("cridet-cart-expiration-date").value;
-        if (isExpiredDate(value)) {
+        const expiredDate = new Date(value)
+        if (isExpiredDate(expiredDate)) {
             setDateValidationState(true);
             return false;
         } else {
             setDateValidationState(false);
-            return value;
+            return expiredDate.toISOString();
         }
     }
 

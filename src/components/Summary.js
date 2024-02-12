@@ -5,9 +5,9 @@ import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice'
 import { includeDiscount, setSummaryPrice, removeDiscount } from '@/state-management/checkoutSummary_slice'
-import fetchDiscountCobones from '@/functions/fetchDiscountCobones'
+import fetchDiscountCobones from '@/utilities/fetchDiscountCobones'
 import { setDiscountCobones } from '@/state-management/cobones_slice'
-import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum'
+import calculateShoppingCartSum from '@/utilities/calculateShoppingCartSum'
 import { P, PriceDisplayer, applyDiscount } from "@abdulrhmangoni/am-store-library";
 
 

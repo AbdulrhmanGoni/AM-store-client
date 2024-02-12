@@ -1,4 +1,4 @@
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { toggleFavorites_localy, clearFavorites_localy } from "@/state-management/favorites_slice";
 import { useSelector, useDispatch } from 'react-redux';
 

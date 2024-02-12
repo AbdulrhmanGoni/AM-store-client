@@ -1,5 +1,5 @@
 import { NotFound } from '@/app/products/error';
-import serverFetch from '@/functions/serverFetch';
+import serverFetch from '@/utilities/serverFetch';
 import ProductsDisplayer from './ProductsDisplayer';
 
 export default async function SearchResultsPage({ searchParams }) {

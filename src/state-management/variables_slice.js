@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import fetchVariables from '@/functions/fetchVariables'
+import fetchVariables from '@/utilities/fetchVariables'
 
 export const fetchStoreVariables = createAsyncThunk('fetch-store-variables', fetchVariables)
 

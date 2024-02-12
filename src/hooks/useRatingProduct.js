@@ -1,4 +1,4 @@
-import customFetch from '@/functions/customFetch';
+import customFetch from '@/utilities/customFetch';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSpeedMessage } from './useSpeedMessage';

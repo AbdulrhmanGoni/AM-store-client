@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import isValidEmail from '@/functions/isValidEmail';
+import isValidEmail from '@/utilities/isValidEmail';
 import { loadingControl, useCookies } from '@abdulrhmangoni/am-store-library';
-import customFetch from '@/functions/customFetch';
+import customFetch from '@/utilities/customFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '@/state-management/userData_slice';
 import { useSpeedMessage } from './useSpeedMessage';

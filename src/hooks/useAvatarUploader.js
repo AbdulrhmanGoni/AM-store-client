@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import customFetch from '../functions/customFetch';
+import customFetch from '../utilities/customFetch';
 import { useSpeedMessage } from './useSpeedMessage';
 import { setNewAvatar_localy } from '../state-management/userData_slice';
 

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import customFetch from '@/functions/customFetch';
+import customFetch from '@/utilities/customFetch';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { IllustrationCard, LoadingPage, AlertTooltip, P } from '@abdulrhmangoni/am-store-library';
 import { useRouter } from 'next/navigation';

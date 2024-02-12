@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import useLikesAndDislikes from '@/hooks/useLikesAndDislikes';
-import waitFor from '@/functions/waitFor';
+import waitFor from '@/utilities/waitFor';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
 import { timeAgo, MessageCard, OptionsMenu } from '@abdulrhmangoni/am-store-library';
 import { Delete } from '@mui/icons-material';

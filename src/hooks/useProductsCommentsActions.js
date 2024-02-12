@@ -1,4 +1,4 @@
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
 import { useParams } from "next/navigation";
 

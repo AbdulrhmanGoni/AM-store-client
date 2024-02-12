@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSpeedMessage } from "./useSpeedMessage";
 import { loadingControl, useCookies } from '@abdulrhmangoni/am-store-library';
-import customFetch from "../functions/customFetch";
-import isValidEmail from "../functions/isValidEmail";
+import customFetch from "../utilities/customFetch";
+import isValidEmail from "../utilities/isValidEmail";
 
 export default function useLogInLogic() {
 

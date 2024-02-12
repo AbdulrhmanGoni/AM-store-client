@@ -8,7 +8,7 @@ import { useSpeedMessage } from '@/hooks/useSpeedMessage'
 import { P } from "@abdulrhmangoni/am-store-library";
 import { useState } from 'react'
 import pagesSpaces from '@/CONSTANTS/pagesSpaces'
-import customFetch from '@/functions/customFetch'
+import customFetch from '@/utilities/customFetch'
 
 
 export default function SendFeedbackForm({ open, close }) {

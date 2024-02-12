@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import calculateShoppingCartSum from '@/functions/calculateShoppingCartSum';
+import calculateShoppingCartSum from '@/utilities/calculateShoppingCartSum';
 import { PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 
 export default function TotalPriceInCart({ style }) {

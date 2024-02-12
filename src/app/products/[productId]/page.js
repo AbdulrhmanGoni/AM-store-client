@@ -1,5 +1,5 @@
 import ProductDetails from "@/components/ProductDetails"
-import serverFetch from "@/functions/serverFetch"
+import serverFetch from "@/utilities/serverFetch"
 import { Unexpected, NotFound } from "./error"
 
 export default async function Page({ params: { productId } }) {

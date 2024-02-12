@@ -1,7 +1,7 @@
 import { Box, Button, Card, Chip, Divider, ImageList, ImageListItem } from "@mui/material";
 import { ReadMore } from "@mui/icons-material";
 import OverlayHoverLink from "./OverlayHoverLink";
-import formatDate from "@/functions/formatDate";
+import formatDate from "@/utilities/formatDate";
 import { useRouter } from "next/navigation";
 import { P, PriceDisplayer } from "@abdulrhmangoni/am-store-library";
 

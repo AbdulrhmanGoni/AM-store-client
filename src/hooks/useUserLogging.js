@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useCookies } from "@abdulrhmangoni/am-store-library";
 import useFetchState from './useFetchState';
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { setUserData } from '@/state-management/userData_slice';
 import { setCart_localy } from '@/state-management/shoppingCart_slice';
 import { setFavorites_localy } from '@/state-management/favorites_slice';

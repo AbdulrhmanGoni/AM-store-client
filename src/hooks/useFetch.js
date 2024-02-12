@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 
 export const useFetch = (url, { init, dependencies, fetchCondition } = {}) => {
 

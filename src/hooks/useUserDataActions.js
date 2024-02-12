@@ -1,4 +1,4 @@
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { useSelector } from 'react-redux';
 
 

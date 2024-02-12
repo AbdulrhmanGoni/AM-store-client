@@ -1,4 +1,4 @@
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { useState } from "react";
 import { useSpeedMessage } from "./useSpeedMessage";
 

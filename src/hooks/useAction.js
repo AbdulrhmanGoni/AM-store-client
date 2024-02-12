@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 
 export const useAction = (path, method, body, { dependent, init, fetchCondition }) => {
 

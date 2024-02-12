@@ -1,5 +1,5 @@
 import { loadingControl } from '@abdulrhmangoni/am-store-library';
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { useSelector } from 'react-redux';
 
 export default function usePaymentMethodsActions() {

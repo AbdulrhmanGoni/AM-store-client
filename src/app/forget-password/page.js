@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import pagesSpaces from "@/CONSTANTS/pagesSpaces"
 import { Send, ShoppingCart } from "@mui/icons-material"
 import useChangingPasswordRequest from "@/hooks/useChangingPasswordRequest"
-import isValidEmail from "@/functions/isValidEmail"
+import isValidEmail from "@/utilities/isValidEmail"
 import SendingVerificationCodeHandler from "@/components/SendingVerificationCodeHandler"
 import useCompletingChangingPassword from "@/hooks/useCompletingChangingPassword"
 

@@ -2,7 +2,7 @@
 import { TextField, Box, } from "@mui/material"
 import { IllustrationCard, AlertTooltip, P } from "@abdulrhmangoni/am-store-library"
 import { Img } from "@/app/forget-password/page";
-import customFetch from "@/functions/customFetch";
+import customFetch from "@/utilities/customFetch";
 import { useState } from "react";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux"
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import customFetch from '@/functions/customFetch';
+import customFetch from '@/utilities/customFetch';
 import useFavoritesActions from '@/hooks/useFavoritesActions';
 
 export default function useUserFavorites() {

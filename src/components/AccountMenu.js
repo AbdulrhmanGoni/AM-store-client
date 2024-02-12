@@ -63,11 +63,11 @@ export default function AccountMenu() {
     const { removeCookie } = useCookies();
     const [anchorEl, setAnchorEl] = useState(null);
     const [feedbackFormState, setOpenFeedbackState] = useState(false);
-    const userData = useSelector(state => state.userData);
+    const userId = useSelector(state => state.userData?._id);
 
     const goTo = (path, auth) => {
         if (auth) {
-            if (userData) {
+            if (userId) {
                 push(path);
                 setAnchorEl(null);
             } else {
@@ -82,7 +82,7 @@ export default function AccountMenu() {
 
     function LogoutButton() {
         return (
-            userData &&
+            userId &&
             <>
                 <Divider />
                 <MenuItem onClick={logout}>
@@ -99,6 +99,7 @@ export default function AccountMenu() {
         removeCookie("userId");
         removeCookie("access-token");
         dispatch(userLogOut());
+        sessionStorage.removeItem(`am-store-client-favorites-${userId}`)
         window.location.reload();
         window.location.replace("/");
     };
@@ -180,7 +181,7 @@ export default function AccountMenu() {
                                 }
                             >
                                 <ListItemIcon>{icon}</ListItemIcon>
-                                {title === "Profile" ? userData ? "Profile" : "Log In" : title}
+                                {title === "Profile" ? userId ? "Profile" : "Log In" : title}
                             </MenuItem>
                             ,
                             divider && <Divider />

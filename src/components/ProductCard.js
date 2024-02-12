@@ -118,7 +118,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
                     borderTopColor: "divider"
                 }}
             >
-                <ToggleFavorite productId={_id} />
+                <ToggleFavorite theProduct={theProduct} />
                 <LoadingButton
                     disabled={!amount}
                     onClick={() => {

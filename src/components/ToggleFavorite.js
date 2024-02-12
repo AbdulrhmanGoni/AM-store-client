@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button, CircularProgress, Tooltip } from '@mui/material';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { toggleFavorites_localy } from '../state-management/favorites_slice';
 import useFavoritesActions from '@/hooks/useFavoritesActions';
 
-export default function ToggleFavoriet({ productId, style }) {
+export default function ToggleFavorite({ theProduct, style }) {
 
-    const dispatch = useDispatch();
-    const { toggleFavorites } = useFavoritesActions();
+    const { _id: productId } = theProduct;
+
+    const { toggleFavorites, toggleFavoritesFromSession, getFavoritesFromSession } = useFavoritesActions();
     const favorites = useSelector(state => state.favorites);
     const userData = useSelector(state => state.userData);
     const [isInFavorites, setFavoritesState] = useState(false);
@@ -19,28 +19,27 @@ export default function ToggleFavoriet({ productId, style }) {
         if (userData) {
             setLoading(true);
             toggleFavorites(productId)
-                .then(() => dispatch(toggleFavorites_localy(productId)))
+                .then(() => toggleFavoritesFromSession(theProduct))
                 .catch(() => {
                     setError(true);
                     setTimeout(() => setError(false), 3000);
                 })
                 .finally(() => setLoading(false))
-
         } else {
-            dispatch(toggleFavorites_localy(productId));
+            toggleFavoritesFromSession(theProduct)
         }
     }
 
     useEffect(() => {
+        let isInFavorites = false
         if (favorites) {
-            if (favorites.includes(productId)) {
-                setFavoritesState(true);
-            } else {
-                setFavoritesState(false);
-            }
+            isInFavorites = favorites.includes(productId)
+        } else {
+            const products = getFavoritesFromSession()
+            isInFavorites = products.some((product) => product._id === productId)
         }
+        setFavoritesState(isInFavorites);
     }, [favorites, productId]);
-
 
     return (
         <>
@@ -55,7 +54,7 @@ export default function ToggleFavoriet({ productId, style }) {
                                     height: { xs: "0.9rem", sm: "1.2rem" }
                                 }, ...style
                             }}
-                            color="error" aria-label="Delete From Shopping Cart" variant={isInFavorites ? "contained" : "outlined"}>
+                            color="error" variant={isInFavorites ? "contained" : "outlined"}>
                             {isInFavorites ? <Favorite fontSize='small' /> : <FavoriteBorder fontSize='small' />}
                         </Button>
                     </Tooltip>

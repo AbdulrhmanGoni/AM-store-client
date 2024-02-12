@@ -74,7 +74,7 @@ export default function ProductCardHorizontally(props) {
                             />
                         </FormControl>
                     }
-                    <ToggleFavorite productId={id} />
+                    <ToggleFavorite theProduct={theProduct} />
                 </Box>
                 {actionsSec && <>
                     <Divider sx={{ m: "5px 0px" }} />

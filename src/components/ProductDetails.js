@@ -87,7 +87,7 @@ export default function ProductDetails({ product }) {
                             >
                                 {isInCart ? "Go To Shopping Cart" : "Add To Cart"}
                             </LoadingButton>
-                            <ToggleFavorite productId={productId} />
+                            <ToggleFavorite theProduct={product} />
                         </Box>
                         <Divider />
                         <ProductRatingSection

@@ -1,5 +1,5 @@
 "use client"
-import { ProductLoadingCard } from '../ProductLoadingCard'
+import { ProductLoadingCard } from '../productsRelatedComponents/ProductLoadingCard'
 
 export default function ProductsSlidesLoading({ cardWidth }) {
 

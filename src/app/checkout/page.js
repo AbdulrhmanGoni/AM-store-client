@@ -6,7 +6,7 @@ import Summary from '@/components/Summary';
 import SectionTitle from '@/components/SectionTitle';
 import PaymentMethodsManagement from '@/components/paymentSystem/PaymentMethodsManagement';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
-import ProductSmallCard from '@/components/ProductSmallCard';
+import ProductSmallCard from '@/components/productsRelatedComponents/ProductSmallCard';
 import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
 import { clearCheckoutSummary } from '@/state-management/checkoutSummary_slice';
 import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice';

@@ -1,4 +1,4 @@
-import ProductDetails from "@/components/ProductDetails"
+import ProductDetails from "@/components/productsRelatedComponents/ProductDetails"
 import serverFetch from "@/utilities/serverFetch"
 import { Unexpected, NotFound } from "./error"
 

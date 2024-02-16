@@ -2,7 +2,7 @@ import { NotFound } from '@/app/products/error';
 import serverFetch from '@/utilities/serverFetch';
 import ProductsDisplayer from './ProductsDisplayer';
 import { Suspense } from 'react';
-import { LoadingCircle } from '../app/products/layout';
+import { LoadingCircle } from '../../app/products/layout';
 
 export default async function SearchResultsPage({ searchParams }) {
 

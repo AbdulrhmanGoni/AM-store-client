@@ -1,8 +1,8 @@
 import { Paper } from '@mui/material';
 import CategoriesBar from '@/components/CategoriesBar';
-import SearchForProducts from '@/components/SearchForProducts';
+import SearchForProducts from '@/components/productsRelatedComponents/SearchForProducts';
 import { Suspense } from 'react';
-import SearchResultsPage from '@/components/SearchResultsPage';
+import SearchResultsPage from '@/components/productsRelatedComponents/SearchResultsPage';
 import { LoadingCircle } from './layout';
 
 export default function Page({ searchParams }) {

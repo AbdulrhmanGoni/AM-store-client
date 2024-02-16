@@ -1,5 +1,5 @@
 import { Box, CardMedia } from '@mui/material';
-import OverlayHoverLink from './OverlayHoverLink';
+import OverlayHoverLink from '../OverlayHoverLink';
 
 
 export default function ProductCardImageWithHoverLink({ productId, linkStyle, imageSrc, imageStyle }) {

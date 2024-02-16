@@ -1,10 +1,10 @@
 "use client"
 import { useState } from 'react';
 import { Box, Button, CircularProgress, List } from '@mui/material';
-import CommentViewer from './CommentViewer';
+import CommentViewer from '../CommentViewer';
 import { useSelector } from 'react-redux';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
-import TextFieldWithImojis from './TextFieldWithImojis';
+import TextFieldWithImojis from '../TextFieldWithImojis';
 import useProductsCommentsActions from '@/hooks/useProductsCommentsActions';
 import {
     useWhenElementAppears,

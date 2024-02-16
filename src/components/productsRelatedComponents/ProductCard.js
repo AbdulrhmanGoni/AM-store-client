@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import ToggleFavorite from './ToggleFavorite';
+import ToggleFavorite from '../ToggleFavorite';
 import { useRouter } from 'next/navigation';
 import { LoadingButton } from '@mui/lab';
 import { addToCart_localy } from '@/state-management/shoppingCart_slice';

@@ -10,7 +10,7 @@ import { ProductImagesDisplayer, ProductAvailabationState, P, PriceDisplayer } f
 import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";
-import ProductCommentsSection from "@/components/ProductCommentsSection";
+import ProductCommentsSection from "@/components/productsRelatedComponents/ProductCommentsSection";
 import useAreUserBoughtTheProductBefore from "@/hooks/useAreUserBoughtTheProductBefore";
 import ProductRatingSection from "./ProductRatingSection";
 

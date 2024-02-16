@@ -2,7 +2,7 @@
 import { Button, Paper, CircularProgress } from '@mui/material';
 import { CleaningServices } from '@mui/icons-material';
 import { IllustrationCard, ActionAlert, LoadingCircle, P } from '@abdulrhmangoni/am-store-library';
-import ProductsDisplayer from '@/components/ProductsDisplayer';
+import ProductsDisplayer from '@/components/productsRelatedComponents/ProductsDisplayer';
 import useUserFavorites from '@/hooks/useUserFavorites';
 
 function FavoritesPage() {

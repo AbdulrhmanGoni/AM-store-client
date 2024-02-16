@@ -1,5 +1,5 @@
 "use client"
-import ProductCardHorizontally from '@/components/ProductCardHorizontally';
+import ProductCardHorizontally from '@/components/productsRelatedComponents/ProductCardHorizontally';
 import { Box, Button, Grid, List, ListItem, Paper } from '@mui/material';
 import Summary from '@/components/Summary';
 import { clearCart_localy } from '@/state-management/shoppingCart_slice';

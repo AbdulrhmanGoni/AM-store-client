@@ -3,7 +3,7 @@ import styles from "./SliderProducts.module.css";
 import { useEffect, useState, useRef } from "react";
 import { Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
-import ProductCard from "../ProductCard";
+import ProductCard from "../productsRelatedComponents/ProductCard";
 import { FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
 import ProductsSlidesLoading from "./ProductsSlidesLoading";
 

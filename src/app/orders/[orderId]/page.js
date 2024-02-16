@@ -1,7 +1,7 @@
 "use client"
 import { Box, Grid } from '@mui/material';
 import SummaryDisplayer from '@/components/SummaryDisplayer';
-import ProductCardHorizontally from '@/components/ProductCardHorizontally';
+import ProductCardHorizontally from '@/components/productsRelatedComponents/ProductCardHorizontally';
 import { IllustrationCard, LoadingCircle } from '@abdulrhmangoni/am-store-library';
 import { useFetch } from '@/hooks/useFetch';
 

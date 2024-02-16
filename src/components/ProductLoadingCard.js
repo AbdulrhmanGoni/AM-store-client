@@ -1,6 +1,5 @@
 import { Card, Skeleton, Box } from '@mui/material';
 
-
 export function ProductLoadingCard({ cardWidth }) {
 
     return (

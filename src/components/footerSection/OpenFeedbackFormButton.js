@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import SendFeedbackForm from './SendFeedbackForm';
+import SendFeedbackForm from '../SendFeedbackForm';
 
 export default function OpenFeedbackFormButton() {
 

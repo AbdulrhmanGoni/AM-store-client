@@ -45,7 +45,7 @@ function FavoritesPage() {
                                 </Button>
                             </ActionAlert>
                         </Paper>
-                        <ProductsDisplayer>{products}</ProductsDisplayer>
+                        <ProductsDisplayer products={products} />
                     </>
                 )
                     : <Empty />

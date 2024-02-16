@@ -1,8 +1,8 @@
 "use client"
 import { Home } from '@mui/icons-material';
-import AccountMenu from './AccountMenu';
-import CustomShoppingCartIcon from './CustomShoppingCartIcon';
-import CustomFavoriteIcon from './CustomFavoriteIcon';
+import AccountMenu from '../AccountMenu';
+import CustomShoppingCartIcon from '../CustomShoppingCartIcon';
+import CustomFavoriteIcon from '../CustomFavoriteIcon';
 
 const links = [
     {

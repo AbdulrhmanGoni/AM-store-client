@@ -1,7 +1,7 @@
 import { Box, IconButton } from '@mui/material';
 import { P } from '@abdulrhmangoni/am-store-library';
 import { Email, GitHub, LinkedIn, Twitter, YouTube } from '@mui/icons-material';
-import OpenFeedbackFormButton from '../OpenFeedbackFormButton';
+import OpenFeedbackFormButton from './OpenFeedbackFormButton';
 import { underlineOnHover } from './FooterEndSection';
 
 

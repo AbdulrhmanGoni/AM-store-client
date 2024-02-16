@@ -1,5 +1,5 @@
 "use client"
-import SliderProduct from '../SliderProduct';
+import SliderProduct from './SliderProduct';
 import serverAction from '@/utilities/serverAction';
 import { useHTTPRequestState } from '@abdulrhmangoni/am-store-library';
 import { useEffect } from 'react';

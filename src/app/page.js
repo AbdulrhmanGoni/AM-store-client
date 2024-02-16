@@ -1,5 +1,5 @@
-import MainAppBar from '@/components/MainAppBar';
-import MobileBar from '@/components/MobileBar';
+import MainAppBar from '@/components/homePage/MainAppBar';
+import MobileBar from '@/components/homePage/MobileBar';
 import HomePageContainer from '@/components/homePage/HomePageContainer';
 import BestProductsSlide from '@/components/homePage/BestProductsSlide';
 import Footer from '@/components/footerSection/Footer';

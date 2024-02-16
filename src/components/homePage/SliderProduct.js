@@ -3,9 +3,9 @@ import styles from "./SliderProducts.module.css";
 import { useEffect, useState, useRef } from "react";
 import { Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
-import ProductCard from "./ProductCard";
+import ProductCard from "../ProductCard";
 import { FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
-import ProductsSlidesLoading from "./homePage/ProductsSlidesLoading";
+import ProductsSlidesLoading from "./ProductsSlidesLoading";
 
 export default function SliderProduct({ products, isLoading, isError, sliderId, refetch }) {
 

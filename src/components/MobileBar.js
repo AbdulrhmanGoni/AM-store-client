@@ -1,14 +1,16 @@
 "use client"
-import { IconButton, Paper } from '@mui/material';
+import { IconButton, Paper, useMediaQuery } from '@mui/material';
 import mobileBarLinks from "./MobileBarLinks";
 import { useRouter } from 'next/navigation';
 import { P } from '@abdulrhmangoni/am-store-library';
 
 export default function MobileBar() {
 
-    const { push } = useRouter()
+    const isMobileScreen = useMediaQuery("(max-width: 599px)");
+    const { push } = useRouter();
 
     return (
+        isMobileScreen &&
         <Paper
             sx={{
                 display: { xs: "flex", sm: "none" },

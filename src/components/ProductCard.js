@@ -16,7 +16,7 @@ import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import Image from "next/image";
 import ProductCardImageWithHoverLink from './ProductCardImageWithHoverLink';
 
-export default function ProductCard({ theProduct, sx, isBestSelling }) {
+export default function ProductCard({ theProduct, sx, isBestSelling, applyAnimation, appearingAnimationDelay }) {
 
     const { _id, images, title, amount, price, discount, rating } = theProduct;
 
@@ -29,7 +29,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
     const userData = useSelector(state => state.userData);
     const [isInCart, setAsInCart] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [cardOpacity, setCardOpacity] = useState(applyAnimation ? 0 : 1);
 
     async function addToShoppingCart() {
         if (userData) {
@@ -54,7 +54,12 @@ export default function ProductCard({ theProduct, sx, isBestSelling }) {
     return (
         <Card
             className='flex-column j-between'
-            sx={{ m: 0, ...sx }}
+            onLoad={() => setCardOpacity(1)}
+            sx={{
+                m: 0, ...sx,
+                transition: appearingAnimationDelay,
+                opacity: cardOpacity
+            }}
         >
             <ProductCardImageWithHoverLink
                 productId={_id}

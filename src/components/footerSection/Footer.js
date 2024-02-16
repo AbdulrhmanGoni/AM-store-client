@@ -1,3 +1,4 @@
+"use client"
 import { Box, Grid, Container, Divider } from '@mui/material';
 import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 import FooterLinks from './FooterLinks';

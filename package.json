@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@abdulrhmangoni/am-store-library": "^0.9.5",
+    "@abdulrhmangoni/am-store-library": "^0.9.7",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.13",

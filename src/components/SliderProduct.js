@@ -4,22 +4,16 @@ import { useEffect, useState, useRef } from "react";
 import { Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import ProductCard from "./ProductCard";
-import { useFetch } from "@/hooks/useFetch";
-import { ProductLoadingCard } from "./ProductLoadingCard";
-import { FetchFailedAlert, useWhenElementAppears } from "@abdulrhmangoni/am-store-library";
+import { FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
+import ProductsSlidesLoading from "./homePage/ProductsSlidesLoading";
 
-
-export default function SliderProduct({ requestPath, sliderId }) {
+export default function SliderProduct({ products, isLoading, isError, sliderId, refetch }) {
 
     const containerRef = useRef();
     const media = useMediaQuery("(max-width: 600px)");
     const productsCount = 10;
     const cardWidth = media ? 160 : 230;
     const [slidersWidth, setSlidersWidth] = useState(cardWidth * productsCount);
-    const [startFetching, setStartFetching] = useState(false);
-    useWhenElementAppears(`${sliderId}-slider`, () => setStartFetching(true));
-    const fetchOprions = { init: [], fetchCondition: startFetching };
-    const { data: products, isLoading, isError, refetch } = useFetch(requestPath, fetchOprions);
     const [autoScrollSliderConfig, setAutoScrollSliderConfig] = useState({ cardIndexForMovingTo: 1, direction: "right" });
     const scrollBtns = (move) => { containerRef.current.scrollLeft += move };
 
@@ -82,10 +76,6 @@ export default function SliderProduct({ requestPath, sliderId }) {
         products.length && setSlidersWidth(cardsWidth + spacesSizeBetweenCards);
     }, [cardWidth, products.length]);
 
-    const loadingCards = Array.from(Array(5)).map((_, index) => (
-        <ProductLoadingCard key={index} cardWidth={cardWidth} />
-    ))
-
     const floatBtnStyle = {
         width: "35px",
         height: "35px",
@@ -102,19 +92,17 @@ export default function SliderProduct({ requestPath, sliderId }) {
             <div ref={containerRef} className={styles.sliderProductContainer}>
                 <div className={styles.sliderProduct} style={{ width: `${slidersWidth}px`, minHeight: "310px" }}>
                     {
-                        isLoading ? loadingCards
-                            : isError ?
-                                <FetchFailedAlert
-                                    message="Fetching Products Failed"
-                                    refetch={() => refetch()}
-                                />
-                                : products.map((product) => {
+                        isLoading ? <ProductsSlidesLoading cardWidth={cardWidth} />
+                            : isError ? <FetchFailedAlert refetch={refetch} message='Failed to fetch the products' />
+                                : products?.map((product, index) => {
                                     return (
                                         <ProductCard
                                             key={product._id}
                                             sx={{ minWidth: cardWidth }}
                                             theProduct={product}
                                             isBestSelling={sliderId === "top-products"}
+                                            applyAnimation={true}
+                                            appearingAnimationDelay={`${index * .29}s`}
                                         />
                                     )
                                 })
@@ -122,7 +110,7 @@ export default function SliderProduct({ requestPath, sliderId }) {
                 </div>
             </div>
             {
-                !!products.length &&
+                !!products?.length &&
                 <>
                     <IconButton
                         sx={{ "&:hover": { ...bgHover }, ...floatBtnStyle, left: "0px" }}
@@ -143,3 +131,5 @@ export default function SliderProduct({ requestPath, sliderId }) {
         </Box>
     );
 }
+
+export { FetchFailedAlert }

@@ -43,21 +43,31 @@ export default function useRatingProduct({ productId }) {
         const updatedTotalStars = totalStars + (newRating - currentUserRating)
         productRating.reviews += isFirstReview ? 1 : 0
         productRating.currentUserRating = newRating
-        updateStarsPercentage(currentUserRating, newRating, productRating.reviews)
-        productRating.ratingAverage = +(updatedTotalStars / productRating.reviews).toFixed(0)
+        updateStarsPercentage(currentUserRating, newRating)
+        productRating.ratingAverage = +(updatedTotalStars / productRating.reviews).toFixed(1)
         setProductRating(productRating)
     }
 
-    function updateStarsPercentage(pastRateing, newRating, totalReviews) {
+    function updateStarsPercentage(pastRateing, newRating) {
         if (pastRateing) {
             const pastStar = starsFieldsNames[pastRateing - 1]
-            const pastCount = --productRating[pastStar].count
-            productRating[pastStar].percentage = +((pastCount / totalReviews) * 100).toFixed(0)
+            --productRating[pastStar].count
+            productRating[pastStar].percentage = calcPercentage(pastStar)
         }
 
         const newStar = starsFieldsNames[newRating - 1]
-        const newCount = ++productRating[newStar].count
-        productRating[newStar].percentage = +((newCount / totalReviews) * 100).toFixed(0)
+        ++productRating[newStar].count
+        productRating[newStar].percentage = calcPercentage(newStar)
+
+        starsFieldsNames.forEach((startField) => {
+            if (startField !== newStar && startField !== starsFieldsNames[pastRateing - 1]) {
+                productRating[startField].percentage = calcPercentage(startField)
+            }
+        })
+    }
+
+    function calcPercentage(startField) {
+        return +((productRating[startField].count / productRating.reviews) * 100).toFixed(1)
     }
 
     return {

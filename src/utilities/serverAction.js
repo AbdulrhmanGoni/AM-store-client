@@ -1,5 +1,6 @@
 "use server"
 import { host } from "@/CONSTANTS/hostName"
+import axios from "axios";
 import { cookies } from "next/headers";
 
 export default async function serverAction(path) {
@@ -17,5 +18,5 @@ export default async function serverAction(path) {
         cache: 'no-store'
     }
 
-    return (await fetch(`${host}/${path ?? ""}`, requestOptions)).json()
+    return (await axios.get(`${host}/${path ?? ""}`, requestOptions)).data
 }

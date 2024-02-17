@@ -2,16 +2,16 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function useProductsSearchParams() {
 
-    const { push } = useRouter();
+    const { replace } = useRouter();
     const currentSearchParams = useSearchParams();
-    const currentUrl = usePathname();
+    const currentPath = usePathname();
 
     function setParam(name, value) {
         if (name) {
             const newSearchParams = new URLSearchParams(currentSearchParams);
             if (currentSearchParams.get(name) !== value) {
                 newSearchParams.set(name, value)
-                push(currentUrl + '?' + newSearchParams.toString())
+                replace(currentPath + '?' + newSearchParams.toString())
             }
         }
     }
@@ -19,12 +19,14 @@ export default function useProductsSearchParams() {
     function removeParam(name) {
         const newSearchParams = new URLSearchParams(currentSearchParams);
         newSearchParams.delete(name)
-        push(currentUrl + '?' + newSearchParams.toString())
+        replace(currentPath + '?' + newSearchParams.toString())
     }
 
     return {
         setParam,
         getParam: (name) => currentSearchParams.get(name),
-        removeParam
+        removeParam,
+        currentPath,
+        currentSearchParams
     }
 }

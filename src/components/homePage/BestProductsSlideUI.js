@@ -2,7 +2,6 @@
 import SliderProduct from './SliderProduct';
 import serverAction from '@/utilities/serverAction';
 import { useHTTPRequestState } from '@abdulrhmangoni/am-store-library';
-import { useEffect } from 'react';
 
 export default function BestProductsSlideUI({ products, error }) {
 
@@ -13,11 +12,11 @@ export default function BestProductsSlideUI({ products, error }) {
         isError,
         setIsLoading,
         setIsError
-    } = useHTTPRequestState(products)
+    } = useHTTPRequestState(products || [], { initialError: error })
 
     function fetchBestProducts() {
         setIsLoading(true);
-        serverAction(`products/top-products?sort=earnings&limit=10`)
+        serverAction("products/top-products?sort=earnings&limit=10")
             .then((products) => {
                 setProducts(products)
                 if (isError) setIsError(false);
@@ -26,14 +25,12 @@ export default function BestProductsSlideUI({ products, error }) {
             .finally(() => setIsLoading(false))
     }
 
-    useEffect(() => { setIsError(error) }, [])
-
     return (
         <SliderProduct
             isLoading={isLoading}
             isError={isError}
             refetch={fetchBestProducts}
-            products={products || data || []}
+            products={data || []}
             sliderId="top-products"
         />
     )

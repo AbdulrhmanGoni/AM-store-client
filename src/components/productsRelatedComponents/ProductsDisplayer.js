@@ -16,7 +16,7 @@ const ProductsDisplayer = ({ products, cardSx }) => {
                                 sx={{ height: "100%", ...cardSx }}
                                 theProduct={product}
                                 applyAnimation
-                                appearingAnimationDelay={`${index * .29}s`}
+                                appearingAnimationDelay={`${index * .20}s`}
                             />
                         </Grid>
                     )

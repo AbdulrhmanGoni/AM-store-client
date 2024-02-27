@@ -16,9 +16,9 @@ Users can browse store's products as guests, or they can create accounts to get 
 
 All users can send feedbacks to me if they faced a problem (logical or technical) in the store
 
-## Technologies <img src="./public/javascript.svg" style="width: 15px;height: 15px;"> <img src="./public/react.svg" style="width: 15px;height: 15px;"> <img src="./public/nextjs-13.svg" style="width: 40px;height: 17px;"> <img src="./public/Material-UI.svg" style="width: 15px;height: 15px;"> <img src="./public/redux.svg" style="width: 15px;height: 15px;">
+## Technologies
 
-- JavaScript
-- React.js & Next.js
-- Material UI
-- Redux
+- JavaScript <img src="./public/javascript.svg" style="width: 15px;height: 15px; transform: translate(3px, 3px)">
+- Next.js <img src="./public/nextjs-13.svg" style="width: 40px;height: 17px; transform: translate(3px, 5px); background: black; padding: 0px 5px">
+- Material UI <img src="./public/Material-UI.svg" style="width: 15px;height: 15px; transform: translate(3px, 3px)">
+- Redux <img src="./public/redux.svg" style="width: 15px;height: 15px; transform: translate(3px, 3px)">

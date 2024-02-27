@@ -66,7 +66,7 @@ export default function CheckoutPage() {
             totalPrice,
             paymentMethod,
             deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
-            discountCobone: { name: discountCobone, value: discount },
+            discountCobone: (discountCobone && discount) ? { name: discountCobone, value: discount } : undefined,
         }
     }
 

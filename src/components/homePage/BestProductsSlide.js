@@ -6,7 +6,7 @@ import BestProductsSlideUI from './BestProductsSlideUI';
 export default async function BestProductsSlide() {
 
     try {
-        const products = await serverAction("products/top-products?sort=earnings&limit=10");
+        const products = await serverAction("products/top-products?limit=10");
         return <ProductsSlide products={products} />
     } catch {
         return <ProductsSlide error={true} />

@@ -14,7 +14,7 @@ export default function useShoppingCartActions() {
 
     const clearCart = async () => {
         loadingControl(true);
-        const data = await customFetch(path, "DELETE", { actionType: "clear" })
+        const data = await customFetch(path + "?clear=true", "DELETE")
         loadingControl(false);
         return data;
     }

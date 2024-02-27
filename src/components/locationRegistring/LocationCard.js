@@ -25,7 +25,7 @@ export default function LocationCard({ locationData, children, id, isSelected, s
             .finally(() => setLoading(false));
     }
 
-    const { country, city, street, theName, phone, type } = locationData;
+    const { country, city, street, theName, phone } = locationData;
 
     return (
         <Box position="relative">
@@ -39,7 +39,6 @@ export default function LocationCard({ locationData, children, id, isSelected, s
             >
                 <LocationCardRow sx={{ p: "0px 0px 0px 12px" }}>
                     <LocationOn sx={{ color: 'primary.main', mr: 1 }} />
-                    <P>{type}</P>
                     <LocationCardRow sx={{ flexGrow: 1, justifyContent: "flex-start", ml: 2, p: "8px 0px" }}>
                         {children}
                     </LocationCardRow>

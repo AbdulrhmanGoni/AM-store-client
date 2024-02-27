@@ -100,8 +100,7 @@ export default function AddLocationForm() {
                 country: country,
                 city: city,
                 street: Street,
-                moreDetails: more,
-                type: "Home"
+                moreDetails: more
             }
 
             addNewLocation(theLocation)

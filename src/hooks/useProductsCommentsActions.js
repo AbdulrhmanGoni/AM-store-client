@@ -24,7 +24,7 @@ export default function useProductsCommentsActions() {
     }
 
     async function setLikeOrDislike(action) {
-        return await customFetch(path + "?type=like-dislike", "PUT", action);
+        return await customFetch(path, "PUT", action);
     }
 
     return {

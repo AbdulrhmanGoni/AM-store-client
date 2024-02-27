@@ -5,11 +5,11 @@ import { setNewAvatar_localy } from '../state-management/userData_slice';
 
 export default function useAvatarUploader() {
 
-    const userData = useSelector(state => state.userData);
+    const userId = useSelector(state => state.userData?._id);
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
 
-    return (image) => customFetch(`users/${userData?._id}/upload-avatar`, "POST", { avatarUrl: image })
+    return (image) => customFetch(`users/${userId}/upload-avatar`, "POST", { avatarUrl: image })
         .then(avatar => {
             message("Avatar Uploaded Successfully", "success");
             dispatch(setNewAvatar_localy(avatar));

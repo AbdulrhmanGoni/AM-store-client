@@ -10,9 +10,7 @@ export default function Footer() {
     return (
         <Box
             sx={{
-                bgcolor: ({ palette: { mode } }) => {
-                    return mode == "light" ? "#eee" : "#030a27"
-                },
+                bgcolor: ({ palette: { mode } }) => mode == "light" ? "#eee" : "#030a27",
                 borderTop: "solid 1px",
                 borderTopColor: "divider",
                 pt: 2

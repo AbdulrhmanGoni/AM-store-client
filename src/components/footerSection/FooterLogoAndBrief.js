@@ -10,9 +10,9 @@ export default function FooterLogoAndBrief() {
                 sx={{ width: "130px", height: "70px", ml: "-12px" }}
             />
             <P maxWidth={{ md: 400 }}>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Iusto, blanditiis officiis at repellendus maxime molestias ratione.
-                Atque dolor, iusto ipsa at aspernatur porro id aliquam.
+                AM Store where any otaku wish to find.
+                Here you will find the best Japanes Anime and Manga products
+                with different categories like figures, panels, clothes and more.
             </P>
         </Box>
     )

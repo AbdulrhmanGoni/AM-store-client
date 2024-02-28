@@ -6,28 +6,17 @@ import { underlineOnHover } from './FooterEndSection';
 
 
 export default function FooterConcatSection() {
-    const iconsLinks = (link) => {
-        return {
-            target: "_blank",
-            href: link
-        }
-    }
     return (
         <>
             <P variant='h6' fontWeight="bolder">Concat me </P>
             <Box className="flex-row a-center py1" ml="-10px" flexWrap="wrap">
-                <IconButton {...iconsLinks("https://github.com/abdulrhmangoni/")}>
-                    <GitHub sx={iconsStyles()} />
-                </IconButton >
-                <IconButton {...iconsLinks()}>
-                    <LinkedIn sx={iconsStyles("#0a66c2")} />
-                </IconButton>
-                <IconButton {...iconsLinks()}>
-                    <Twitter sx={iconsStyles("#1da1f2")} />
-                </IconButton>
-                <IconButton {...iconsLinks()}>
-                    <YouTube sx={iconsStyles("red")} />
-                </IconButton>
+                {
+                    concatIconsList.map(({ Icon, link, color }) => (
+                        <IconButton key={link + color} href={link} target='_blank'>
+                            <Icon sx={{ width: 30, height: 30, borderRadius: 1, color }} />
+                        </IconButton>
+                    ))
+                }
             </Box>
             <P
                 component="a"
@@ -49,11 +38,25 @@ export default function FooterConcatSection() {
     )
 }
 
-const iconsStyles = (color) => {
-    return {
-        width: 30,
-        height: 30,
-        borderRadius: 1,
-        color
-    }
-}
+const concatIconsList = [
+    {
+        Icon: GitHub,
+        color: "",
+        link: "https://github.com/abdulrhmangoni/"
+    },
+    {
+        Icon: LinkedIn,
+        color: "#0a66c2",
+        link: "https://www.linkedin.com/in/abdulrhman-goni-857a36275"
+    },
+    {
+        Icon: Twitter,
+        color: "#1da1f2",
+        link: ""
+    },
+    {
+        Icon: YouTube,
+        color: "red",
+        link: ""
+    },
+]

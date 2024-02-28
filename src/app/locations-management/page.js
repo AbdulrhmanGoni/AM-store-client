@@ -1,40 +1,33 @@
 "use client"
-import { useEffect, useState } from 'react';
 import { Box, Button, Divider } from '@mui/material';
 import SelectedLocationCard from '@/components/locationRegistring/SelectedLocationCard';
-import { useDispatch, useSelector } from 'react-redux';
 import LocationsManegement from '@/components/locationRegistring/LocationsManegement';
 import { ElementWithLoadingState, IllustrationCard, P } from '@abdulrhmangoni/am-store-library';
-import { setUserLocations } from '@/state-management/locations_slice';
-import useLocationActions from '@/hooks/useLocationActions';
+import useUserLocations from '@/hooks/useUserLocations';
 
 export default function LocationsManegementPage() {
 
-    const { fetchLocations } = useLocationActions();
-    const dispatch = useDispatch();
-    const userId = useSelector(state => state.userData?._id);
-    const { locationsList } = useSelector(state => state.locations);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const [render, setRender] = useState(false);
+    const {
+        isLoading,
+        isError,
+        isFetched,
+        refetch,
+        locationsList
+    } = useUserLocations();
 
-    useEffect(() => {
-        if (!locationsList) {
-            setIsLoading(true);
-            fetchLocations()
-                .then(userLocations => {
-                    dispatch(setUserLocations(userLocations));
-                    isError && setIsError(false);
-                })
-                .catch(() => { !isError && setIsError(true); })
-                .finally(() => setIsLoading(false));
+    if (isFetched) {
+        if (isError) {
+            <IllustrationCard
+                title='Fetching locations failed'
+                message='Fetching your locations data failed for unknown reason'
+                disableHeight
+            >
+                <Box className="flex-row-center">
+                    <Button onClick={refetch} variant='contained'>Retry</Button>
+                </Box>
+            </IllustrationCard>
         }
-    }, [locationsList, userId]);
-
-    useEffect(() => { setRender(true) }, []);
-
-    if (render) {
-        if ((isLoading || locationsList)) {
+        else if ((isLoading || locationsList)) {
             return (
                 <Box className="flex-column gap2">
                     <ElementWithLoadingState
@@ -57,17 +50,6 @@ export default function LocationsManegementPage() {
                     />
                 </Box>
             );
-        }
-        else if (isError) {
-            <IllustrationCard
-                title='Fetching locations failed'
-                message='Fetching your locations data failed for unknown reason'
-                disableHeight
-            >
-                <Box className="flex-row-center">
-                    <Button onClick={() => refetch()} variant='contained'>Retry</Button>
-                </Box>
-            </IllustrationCard>
         }
     }
 }

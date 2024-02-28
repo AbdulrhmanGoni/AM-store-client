@@ -1,7 +1,6 @@
 import {
     AccountCircle, AddLocation, AddRoad, LocalPhone, LocationCity, Public, SmsOutlined
 } from '@mui/icons-material';
-
 import { Box, Button, Card, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
@@ -110,47 +109,96 @@ export default function AddLocationForm() {
         }
     }
 
+    function iconsProps(condition) {
+        return {
+            ...styleIcon,
+            color: condition ? "red" : "primary.main"
+        }
+    }
+
     return (
         <Card sx={{ p: "16px 8px", m: 0, width: "100%" }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <AccountCircle sx={{ ...styleIcon, color: nameValidationState ? "red" : "primary.main" }} />
-                        <TextField error={nameValidationState} sx={styleInput} id="theNameField" label="The Name" variant="standard" />
+                        <AccountCircle sx={iconsProps(nameValidationState)} />
+                        <TextField
+                            error={nameValidationState}
+                            sx={styleInput}
+                            id="theNameField"
+                            label="The Name"
+                            variant="standard"
+                        />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <LocalPhone sx={{ ...styleIcon, color: numberValidationState ? "red" : "primary.main" }} />
-                        <TextField error={numberValidationState} sx={styleInput} id="phoneNumperField" label="Phone Numper" variant="standard" />
+                        <LocalPhone sx={iconsProps(numberValidationState)} />
+                        <TextField
+                            error={numberValidationState}
+                            sx={styleInput}
+                            id="phoneNumperField"
+                            label="Phone Numper"
+                            variant="standard"
+                        />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <Public sx={{ ...styleIcon, color: countryValidationState ? "red" : "primary.main" }} />
-                        <TextField error={countryValidationState} sx={styleInput} id="countryField" label="Country" variant="standard" />
+                        <Public sx={iconsProps(countryValidationState)} />
+                        <TextField
+                            error={countryValidationState}
+                            sx={styleInput}
+                            id="countryField"
+                            label="Country"
+                            variant="standard"
+                        />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <LocationCity sx={{ ...styleIcon, color: cityValidationState ? "red" : "primary.main" }} />
-                        <TextField error={cityValidationState} sx={styleInput} id="cityField" label="City" variant="standard" />
+                        <LocationCity sx={iconsProps(cityValidationState)} />
+                        <TextField
+                            error={cityValidationState}
+                            sx={styleInput}
+                            id="cityField"
+                            label="City"
+                            variant="standard"
+                        />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <AddRoad sx={{ ...styleIcon, color: streetValidationState ? "red" : "primary.main" }} />
-                        <TextField error={streetValidationState} sx={styleInput} id="streetField" label="Street Address" variant="standard" />
+                        <AddRoad sx={iconsProps(streetValidationState)} />
+                        <TextField
+                            error={streetValidationState}
+                            sx={styleInput}
+                            id="streetField"
+                            label="Street Address"
+                            variant="standard"
+                        />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
                         <SmsOutlined sx={styleIcon} />
-                        <TextField sx={styleInput} id="moreDetailsField" label="More Details" variant="standard" />
+                        <TextField
+                            sx={styleInput}
+                            id="moreDetailsField"
+                            label="More Details"
+                            variant="standard"
+                        />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sx={{ mt: 2 }}>
-                    <Button onClick={addLocation} sx={{ mr: 2 }} size='small' startIcon={<AddLocation />} variant='contained'>Add Address</Button>
+                    <Button
+                        onClick={addLocation}
+                        sx={{ mr: 2 }}
+                        size='small'
+                        startIcon={<AddLocation />}
+                        variant='contained'>
+                        Add Address
+                    </Button>
                 </Grid>
             </Grid>
         </Card>

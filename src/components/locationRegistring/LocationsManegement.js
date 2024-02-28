@@ -4,7 +4,6 @@ import { Box, Button, Divider, IconButton, useMediaQuery, Card, useTheme } from 
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsList from './LocationsList';
 import AddLocationForm from './AddLocationForm';
-import GoogleMaps from './GoogleMaps';
 import { AddLocation, AddLocationAlt, Close, Map, MyLocation } from '@mui/icons-material';
 import useLocationActions from '@/hooks/useLocationActions';
 import { setSelectedLocation_localy } from '@/state-management/locations_slice';
@@ -26,7 +25,7 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
     const [toRender, setRender] = useState(null);
 
     useEffect(() => {
-        if (["locations_list", "add_location", "map"].includes(defualtDisplay)) {
+        if (["locations_list", "add_location"].includes(defualtDisplay)) {
             setRender(defualtDisplay);
         }
         else {
@@ -60,7 +59,6 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
                 />
             );
             case "add_location": return <AddLocationForm chooses={setRender} />;
-            case "map": return <GoogleMaps />;
             default: return;
         }
     }
@@ -88,7 +86,6 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
         <Card
             component="form"
             onSubmit={onSave}
-
             className='flex-column'
             sx={{ width: float ? { xs: "96vw", sm: "500px", md: "800px" } : { width: "100%" } }}>
             <Bar sx={{ bgcolor: "background.paper" }} dividerBotton>
@@ -103,18 +100,17 @@ export default function LocationsManegement({ defualtDisplay, control, float }) 
             </Box>
             <Bar dividerTop sx={{ gap: { xs: 1, sm: 0 } }}>
                 <Box sx={btnContainer}>
-                    <Button
-                        variant={mode === "light" ? "text" : null}
-                        sx={btnStyle}
-                        size={`${btnSize}`}
-                        startIcon={<AddLocation sx={{ color: 'primary.main' }} />}
-                        onClick={() => setRender("add_location")}>New Address</Button>
-                    <Button
-                        variant={mode === "light" ? "text" : null}
-                        sx={btnStyle}
-                        size={`${btnSize}`}
-                        startIcon={<Map sx={{ color: 'primary.main' }} />}
-                        onClick={() => setRender("map")}>Use The Map</Button>
+                    {
+                        toRender !== "add_location" &&
+                        <Button
+                            variant={mode === "light" ? "text" : null}
+                            sx={btnStyle}
+                            size={`${btnSize}`}
+                            startIcon={<AddLocation sx={{ color: 'primary.main' }} />}
+                            onClick={() => setRender("add_location")}>
+                            New Address
+                        </Button>
+                    }
                 </Box>
                 <Box sx={btnContainer}>
                     {

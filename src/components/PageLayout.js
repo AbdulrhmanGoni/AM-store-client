@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 import AccountMenu from './AccountMenu';
 import { P } from "@abdulrhmangoni/am-store-library";
+import Footer from './footerSection/Footer';
 
 
 export default function PageLayout({ children, maxWidth, title, signUpRequired, redirect }) {
@@ -57,11 +58,13 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                         display: "flex",
                         flexDirection: "column",
                         minHeight: "calc(100vh - 57px - 25px)",
-                        px: pagesSpaces
+                        px: pagesSpaces,
+                        mb: 4
                     }}
                 >
                     {children}
                 </Container>
+                <Footer />
             </>
             : <CantAccessMessage />
     }

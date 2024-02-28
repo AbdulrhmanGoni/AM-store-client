@@ -28,7 +28,7 @@ export default function AppWrapper({ children }) {
                 }
             }}
         >
-            <Box component="body">
+            <Box component="body" style={{ minHeight: "100vh" }}>
                 {
                     isLoading ? <LoadingPage />
                         : isServerError ? <IllustrationCard

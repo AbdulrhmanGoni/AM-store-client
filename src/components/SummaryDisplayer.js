@@ -15,7 +15,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
         )
     }
 
-    const original = findOriginalPrice(total, discount.value * 100)
+    const original = findOriginalPrice(total, discount?.value * 100)
     const priceStyle = { fontSize: media ? "15px" : "16px" }
 
     return (
@@ -28,15 +28,15 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                 <Li>
                     <TextTitle>Items ({items})</TextTitle>
                     <PriceDisplayer
-                        price={discount.value ? original : total}
+                        price={discount?.value ? original : total}
                         style={priceStyle}
                     />
                 </Li>
                 {
-                    discount.value &&
+                    discount?.value &&
                     <Li>
-                        <TextTitle style={{ color: "primary.main" }}>discount: {discount.value * 100}%</TextTitle>
-                        <PriceDisplayer price={original * discount.value} operator="-" />
+                        <TextTitle style={{ color: "primary.main" }}>discount: {discount?.value * 100}%</TextTitle>
+                        <PriceDisplayer price={original * discount?.value} operator="-" />
                     </Li>
                 }
                 <Li>
@@ -56,7 +56,7 @@ export default function SummaryDisplayer({ total, discount, delivery, items }) {
                     <Box sx={{ display: 'flex', alignItems: 'flex-end', flexGrow: "1" }}>
                         <Discount sx={{ color: 'primary.main', mr: 1, my: 0.5, fontSize: "1rem" }} />
                         <TextField
-                            defaultValue={discount.name ?? "No Used Cobone"}
+                            defaultValue={discount?.name ?? "No Used Cobone"}
                             disabled
                             label="Cobone"
                             variant="standard"

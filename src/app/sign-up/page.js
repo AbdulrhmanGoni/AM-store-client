@@ -1,9 +1,5 @@
 "use client"
-import {
-    Box, Grid, Checkbox, Paper,
-    FormControlLabel, TextField,
-    Button, Avatar
-} from '@mui/material/';
+import { Box, Grid, Paper, TextField, Button, Avatar } from '@mui/material/';
 import { PersonAddAlt1 } from '@mui/icons-material';
 import useSignUpLogic from '@/hooks/useSignUpLogic';
 import { useGoogleAuth, P } from '@abdulrhmangoni/am-store-library';
@@ -92,12 +88,6 @@ export default function SignUpPage() {
                                 autoComplete="verify-password"
                             />
                             {!passwordState.state && <ErrorMessageTag messge={passwordState.msg} />}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox name='allowExtraEmails' id='allowExtraEmails' value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
                         </Grid>
                     </Grid>
                     <Button

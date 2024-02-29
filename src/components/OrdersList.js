@@ -52,7 +52,7 @@ export default function OrdersList({ orderState }) {
             </List>
             {
                 isLoading ? <LoadingCircle style={{ height: "100%", position: "relative", minHeight: undefined, my: 3 }} />
-                    : isError ? <FetchFailedAlert refetch={refetch} message='Falied to fetch comments' />
+                    : isError ? <FetchFailedAlert refetch={refetch} message='Falied to fetch orders' />
                         : !orders.length && isSuccess && <NoOrders />
             }
         </>

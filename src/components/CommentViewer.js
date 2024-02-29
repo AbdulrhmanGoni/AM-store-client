@@ -55,7 +55,7 @@ export default function CommentViewer({ commenterData: { userName, avatar }, the
                     {
                         userId === commenterId &&
                         <OptionsMenu>
-                            <OptionsMenu.MenuOption
+                            <OptionsMenu.Option
                                 asyncAction={async () => await deleteCommentFunc({ commentId, commenterId })}
                                 optionText="Delete"
                                 optionIcon={<Delete />}

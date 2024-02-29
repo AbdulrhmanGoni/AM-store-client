@@ -1,10 +1,10 @@
-import { ChangeCircleOutlined, Payment } from '@mui/icons-material';
+import { ChangeCircleOutlined } from '@mui/icons-material';
 import {
-    Alert,
-    Avatar, Button, ListItem, ListItemAvatar,
-    ListItemText
+    Alert, ListItemText,
+    Avatar, Button, ListItem, ListItemAvatar
 } from '@mui/material';
 import { useSelector } from 'react-redux';
+import Image from 'next/image';
 
 
 export default function SelectedCridetCard({ chooses }) {
@@ -13,18 +13,27 @@ export default function SelectedCridetCard({ chooses }) {
 
     if (choosedMethod) {
         return (
-            <ListItem sx={{ border: "solid 1px #eee", borderRadius: 1 }} key={choosedMethod.number}>
+            <ListItem sx={{ border: "solid 1px #eee", borderRadius: 1, flexWrap: "wrap" }} key={choosedMethod.number}>
                 <ListItemAvatar sx={{ minWidth: "40px" }}>
-                    <Avatar sx={{ width: "30px", height: "30px", mr: 0 }}>
-                        <Payment fontSize='16px' />
-                    </Avatar>
+                    <Image
+                        src='/credit-card.svg'
+                        alt='Credit Card icon'
+                        width={30}
+                        height={30}
+                    />
                 </ListItemAvatar>
                 <ListItemText primary={choosedMethod.theName} secondary={choosedMethod.number} />
                 <Button
                     onClick={() => chooses("cards_list")}
                     size='small' variant='outlined'
-                    startIcon={<ChangeCircleOutlined
-                        sx={{ fontSize: '23px !important' }} />}>Change Card</Button>
+                    sx={{
+                        fontSize: { xs: "10px", sm: "14px" },
+                        p: { xs: "2px 5px", sm: "3px 9px" }
+                    }}
+                    startIcon={<ChangeCircleOutlined sx={{ fontSize: '23px !important' }} />}
+                >
+                    Change
+                </Button>
             </ListItem>
         )
     } else {

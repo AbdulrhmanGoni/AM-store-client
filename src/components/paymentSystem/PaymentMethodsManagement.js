@@ -82,7 +82,7 @@ export default function PaymentMethodsManagement() {
                 }
             </Box>
             <Divider sx={{ mb: 1, mt: 1 }} />
-            <Box sx={{ p: 2, borderRadius: 2 }}>
+            <Box sx={{ p: { xs: 0, sm: 1 }, borderRadius: 2 }}>
                 <Box className="flex-column gap1">
                     {
                         isFetchError ? (
@@ -107,7 +107,7 @@ export default function PaymentMethodsManagement() {
                                     }
                                 />
                                 <ElementWithLoadingState height={75} isLoading={isLoading}
-                                    element={paymentMethodType === "Card" ? <><Divider /><ToRender renderId={toRender} /></> : null}
+                                    element={paymentMethodType === "Card" ? <ToRender renderId={toRender} /> : null}
                                 />
                             </>
                     }

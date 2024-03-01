@@ -45,7 +45,10 @@ export default function useUserFavorites() {
         if (userId) {
             setIsClearing(true);
             clearFavorites()
-                .then(clearFavoritesSession)
+                .then((() => {
+                    clearFavoritesSession();
+                    setProducts([])
+                }))
                 .catch(() => { message("Clearing products failed", "error") })
                 .finally(() => { setIsClearing(false) })
 

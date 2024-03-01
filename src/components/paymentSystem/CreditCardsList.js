@@ -1,75 +1,76 @@
-import { AddCard, Reply } from '@mui/icons-material';
+import { AddCard, Reply, Save } from '@mui/icons-material';
 import { Alert, Box, Button, List } from '@mui/material';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 import { setChoosedPaymentMethod_localy } from '@/state-management/userPaymentMethods_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import CreditCard from './CreditCard';
 
 
-export default function CreditCardsList({ theList, chooses }) {
+export default function CreditCardsList({ theList, exit }) {
 
     const dispatch = useDispatch();
     const { message } = useSpeedMessage();
     const { setChoosedPaymentMethod } = usePaymentMethodsActions();
-    const [selectedCardNumber, setCardAsSelected] = useState(null);
+    const [selectedCardNumber, setCardAsSelected] = useState();
     const { choosedMethod } = useSelector(state => state.userPaymentMethods);
 
-    function onSelect(value) {
-        if (choosedMethod?.number !== value) {
-            const theCard = theList.find(pm => pm.number === value);
+    function save() {
+        if (choosedMethod?.number !== selectedCardNumber) {
+            const theCard = theList.find(card => card.number === selectedCardNumber);
 
             setChoosedPaymentMethod(theCard)
                 .then(() => {
                     dispatch(setChoosedPaymentMethod_localy(theCard));
-                    setCardAsSelected(value);
+                    setCardAsSelected(selectedCardNumber);
+                    exit();
                 })
                 .catch(() => message("Setting card as choosed payment method failed!"))
         }
     }
 
     useEffect(() => {
-        if (choosedMethod && typeof (choosedMethod) !== "string") {
+        if (choosedMethod && choosedMethod !== "Cash") {
             setCardAsSelected(choosedMethod.number);
         }
     }, [choosedMethod])
 
-
     return (
-        <>
-            <List className='flex-column full-width' sx={{ p: 1 }}>
+        <Box className="flex-column gap1">
+            <List className='flex-column full-width gap1'>
                 {
                     theList?.length ?
                         theList.map((card) => (
                             <CreditCard
                                 key={card.number}
                                 card={card}
-                                onSelect={onSelect}
+                                onSelect={(value) => setCardAsSelected(value)}
+                                onDelete={() => setCardAsSelected()}
                                 selectedCardNumber={selectedCardNumber}
                             />
                         ))
                         :
-                        <Alert sx={{ mb: 1 }} severity="warning">You Dont Have Cridet Cards</Alert>
+                        <Alert sx={{ mb: 1 }} severity="warning">You Didn&apos;t Have Cridet Cards</Alert>
                 }
             </List>
-            <Box className="flex-row-center gap1">
+            <Box className="flex-row-center-end gap1">
+                {
+                    selectedCardNumber && choosedMethod?.number !== selectedCardNumber &&
+                    <Button
+                        onClick={save}
+                        size='small' startIcon={<Save />}
+                        variant='contained'>
+                        Save
+                    </Button>
+                }
                 <Button
-                    sx={{ flexGrow: 1 }}
-                    onClick={() => chooses("add_card")}
-                    size='small' startIcon={<AddCard />}
-                    variant='contained'>
-                    Add New Card
-                </Button>
-                <Button
-                    onClick={() => chooses("selected")}
+                    onClick={exit}
                     size='small' startIcon={<Reply />}
-                    disabled={!choosedMethod}
                     variant='contained'>
                     Back
                 </Button>
             </Box>
-        </>
+        </Box>
     )
 }

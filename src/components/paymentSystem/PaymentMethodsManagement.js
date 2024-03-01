@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Card, Divider, FormControlLabel, Radio, Alert } from '@mui/material';
+import { Box, Card, Divider, FormControlLabel, Radio, Alert, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import CridetCardsList from './CreditCardsList';
 import CridetCardForm from './AddCreditCardForm';
 import SelectedCridetCard from './SelectedCridetCard';
 import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/state-management/userPaymentMethods_slice';
-import { ElementWithLoadingState, FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
+import { ElementWithLoadingState, FetchFailedAlert, P } from '@abdulrhmangoni/am-store-library';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
+import { AddCard, List } from '@mui/icons-material';
 
 
 export default function PaymentMethodsManagement() {
@@ -44,25 +45,13 @@ export default function PaymentMethodsManagement() {
     useEffect(() => {
         if (choosedMethod && typeof (choosedMethod) !== "string") {
             setPaymentMethodType("Card");
-            setRender("selected");
+            if (!cardsList.length) setRender("add_card");
         }
-        else if (cardsList) setRender("cards_list");
-        else setRender("add_card");
     }, [choosedMethod, cardsList]);
 
-
-    function ToRender({ renderId }) {
-        let components = {
-            "cards_list": <CridetCardsList chooses={setRender} theList={cardsList} />,
-            "add_card": <CridetCardForm chooses={setRender} />,
-            "selected": <SelectedCridetCard chooses={setRender} />
-        }
-        return components[renderId]
-    }
-
     return (
-        <Card component="form" className='flex-column' sx={{ p: 1, borderRadius: 2 }}>
-            <Box sx={{ p: 2, borderRadius: 2 }}>
+        <Card component="form" className='flex-column' sx={{ p: { xs: 1, sm: 2 }, borderRadius: 2 }}>
+            <Box sx={{ borderRadius: 2 }}>
                 <FormControlLabel
                     sx={{ fontWeight: "900" }}
                     value="Cash"
@@ -74,16 +63,18 @@ export default function PaymentMethodsManagement() {
                 />
                 {
                     paymentMethodType === "Cash" ?
-                        <>
-                            <Divider sx={{ mb: 1 }} />
-                            <Alert severity="info">The Delivery Representative Will Delever The Order To The Location You Added </Alert>
-                        </>
+                        <Alert
+                            severity="info"
+                            sx={{ mt: 1.5 }}
+                        >
+                            The Delivery Representative Will Delever The Order To The Location You Added
+                        </Alert>
                         : null
                 }
             </Box>
             <Divider sx={{ mb: 1, mt: 1 }} />
-            <Box sx={{ p: { xs: 0, sm: 1 }, borderRadius: 2 }}>
-                <Box className="flex-column gap1">
+            <Box sx={{ borderRadius: 2 }}>
+                <Box className="flex-column">
                     {
                         isFetchError ? (
                             <FetchFailedAlert
@@ -107,7 +98,51 @@ export default function PaymentMethodsManagement() {
                                     }
                                 />
                                 <ElementWithLoadingState height={75} isLoading={isLoading}
-                                    element={paymentMethodType === "Card" ? <ToRender renderId={toRender} /> : null}
+                                    element={
+                                        paymentMethodType === "Card" &&
+                                        <>
+                                            <Divider sx={{ mb: 1, mt: 1 }} />
+                                            <P
+                                                variant='subtitle1'
+                                                fontWeight="bold"
+                                                sx={{ mb: 1, fontSize: "19px" }}
+                                            >
+                                                Choosed Card
+                                            </P>
+                                            <SelectedCridetCard />
+                                            {
+                                                !toRender &&
+                                                <Box className="flex-row j-end" sx={{ flexWrap: "wrap", mt: 1 }}>
+                                                    <Button
+                                                        {...optionsButtonsProps({
+                                                            onClick: () => setRender("add_card"),
+                                                            icon: <AddCard />
+                                                        })}
+                                                    >
+                                                        Add card
+                                                    </Button>
+                                                    <Button
+                                                        {...optionsButtonsProps({
+                                                            onClick: () => setRender("cards_list"),
+                                                            icon: <List />
+                                                        })}
+                                                    >
+                                                        cards list
+                                                    </Button>
+                                                </Box>
+                                            }
+                                            {
+                                                toRender === "add_card" ?
+                                                    <CridetCardForm exit={() => setRender(null)} />
+                                                    : toRender === "cards_list" ?
+                                                        <CridetCardsList
+                                                            exit={() => setRender(null)}
+                                                            theList={cardsList}
+                                                        />
+                                                        : null
+                                            }
+                                        </>
+                                    }
                                 />
                             </>
                     }
@@ -115,4 +150,18 @@ export default function PaymentMethodsManagement() {
             </Box>
         </Card>
     )
+}
+
+function optionsButtonsProps({ onClick, icon }) {
+    return {
+        onClick,
+        size: 'small',
+        sx: {
+            fontSize: { xs: "11px", sm: "14px" },
+            p: { xs: "2px 5px", sm: "3px 9px" },
+            width: "fit-content",
+            color: "text.primary"
+        },
+        startIcon: icon
+    }
 }

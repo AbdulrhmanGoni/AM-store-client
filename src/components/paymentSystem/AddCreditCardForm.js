@@ -3,11 +3,12 @@ import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { AddCard, CalendarMonthOutlined, Payment, PinOutlined, Portrait, Reply } from '@mui/icons-material';
 import { Button, FormControl, Grid, Input, InputLabel } from '@mui/material';
+import { P } from '@abdulrhmangoni/am-store-library';
 import { LoadingButton } from '@mui/lab';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 
-export default function AddCridetCardForm({ chooses }) {
+export default function AddCridetCardForm({ exit }) {
 
     const styleInput = { width: "100%" };
     const dispatch = useDispatch();
@@ -93,74 +94,92 @@ export default function AddCridetCardForm({ chooses }) {
             const theCard = { theName, number: cardNumber, expired: endDate }
             setIsAdding(true);
             addCridetCard(theCard)
-                .then(() => dispatch(addCreditCard_localy(theCard)))
+                .then(() => {
+                    dispatch(addCreditCard_localy(theCard));
+                    exit()
+                })
                 .catch(() => message("Adding card failed for unknown reason"))
                 .finally(() => setIsAdding(false))
-
         }
     }
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <FormControl sx={styleInput} variant="standard">
-                    <InputLabel error={nameValidationState} htmlFor="standard-adornment-amount">The Name</InputLabel>
-                    <Input error={nameValidationState}
-                        id="cridet-cart-name" placeholder="The Name"
-                        startAdornment={<Portrait sx={{ color: nameValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Portrait>}
-                    />
-                </FormControl>
+        <>
+            <P variant='subtitle1' fontWeight="bold" sx={{ my: 1, fontSize: "19px" }}>Add a Cridet Card</P>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <FormControl sx={styleInput} variant="standard">
+                        <InputLabel error={nameValidationState} htmlFor="standard-adornment-amount">The Name</InputLabel>
+                        <Input error={nameValidationState}
+                            id="cridet-cart-name" placeholder="The Name"
+                            startAdornment={<Portrait sx={{ color: nameValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Portrait>}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl sx={styleInput} variant="standard">
+                        <InputLabel error={cardNumberValidationState} htmlFor="standard-adornment-amount">Card Number</InputLabel>
+                        <Input error={cardNumberValidationState}
+                            id="cridet-cart-number" placeholder="**** **** ****"
+                            startAdornment={<Payment sx={{ color: cardNumberValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Payment>}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormControl sx={styleInput} variant="standard">
+                        <InputLabel
+                            error={dateValidationState}
+                            htmlFor="standard-adornment-amount">
+                            Expiration Date
+                        </InputLabel>
+                        <Input error={dateValidationState}
+                            id="cridet-cart-expiration-date"
+                            type='date'
+
+                            startAdornment={
+                                <CalendarMonthOutlined
+                                    sx={{ color: dateValidationState ? "red" : "primary.main", mr: "6px" }}
+                                    position="start"
+                                >
+                                    $
+                                </CalendarMonthOutlined>
+                            }
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormControl sx={styleInput} variant="standard">
+                        <InputLabel error={cvvValidationState} htmlFor="standard-adornment-amount">Card Number</InputLabel>
+                        <Input error={cvvValidationState}
+                            id="cridet-cart-cvv" placeholder="CVV"
+                            startAdornment={
+                                <PinOutlined sx={{ color: cvvValidationState ? "red" : "primary.main", mr: "6px", fontSize: "25px" }} position="start" />
+                            }
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <LoadingButton
+                        onClick={addtheCard}
+                        sx={{ mr: 2 }}
+                        size='small'
+                        startIcon={<AddCard />}
+                        variant='contained'
+                        loading={isAdding}
+                    >
+                        Add
+                    </LoadingButton>
+                    <Button
+                        onClick={exit}
+                        sx={{ mr: 2 }}
+                        size='small'
+                        startIcon={<Reply />}
+                        variant='contained'
+                    >
+                        Back
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <FormControl sx={styleInput} variant="standard">
-                    <InputLabel error={cardNumberValidationState} htmlFor="standard-adornment-amount">Card Number</InputLabel>
-                    <Input error={cardNumberValidationState}
-                        id="cridet-cart-number" placeholder="**** **** ****"
-                        startAdornment={<Payment sx={{ color: cardNumberValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Payment>}
-                    />
-                </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <FormControl sx={styleInput} variant="standard">
-                    <InputLabel error={dateValidationState} htmlFor="standard-adornment-amount">Expiration Date</InputLabel>
-                    <Input error={dateValidationState}
-                        id="cridet-cart-expiration-date" type='date'
-                        startAdornment={<CalendarMonthOutlined sx={{ color: dateValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</CalendarMonthOutlined>}
-                    />
-                </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <FormControl sx={styleInput} variant="standard">
-                    <InputLabel error={cvvValidationState} htmlFor="standard-adornment-amount">Card Number</InputLabel>
-                    <Input error={cvvValidationState}
-                        id="cridet-cart-cvv" placeholder="CVV"
-                        startAdornment={
-                            <PinOutlined sx={{ color: cvvValidationState ? "red" : "primary.main", mr: "6px", fontSize: "25px" }} position="start" />
-                        }
-                    />
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-                <LoadingButton
-                    onClick={addtheCard}
-                    sx={{ mr: 2 }}
-                    size='small'
-                    startIcon={<AddCard />}
-                    variant='contained'
-                    loading={isAdding}
-                >
-                    Add
-                </LoadingButton>
-                <Button
-                    onClick={() => chooses("cards_list")}
-                    sx={{ mr: 2 }}
-                    size='small'
-                    startIcon={<Reply />}
-                    variant='contained'
-                >
-                    Back
-                </Button>
-            </Grid>
-        </Grid>
+        </>
     )
 }

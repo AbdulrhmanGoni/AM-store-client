@@ -22,8 +22,8 @@ export default function usePaymentMethodsActions() {
         return await customFetch(path, "POST", { theCard });
     }
 
-    const deleteCreditCard = async (cardNumber) => {
-        return await customFetch(path, "DELETE", { cardNumber, type: "deleteCard" });
+    const deleteCreditCard = async (cardNumber, isTheChoosed) => {
+        return await customFetch(path, "DELETE", { cardNumber, isTheChoosed });
     }
 
     return {

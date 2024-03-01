@@ -1,20 +1,15 @@
 import { Delete } from '@mui/icons-material';
-import {
-    Box, CircularProgress,
-    IconButton, ListItem,
-    ListItemAvatar,
-    ListItemText, Radio
-} from '@mui/material';
-import Image from 'next/image';
+import { Box, CircularProgress, IconButton, Radio } from '@mui/material';
 import { ActionAlert } from '@abdulrhmangoni/am-store-library';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 import { deleteCreditCard_localy } from '@/state-management/userPaymentMethods_slice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import CreditCardInfo from './CreditCardInfo';
 
 
-export default function CreditCard({ onSelect, card: { number, theName }, selectedCardNumber }) {
+export default function CreditCard({ onSelect, card: { number, theName }, onDelete, selectedCardNumber }) {
 
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
@@ -23,30 +18,35 @@ export default function CreditCard({ onSelect, card: { number, theName }, select
 
     async function handleDeleteCard() {
         setDeleteLoading(true);
-        deleteCreditCard(number)
-            .then(() => dispatch(deleteCreditCard_localy(number)))
+        deleteCreditCard(number, number === selectedCardNumber)
+            .then(() => {
+                dispatch(deleteCreditCard_localy(number));
+                onDelete?.()
+            })
             .catch(() => message("Deleting card failed for unknown error!"))
             .finally(() => setDeleteLoading(false))
     }
 
     return (
-        <Box className='flex-row-center' key={number}>
-            <ListItem sx={{ p: 0 }} onClick={() => onSelect(number)}>
-                <ListItemAvatar sx={{ display: "flex", minWidth: "40px" }}>
-                    <Image
-                        src='/credit-card.svg'
-                        alt='Credit Card icon'
-                        width={30}
-                        height={30}
-                    />
-                </ListItemAvatar>
-                <ListItemText primary={theName} secondary={number} />
+        <Box
+            className='flex-row-center'
+            sx={{
+                px: { xs: 1, sm: 1.5 },
+                bgcolor: "background.default",
+                borderRadius: 1
+            }}
+        >
+            <CreditCardInfo
+                onClick={() => onSelect(number)}
+                theName={theName}
+                number={number}
+            >
                 <Radio
                     checked={selectedCardNumber === number}
                     value={number}
                     inputProps={{ 'aria-label': `${theName}'s Card` }}
                 />
-            </ListItem>
+            </CreditCardInfo>
             {
                 deleteLoading ? <CircularProgress size={20} /> :
                     <ActionAlert

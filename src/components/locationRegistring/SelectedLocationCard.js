@@ -50,7 +50,7 @@ export default function SelectedLocationCard({ style, actionIcon }) {
         isFetched &&
         <Alert
             action={
-                !pageUrl.match("addresses-management") &&
+                !pageUrl.match("locations-management") &&
                 <LocationsManegementWindow
                     buttonProps={{
                         size: 'small',

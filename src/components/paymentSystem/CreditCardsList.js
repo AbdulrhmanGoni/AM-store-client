@@ -51,7 +51,12 @@ export default function CreditCardsList({ theList, exit }) {
                             />
                         ))
                         :
-                        <Alert sx={{ mb: 1 }} severity="warning">You Didn&apos;t Have Cridet Cards</Alert>
+                        <Alert
+                            sx={{ mb: 1 }}
+                            severity="info"
+                        >
+                            You Didn&apos;t add any Cridet Cards
+                        </Alert>
                 }
             </List>
             <Box className="flex-row-center-end gap1">

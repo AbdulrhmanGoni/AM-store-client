@@ -2,87 +2,35 @@ import {
     AccountCircle, AddLocation, AddRoad, LocalPhone, LocationCity, Public, SmsOutlined
 } from '@mui/icons-material';
 import { Box, Button, Card, Grid, TextField } from '@mui/material';
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
 import useLocationActions from '@/hooks/useLocationActions';
 import { addNewLocation_localy } from '@/state-management/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import useLocationFormValidation from '@/hooks/useLocationFormValidation';
 
+const boxStyle = { display: 'flex', alignItems: 'flex-end' }
+const styleInput = { width: "100%" }
+const styleIcon = { color: 'primary.main', mr: 1, my: 0.5 }
 
 export default function AddLocationForm() {
-    const boxStyle = { display: 'flex', alignItems: 'flex-end' }
-    const styleInput = { width: "100%" }
-    const styleIcon = { color: 'primary.main', mr: 1, my: 0.5 }
 
     const dispatch = useDispatch();
     const { addNewLocation } = useLocationActions();
     const { message } = useSpeedMessage();
 
-    const [nameValidationState, setNameValidationState] = useState(false);
-    const [numberValidationState, setNumberValidationState] = useState(false);
-    const [countryValidationState, setCnountryValidationState] = useState(false);
-    const [cityValidationState, setCityValidationState] = useState(false);
-    const [streetValidationState, setStreetValidationState] = useState(false);
-
-    const validLength = (param, length) => param.length >= length;
-
-    function handleNameField() {
-        let value = document.getElementById("theNameField").value;
-        if (validLength(value, 3)) {
-            setNameValidationState(false);
-            return value;
-        } else {
-            setNameValidationState(true);
-            return false;
-        }
-    }
-
-    function handlePhoneNumperField() {
-        let value = document.getElementById("phoneNumperField").value;
-        let isNumber = value.split("").every((num) => !isNaN(parseInt(num)));
-        isNumber = value.length > 0 ? isNumber : false;
-
-        if (isNumber) {
-            setNumberValidationState(false);
-            return value;
-        } else {
-            setNumberValidationState(true);
-            return false;
-        }
-    }
-
-    function handleCountryField() {
-        let value = document.getElementById("countryField").value;
-        if (validLength(value, 3)) {
-            setCnountryValidationState(false);
-            return value;
-        } else {
-            setCnountryValidationState(true);
-            return false;
-        }
-    }
-
-    function handleCityField() {
-        let value = document.getElementById("cityField").value;
-        if (validLength(value, 3)) {
-            setCityValidationState(false);
-            return value;
-        } else {
-            setCityValidationState(true);
-            return false;
-        }
-    }
-
-    function handleStreetField() {
-        let value = document.getElementById("streetField").value;
-        if (validLength(value, 3)) {
-            setStreetValidationState(false);
-            return value;
-        } else {
-            setStreetValidationState(true);
-            return false;
-        }
-    }
+    const {
+        handleStreetField,
+        handleCityField,
+        handleCountryField,
+        handlePhoneNumperField,
+        handleNameField,
+        nameValidationState,
+        numberValidationState,
+        countryValidationState,
+        cityValidationState,
+        streetValidationState
+    } = useLocationFormValidation();
 
     function addLocation() {
         let theName = handleNameField();
@@ -103,7 +51,10 @@ export default function AddLocationForm() {
             }
 
             addNewLocation(theLocation)
-                .then(() => dispatch(addNewLocation_localy(theLocation)))
+                .then((locationId) => {
+                    theLocation.id = locationId
+                    dispatch(addNewLocation_localy(theLocation))
+                })
                 .catch(() => message("Adding a new location failed"))
 
         }
@@ -121,61 +72,66 @@ export default function AddLocationForm() {
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <AccountCircle sx={iconsProps(nameValidationState)} />
+                        <AccountCircle sx={iconsProps(nameValidationState.error)} />
                         <TextField
-                            error={nameValidationState}
+                            error={nameValidationState.error}
                             sx={styleInput}
                             id="theNameField"
                             label="The Name"
                             variant="standard"
+                            helperText={nameValidationState.error && nameValidationState.message}
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <LocalPhone sx={iconsProps(numberValidationState)} />
+                        <LocalPhone sx={iconsProps(numberValidationState.error)} />
                         <TextField
-                            error={numberValidationState}
+                            error={numberValidationState.error}
                             sx={styleInput}
                             id="phoneNumperField"
                             label="Phone Numper"
                             variant="standard"
+                            helperText={numberValidationState.error && numberValidationState.message}
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <Public sx={iconsProps(countryValidationState)} />
+                        <Public sx={iconsProps(countryValidationState.error)} />
                         <TextField
-                            error={countryValidationState}
+                            error={countryValidationState.error}
                             sx={styleInput}
                             id="countryField"
                             label="Country"
                             variant="standard"
+                            helperText={countryValidationState.error && countryValidationState.message}
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <LocationCity sx={iconsProps(cityValidationState)} />
+                        <LocationCity sx={iconsProps(cityValidationState.error)} />
                         <TextField
-                            error={cityValidationState}
+                            error={cityValidationState.error}
                             sx={styleInput}
                             id="cityField"
                             label="City"
                             variant="standard"
+                            helperText={cityValidationState.error && cityValidationState.message}
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box sx={boxStyle}>
-                        <AddRoad sx={iconsProps(streetValidationState)} />
+                        <AddRoad sx={iconsProps(streetValidationState.error)} />
                         <TextField
-                            error={streetValidationState}
+                            error={streetValidationState.error}
                             sx={styleInput}
                             id="streetField"
                             label="Street Address"
                             variant="standard"
+                            helperText={streetValidationState.error && streetValidationState.message}
                         />
                     </Box>
                 </Grid>

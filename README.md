@@ -22,3 +22,13 @@ All users can send feedbacks to me if they faced a problem (logical or technical
 - Next.js <img src="./public/nextjs-13.svg" style="width: 40px;height: 17px; transform: translate(3px, 5px); background: black; padding: 0px 5px">
 - Material UI <img src="./public/Material-UI.svg" style="width: 15px;height: 15px; transform: translate(3px, 3px)">
 - Redux <img src="./public/redux.svg" style="width: 15px;height: 15px; transform: translate(3px, 3px)">
+
+## Feedbacks
+
+I welcome any feedback or suggestions you might have! <br>
+if you faced any problem in the project or you have any suggestion improves it,
+or even you have some advices to improve me and my skils, <br>
+Please feel free to open an issue and discuss it with me or contact me directly on [my LinkedIn account](https://www.linkedin.com/in/abdulrhman-goni-857a36275/)
+or throuth my email abdulrhmangoni@gmail.com
+
+Thank you for stopping by! 🌟

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import CridetCardsList from './CreditCardsList';
 import CridetCardForm from './AddCreditCardForm';
 import SelectedCridetCard from './SelectedCridetCard';
-import { setChoosedPaymentMethod_localy, setUserPaymentMethods } from '@/state-management/userPaymentMethods_slice';
+import { setUserPaymentMethods } from '@/state-management/userPaymentMethods_slice';
+import { setCheckoutPaymentMethod } from '@/state-management/checkoutSummary_slice';
 import { ElementWithLoadingState, FetchFailedAlert, P } from '@abdulrhmangoni/am-store-library';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 import { AddCard, List } from '@mui/icons-material';
@@ -15,6 +16,7 @@ export default function PaymentMethodsManagement() {
     const dispatch = useDispatch();
     const { fetchPaymentMethods } = usePaymentMethodsActions();
     const { cardsList, choosedMethod } = useSelector(state => state.userPaymentMethods);
+    const checkoutPaymentMethod = useSelector(state => state.checkoutSummary.paymentMethod);
     const userId = useSelector(state => state.userData?._id);
     const [paymentMethodType, setPaymentMethodType] = useState(null);
     const [toRender, setRender] = useState(null);
@@ -24,11 +26,8 @@ export default function PaymentMethodsManagement() {
 
     function handlePaymentMethod(event) {
         setPaymentMethodType(event.target.value);
-        if (event.target.value === "Cash") {
-            dispatch(setChoosedPaymentMethod_localy("Cash"));
-        } else {
-            dispatch(setChoosedPaymentMethod_localy(null));
-        }
+        event.target.value === "Cash" && dispatch(setCheckoutPaymentMethod("Cash"));
+        event.target.value === "Card" && dispatch(setCheckoutPaymentMethod(choosedMethod));
     }
 
     useEffect(() => {
@@ -43,11 +42,13 @@ export default function PaymentMethodsManagement() {
     }, [userId, refreshFetchingPaymentMethods]);
 
     useEffect(() => {
-        if (choosedMethod && typeof (choosedMethod) !== "string") {
-            setPaymentMethodType("Card");
-            if (!cardsList.length) setRender("add_card");
+        if (checkoutPaymentMethod === "Cash") {
+            setPaymentMethodType("Cash");
         }
-    }, [choosedMethod, cardsList]);
+        if (typeof checkoutPaymentMethod?.number === "number") {
+            setPaymentMethodType("Card");
+        }
+    }, [checkoutPaymentMethod, cardsList]);
 
     return (
         <Card component="form" className='flex-column' sx={{ p: { xs: 1, sm: 2 }, borderRadius: 2 }}>
@@ -99,19 +100,23 @@ export default function PaymentMethodsManagement() {
                                 />
                                 <ElementWithLoadingState height={75} isLoading={isLoading}
                                     element={
-                                        paymentMethodType === "Card" &&
                                         <>
-                                            <Divider sx={{ mb: 1, mt: 1 }} />
-                                            <P
-                                                variant='subtitle1'
-                                                fontWeight="bold"
-                                                sx={{ mb: 1, fontSize: "19px" }}
-                                            >
-                                                Choosed Card
-                                            </P>
-                                            <SelectedCridetCard />
                                             {
-                                                !toRender &&
+                                                paymentMethodType === "Card" &&
+                                                <>
+                                                    <Divider sx={{ mb: 1, mt: 1 }} />
+                                                    <P
+                                                        variant='subtitle1'
+                                                        fontWeight="bold"
+                                                        sx={{ mb: 1, fontSize: "19px" }}
+                                                    >
+                                                        Choosed Card
+                                                    </P>
+                                                    <SelectedCridetCard />
+                                                </>
+                                            }
+                                            {
+                                                paymentMethodType === "Card" && !toRender &&
                                                 <Box className="flex-row j-end" sx={{ flexWrap: "wrap", mt: 1 }}>
                                                     <Button
                                                         {...optionsButtonsProps({

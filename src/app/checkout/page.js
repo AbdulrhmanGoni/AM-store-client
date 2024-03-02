@@ -22,8 +22,7 @@ export default function CheckoutPage() {
     const userId = useSelector(state => state.userData?._id);
     const cobones = useSelector(state => state.cobones);
     const { selectedLocation } = useSelector(state => state.locations);
-    const { totalPrice, discountCobone } = useSelector(state => state.checkoutSummary);
-    const paymentMethod = useSelector(state => state.userPaymentMethods.choosedMethod);
+    const { totalPrice, discountCobone, paymentMethod } = useSelector(state => state.checkoutSummary);
     const { addNewOrder } = useOrdersActions();
 
     const { message } = useSpeedMessage();

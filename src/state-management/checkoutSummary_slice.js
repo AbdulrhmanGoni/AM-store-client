@@ -1,20 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+    totalPrice: 0,
+    discountCobone: null,
+    paymentMethod: "Cash"
+}
+
 const checkoutSummary = createSlice({
-    initialState: { totalPrice: 0, discountCobone: null },
+    initialState,
     name: "checkoutSummary",
     reducers: {
         setSummaryPrice: (state, action) => {
-            return { totalPrice: action.payload, discountCobone: state.discountCobone };
+            return {
+                ...state,
+                totalPrice: action.payload
+            }
         },
         includeDiscount: (state, action) => {
-            return { discountCobone: action.payload, totalPrice: state.totalPrice };
+            return {
+                ...state,
+                discountCobone: action.payload
+            }
         },
-        clearCheckoutSummary: () => {
-            return { totalPrice: 0, discountCobone: null };
+        setCheckoutPaymentMethod: (state, action) => {
+            return {
+                ...state,
+                paymentMethod: action.payload
+            }
         },
+        clearCheckoutSummary: () => initialState,
         removeDiscount: (state) => {
-            return { totalPrice: state.totalPrice, discountCobone: null };
+            return {
+                ...state,
+                discountCobone: null
+            }
         }
     }
 });
@@ -22,6 +41,7 @@ const checkoutSummary = createSlice({
 export const {
     setSummaryPrice,
     includeDiscount,
+    setCheckoutPaymentMethod,
     clearCheckoutSummary,
     removeDiscount
 } = checkoutSummary.actions;

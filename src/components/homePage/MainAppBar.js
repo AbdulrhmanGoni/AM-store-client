@@ -6,11 +6,10 @@ import TotalPriceInCart from '../TotalPriceInCart';
 import AccountMenu from '../AccountMenu';
 import CustomFavoriteIcon from '../CustomFavoriteIcon';
 import CustomShoppingCartIcon from '../CustomShoppingCartIcon';
-import { SearchForProductsField, P } from '@abdulrhmangoni/am-store-library';
+import { SearchForProductsField, AMLogo } from '@abdulrhmangoni/am-store-library';
 import { host } from '@/CONSTANTS/hostName';
 import { ReadMore } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
-import AMLogo from '../AMLogo';
 
 export default function MainAppBar() {
 
@@ -23,7 +22,7 @@ export default function MainAppBar() {
             <AppBar position="fixed">
                 <Container sx={{ p: { xs: "0px 8px", sm: "0px 16px" } }} maxWidth="lg">
                     <Toolbar color='icons' sx={{ p: "0 !important", gap: 1 }}>
-                        <AMLogo transparent />
+                        <AMLogo />
                         <SearchForProductsField
                             hostName={host}
                             fieldSize='small'

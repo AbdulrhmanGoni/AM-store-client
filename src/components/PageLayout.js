@@ -31,7 +31,7 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
     }, [userId])
 
     if (render) {
-        return isAllowed ?
+        return (
             <>
                 <AppBar position="fixed">
                     <Container maxWidth={maxWidth} sx={{ display: "flex", alignItems: "center", gap: 2, height: "57px" }}>
@@ -62,10 +62,10 @@ export default function PageLayout({ children, maxWidth, title, signUpRequired, 
                         mb: 4
                     }}
                 >
-                    {children}
+                    {isAllowed ? children : <CantAccessMessage />}
                 </Container>
                 <Footer />
             </>
-            : <CantAccessMessage />
+        )
     }
 }

@@ -48,16 +48,18 @@ export default function CreditCard({ onSelect, card: { number, theName }, onDele
                 />
             </CreditCardInfo>
             {
-                deleteLoading ? <CircularProgress size={20} /> :
-                    <ActionAlert
-                        title="Delete Cridet Card"
-                        message="Are you sure you want to delete this cridet card?"
-                        action={handleDeleteCard}
-                    >
-                        <IconButton size='small' >
-                            <Delete color='error' sx={{ fontSize: 18 }} />
-                        </IconButton>
-                    </ActionAlert>
+                <ActionAlert
+                    title="Delete Cridet Card"
+                    message="Are you sure you want to delete this cridet card?"
+                    action={handleDeleteCard}
+                >
+                    <IconButton size='small' >
+                        {
+                            deleteLoading ? <CircularProgress size={18} /> :
+                                <Delete color='error' sx={{ fontSize: 18 }} />
+                        }
+                    </IconButton>
+                </ActionAlert>
             }
         </Box>
     )

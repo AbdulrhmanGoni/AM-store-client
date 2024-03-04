@@ -1,99 +1,44 @@
 import { addCreditCard_localy } from '@/state-management/userPaymentMethods_slice';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
-import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { AddCard, CalendarMonthOutlined, Payment, PinOutlined, Portrait, Reply } from '@mui/icons-material';
-import { Button, FormControl, Grid, Input, InputLabel } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { P } from '@abdulrhmangoni/am-store-library';
 import { LoadingButton } from '@mui/lab';
-import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setCheckoutPaymentMethod } from '@/state-management/checkoutSummary_slice';
+import useCreditCardFormValidation from '@/hooks/useCreditCardFormValidation';
+import { useSpeedMessage } from '@/hooks/useSpeedMessage';
+import FormInput from './FormInput';
 
 export default function AddCridetCardForm({ exit }) {
 
-    const styleInput = { width: "100%" };
-    const dispatch = useDispatch();
     const { message } = useSpeedMessage();
+    const dispatch = useDispatch();
     const { addCridetCard } = usePaymentMethodsActions();
-    const [isAdding, setIsAdding] = useState(false);
-    const [nameValidationState, setNameValidationState] = useState(false);
-    const [cardNumberValidationState, setCardNumberValidationState] = useState(false);
-    const [dateValidationState, setDateValidationState] = useState(false);
-    const [cvvValidationState, setCvvValidationState] = useState(false);
 
-    function isValidNumber(param, length) {
-        let isNumber = param.split("").every((num) => !isNaN(parseInt(num)))
-        if (isNumber && param.toString().length === length) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    function isExpiredDate(expiredDate) {
-        const now = new Date();
-        if (expiredDate > now) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function handleCardName() {
-        let value = document.getElementById("cridet-cart-name").value;
-        if (value.length > 5) {
-            setNameValidationState(false);
-            return value;
-        } else {
-            setNameValidationState(true);
-            return false;
-        }
-    }
-
-    function handleCardNumber() {
-        let value = document.getElementById("cridet-cart-number").value;
-        if (isValidNumber(value, 12)) {
-            setCardNumberValidationState(false);
-            return value;
-        } else {
-            setCardNumberValidationState(true);
-            return false;
-        }
-    }
-
-    function handleCartExpirationDate() {
-        let value = document.getElementById("cridet-cart-expiration-date").value;
-        const expiredDate = new Date(value)
-        if (isExpiredDate(expiredDate)) {
-            setDateValidationState(true);
-            return false;
-        } else {
-            setDateValidationState(false);
-            return expiredDate.toISOString();
-        }
-    }
-
-    function handleCvv() {
-        let value = document.getElementById("cridet-cart-cvv").value;
-        if (isValidNumber(value, 3)) {
-            setCvvValidationState(false);
-            return value;
-        } else {
-            setCvvValidationState(true);
-            return false;
-        }
-    }
+    const {
+        isLoading,
+        setIsLoading,
+        nameValidationState,
+        cardNumberValidationState,
+        dateValidationState,
+        cvvValidationState,
+        handleCardName,
+        handleCardNumber,
+        handleCartExpirationDate,
+        handleCvvNumber,
+    } = useCreditCardFormValidation()
 
     function addtheCard() {
         let
             theName = handleCardName(),
             cardNumber = handleCardNumber(),
             endDate = handleCartExpirationDate(),
-            cvv = handleCvv();
+            cvv = handleCvvNumber();
 
         if (theName && cardNumber && endDate && cvv) {
             const theCard = { theName, number: cardNumber, expired: endDate }
-            setIsAdding(true);
+            setIsLoading(true);
             addCridetCard(theCard)
                 .then(() => {
                     dispatch(addCreditCard_localy(theCard));
@@ -101,7 +46,7 @@ export default function AddCridetCardForm({ exit }) {
                     exit()
                 })
                 .catch(() => message("Adding card failed for unknown reason"))
-                .finally(() => setIsAdding(false))
+                .finally(() => setIsLoading(false))
         }
     }
 
@@ -110,61 +55,39 @@ export default function AddCridetCardForm({ exit }) {
             <P variant='subtitle1' fontWeight="bold" sx={{ my: 1, fontSize: "19px" }}>Add a Cridet Card</P>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={nameValidationState}>The Name</InputLabel>
-                        <Input error={nameValidationState}
-                            id="cridet-cart-name" placeholder="The Name"
-                            startAdornment={<Portrait sx={{ color: nameValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Portrait>}
-                        />
-                    </FormControl>
+                    <FormInput
+                        id="cridet-cart-name"
+                        label="The Name"
+                        state={nameValidationState}
+                        Icon={Portrait}
+                    />
                 </Grid>
                 <Grid item xs={12}>
-                    <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={cardNumberValidationState}>Card Number</InputLabel>
-                        <Input error={cardNumberValidationState}
-                            id="cridet-cart-number" placeholder="**** **** ****"
-                            startAdornment={<Payment sx={{ color: cardNumberValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Payment>}
-                        />
-                    </FormControl>
+                    <FormInput
+                        id="cridet-cart-number"
+                        label="Card Number"
+                        placeholder="**** **** ****"
+                        state={cardNumberValidationState}
+                        Icon={Payment}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={dateValidationState}>
-                            Expiration Date
-                        </InputLabel>
-                        <Input error={dateValidationState}
-                            id="cridet-cart-expiration-date"
-                            type='date'
-                            startAdornment={
-                                <CalendarMonthOutlined
-                                    sx={{ color: dateValidationState ? "red" : "primary.main", mr: "6px" }}
-                                    position="start"
-                                >
-                                    $
-                                </CalendarMonthOutlined>
-                            }
-                        />
-                    </FormControl>
+                    <FormInput
+                        id="cridet-cart-expiration-date"
+                        label="Expiration Date"
+                        state={dateValidationState}
+                        Icon={CalendarMonthOutlined}
+                        type='date'
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={cvvValidationState}>
-                            Card Number
-                        </InputLabel>
-                        <Input error={cvvValidationState}
-                            id="cridet-cart-cvv" placeholder="CVV"
-                            startAdornment={
-                                <PinOutlined
-                                    sx={{
-                                        color: cvvValidationState ? "red" : "primary.main",
-                                        mr: "6px",
-                                        fontSize: "25px"
-                                    }}
-                                    position="start"
-                                />
-                            }
-                        />
-                    </FormControl>
+                    <FormInput
+                        id="cridet-cart-cvv"
+                        label="Card Number"
+                        state={cvvValidationState}
+                        Icon={PinOutlined}
+                        placeholder="CVV"
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <LoadingButton
@@ -173,7 +96,7 @@ export default function AddCridetCardForm({ exit }) {
                         size='small'
                         startIcon={<AddCard />}
                         variant='contained'
-                        loading={isAdding}
+                        loading={isLoading}
                     >
                         Add
                     </LoadingButton>

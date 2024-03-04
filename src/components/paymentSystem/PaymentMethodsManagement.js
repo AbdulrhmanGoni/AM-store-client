@@ -5,6 +5,7 @@ import SelectedCridetCard from './SelectedCridetCard';
 import { ElementWithLoadingState, FetchFailedAlert, P } from '@abdulrhmangoni/am-store-library';
 import usePaymentMethodsManagement from '@/hooks/usePaymentMethodsManagement';
 import OptionsBar from './OptionsBar';
+import DangerousWaring from './DangerousWaring';
 
 
 export default function PaymentMethodsManagement() {
@@ -77,6 +78,7 @@ export default function PaymentMethodsManagement() {
                                                 paymentMethodType === "Card" &&
                                                 <>
                                                     <Divider sx={{ mb: 1, mt: 1 }} />
+                                                    <DangerousWaring />
                                                     <SelectedCridetCard />
                                                 </>
                                             }

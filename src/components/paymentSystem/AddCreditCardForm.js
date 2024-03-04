@@ -7,6 +7,7 @@ import { P } from '@abdulrhmangoni/am-store-library';
 import { LoadingButton } from '@mui/lab';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { setCheckoutPaymentMethod } from '@/state-management/checkoutSummary_slice';
 
 export default function AddCridetCardForm({ exit }) {
 
@@ -96,6 +97,7 @@ export default function AddCridetCardForm({ exit }) {
             addCridetCard(theCard)
                 .then(() => {
                     dispatch(addCreditCard_localy(theCard));
+                    dispatch(setCheckoutPaymentMethod(theCard));
                     exit()
                 })
                 .catch(() => message("Adding card failed for unknown reason"))
@@ -109,7 +111,7 @@ export default function AddCridetCardForm({ exit }) {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={nameValidationState} htmlFor="standard-adornment-amount">The Name</InputLabel>
+                        <InputLabel error={nameValidationState}>The Name</InputLabel>
                         <Input error={nameValidationState}
                             id="cridet-cart-name" placeholder="The Name"
                             startAdornment={<Portrait sx={{ color: nameValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Portrait>}
@@ -118,7 +120,7 @@ export default function AddCridetCardForm({ exit }) {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={cardNumberValidationState} htmlFor="standard-adornment-amount">Card Number</InputLabel>
+                        <InputLabel error={cardNumberValidationState}>Card Number</InputLabel>
                         <Input error={cardNumberValidationState}
                             id="cridet-cart-number" placeholder="**** **** ****"
                             startAdornment={<Payment sx={{ color: cardNumberValidationState ? "red" : "primary.main", mr: "6px" }} position="start">$</Payment>}
@@ -127,15 +129,12 @@ export default function AddCridetCardForm({ exit }) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <FormControl sx={styleInput} variant="standard">
-                        <InputLabel
-                            error={dateValidationState}
-                            htmlFor="standard-adornment-amount">
+                        <InputLabel error={dateValidationState}>
                             Expiration Date
                         </InputLabel>
                         <Input error={dateValidationState}
                             id="cridet-cart-expiration-date"
                             type='date'
-
                             startAdornment={
                                 <CalendarMonthOutlined
                                     sx={{ color: dateValidationState ? "red" : "primary.main", mr: "6px" }}
@@ -149,11 +148,20 @@ export default function AddCridetCardForm({ exit }) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <FormControl sx={styleInput} variant="standard">
-                        <InputLabel error={cvvValidationState} htmlFor="standard-adornment-amount">Card Number</InputLabel>
+                        <InputLabel error={cvvValidationState}>
+                            Card Number
+                        </InputLabel>
                         <Input error={cvvValidationState}
                             id="cridet-cart-cvv" placeholder="CVV"
                             startAdornment={
-                                <PinOutlined sx={{ color: cvvValidationState ? "red" : "primary.main", mr: "6px", fontSize: "25px" }} position="start" />
+                                <PinOutlined
+                                    sx={{
+                                        color: cvvValidationState ? "red" : "primary.main",
+                                        mr: "6px",
+                                        fontSize: "25px"
+                                    }}
+                                    position="start"
+                                />
                             }
                         />
                     </FormControl>

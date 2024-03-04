@@ -1,12 +1,12 @@
-import { AddCard, Reply, Save } from '@mui/icons-material';
+import { Reply, Save } from '@mui/icons-material';
 import { Alert, Box, Button, List } from '@mui/material';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePaymentMethodsActions from '@/hooks/usePaymentMethodsActions';
 import { setChoosedPaymentMethod_localy } from '@/state-management/userPaymentMethods_slice';
+import { setCheckoutPaymentMethod } from '@/state-management/checkoutSummary_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import CreditCard from './CreditCard';
-
 
 export default function CreditCardsList({ theList, exit }) {
 
@@ -19,14 +19,21 @@ export default function CreditCardsList({ theList, exit }) {
     function save() {
         if (choosedMethod?.number !== selectedCardNumber) {
             const theCard = theList.find(card => card.number === selectedCardNumber);
-
             setChoosedPaymentMethod(theCard)
                 .then(() => {
                     dispatch(setChoosedPaymentMethod_localy(theCard));
+                    dispatch(setCheckoutPaymentMethod(theCard));
                     setCardAsSelected(selectedCardNumber);
                     exit();
                 })
                 .catch(() => message("Setting card as choosed payment method failed!"))
+        }
+    }
+
+    function onDeleteCard(cardNumber) {
+        if (cardNumber === selectedCardNumber) {
+            setCardAsSelected()
+            dispatch(setCheckoutPaymentMethod(null));
         }
     }
 
@@ -46,8 +53,8 @@ export default function CreditCardsList({ theList, exit }) {
                                 key={card.number}
                                 card={card}
                                 onSelect={(value) => setCardAsSelected(value)}
-                                onDelete={() => setCardAsSelected()}
-                                selectedCardNumber={selectedCardNumber}
+                                onDelete={() => onDeleteCard(card.number)}
+                                isSelectedCard={card.number === selectedCardNumber}
                             />
                         ))
                         :

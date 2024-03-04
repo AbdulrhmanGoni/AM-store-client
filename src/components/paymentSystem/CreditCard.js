@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import CreditCardInfo from './CreditCardInfo';
 
 
-export default function CreditCard({ onSelect, card: { number, theName }, onDelete, selectedCardNumber }) {
+export default function CreditCard({ onSelect, card: { number, theName }, onDelete, isSelectedCard }) {
 
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function CreditCard({ onSelect, card: { number, theName }, onDele
 
     async function handleDeleteCard() {
         setDeleteLoading(true);
-        deleteCreditCard(number, number === selectedCardNumber)
+        deleteCreditCard(number)
             .then(() => {
                 dispatch(deleteCreditCard_localy(number));
                 onDelete?.()
@@ -42,7 +42,7 @@ export default function CreditCard({ onSelect, card: { number, theName }, onDele
                 number={number}
             >
                 <Radio
-                    checked={selectedCardNumber === number}
+                    checked={isSelectedCard}
                     value={number}
                     inputProps={{ 'aria-label': `${theName}'s Card` }}
                 />

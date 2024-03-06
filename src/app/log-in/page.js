@@ -11,7 +11,7 @@ import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 
 export default function LogInPage() {
 
-    const { AuthButton } = useGoogleAuth();
+    const { AuthButton } = useGoogleAuth(process.env.REACT_APP_CLIENT_ID);
     const {
         handleSubmit,
         logInWithGoogle,

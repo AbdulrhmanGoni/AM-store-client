@@ -24,10 +24,7 @@ export default function LogInPage() {
         <FormsPagesContainer bgImage={"./sky2.jpg"}>
             <Paper
                 className="flex-column-center"
-                sx={{
-                    p: pagesSpaces,
-                    bgcolor: "transparent"
-                }}
+                sx={{ p: pagesSpaces, bgcolor: "transparent" }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main', color: "white" }}><Login /></Avatar>
                 <P component="h1" variant="h5">Log In</P>

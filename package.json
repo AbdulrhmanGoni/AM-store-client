@@ -1,6 +1,6 @@
 {
   "name": "am-store-client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -8,7 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@abdulrhmangoni/am-store-library": "^0.9.14",
+    "@abdulrhmangoni/am-store-library": "^1.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.13",

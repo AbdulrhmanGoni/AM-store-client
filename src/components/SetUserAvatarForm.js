@@ -16,8 +16,8 @@ export default function SetUserAvatarForm({ close }) {
     async function handleSubmit(event) {
         event.preventDefault();
         const payload = new FormData(event.currentTarget);
-        const api_key = process.env.REACT_APP_UPLOAD_IMAGE_API_KEY;
-        const upload_image_api = process.env.REACT_APP_UPLOAD_IMAGE_API_HOST_NAME;
+        const api_key = process.env.NEXT_PUBLIC_UPLOAD_IMAGE_API_KEY;
+        const upload_image_api = process.env.NEXT_PUBLIC_UPLOAD_IMAGE_API_HOST_NAME;
         const url = `${upload_image_api}?key=${api_key}`;
 
         setIsUpLoading(true);

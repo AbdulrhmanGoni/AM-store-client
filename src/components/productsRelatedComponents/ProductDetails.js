@@ -58,7 +58,7 @@ export default function ProductDetails({ product }) {
                     <Grid item xs={12} sm={6}>
                         <ProductImagesDisplayer images={images} />
                     </Grid>
-                    <Grid className="flex-column" item xs={12} sm={6} gap={2}>
+                    <Grid item xs={12} sm={6} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                         <P variant="h6">{title}</P>
                         <Box className="flex-row-center-start gap1" sx={{ fontSize: "13px" }}>
                             <P fontWeight="bold">Series :</P>

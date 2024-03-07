@@ -11,7 +11,7 @@ import pagesSpaces from '@/CONSTANTS/pagesSpaces';
 
 export default function SignUpPage() {
 
-    const { AuthButton } = useGoogleAuth({ clientId: process.env.REACT_APP_CLIENT_ID });
+    const { AuthButton } = useGoogleAuth({ clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID });
     const {
         emailState,
         passwordState,

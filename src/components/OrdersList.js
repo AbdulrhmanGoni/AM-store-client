@@ -21,7 +21,8 @@ export default function OrdersList({ orderState }) {
     const slicingOptions = {
         queryParams: queries,
         itemsIdPropertyName: "_id",
-        autoFetchingFirstSlice: true
+        autoFetchingFirstSlice: true,
+        isUsersRequest: true
     }
 
     const {

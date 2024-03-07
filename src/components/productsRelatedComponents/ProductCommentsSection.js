@@ -28,6 +28,11 @@ export default function ProductCommentsSection(props) {
     const [commentsOpened, setCommentsOpened] = useState(false);
     const [addingLoading, setAddingLoading] = useState(false);
 
+    const useSlicedFetchOptions = {
+        itemsIdPropertyName: "id",
+        isUsersRequest: true
+    }
+
     const {
         data,
         isLoading,
@@ -37,7 +42,7 @@ export default function ProductCommentsSection(props) {
         addNewItem,
         deleteItem,
         refetch
-    } = useSlicedFetch(`${host}/${path}`, "comments", { itemsIdPropertyName: "id" });
+    } = useSlicedFetch(`${host}/${path}`, "comments", useSlicedFetchOptions);
 
     useWhenElementAppears("last-comment-card", getNextSlice);
 

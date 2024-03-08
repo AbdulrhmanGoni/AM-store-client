@@ -10,13 +10,15 @@ const ProductsDisplayer = ({ products, cardSx }) => {
         <Grid container spacing={2}>
             {
                 products.map((product, index) => {
+                    const onesDigit = +(`${index}`[1]);
+                    const productOrder = onesDigit ? onesDigit : 1;
                     return (
                         <Grid key={product._id} item xs={xxSmallDevice ? 12 : 6} sm={4} md={3}>
                             <ProductCard
                                 sx={{ height: "100%", ...cardSx }}
                                 theProduct={product}
                                 applyAnimation
-                                appearingAnimationDelay={`${index * .20}s`}
+                                appearingAnimationDelay={`${productOrder * .20}s`}
                             />
                         </Grid>
                     )

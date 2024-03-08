@@ -110,7 +110,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling, applyAnimat
                         ({rating?.reviews})
                     </P>
                 </Box>
-                <Box className="flex-row-center-between a-end">
+                <Box className="flex-row-center-between a-end gap1">
                     <PriceDisplayer currency="$" price={price} discount={discount} />
                     <ProductAvailabationState amount={amount} />
                 </Box>

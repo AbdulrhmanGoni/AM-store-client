@@ -1,5 +1,5 @@
 "use client"
-import { useMediaQuery, TextField, Button, Paper, Box } from '@mui/material'
+import { useMediaQuery, TextField, Button, Paper, Box, Alert } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import OverlayBg from './OverlayBg'
 import { Close, Send } from '@mui/icons-material'
@@ -53,6 +53,11 @@ export default function SendFeedbackForm({ open, close }) {
                 }}
             >
                 <P variant='h6' textAlign="start" ml="3px" mb={pagesSpaces}>Tell us your Feedback</P>
+                <Alert severity='info' sx={{ mb: pagesSpaces }}>
+                    I welcome any feedback or suggestions you might have!
+                    if you faced any problem in my website or you have any suggestion improves it,
+                    or even you have some advices to improve me and my skills.
+                </Alert>
                 <Box className="flex-column gap2">
                     <TextField
                         label="Subject"

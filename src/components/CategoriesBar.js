@@ -19,7 +19,7 @@ export default function CategoriesBar() {
     }, []);
 
     return (
-        <Container className='flex-row-center' sx={{ m: "15px auto", px: 0 }}>
+        <Container sx={{ display: "flex", justifyContent: "center", m: "15px auto", px: 0 }}>
             <Paper sx={{ maxWidth: { xs: media ? 365 : "100%", sm: 540, lg: 700 } }}>
                 <Tabs
                     value={currentTap}

@@ -75,7 +75,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling, applyAnimat
             >
                 {
                     isBestSelling && <Image
-                        src="/best-seller.svg"
+                        src="/best-seller-mark.svg"
                         alt="Best seller background image"
                         width={40}
                         height={40}

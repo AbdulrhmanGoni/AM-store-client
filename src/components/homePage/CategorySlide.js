@@ -19,7 +19,7 @@ export default function CategorySlide({ category }) {
 
     useWhenElementAppears(`${category}-slider`, () => {
         setIsLoading(true)
-        serverAction(`products/?category=${category}&limit=10`)
+        serverAction(`products/?category=${category}&limit=10&cacheFor=1-hours`)
             .then((data) => {
                 setProducts(data)
                 isError && setIsError(false)

@@ -52,7 +52,17 @@ export default function SendFeedbackForm({ open, close }) {
                     width: { xs: "96%", sm: "520px", md: "700px" }
                 }}
             >
-                <P variant='h6' textAlign="start" ml="3px" mb={pagesSpaces}>Tell us your Feedback</P>
+                <P
+                    variant='h6'
+                    mb={pagesSpaces}
+                    sx={{
+                        fontWeight: "bold",
+                        ml: "3px",
+                        textAlign: "start"
+                    }}
+                >
+                    Tell me your Feedback 💬
+                </P>
                 <Alert severity='info' sx={{ mb: pagesSpaces }}>
                     I welcome any feedback or suggestions you might have!
                     if you faced any problem in my website or you have any suggestion improves it,

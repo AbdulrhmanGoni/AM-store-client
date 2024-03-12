@@ -27,16 +27,18 @@ export default function useFavoritesActions() {
 
     function toggleFavoritesFromSession(theProduct) {
         const products = getFavoritesFromSession();
-        const updatedArray = new Array(products.length)
-        for (let i = 0; i < products.length; i++) {
-            if (products[i]._id !== theProduct._id) {
-                updatedArray[i] = products[i]
+        let isAlreadyExist = false;
+        const updatedArray = products.filter((product) => {
+            if (product._id === theProduct._id) {
+                isAlreadyExist = true
             }
-        }
-        if (updatedArray.length === products.length) {
-            setFavoritesSession([...products, theProduct])
-        } else {
+            return product._id !== theProduct._id
+        })
+
+        if (isAlreadyExist) {
             setFavoritesSession(updatedArray)
+        } else {
+            setFavoritesSession([...updatedArray, theProduct])
         }
         dispatch(toggleFavorites_localy(theProduct._id));
     }

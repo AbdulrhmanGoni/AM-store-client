@@ -9,7 +9,7 @@ export default function useAvatarUploader() {
     const { message } = useSpeedMessage();
     const dispatch = useDispatch();
 
-    return (image) => customFetch(`users/${userId}/upload-avatar`, "POST", { avatarUrl: image })
+    return (image) => customFetch(`users/${userId}/upload-avatar`, "PUT", { avatarUrl: image })
         .then(avatar => {
             message("Avatar Uploaded Successfully", "success");
             dispatch(setNewAvatar_localy(avatar));

@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 
 export default function FooterLinks() {
 
-    const categoriesList = useSelector(state => state.variables.categoriesList);
+    const productsCategories = useSelector(state => state.variables.productsCategories);
 
     return (
         <>
             <P variant='h6' fontWeight="bolder" ml="-0px">Catagories</P>
             <List>
                 {
-                    categoriesList.map(category => {
+                    productsCategories.map(category => {
                         return (
                             <ListItem key={category} disablePadding>
                                 <Link href={`/products?category=${category}`}>

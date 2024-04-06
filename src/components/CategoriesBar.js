@@ -10,11 +10,11 @@ export default function CategoriesBar() {
     const media = useMediaQuery("(min-width: 400px)");
     const { getParam, setParam, removeParam } = useProductsSearchParams();
     const [currentTap, setTap] = useState(0);
-    const categoriesList = useSelector(state => state.variables.categoriesList);
+    const productsCategories = useSelector(state => state.variables.productsCategories);
 
     useEffect(() => {
         let category = getParam("category");
-        if (category) setTap(categoriesList.indexOf(category) + 1)
+        if (category) setTap(productsCategories.indexOf(category) + 1)
         else setTap(0)
     }, []);
 
@@ -30,7 +30,7 @@ export default function CategoriesBar() {
                 >
                     <Tab onClick={() => removeParam("category")} label="All" />
                     {
-                        categoriesList.map((category) => (
+                        productsCategories.map((category) => (
                             <Tab
                                 key={category}
                                 label={category}

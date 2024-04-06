@@ -5,7 +5,9 @@ export const fetchStoreVariables = createAsyncThunk('fetch-store-variables', fet
 
 const variables = createSlice({
     initialState: {
-        categoriesList: []
+        productsCategories: [],
+        minFreeDeliveryEntitlementPrice: null,
+        deliveryPrice: null
     },
     name: "variables",
     extraReducers: (builder) => {

@@ -7,11 +7,11 @@ import CategorySlide from './CategorySlide';
 export default function CategoriesSlides() {
 
     const { push } = useRouter();
-    const categoriesList = useSelector(state => state.variables.categoriesList);
+    const productsCategories = useSelector(state => state.variables.productsCategories);
 
     return <>
         {
-            categoriesList.map(category => {
+            productsCategories.map(category => {
                 return (
                     <SectionTitle
                         style={{ padding: "20px 0px", minHeight: "310px" }}

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Box, Button, Divider, List, ListItem, Paper, TextField, useMediaQuery, Skeleton } from '@mui/material'
 import { Close, Discount, Done } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
-import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice'
 import { includeDiscount, setSummaryPrice, removeDiscount } from '@/state-management/checkoutSummary_slice'
 import fetchDiscountCobones from '@/utilities/fetchDiscountCobones'
 import { setDiscountCobones } from '@/state-management/cobones_slice'
@@ -20,6 +19,7 @@ export default function Summary() {
     const shoppingCart = useSelector(state => state.shoppingCart);
     const cobones = useSelector(state => state.cobones);
     const { totalPrice, discountCobone } = useSelector(state => state.checkoutSummary);
+    const { deliveryPrice, minFreeDeliveryEntitlementPrice } = useSelector(state => state.variables);
     const totalPriceInCart = calculateShoppingCartSum(shoppingCart);
     const [isValidCobone, setCoboneState] = useState(true);
     const [discount, setDiscount] = useState(null);
@@ -30,7 +30,7 @@ export default function Summary() {
     useEffect(() => {
         checkCobone(discountCobone);
         let total = applyDiscount(totalPriceInCart, discount);
-        if (total < includeLimit) {
+        if (total < minFreeDeliveryEntitlementPrice) {
             total += deliveryPrice;
             setDeliveryPriceState(true);
         }

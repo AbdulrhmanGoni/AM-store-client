@@ -1,11 +1,12 @@
 import { Box, Divider, List, ListItem, Paper, TextField, useMediaQuery } from '@mui/material'
 import { Discount } from '@mui/icons-material'
-import deliveryPrice from '@/CONSTANTS/deliveryPrice'
 import { P, PriceDisplayer, findOriginalPrice } from "@abdulrhmangoni/am-store-library";
+import { useSelector } from 'react-redux';
 
 export default function SummaryDisplayer({ total, discount, delivery, items }) {
 
     const media = useMediaQuery("(max-width: 600px)");
+    const deliveryPrice = useSelector(state => state.variables.deliveryPrice);
 
     const TextTitle = ({ children, style }) => {
         return (

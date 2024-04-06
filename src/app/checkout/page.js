@@ -9,7 +9,6 @@ import SelectedLocationCard from '@/components/locationRegistring/SelectedLocati
 import ProductSmallCard from '@/components/productsRelatedComponents/ProductSmallCard';
 import LMControl from '@/components/locationRegistring/LocationsManegementWindow';
 import { clearCheckoutSummary } from '@/state-management/checkoutSummary_slice';
-import deliveryPrice, { includeLimit } from '@/CONSTANTS/deliveryPrice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';
 import { ActionAlert, loadingControl, applyDiscount } from '@abdulrhmangoni/am-store-library';
 import useOrdersActions from '@/hooks/useOrdersActions';
@@ -21,6 +20,7 @@ export default function CheckoutPage() {
     const shoppingCart = useSelector(state => state.shoppingCart);
     const userId = useSelector(state => state.userData?._id);
     const cobones = useSelector(state => state.cobones);
+    const { deliveryPrice, minFreeDeliveryEntitlementPrice } = useSelector(state => state.variables);
     const { selectedLocation } = useSelector(state => state.locations);
     const { totalPrice, discountCobone, paymentMethod } = useSelector(state => state.checkoutSummary);
     const { addNewOrder } = useOrdersActions();
@@ -64,7 +64,7 @@ export default function CheckoutPage() {
             products,
             totalPrice,
             paymentMethod,
-            deliveryPrice: totalPrice > includeLimit ? 0 : deliveryPrice,
+            deliveryPrice: totalPrice > minFreeDeliveryEntitlementPrice ? 0 : deliveryPrice,
             discountCobone: (discountCobone && discount) ? { name: discountCobone, value: discount } : undefined,
         }
     }

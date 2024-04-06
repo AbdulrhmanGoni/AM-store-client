@@ -57,7 +57,7 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
 
     return (
         <div id='overlayLayer' className='flex-center' style={overlayLayer}>
-            <Paper id="imagesContainer" style={containersStyle}>
+            <Paper className='flex-column' id="imagesContainer" style={containersStyle}>
                 <Box className="flex-row-center-between"
                     sx={{
                         justifyContent: "space-between",
@@ -74,16 +74,19 @@ export default function ImageDispayer({ imagesList, openedImage, closeer, title 
                     </IconButton>
                 </Box>
                 <Box component="img" sx={imageStyle} src={theArray[currentImage]} alt={`img number(${currentImage + 1})`} />
-                <Paper
-                    className='flex-center'
-                    sx={{
-                        position: "relative",
-                        width: "100%", height: "40px"
-                    }}>
-                    <P sx={{ color: "primary.main" }}>{`${imagesList.length} / ${currentImage + 1}`}</P>
-                    <ArrowBackIos onClick={() => { navigateBetweenImages("left") }} sx={{ ...arrow, left: "10px" }} />
-                    <ArrowForwardIos onClick={() => { navigateBetweenImages("right") }} sx={{ ...arrow, right: "10px" }} />
-                </Paper>
+                {
+                    imagesList.length > 1 &&
+                    <Box
+                        className='flex-center'
+                        sx={{
+                            position: "relative",
+                            width: "100%", height: "40px"
+                        }}>
+                        <P sx={{ color: "primary.main" }}>{`${imagesList.length} / ${currentImage + 1}`}</P>
+                        <ArrowBackIos onClick={() => { navigateBetweenImages("left") }} sx={{ ...arrow, left: "10px" }} />
+                        <ArrowForwardIos onClick={() => { navigateBetweenImages("right") }} sx={{ ...arrow, right: "10px" }} />
+                    </Box>
+                }
             </Paper>
         </div>
     )

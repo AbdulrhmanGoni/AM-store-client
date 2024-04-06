@@ -1,6 +1,5 @@
 "use client"
 import useUserLogging from "@/hooks/useUserLogging";
-import useStoreVariablesFetcher from "@/hooks/useStoreVariablesFetcher";
 import { IllustrationCard, LoadingCircle, LoadingPage } from "@abdulrhmangoni/am-store-library";
 import { Box, useTheme } from "@mui/material";
 
@@ -12,7 +11,6 @@ export default function AppWrapper({ children }) {
         isServerError,
         renderApp
     } = useUserLogging();
-    useStoreVariablesFetcher();
     const { palette: { primary, background, text } } = useTheme();
 
     return (

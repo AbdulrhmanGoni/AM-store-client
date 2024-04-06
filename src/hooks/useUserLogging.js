@@ -6,6 +6,7 @@ import customFetch from "@/utilities/customFetch";
 import { setUserData } from '@/state-management/userData_slice';
 import { setCart_localy } from '@/state-management/shoppingCart_slice';
 import { setFavorites_localy } from '@/state-management/favorites_slice';
+import useStoreVariablesFetcher from './useStoreVariablesFetcher';
 
 export default function useUserLogging() {
 
@@ -15,6 +16,7 @@ export default function useUserLogging() {
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
     const [renderApp, setRendrApp] = useState(false);
+    const { isLoading: fetchVariablesLoading } = useStoreVariablesFetcher();
 
     useEffect(() => {
         if (userId) {
@@ -38,8 +40,9 @@ export default function useUserLogging() {
         setRendrApp(true)
     }, [userId]);
 
+
     return {
-        isLoading,
+        isLoading: !!(isLoading || fetchVariablesLoading),
         isNetworkError,
         isError,
         isServerError,

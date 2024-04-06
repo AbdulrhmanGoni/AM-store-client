@@ -39,7 +39,7 @@ export default function Summary() {
         }
         dispatch(setSummaryPrice(total));
 
-    }, [totalPriceInCart, discount, discountCobone]);
+    }, [totalPriceInCart, discount, discountCobone, deliveryPrice, minFreeDeliveryEntitlementPrice]);
 
     useEffect(() => {
         if (!cobones) {

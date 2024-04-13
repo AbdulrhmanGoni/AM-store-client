@@ -1,7 +1,7 @@
 "use client"
 import styles from "./SliderProducts.module.css";
 import { useEffect, useState, useRef } from "react";
-import { Box, IconButton, useMediaQuery } from '@mui/material';
+import { Alert, Box, IconButton, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import ProductCard from "../productsRelatedComponents/ProductCard";
 import { FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
@@ -94,18 +94,32 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
                     {
                         isLoading ? <ProductsSlidesLoading cardWidth={cardWidth} />
                             : isError ? <FetchFailedAlert refetch={refetch} message='Failed to fetch the products' />
-                                : products?.map((product, index) => {
-                                    return (
-                                        <ProductCard
-                                            key={product._id}
-                                            sx={{ minWidth: cardWidth }}
-                                            theProduct={product}
-                                            isBestSelling={sliderId === "top-products"}
-                                            applyAnimation={true}
-                                            appearingAnimationDelay={`${index * .29}s`}
-                                        />
+                                : products.length ?
+                                    products?.map((product, index) => {
+                                        return (
+                                            <ProductCard
+                                                key={product._id}
+                                                sx={{ minWidth: cardWidth }}
+                                                theProduct={product}
+                                                isBestSelling={sliderId === "top-products"}
+                                                applyAnimation={true}
+                                                appearingAnimationDelay={`${index * .29}s`}
+                                            />
+                                        )
+                                    }) : (
+                                        <Alert
+                                            severity="info"
+                                            sx={{
+                                                width: "100%",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                flex: 1,
+                                                fontSize: "20px"
+                                            }}
+                                        >
+                                            No Product
+                                        </Alert>
                                     )
-                                })
                     }
                 </div>
             </div>

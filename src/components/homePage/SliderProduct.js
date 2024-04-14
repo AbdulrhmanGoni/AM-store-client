@@ -14,6 +14,7 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
     const productsCount = 10;
     const cardWidth = media ? 160 : 230;
     const [slidersWidth, setSlidersWidth] = useState(cardWidth * productsCount);
+    const [sliderRendered, setSliderRendered] = useState(false);
     const [autoScrollSliderConfig, setAutoScrollSliderConfig] = useState({ cardIndexForMovingTo: 1, direction: "right" });
     const scrollBtns = (move) => { containerRef.current.scrollLeft += move };
 
@@ -76,6 +77,8 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
         products.length && setSlidersWidth(cardsWidth + spacesSizeBetweenCards);
     }, [cardWidth, products.length]);
 
+    useEffect(() => { setSliderRendered(true) }, []);
+
     const floatBtnStyle = {
         width: "35px",
         height: "35px",
@@ -106,7 +109,7 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
                                                 appearingAnimationDelay={`${index * .29}s`}
                                             />
                                         )
-                                    }) : (
+                                    }) : sliderRendered && (
                                         <Alert
                                             severity="info"
                                             sx={{
@@ -117,7 +120,7 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
                                                 fontSize: "20px"
                                             }}
                                         >
-                                            No Product
+                                            No Products
                                         </Alert>
                                     )
                     }

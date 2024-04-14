@@ -51,10 +51,13 @@ export default function ProductCard({ theProduct, sx, isBestSelling, applyAnimat
         }
     }, [_id, shoppingCart]);
 
+    useEffect(() => {
+        setCardOpacity(1)
+    }, []);
+
     return (
         <Card
             className='flex-column j-between'
-            onLoad={() => setCardOpacity(1)}
             sx={{
                 m: 0, ...sx,
                 transition: appearingAnimationDelay,

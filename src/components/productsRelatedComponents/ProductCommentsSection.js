@@ -91,7 +91,7 @@ export default function ProductCommentsSection(props) {
                     !areUserCanComment &&
                     !areUserCanCommentLoading && (
                         areUserCanCommentError ? "An error occurred" :
-                            'Only who has bought this product before can let comment')
+                            'Only who bought this product before can let comment')
                 }
             >
                 <div style={{ width: "100%" }}>

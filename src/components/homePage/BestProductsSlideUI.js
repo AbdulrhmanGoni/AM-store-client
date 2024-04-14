@@ -30,7 +30,7 @@ export default function BestProductsSlideUI({ products, error }) {
             isLoading={isLoading}
             isError={isError}
             refetch={fetchBestProducts}
-            products={data || []}
+            products={data}
             sliderId="top-products"
         />
     )

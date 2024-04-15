@@ -105,7 +105,7 @@ export default function ProductCard({ theProduct, sx, isBestSelling, applyAnimat
                     {title}
                 </P>
                 <Box mb={1} className="flex-row-center-start">
-                    <Rating precision={0.5} size='small' value={rating?.ratingAverage} readOnly />
+                    <Rating precision={.5} size='small' value={rating?.ratingAverage} readOnly />
                     <P
                         variant='subtitle2'
                         sx={{ margin: "3px 0px 0px 5px" }}

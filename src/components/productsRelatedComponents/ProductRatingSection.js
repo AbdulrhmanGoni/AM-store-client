@@ -34,7 +34,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                         {
                                             ratingAverage ?
                                                 <Rating readOnly precision={.5} value={ratingAverage} />
-                                                : <Rating emptyLabelText="No reviews" readOnly value={0} />
+                                                : <Rating emptyLabelText="No reviews" precision={.5} readOnly value={0} />
                                         }
                                     </Box>
                                     <P variant="subtitle2" ml={!reviews && "3px"}>
@@ -63,6 +63,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                                 ratingLoading.isLoading ?
                                                     <Rating
                                                         sx={{ width: "fit-content" }}
+                                                        precision={.5}
                                                         value={ratingLoading.newRating}
                                                         disabled={ratingLoading.isLoading}
                                                     />
@@ -70,6 +71,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                                     <Rating
                                                         sx={{ width: "fit-content" }}
                                                         value={userRating}
+                                                        precision={.5}
                                                         onChange={({ target: { value } }) => { addRating(+value) }}
                                                     />
                                             }

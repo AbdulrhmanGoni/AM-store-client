@@ -61,7 +61,7 @@ export default function ProductCardHorizontally(props) {
                             className='flex-row-center-start gap1'
                             sx={{ fontSize: "13px" }}
                         >
-                            <Rating precision={0.5} size='small' value={rating?.ratingAverage || 0} readOnly />
+                            <Rating precision={.5} size='small' value={rating?.ratingAverage || 0} readOnly />
                             ({rating?.reviews || 0})
                         </Box>
                     </Box>

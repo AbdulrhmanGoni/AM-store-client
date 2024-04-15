@@ -31,7 +31,7 @@ export default function ProductSmallCard({ theProduct }) {
                     <P variant='body2'>Items({count})</P>
                 </Box>
                 <Rating
-                    precision={0.5}
+                    precision={.5}
                     size='small'
                     value={rating?.ratingAverage}
                     readOnly

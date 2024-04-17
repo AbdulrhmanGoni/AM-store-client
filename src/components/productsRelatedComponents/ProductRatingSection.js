@@ -71,7 +71,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                                     <Rating
                                                         sx={{ width: "fit-content" }}
                                                         value={userRating}
-                                                        precision={.5}
+                                                        precision={1}
                                                         onChange={({ target: { value } }) => { addRating(+value) }}
                                                     />
                                             }

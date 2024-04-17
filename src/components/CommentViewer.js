@@ -54,13 +54,13 @@ export default function CommentViewer({ commenterData: { userName, avatar }, the
                     <DislikeButton />
                     {
                         userId === commenterId &&
-                        <OptionsMenu>
+                        <OptionsMenu.Menu>
                             <OptionsMenu.Option
                                 asyncAction={async () => await deleteCommentFunc({ commentId, commenterId })}
                                 optionText="Delete"
                                 optionIcon={<Delete />}
                             />
-                        </OptionsMenu>
+                        </OptionsMenu.Menu>
                     }
                 </Box>
             </Box>

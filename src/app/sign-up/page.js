@@ -2,8 +2,7 @@
 import { Box, Grid, TextField, Button } from '@mui/material/';
 import { PersonAddAlt1 } from '@mui/icons-material';
 import useSignUpLogic from '@/hooks/useSignUpLogic';
-import { useGoogleAuth, P } from '@abdulrhmangoni/am-store-library';
-import FormsPagesContainer from '@/components/FormsPagesContainer';
+import { useGoogleAuth, P, FormsPagesContainer } from '@abdulrhmangoni/am-store-library';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
 import Link from 'next/link';
 
@@ -21,8 +20,8 @@ export default function SignUpPage() {
     } = useSignUpLogic();
 
     return (
-        <FormsPagesContainer title="Sign up" Icon={PersonAddAlt1}>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <FormsPagesContainer title="Sign up" icon={<PersonAddAlt1 sx={{ fontSize: '30px' }} />}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField

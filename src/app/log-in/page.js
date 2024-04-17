@@ -2,9 +2,8 @@
 import { Box, Grid, TextField, Button } from '@mui/material/';
 import { Login } from '@mui/icons-material';
 import Link from 'next/link';
-import { useGoogleAuth, P } from '@abdulrhmangoni/am-store-library';
+import { useGoogleAuth, P, FormsPagesContainer } from '@abdulrhmangoni/am-store-library';
 import useLogInLogic from '@/hooks/useLogInLogic';
-import FormsPagesContainer from '@/components/FormsPagesContainer';
 import ErrorMessageTag from '@/components/ErrorMessageTag';
 
 
@@ -20,7 +19,7 @@ export default function LogInPage() {
     } = useLogInLogic();
 
     return (
-        <FormsPagesContainer title="Log In" Icon={Login}>
+        <FormsPagesContainer title="Log In" icon={<Login sx={{ fontSize: '30px' }} />}>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>

@@ -7,14 +7,13 @@ import ProductCard from "../productsRelatedComponents/ProductCard";
 import { FetchFailedAlert } from '@abdulrhmangoni/am-store-library';
 import ProductsSlidesLoading from "./ProductsSlidesLoading";
 
-export default function SliderProduct({ products, isLoading, isError, sliderId, refetch }) {
+export default function SliderProduct({ products, isLoading, isError, fetchSuccess, sliderId, refetch }) {
 
     const containerRef = useRef();
     const media = useMediaQuery("(max-width: 600px)");
     const productsCount = 10;
     const cardWidth = media ? 160 : 230;
     const [slidersWidth, setSlidersWidth] = useState(cardWidth * productsCount);
-    const [sliderRendered, setSliderRendered] = useState(false);
     const [autoScrollSliderConfig, setAutoScrollSliderConfig] = useState({ cardIndexForMovingTo: 1, direction: "right" });
     const scrollBtns = (move) => { containerRef.current.scrollLeft += move };
 
@@ -77,8 +76,6 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
         products.length && setSlidersWidth(cardsWidth + spacesSizeBetweenCards);
     }, [cardWidth, products.length]);
 
-    useEffect(() => { setSliderRendered(true) }, []);
-
     const floatBtnStyle = {
         width: "35px",
         height: "35px",
@@ -109,7 +106,7 @@ export default function SliderProduct({ products, isLoading, isError, sliderId, 
                                                 appearingAnimationDelay={`${index * .29}s`}
                                             />
                                         )
-                                    }) : sliderRendered && (
+                                    }) : fetchSuccess && (
                                         <Alert
                                             severity="info"
                                             sx={{

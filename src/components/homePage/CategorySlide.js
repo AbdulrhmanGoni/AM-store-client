@@ -1,32 +1,19 @@
 "use client"
-import { useState } from 'react';
 import SliderProduct from './SliderProduct';
-import {
-    useWhenElementAppears,
-    useHTTPRequestState
-} from '@abdulrhmangoni/am-store-library';
-import serverAction from '@/utilities/serverAction';
+import { useWhenElementAppears } from '@abdulrhmangoni/am-store-library';
+import useHomePageSlidersLogic from '@/hooks/useHomePageSlidersLogic';
 
 export default function CategorySlide({ category }) {
 
-    const [products, setProducts] = useState([]);
     const {
+        products,
         isLoading,
         isError,
-        setIsError,
-        setIsLoading
-    } = useHTTPRequestState();
+        fetchSuccess,
+        fetchProducts
+    } = useHomePageSlidersLogic(`products/?category=${category}&limit=10`);
 
-    useWhenElementAppears(`${category}-slider`, () => {
-        setIsLoading(true)
-        serverAction(`products/?category=${category}&limit=10&useCache=true`)
-            .then((data) => {
-                setProducts(data)
-                isError && setIsError(false)
-            })
-            .catch(() => setIsError(true))
-            .finally(() => setIsLoading(false))
-    })
+    useWhenElementAppears(`${category}-slider`, fetchProducts);
 
     return (
         <SliderProduct
@@ -34,6 +21,8 @@ export default function CategorySlide({ category }) {
             sliderId={category}
             isLoading={isLoading}
             isError={isError}
+            refetch={fetchProducts}
+            fetchSuccess={fetchSuccess}
         />
     )
 }

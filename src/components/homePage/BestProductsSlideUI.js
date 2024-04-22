@@ -1,37 +1,25 @@
 "use client"
+import useHomePageSlidersLogic from '@/hooks/useHomePageSlidersLogic';
 import SliderProduct from './SliderProduct';
-import serverAction from '@/utilities/serverAction';
-import { useHTTPRequestState } from '@abdulrhmangoni/am-store-library';
 
-export default function BestProductsSlideUI({ products, error }) {
+export default function BestProductsSlideUI({ products: initialProducts, error }) {
 
     const {
-        data,
-        setData: setProducts,
+        products,
         isLoading,
         isError,
-        setIsLoading,
-        setIsError
-    } = useHTTPRequestState(products || [], { initialError: error })
-
-    function fetchBestProducts() {
-        setIsLoading(true);
-        serverAction("products/top-products?sort=earnings&limit=10")
-            .then((products) => {
-                setProducts(products)
-                if (isError) setIsError(false);
-            })
-            .catch(() => setIsError(true))
-            .finally(() => setIsLoading(false))
-    }
+        fetchSuccess,
+        fetchProducts
+    } = useHomePageSlidersLogic("products/top-products?sort=earnings&limit=10", { initialProducts, initialError: error });
 
     return (
         <SliderProduct
             isLoading={isLoading}
             isError={isError}
-            refetch={fetchBestProducts}
-            products={data}
+            refetch={fetchProducts}
+            products={products}
             sliderId="top-products"
+            fetchSuccess={fetchSuccess}
         />
     )
 }

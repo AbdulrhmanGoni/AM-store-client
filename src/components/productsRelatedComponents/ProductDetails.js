@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useSpeedMessage } from "@/hooks/useSpeedMessage";
 import useShoppingCartActions from "@/hooks/useShoppingCartActions";
 import ProductCommentsSection from "@/components/productsRelatedComponents/ProductCommentsSection";
-import useAreUserBoughtTheProductBefore from "@/hooks/useAreUserBoughtTheProductBefore";
+import useDidUserBuyTheProduct from "@/hooks/useDidUserBuyTheProduct";
 import ProductRatingSection from "./ProductRatingSection";
 
 export default function ProductDetails({ product }) {
@@ -41,10 +41,10 @@ export default function ProductDetails({ product }) {
     }
 
     const {
-        areUserBoughtTheProductBefore,
-        areUserBoughtTheProductBeforeLoading,
-        areUserBoughtTheProductBeforeError
-    } = useAreUserBoughtTheProductBefore({ productId });
+        didUserBuyTheProduct,
+        didUserBuyTheProductLoading,
+        didUserBuyTheProductError
+    } = useDidUserBuyTheProduct({ productId });
 
     useEffect(() => {
         let theProduct = shoppingCart.find(item => item._id === productId);
@@ -92,16 +92,16 @@ export default function ProductDetails({ product }) {
                         <Divider />
                         <ProductRatingSection
                             productId={productId}
-                            areUserCanLetRating={areUserBoughtTheProductBefore}
+                            canUserLetRating={didUserBuyTheProduct}
                             productRating={rating}
                         />
                     </Grid>
                 </Grid>
             </Box>
             <ProductCommentsSection
-                areUserCanComment={areUserBoughtTheProductBefore}
-                areUserCanCommentLoading={areUserBoughtTheProductBeforeLoading}
-                areUserCanCommentError={areUserBoughtTheProductBeforeError}
+                canUserComment={didUserBuyTheProduct}
+                canUserCommentLoading={didUserBuyTheProductLoading}
+                canUserCommentError={didUserBuyTheProductError}
             />
         </>
     )

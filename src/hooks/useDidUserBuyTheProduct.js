@@ -3,7 +3,7 @@ import { useFetch } from './useFetch';
 import { useSelector } from 'react-redux';
 
 
-export default function useAreUserBoughtTheProductBefore({ productId }) {
+export default function useDidUserBuyTheProduct({ productId }) {
 
     const userId = useSelector(state => state.userData?._id);
 
@@ -14,7 +14,7 @@ export default function useAreUserBoughtTheProductBefore({ productId }) {
         refetch,
         refetched,
         isLoading
-    } = useFetch(`products/${productId}/are-user-bought-the-product-before?userId=${userId}`, fetchOptions);
+    } = useFetch(`products/${productId}/did-user-buy-the-product?userId=${userId}`, fetchOptions);
 
     useEffect(() => {
         if (isError && !isLoading && refetched < 3) {
@@ -23,8 +23,8 @@ export default function useAreUserBoughtTheProductBefore({ productId }) {
     }, [isError, refetched, refetch, isLoading]);
 
     return {
-        areUserBoughtTheProductBefore: response,
-        areUserBoughtTheProductBeforeLoading: isLoading,
-        areUserBoughtTheProductBeforeError: isError
+        didUserBuyTheProduct: response,
+        didUserBuyTheProductLoading: isLoading,
+        didUserBuyTheProductError: isError
     }
 }

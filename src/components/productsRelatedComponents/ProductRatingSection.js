@@ -4,7 +4,7 @@ import { P, FetchFailedAlert } from "@abdulrhmangoni/am-store-library";
 import useRatingProduct, { starsFieldsNames } from "@/hooks/useRatingProduct";
 import ProductRatingSectionLoading from "./ProductRatingSectionLoading";
 
-export default function ProductRatingSection({ areUserCanLetRating, productId }) {
+export default function ProductRatingSection({ canUserLetRating, productId }) {
 
     const {
         ratingLoading,
@@ -42,12 +42,12 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                     </P>
                                 </Box>
                                 {
-                                    areUserCanLetRating &&
+                                    canUserLetRating &&
                                     <Box className="flex-column">
                                         <P variant="subtitle2" ml="3px" color="#faaf00">
                                             {
                                                 userRating ? "Your Rating"
-                                                    : areUserCanLetRating ? "Let your rating now"
+                                                    : canUserLetRating ? "Let your rating now"
                                                         : null
                                             }
                                         </P>
@@ -67,7 +67,7 @@ export default function ProductRatingSection({ areUserCanLetRating, productId })
                                                         value={ratingLoading.newRating}
                                                         disabled={ratingLoading.isLoading}
                                                     />
-                                                    : userRating !== undefined && areUserCanLetRating &&
+                                                    : userRating !== undefined && canUserLetRating &&
                                                     <Rating
                                                         sx={{ width: "fit-content" }}
                                                         value={userRating}

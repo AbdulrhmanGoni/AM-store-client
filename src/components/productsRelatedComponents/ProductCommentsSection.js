@@ -17,9 +17,9 @@ import { host } from '@/CONSTANTS/hostName';
 export default function ProductCommentsSection(props) {
 
     const {
-        areUserCanComment,
-        areUserCanCommentLoading,
-        areUserCanCommentError
+        canUserComment,
+        canUserCommentLoading,
+        canUserCommentError
     } = props
 
     const userData = useSelector(state => state.userData);
@@ -86,12 +86,12 @@ export default function ProductCommentsSection(props) {
     return (
         <Box className="flex-column-center-start gap1 full-width" p="40px 0px">
             <AlertTooltip
-                type={areUserCanCommentError ? "error" : "info"}
+                type={canUserCommentError ? "error" : "info"}
                 title={
-                    !areUserCanComment &&
-                    !areUserCanCommentLoading && (
-                        areUserCanCommentError ? "An error occurred" :
-                            'Only who bought this product before can let comment')
+                    !canUserComment &&
+                    !canUserCommentLoading && (
+                        canUserCommentError ? "An error occurred" :
+                            'Only who bought this product before can let comments')
                 }
             >
                 <div style={{ width: "100%" }}>
@@ -99,7 +99,7 @@ export default function ProductCommentsSection(props) {
                         placeholder="What is your opinion about this product"
                         handleSubmit={handleAddComment}
                         Loading={addingLoading}
-                        disabled={!areUserCanComment}
+                        disabled={!canUserComment}
                     />
                 </div>
             </AlertTooltip>

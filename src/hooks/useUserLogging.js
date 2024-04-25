@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useCookies } from "@abdulrhmangoni/am-store-library";
-import useFetchState from './useFetchState';
+import { useCookies, useHTTPRequestState } from "@abdulrhmangoni/am-store-library";
 import customFetch from "@/utilities/customFetch";
 import { setUserData } from '@/state-management/userData_slice';
 import { setCart_localy } from '@/state-management/shoppingCart_slice';
@@ -12,7 +11,12 @@ export default function useUserLogging() {
 
     const dispatch = useDispatch();
     const { cookies: { userId } } = useCookies();
-    const { isLoading, isError, setState } = useFetchState(null);
+    const {
+        isLoading,
+        isError,
+        setIsError,
+        setIsLoading
+    } = useHTTPRequestState();
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
     const [renderApp, setRendrApp] = useState(false);
@@ -20,22 +24,24 @@ export default function useUserLogging() {
 
     useEffect(() => {
         if (userId) {
-            setState("loading");
+            setIsLoading(true);
             customFetch(`log-in/${userId}`)
                 .then(data => {
                     dispatch(setUserData({ ...data.userData, state: true }));
                     dispatch(setCart_localy(data.shoppingCart));
                     dispatch(setFavorites_localy(data.favorites));
-                    setState("fulfilled");
+                    isError && setIsError(false);
                 })
                 .catch((error) => {
                     if (!navigator.onLine) {
                         setIsNetworkError(true);
                     } else if (!error.response?.status) {
                         setIsServerError(true);
+                    } else {
+                        setIsError(true);
                     }
                 })
-                .finally(() => setState());
+                .finally(() => setIsLoading(false));
         }
         setRendrApp(true)
     }, [userId]);

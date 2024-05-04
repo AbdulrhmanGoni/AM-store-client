@@ -20,7 +20,7 @@ export default async function BestProductsSlide() {
                 icon={
                     <Image
                         src="/best-seller.png"
-                        alt={"Best Selling Icon"}
+                        alt="Best Selling Icon"
                         width={30} height={30}
                     />
                 }

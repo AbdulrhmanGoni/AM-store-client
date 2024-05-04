@@ -10,7 +10,7 @@ export default function BestProductsSlideUI({ products: initialProducts, error }
         isError,
         fetchSuccess,
         fetchProducts
-    } = useHomePageSlidersLogic("products/top-products?sort=earnings&limit=10", { initialProducts, initialError: error });
+    } = useHomePageSlidersLogic("products/top-products?sort=earnings&limit=10", { initialProducts, initialError: error, initialSuccess: !error });
 
     return (
         <SliderProduct

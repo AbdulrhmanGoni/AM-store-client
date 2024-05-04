@@ -30,7 +30,13 @@ export default function useHomePageSlidersLogic(url, options) {
         setIsError,
         isSuccess,
         setIsSuccess
-    } = useHTTPRequestState(options?.initialProducts || [], { initialError: options?.initialError })
+    } = useHTTPRequestState(
+        options?.initialProducts || [],
+        {
+            initialError: options?.initialError,
+            initialSuccess: options?.initialSuccess
+        }
+    )
 
     function fetchProducts() {
         if (isSliderStillValid(url)) {

@@ -14,9 +14,11 @@ const variables = createSlice({
         builder.addCase(fetchStoreVariables.fulfilled, (_, action) => {
             return action.payload
         })
-
         builder.addCase(fetchStoreVariables.pending, () => {
             return { isLoading: true }
+        })
+        builder.addCase(fetchStoreVariables.rejected, () => {
+            return { isError: true }
         })
     }
 })

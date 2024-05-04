@@ -9,6 +9,8 @@ export default function useStoreVariablesFetcher() {
     useEffect(() => { dispatch(fetchStoreVariables()) }, []);
 
     return {
-        isLoading: variables.isLoading
+        isLoading: variables.isLoading,
+        isError: variables.isLoading,
+        variables
     }
 }

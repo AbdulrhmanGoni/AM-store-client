@@ -20,7 +20,7 @@ export default function useUserLogging() {
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [isServerError, setIsServerError] = useState(false);
     const [renderApp, setRendrApp] = useState(false);
-    const { isLoading: fetchVariablesLoading } = useStoreVariablesFetcher();
+    const { isLoading: fetchVariablesLoading, isError: fetchVariablesError } = useStoreVariablesFetcher();
 
     useEffect(() => {
         if (userId) {
@@ -48,9 +48,9 @@ export default function useUserLogging() {
 
 
     return {
-        isLoading: !!(isLoading || fetchVariablesLoading),
+        isLoading: isLoading || fetchVariablesLoading,
         isNetworkError,
-        isError,
+        isError: isError || fetchVariablesError,
         isServerError,
         renderApp
     }

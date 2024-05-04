@@ -6,7 +6,7 @@ const shoppingCartSlice = createSlice({
     reducers: {
         addToCart_localy: (state, action) => {
             if (!state) {
-                return [Object.assign(action.payload, { count: 1 })]
+                return [{ ...action.payload, count: 1 }]
             }
             else if (state.some(item => item._id === action.payload._id)) {
                 return state.map((item) => {
@@ -15,14 +15,13 @@ const shoppingCartSlice = createSlice({
                     } else return item
                 })
             } else {
-                return [Object.assign(action.payload, { count: 1 }), ...state]
+                return [{ ...action.payload, count: 1 }, ...state]
             }
         },
         changeCount_localy: (state, action) => {
             return state.map((item) => {
                 if (item._id === action.payload._id) {
-                    const changedProduct = Object.assign(item, { count: action.payload.count })
-                    return changedProduct
+                    return { ...item, count: action.payload.count }
                 } else {
                     return item
                 }

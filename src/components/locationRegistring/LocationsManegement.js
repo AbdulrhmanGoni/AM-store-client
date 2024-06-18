@@ -4,7 +4,7 @@ import { Box, Button, Divider, IconButton, useMediaQuery, Card, useTheme } from 
 import { useDispatch, useSelector } from 'react-redux';
 import LocationsList from './LocationsList';
 import AddLocationForm from './AddLocationForm';
-import { AddLocation, AddLocationAlt, Close, Map, MyLocation } from '@mui/icons-material';
+import { AddLocation, AddLocationAlt, Close, MyLocation } from '@mui/icons-material';
 import useLocationActions from '@/hooks/useLocationActions';
 import { setSelectedLocation_localy } from '@/state-management/locations_slice';
 import { useSpeedMessage } from '@/hooks/useSpeedMessage';

@@ -64,9 +64,10 @@ export default function SendFeedbackForm({ open, close }) {
                     Tell me your Feedback 💬
                 </P>
                 <Alert severity='info' sx={{ mb: pagesSpaces }}>
-                    I welcome any feedback or suggestions you might have!
-                    if you faced any problem in my website or you have any suggestion improves it,
-                    or even you have some advices to improve me and my skills.
+                    I welcome any feedback or suggestions you might have! <br />
+                    If you faced any problems in the store or you have suggestions to improve it,
+                    or even if you have some advice to improve me and my skills as developer,
+                    Please feel free to send me a messages.
                 </Alert>
                 <Box className="flex-column gap2">
                     <TextField
